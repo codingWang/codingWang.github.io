@@ -4,35 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>使用Hexo搭建个人博客 | duwei&#39;s blog</title>
+    <title>a standard onMeasure method | duwei&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="duwei">
     
 
     
-    <meta name="description" content="Hexo是一个使用Node.js开发的静态WEB框架，今天第一次使用它搭建了自己的博客系统，是一次新的尝试，同时也学习到了很多东西，希望这个博客可以记录我未来的学习情况。
-Quick Start使用如下命令可以创建一篇新的博客1$ hexo new &quot;My New Post&quot;
-More info: Writing
-启动本地的Nodejs服务器1$ hexo server
-More info: Se">
+    <meta name="description" content="在Android自定义View中，一个标准的onMeasure()方法。1@Override&amp;#10;   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &amp;#123;&amp;#10;       super.onMeasure(widthMeasureSpec, heightMeasureSpec);&amp;#10;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用Hexo搭建个人博客">
-<meta property="og:url" content="http://duwei.com/2016/02/09/hello-world/index.html">
+<meta property="og:title" content="a standard onMeasure method">
+<meta property="og:url" content="http://duwei.com/2016/02/11/a-standard-onMeasure-method/index.html">
 <meta property="og:site_name" content="duwei's blog">
-<meta property="og:description" content="Hexo是一个使用Node.js开发的静态WEB框架，今天第一次使用它搭建了自己的博客系统，是一次新的尝试，同时也学习到了很多东西，希望这个博客可以记录我未来的学习情况。
-Quick Start使用如下命令可以创建一篇新的博客1$ hexo new &quot;My New Post&quot;
-More info: Writing
-启动本地的Nodejs服务器1$ hexo server
-More info: Se">
-<meta property="og:updated_time" content="2016-02-09T13:28:22.700Z">
+<meta property="og:description" content="在Android自定义View中，一个标准的onMeasure()方法。1@Override&amp;#10;   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &amp;#123;&amp;#10;       super.onMeasure(widthMeasureSpec, heightMeasureSpec);&amp;#10;">
+<meta property="og:updated_time" content="2016-02-11T08:22:46.012Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用Hexo搭建个人博客">
-<meta name="twitter:description" content="Hexo是一个使用Node.js开发的静态WEB框架，今天第一次使用它搭建了自己的博客系统，是一次新的尝试，同时也学习到了很多东西，希望这个博客可以记录我未来的学习情况。
-Quick Start使用如下命令可以创建一篇新的博客1$ hexo new &quot;My New Post&quot;
-More info: Writing
-启动本地的Nodejs服务器1$ hexo server
-More info: Se">
+<meta name="twitter:title" content="a standard onMeasure method">
+<meta name="twitter:description" content="在Android自定义View中，一个标准的onMeasure()方法。1@Override&amp;#10;   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &amp;#123;&amp;#10;       super.onMeasure(widthMeasureSpec, heightMeasureSpec);&amp;#10;">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -97,14 +85,14 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/02/09/hello-world/" title="使用Hexo搭建个人博客" itemprop="url">使用Hexo搭建个人博客</a>
+      <a href="/2016/02/11/a-standard-onMeasure-method/" title="a standard onMeasure method" itemprop="url">a standard onMeasure method</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-09T13:28:22.700Z" itemprop="datePublished"> 发表于 2016-02-09</time>
+    <time datetime="2016-02-11T08:04:00.000Z" itemprop="datePublished"> 发表于 2016-02-11</time>
     
   </p>
 </header>
@@ -113,24 +101,21 @@ var _hmt = _hmt || [];
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4F7F_u7528_u5982_u4E0B_u547D_u4EE4_u53EF_u4EE5_u521B_u5EFA_u4E00_u7BC7_u65B0_u7684_u535A_u5BA2"><span class="toc-number">1.1.</span> <span class="toc-text">使用如下命令可以创建一篇新的博客</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u542F_u52A8_u672C_u5730_u7684Nodejs_u670D_u52A1_u5668"><span class="toc-number">1.2.</span> <span class="toc-text">启动本地的Nodejs服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u751F_u6210_u9759_u6001_u9875_u9762_u4EE3_u7801"><span class="toc-number">1.3.</span> <span class="toc-text">生成静态页面代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u90E8_u7F72_u5230_u8FDC_u7A0BGithub"><span class="toc-number">1.4.</span> <span class="toc-text">部署到远程Github</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002"><span class="toc-number">1.</span> <span class="toc-text">在Android自定义View中，一个标准的onMeasure()方法。</span></a></li></ol>
 		
 		</div>
 		
-		<p><a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>是一个使用Node.js开发的静态WEB框架，今天第一次使用它搭建了自己的博客系统，是一次新的尝试，同时也学习到了很多东西，希望这个博客可以记录我未来的学习情况。</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="u4F7F_u7528_u5982_u4E0B_u547D_u4EE4_u53EF_u4EE5_u521B_u5EFA_u4E00_u7BC7_u65B0_u7684_u535A_u5BA2"><a href="#u4F7F_u7528_u5982_u4E0B_u547D_u4EE4_u53EF_u4EE5_u521B_u5EFA_u4E00_u7BC7_u65B0_u7684_u535A_u5BA2" class="headerlink" title="使用如下命令可以创建一篇新的博客"></a>使用如下命令可以创建一篇新的博客</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="u542F_u52A8_u672C_u5730_u7684Nodejs_u670D_u52A1_u5668"><a href="#u542F_u52A8_u672C_u5730_u7684Nodejs_u670D_u52A1_u5668" class="headerlink" title="启动本地的Nodejs服务器"></a>启动本地的Nodejs服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="u751F_u6210_u9759_u6001_u9875_u9762_u4EE3_u7801"><a href="#u751F_u6210_u9759_u6001_u9875_u9762_u4EE3_u7801" class="headerlink" title="生成静态页面代码"></a>生成静态页面代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="u90E8_u7F72_u5230_u8FDC_u7A0BGithub"><a href="#u90E8_u7F72_u5230_u8FDC_u7A0BGithub" class="headerlink" title="部署到远程Github"></a>部署到远程Github</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+		<h2 id="u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002"><a href="#u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002" class="headerlink" title="在Android自定义View中，一个标准的onMeasure()方法。"></a>在Android自定义View中，一个标准的onMeasure()方法。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Override&#10;   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;&#10;       super.onMeasure(widthMeasureSpec, heightMeasureSpec);&#10;       int viewWidth = circleRadius /*&#40664;&#35748;size*/+ this.getPaddingLeft() + this.getPaddingRight();&#10;       int viewHeight = circleRadius + this.getPaddingTop() + this.getPaddingBottom();&#10;       int widthMode = MeasureSpec.getMode(widthMeasureSpec);//&#33719;&#21462;&#23485;&#24230;&#30340;&#27169;&#24335;&#10;       int widthSize = MeasureSpec.getSize(widthMeasureSpec);//&#33719;&#21462;&#23485;&#24230;&#30340;&#23610;&#23544;&#10;       int heightMode = MeasureSpec.getMode(heightMeasureSpec);//&#39640;&#24230;&#30340;&#27169;&#24335;&#10;       int heightSize = MeasureSpec.getSize(heightMeasureSpec);//&#39640;&#31471;&#30340;&#23610;&#23544;&#10;       int width;&#10;       int height;&#10;       //Measure Width&#10;       if (widthMode == MeasureSpec.EXACTLY) &#123;//&#25351;&#23450;&#20102;&#30830;&#23450;&#30340;&#23610;&#23544;&#65306;100dp,match_parent&#10;           //Must be this size&#10;           width = widthSize;&#10;       &#125; else if (widthMode == MeasureSpec.AT_MOST) &#123;//wrap_content&#31867;&#22411;&#10;           //Can&#39;t be bigger than...&#10;           width = Math.min(viewWidth, widthSize);&#10;       &#125; else &#123;&#10;           //Be whatever you want&#10;           width = viewWidth;&#10;       &#125;&#10;       //Measure Height&#10;       if (heightMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.EXACTLY) &#123;&#10;           //Must be this size&#10;           height = heightSize;&#10;       &#125; else if (heightMode == MeasureSpec.AT_MOST) &#123;&#10;           //Can&#39;t be bigger than...&#10;           height = Math.min(viewHeight, heightSize);&#10;       &#125; else &#123;&#10;           //Be whatever you want&#10;           height = viewHeight;&#10;       &#125;&#10;       setMeasuredDimension(width, height);&#10;   &#125;</span><br></pre></td></tr></table></figure>
   
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android，View/">Android，View</a>
+  </div>
 
 </div>
 
@@ -138,7 +123,7 @@ var _hmt = _hmt || [];
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://duwei.com/2016/02/09/hello-world/" data-title="使用Hexo搭建个人博客 | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://duwei.com/2016/02/11/a-standard-onMeasure-method/" data-title="a standard onMeasure method | duwei&#39;s blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -151,20 +136,20 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/02/10/A-collection-of-RxJava-resource/" title="A collection of RxJava resource">
-  <strong>上一篇：</strong><br/>
-  <span>
-  A collection of RxJava resource</span>
+
+<div class="next">
+<a href="/2016/02/10/A-collection-of-RxJava-resource/"  title="A collection of RxJava resource">
+ <strong>下一篇：</strong><br/> 
+ <span>A collection of RxJava resource
+</span>
 </a>
 </div>
-
 
 </nav>
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/02/09/hello-world/" data-title="使用Hexo搭建个人博客" data-url="http://duwei.com/2016/02/09/hello-world/"></div>
+	<div class="ds-thread" data-thread-key="2016/02/11/a-standard-onMeasure-method/" data-title="a standard onMeasure method" data-url="http://duwei.com/2016/02/11/a-standard-onMeasure-method/"></div>
 </section>
 
 
@@ -174,7 +159,7 @@ var _hmt = _hmt || [];
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4F7F_u7528_u5982_u4E0B_u547D_u4EE4_u53EF_u4EE5_u521B_u5EFA_u4E00_u7BC7_u65B0_u7684_u535A_u5BA2"><span class="toc-number">1.1.</span> <span class="toc-text">使用如下命令可以创建一篇新的博客</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u542F_u52A8_u672C_u5730_u7684Nodejs_u670D_u52A1_u5668"><span class="toc-number">1.2.</span> <span class="toc-text">启动本地的Nodejs服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u751F_u6210_u9759_u6001_u9875_u9762_u4EE3_u7801"><span class="toc-number">1.3.</span> <span class="toc-text">生成静态页面代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u90E8_u7F72_u5230_u8FDC_u7A0BGithub"><span class="toc-number">1.4.</span> <span class="toc-text">部署到远程Github</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002"><span class="toc-number">1.</span> <span class="toc-text">在Android自定义View中，一个标准的onMeasure()方法。</span></a></li></ol>
  
   </div>
 
