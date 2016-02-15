@@ -86,6 +86,68 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/02/15/Property-Animation/" title="Property Animation" itemprop="url">Property Animation</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-15T10:54:41.000Z" itemprop="datePublished"> 发表于 2016-02-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u4E00_u3001_u6982_u8FF0"><a href="#u4E00_u3001_u6982_u8FF0" class="headerlink" title="一、概述"></a>一、概述</h2><h3 id="u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A"><a href="#u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A" class="headerlink" title="这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结："></a>这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：</h3><h2 id="u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3"><a href="#u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3" class="headerlink" title="二、常用方法总结"></a>二、常用方法总结</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10;*&#23558;&#25351;&#23450;&#30340;&#23545;&#35937;&#65288;target&#65289;&#30340;&#23646;&#24615;&#65288;propertyName&#65289;&#22312;&#20540;&#65288;values&#65289;&#38388;&#36827;&#34892;&#21464;&#25442;&#10;**/&#10;public static ObjectAnimator ofFloat(Object target, String propertyName, float... values)&#123;&#125;&#10;&#10;&#10;/**&#10;*&#21482;&#25351;&#23450;&#21464;&#21270;&#30340;&#33539;&#22260;&#10;**/&#10;public static ValueAnimator ofFloat(float... values) &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A"><a href="#1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A" class="headerlink" title="1、ObjectAnimator继承自ValueAnimator，都有以下常用方法："></a>1、ObjectAnimator继承自ValueAnimator，都有以下常用方法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;anim.setDuration(1000);//1&#31186;&#10;anim.setRepeatCount(-1);//&#26080;&#32447;&#24490;&#29615;&#10;anim.setInterpolator(new AccelerateDecelerateInterpolator());//&#25554;&#20540;&#22120;&#10;anim.start();//&#24320;&#22987;&#21160;&#30011;</span><br></pre></td></tr></table></figure>
+<h3 id="2_u3001_u52A8_u753B_u96C6_uFF1A"><a href="#2_u3001_u52A8_u753B_u96C6_uFF1A" class="headerlink" title="2、动画集："></a>2、动画集：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;AnimatorSet set = new AnimatorSet();&#10;set.playTogether(......);&#10;set.setDuration(1000);&#10;set.start();&#10;&#10;//----------------------------------------------&#10;set.plat().after(),with().befor();//&#30456;&#20851;&#26041;&#27861;</span><br></pre></td></tr></table></figure>
+<h2 id="u4E09_u3001_u76D1_u542C_u5668"><a href="#u4E09_u3001_u76D1_u542C_u5668" class="headerlink" title="三、监听器"></a>三、监听器</h2><h3 id="u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A"><a href="#u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A" class="headerlink" title="提供了2个监听器："></a>提供了2个监听器：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//Animator&#30340;&#20869;&#37096;&#31867;&#10;public static interface AnimatorListener &#123;&#10;&#10;       void onAnimationStart(Animator animation);&#10;       &#10;       void onAnimationEnd(Animator animation);&#10;       &#10;       void onAnimationCancel(Animator animation);&#10;       &#10;       void onAnimationRepeat(Animator animation);&#10;   &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static interface AnimatorUpdateListener &#123;&#10;      &#10;       void onAnimationUpdate(ValueAnimator animation);&#10;&#10; &#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/02/15/Property-Animation/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/15/Property-Animation/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/02/13/ThreadLocal/" title="ThreadLocal" itemprop="url">ThreadLocal</a>
   </h1>
   <p class="article-author">By
@@ -420,6 +482,10 @@ var _hmt = _hmt || [];
 		
 			
 				<li><a href="/tags/Android，View/" title="Android，View">Android，View<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>1</sup></a></li>
 			
 		
 		</ul>

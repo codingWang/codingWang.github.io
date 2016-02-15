@@ -1,0 +1,473 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Property Animation | duwei&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="duwei">
+    
+
+    
+    <meta name="description" content="一、概述这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：二、常用方法总结1/**&amp;#10;*&amp;#23558;&amp;#25351;&amp;#23450;&amp;#30340;&amp;#23545;&amp;#35937;&amp;#65288;target&amp;#65289;&amp;#30340;&amp;#23646;&amp;#24615;&amp;#65288;propertyName&amp;#65289">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Property Animation">
+<meta property="og:url" content="http://duwei.com/2016/02/15/Property-Animation/index.html">
+<meta property="og:site_name" content="duwei's blog">
+<meta property="og:description" content="一、概述这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：二、常用方法总结1/**&amp;#10;*&amp;#23558;&amp;#25351;&amp;#23450;&amp;#30340;&amp;#23545;&amp;#35937;&amp;#65288;target&amp;#65289;&amp;#30340;&amp;#23646;&amp;#24615;&amp;#65288;propertyName&amp;#65289">
+<meta property="og:updated_time" content="2016-02-15T11:42:40.836Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Property Animation">
+<meta name="twitter:description" content="一、概述这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：二、常用方法总结1/**&amp;#10;*&amp;#23558;&amp;#25351;&amp;#23450;&amp;#30340;&amp;#23545;&amp;#35937;&amp;#65288;target&amp;#65289;&amp;#30340;&amp;#23646;&amp;#24615;&amp;#65288;propertyName&amp;#65289">
+
+    
+    <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3492904c23dded877e5767fd9cd3e4da";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="duwei&#39;s blog">duwei&#39;s blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">文章</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:duwei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/15/Property-Animation/" title="Property Animation" itemprop="url">Property Animation</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-15T10:54:41.000Z" itemprop="datePublished"> 发表于 2016-02-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u3001_u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">一、概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A"><span class="toc-number">1.1.</span> <span class="toc-text">这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3"><span class="toc-number">2.</span> <span class="toc-text">二、常用方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A"><span class="toc-number">2.1.</span> <span class="toc-text">1、ObjectAnimator继承自ValueAnimator，都有以下常用方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2_u3001_u52A8_u753B_u96C6_uFF1A"><span class="toc-number">2.2.</span> <span class="toc-text">2、动画集：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E09_u3001_u76D1_u542C_u5668"><span class="toc-number">3.</span> <span class="toc-text">三、监听器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A"><span class="toc-number">3.1.</span> <span class="toc-text">提供了2个监听器：</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="u4E00_u3001_u6982_u8FF0"><a href="#u4E00_u3001_u6982_u8FF0" class="headerlink" title="一、概述"></a>一、概述</h2><h3 id="u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A"><a href="#u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A" class="headerlink" title="这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结："></a>这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：</h3><h2 id="u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3"><a href="#u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3" class="headerlink" title="二、常用方法总结"></a>二、常用方法总结</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10;*&#23558;&#25351;&#23450;&#30340;&#23545;&#35937;&#65288;target&#65289;&#30340;&#23646;&#24615;&#65288;propertyName&#65289;&#22312;&#20540;&#65288;values&#65289;&#38388;&#36827;&#34892;&#21464;&#25442;&#10;**/&#10;public static ObjectAnimator ofFloat(Object target, String propertyName, float... values)&#123;&#125;&#10;&#10;&#10;/**&#10;*&#21482;&#25351;&#23450;&#21464;&#21270;&#30340;&#33539;&#22260;&#10;**/&#10;public static ValueAnimator ofFloat(float... values) &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A"><a href="#1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A" class="headerlink" title="1、ObjectAnimator继承自ValueAnimator，都有以下常用方法："></a>1、ObjectAnimator继承自ValueAnimator，都有以下常用方法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;anim.setDuration(1000);//1&#31186;&#10;anim.setRepeatCount(-1);//&#26080;&#32447;&#24490;&#29615;&#10;anim.setInterpolator(new AccelerateDecelerateInterpolator());//&#25554;&#20540;&#22120;&#10;anim.start();//&#24320;&#22987;&#21160;&#30011;</span><br></pre></td></tr></table></figure>
+<h3 id="2_u3001_u52A8_u753B_u96C6_uFF1A"><a href="#2_u3001_u52A8_u753B_u96C6_uFF1A" class="headerlink" title="2、动画集："></a>2、动画集：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;AnimatorSet set = new AnimatorSet();&#10;set.playTogether(......);&#10;set.setDuration(1000);&#10;set.start();&#10;&#10;//----------------------------------------------&#10;set.plat().after(),with().befor();//&#30456;&#20851;&#26041;&#27861;</span><br></pre></td></tr></table></figure>
+<h2 id="u4E09_u3001_u76D1_u542C_u5668"><a href="#u4E09_u3001_u76D1_u542C_u5668" class="headerlink" title="三、监听器"></a>三、监听器</h2><h3 id="u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A"><a href="#u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A" class="headerlink" title="提供了2个监听器："></a>提供了2个监听器：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//Animator&#30340;&#20869;&#37096;&#31867;&#10;public static interface AnimatorListener &#123;&#10;&#10;       void onAnimationStart(Animator animation);&#10;       &#10;       void onAnimationEnd(Animator animation);&#10;       &#10;       void onAnimationCancel(Animator animation);&#10;       &#10;       void onAnimationRepeat(Animator animation);&#10;   &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static interface AnimatorUpdateListener &#123;&#10;      &#10;       void onAnimationUpdate(ValueAnimator animation);&#10;&#10; &#125;</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://duwei.com/2016/02/15/Property-Animation/" data-title="Property Animation | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/02/13/ThreadLocal/"  title="ThreadLocal">
+ <strong>下一篇：</strong><br/> 
+ <span>ThreadLocal
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/02/15/Property-Animation/" data-title="Property Animation" data-url="http://duwei.com/2016/02/15/Property-Animation/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u3001_u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">一、概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A"><span class="toc-number">1.1.</span> <span class="toc-text">这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3"><span class="toc-number">2.</span> <span class="toc-text">二、常用方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A"><span class="toc-number">2.1.</span> <span class="toc-text">1、ObjectAnimator继承自ValueAnimator，都有以下常用方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2_u3001_u52A8_u753B_u96C6_uFF1A"><span class="toc-number">2.2.</span> <span class="toc-text">2、动画集：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E09_u3001_u76D1_u542C_u5668"><span class="toc-number">3.</span> <span class="toc-text">三、监听器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A"><span class="toc-number">3.1.</span> <span class="toc-text">提供了2个监听器：</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="codingWang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android，View/" title="Android，View">Android，View<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m duwei . <br/>
+			This is my blog .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/codingWang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:du2035392@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="duwei">duwei</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wangduwei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
