@@ -1,0 +1,472 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>Interpolator | duwei&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="duwei">
+    
+
+    
+    <meta name="description" content="一、概述之前对于android插值器的理解仅仅是表面的，只知道它表示一种变化的趋势/形式，并且只会用简单的加速/减速/加减速插值器，昨天在看一个开源动画源码的时候看到了一个自定义插值器的代码，于是又收获学习到了许多。二、系统插值器1234567891011121314151617AccelerateDecelerateInterpolator	//加速减速插值器AccelerateInterpol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Interpolator">
+<meta property="og:url" content="http://duwei.com/2016/02/16/Interpolator/index.html">
+<meta property="og:site_name" content="duwei's blog">
+<meta property="og:description" content="一、概述之前对于android插值器的理解仅仅是表面的，只知道它表示一种变化的趋势/形式，并且只会用简单的加速/减速/加减速插值器，昨天在看一个开源动画源码的时候看到了一个自定义插值器的代码，于是又收获学习到了许多。二、系统插值器1234567891011121314151617AccelerateDecelerateInterpolator	//加速减速插值器AccelerateInterpol">
+<meta property="og:updated_time" content="2016-02-16T15:00:40.461Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Interpolator">
+<meta name="twitter:description" content="一、概述之前对于android插值器的理解仅仅是表面的，只知道它表示一种变化的趋势/形式，并且只会用简单的加速/减速/加减速插值器，昨天在看一个开源动画源码的时候看到了一个自定义插值器的代码，于是又收获学习到了许多。二、系统插值器1234567891011121314151617AccelerateDecelerateInterpolator	//加速减速插值器AccelerateInterpol">
+
+    
+    <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3492904c23dded877e5767fd9cd3e4da";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="duwei&#39;s blog">duwei&#39;s blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">文章</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:duwei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/16/Interpolator/" title="Interpolator" itemprop="url">Interpolator</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-16T14:11:36.000Z" itemprop="datePublished"> 发表于 2016-02-16</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u3001_u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">一、概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E4B_u524D_u5BF9_u4E8Eandroid_u63D2_u503C_u5668_u7684_u7406_u89E3_u4EC5_u4EC5_u662F_u8868_u9762_u7684_uFF0C_u53EA_u77E5_u9053_u5B83_u8868_u793A_u4E00_u79CD_u53D8_u5316_u7684_u8D8B_u52BF/_u5F62_u5F0F_uFF0C_u5E76_u4E14_u53EA_u4F1A_u7528_u7B80_u5355_u7684_u52A0_u901F/_u51CF_u901F/_u52A0_u51CF_u901F_u63D2_u503C_u5668_uFF0C_u6628_u5929_u5728_u770B_u4E00_u4E2A_u5F00_u6E90_u52A8_u753B_u6E90_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E2A_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u7684_u4EE3_u7801_uFF0C_u4E8E_u662F_u53C8_u6536_u83B7_u5B66_u4E60_u5230_u4E86_u8BB8_u591A_u3002"><span class="toc-number">1.1.</span> <span class="toc-text">之前对于android插值器的理解仅仅是表面的，只知道它表示一种变化的趋势/形式，并且只会用简单的加速/减速/加减速插值器，昨天在看一个开源动画源码的时候看到了一个自定义插值器的代码，于是又收获学习到了许多。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E8C_u3001_u7CFB_u7EDF_u63D2_u503C_u5668"><span class="toc-number">2.</span> <span class="toc-text">二、系统插值器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E09_u3001_u7CFB_u7EDF_u63D2_u503C_u5668_u5206_u6790"><span class="toc-number">3.</span> <span class="toc-text">三、系统插值器分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u6240_u6709_u7684_u7CFB_u7EDF_u63D2_u503C_u5668_u90FD_u7EE7_u627F_u81EAInterpolator_u7C7B_uFF0C_u800CInterpolator_u53C8_u5B9E_u73B0_u4E86TimeInterpolator_u63A5_u53E3_uFF1A"><span class="toc-number">3.1.</span> <span class="toc-text">1、所有的系统插值器都继承自Interpolator类，而Interpolator又实现了TimeInterpolator接口：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2_u3001_u6240_u4EE5_u8BE5_u65B9_u6CD5_u662F_u6240_u6709_u63D2_u503C_u5668_u7684_u6838_u5FC3_u65B9_u6CD5_uFF0C_u5148_u7B80_u5355_u770B_u770B_u7CFB_u7EDF_u63D2_u503C_u5668_u7684_u8BE5_u65B9_u6CD5_uFF1A"><span class="toc-number">3.2.</span> <span class="toc-text">2、所以该方法是所有插值器的核心方法，先简单看看系统插值器的该方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3_u3001_u8BE5_u65B9_u6CD5_u8FD4_u56DE_u7684_u5C31_u662F_u4E00_u4E2A_u51FD_u6570_uFF0C_u6839_u636E_u51FD_u6570_u6211_u4EEC_u53EF_u4EE5_u5F97_u5230_u51FD_u6570_u7684_u56FE_u50CF_u3002_u8FD9_u91CC_uFF0C_u659C_u7387_u5E94_u8BE5_u5C31_u662F_u52A0_u901F_u5EA6_u4E86_u3002"><span class="toc-number">3.3.</span> <span class="toc-text">3、该方法返回的就是一个函数，根据函数我们可以得到函数的图像。这里，斜率应该就是加速度了。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u56DB_u3001_u5173_u4E8E_u81EA_u5B9A_u4E49_u63D2_u503C_u5668"><span class="toc-number">4.</span> <span class="toc-text">四、关于自定义插值器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u60F3_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u53EA_u9700_u8981implements_TimeInterpolator_u5C31_u53EF_u4EE5_u62C9_uFF0C_u7136_u540E_u590D_u5199_u4ED6_u7684getInterpolation_28float_t_29_uFF1B_u65B9_u6CD5_u3002_u4F46_uFF0C_u96BE_u70B9_u5728_u4E8E_u8FD0_u52A8_u51FD_u6570_u56FE_u50CF_u7684_u786E_u5B9A_u4E0A_u9762_u3002_u5982_u4F55_u7CBE_u786E_u5408_u7406_u7684_u5206_u6790_u81EA_u5DF1_u7684_u52A8_u753B_u7684_u901F_u5EA6_u7684_u53D8_u5316_u89C4_u5F8B_uFF0C_u7136_u540E_u627E_u5230_u7B26_u5408_u8BE5_u53D8_u5316_u89C4_u5F8B_u7684_u51FD_u6570_u662F_u4E00_u4E2A_u56F0_u96BE_u7684_u95EE_u9898_u3002_u5728_u8FD9_u91CC_u8981_u91CD_u70B9_u5173_u6CE8_u4E00_u4E0B_u3002"><span class="toc-number">4.1.</span> <span class="toc-text">想自定义插值器只需要implements TimeInterpolator就可以拉，然后复写他的getInterpolation(float t)；方法。但，难点在于运动函数图像的确定上面。如何精确合理的分析自己的动画的速度的变化规律，然后找到符合该变化规律的函数是一个困难的问题。在这里要重点关注一下。</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="u4E00_u3001_u6982_u8FF0"><a href="#u4E00_u3001_u6982_u8FF0" class="headerlink" title="一、概述"></a>一、概述</h2><h3 id="u4E4B_u524D_u5BF9_u4E8Eandroid_u63D2_u503C_u5668_u7684_u7406_u89E3_u4EC5_u4EC5_u662F_u8868_u9762_u7684_uFF0C_u53EA_u77E5_u9053_u5B83_u8868_u793A_u4E00_u79CD_u53D8_u5316_u7684_u8D8B_u52BF/_u5F62_u5F0F_uFF0C_u5E76_u4E14_u53EA_u4F1A_u7528_u7B80_u5355_u7684_u52A0_u901F/_u51CF_u901F/_u52A0_u51CF_u901F_u63D2_u503C_u5668_uFF0C_u6628_u5929_u5728_u770B_u4E00_u4E2A_u5F00_u6E90_u52A8_u753B_u6E90_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E2A_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u7684_u4EE3_u7801_uFF0C_u4E8E_u662F_u53C8_u6536_u83B7_u5B66_u4E60_u5230_u4E86_u8BB8_u591A_u3002"><a href="#u4E4B_u524D_u5BF9_u4E8Eandroid_u63D2_u503C_u5668_u7684_u7406_u89E3_u4EC5_u4EC5_u662F_u8868_u9762_u7684_uFF0C_u53EA_u77E5_u9053_u5B83_u8868_u793A_u4E00_u79CD_u53D8_u5316_u7684_u8D8B_u52BF/_u5F62_u5F0F_uFF0C_u5E76_u4E14_u53EA_u4F1A_u7528_u7B80_u5355_u7684_u52A0_u901F/_u51CF_u901F/_u52A0_u51CF_u901F_u63D2_u503C_u5668_uFF0C_u6628_u5929_u5728_u770B_u4E00_u4E2A_u5F00_u6E90_u52A8_u753B_u6E90_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E2A_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u7684_u4EE3_u7801_uFF0C_u4E8E_u662F_u53C8_u6536_u83B7_u5B66_u4E60_u5230_u4E86_u8BB8_u591A_u3002" class="headerlink" title="之前对于android插值器的理解仅仅是表面的，只知道它表示一种变化的趋势/形式，并且只会用简单的加速/减速/加减速插值器，昨天在看一个开源动画源码的时候看到了一个自定义插值器的代码，于是又收获学习到了许多。"></a>之前对于android插值器的理解仅仅是表面的，只知道它表示一种变化的趋势/形式，并且只会用简单的<strong>加速</strong>/<strong>减速</strong>/<strong>加减速</strong>插值器，昨天在看一个开源动画源码的时候看到了一个自定义插值器的代码，于是又收获学习到了许多。</h3><h2 id="u4E8C_u3001_u7CFB_u7EDF_u63D2_u503C_u5668"><a href="#u4E8C_u3001_u7CFB_u7EDF_u63D2_u503C_u5668" class="headerlink" title="二、系统插值器"></a>二、系统插值器</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">AccelerateDecelerateInterpolator	<span class="comment">//加速减速插值器</span></span><br><span class="line"></span><br><span class="line">AccelerateInterpolator			<span class="comment">//加速插值器</span></span><br><span class="line"></span><br><span class="line">DecelerateInterpolator			<span class="comment">//减速插值器</span></span><br><span class="line"></span><br><span class="line">LinearInterpolator		<span class="comment">//线性插值器</span></span><br><span class="line"></span><br><span class="line">OvershootInterpolator		<span class="comment">//超越插值器--&gt;向前甩一定值后再回到原来位置</span></span><br><span class="line"></span><br><span class="line">AnticipateInterpolator			<span class="comment">//预先插值器（先这样翻译吧~~）--&gt;开始的时候向后然后向前甩</span></span><br><span class="line"></span><br><span class="line">AnticipateOvershootInterpolator	<span class="comment">//预先超过插值器--&gt;开始的时候向后然后向前甩一定值后返回最后的值</span></span><br><span class="line"></span><br><span class="line">BounceInterpolator		<span class="comment">//弹跳插值器--&gt;动画结束的时候弹起</span></span><br><span class="line"></span><br><span class="line">CycleInterpolator		<span class="comment">//循环插值器--&gt;循环播放特定的次数，速率改变沿着正弦曲线</span></span><br></pre></td></tr></table></figure>
+<h2 id="u4E09_u3001_u7CFB_u7EDF_u63D2_u503C_u5668_u5206_u6790"><a href="#u4E09_u3001_u7CFB_u7EDF_u63D2_u503C_u5668_u5206_u6790" class="headerlink" title="三、系统插值器分析"></a>三、系统插值器分析</h2><h3 id="1_u3001_u6240_u6709_u7684_u7CFB_u7EDF_u63D2_u503C_u5668_u90FD_u7EE7_u627F_u81EAInterpolator_u7C7B_uFF0C_u800CInterpolator_u53C8_u5B9E_u73B0_u4E86TimeInterpolator_u63A5_u53E3_uFF1A"><a href="#1_u3001_u6240_u6709_u7684_u7CFB_u7EDF_u63D2_u503C_u5668_u90FD_u7EE7_u627F_u81EAInterpolator_u7C7B_uFF0C_u800CInterpolator_u53C8_u5B9E_u73B0_u4E86TimeInterpolator_u63A5_u53E3_uFF1A" class="headerlink" title="1、所有的系统插值器都继承自Interpolator类，而Interpolator又实现了TimeInterpolator接口："></a>1、所有的系统插值器都继承自Interpolator类，而Interpolator又实现了TimeInterpolator接口：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TimeInterpolator</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2_u3001_u6240_u4EE5_u8BE5_u65B9_u6CD5_u662F_u6240_u6709_u63D2_u503C_u5668_u7684_u6838_u5FC3_u65B9_u6CD5_uFF0C_u5148_u7B80_u5355_u770B_u770B_u7CFB_u7EDF_u63D2_u503C_u5668_u7684_u8BE5_u65B9_u6CD5_uFF1A"><a href="#2_u3001_u6240_u4EE5_u8BE5_u65B9_u6CD5_u662F_u6240_u6709_u63D2_u503C_u5668_u7684_u6838_u5FC3_u65B9_u6CD5_uFF0C_u5148_u7B80_u5355_u770B_u770B_u7CFB_u7EDF_u63D2_u503C_u5668_u7684_u8BE5_u65B9_u6CD5_uFF1A" class="headerlink" title="2、所以该方法是所有插值器的核心方法，先简单看看系统插值器的该方法："></a>2、所以该方法是所有插值器的核心方法，先简单看看系统插值器的该方法：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//AccelerateDecelerateInterpolator</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">float</span>)(Math.cos((input + <span class="number">1</span>) * Math.PI) / <span class="number">2.0f</span>) + <span class="number">0.5f</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//LinearInterpolator</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> input;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3_u3001_u8BE5_u65B9_u6CD5_u8FD4_u56DE_u7684_u5C31_u662F_u4E00_u4E2A_u51FD_u6570_uFF0C_u6839_u636E_u51FD_u6570_u6211_u4EEC_u53EF_u4EE5_u5F97_u5230_u51FD_u6570_u7684_u56FE_u50CF_u3002_u8FD9_u91CC_uFF0C_u659C_u7387_u5E94_u8BE5_u5C31_u662F_u52A0_u901F_u5EA6_u4E86_u3002"><a href="#3_u3001_u8BE5_u65B9_u6CD5_u8FD4_u56DE_u7684_u5C31_u662F_u4E00_u4E2A_u51FD_u6570_uFF0C_u6839_u636E_u51FD_u6570_u6211_u4EEC_u53EF_u4EE5_u5F97_u5230_u51FD_u6570_u7684_u56FE_u50CF_u3002_u8FD9_u91CC_uFF0C_u659C_u7387_u5E94_u8BE5_u5C31_u662F_u52A0_u901F_u5EA6_u4E86_u3002" class="headerlink" title="3、该方法返回的就是一个函数，根据函数我们可以得到函数的图像。这里，斜率应该就是加速度了。"></a>3、该方法返回的就是一个函数，根据函数我们可以得到函数的图像。<a href="http://www.wolframalpha.com/" target="_blank" rel="external">这里</a>，斜率应该就是加速度了。</h3><h2 id="u56DB_u3001_u5173_u4E8E_u81EA_u5B9A_u4E49_u63D2_u503C_u5668"><a href="#u56DB_u3001_u5173_u4E8E_u81EA_u5B9A_u4E49_u63D2_u503C_u5668" class="headerlink" title="四、关于自定义插值器"></a>四、关于自定义插值器</h2><h3 id="u60F3_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u53EA_u9700_u8981implements_TimeInterpolator_u5C31_u53EF_u4EE5_u62C9_uFF0C_u7136_u540E_u590D_u5199_u4ED6_u7684getInterpolation_28float_t_29_uFF1B_u65B9_u6CD5_u3002_u4F46_uFF0C_u96BE_u70B9_u5728_u4E8E_u8FD0_u52A8_u51FD_u6570_u56FE_u50CF_u7684_u786E_u5B9A_u4E0A_u9762_u3002_u5982_u4F55_u7CBE_u786E_u5408_u7406_u7684_u5206_u6790_u81EA_u5DF1_u7684_u52A8_u753B_u7684_u901F_u5EA6_u7684_u53D8_u5316_u89C4_u5F8B_uFF0C_u7136_u540E_u627E_u5230_u7B26_u5408_u8BE5_u53D8_u5316_u89C4_u5F8B_u7684_u51FD_u6570_u662F_u4E00_u4E2A_u56F0_u96BE_u7684_u95EE_u9898_u3002_u5728_u8FD9_u91CC_u8981_u91CD_u70B9_u5173_u6CE8_u4E00_u4E0B_u3002"><a href="#u60F3_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u53EA_u9700_u8981implements_TimeInterpolator_u5C31_u53EF_u4EE5_u62C9_uFF0C_u7136_u540E_u590D_u5199_u4ED6_u7684getInterpolation_28float_t_29_uFF1B_u65B9_u6CD5_u3002_u4F46_uFF0C_u96BE_u70B9_u5728_u4E8E_u8FD0_u52A8_u51FD_u6570_u56FE_u50CF_u7684_u786E_u5B9A_u4E0A_u9762_u3002_u5982_u4F55_u7CBE_u786E_u5408_u7406_u7684_u5206_u6790_u81EA_u5DF1_u7684_u52A8_u753B_u7684_u901F_u5EA6_u7684_u53D8_u5316_u89C4_u5F8B_uFF0C_u7136_u540E_u627E_u5230_u7B26_u5408_u8BE5_u53D8_u5316_u89C4_u5F8B_u7684_u51FD_u6570_u662F_u4E00_u4E2A_u56F0_u96BE_u7684_u95EE_u9898_u3002_u5728_u8FD9_u91CC_u8981_u91CD_u70B9_u5173_u6CE8_u4E00_u4E0B_u3002" class="headerlink" title="想自定义插值器只需要implements TimeInterpolator就可以拉，然后复写他的getInterpolation(float t)；方法。但，难点在于运动函数图像的确定上面。如何精确合理的分析自己的动画的速度的变化规律，然后找到符合该变化规律的函数是一个困难的问题。在这里要重点关注一下。"></a>想自定义插值器只需要implements TimeInterpolator就可以拉，然后复写他的getInterpolation(float t)；方法。但，难点在于运动函数图像的确定上面。如何精确合理的分析自己的动画的速度的变化规律，然后找到符合该变化规律的函数是一个困难的问题。在这里要重点关注一下。</h3>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://duwei.com/2016/02/16/Interpolator/" data-title="Interpolator | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/02/15/Property-Animation/"  title="Property Animation">
+ <strong>下一篇：</strong><br/> 
+ <span>Property Animation
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/02/16/Interpolator/" data-title="Interpolator" data-url="http://duwei.com/2016/02/16/Interpolator/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u3001_u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">一、概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E4B_u524D_u5BF9_u4E8Eandroid_u63D2_u503C_u5668_u7684_u7406_u89E3_u4EC5_u4EC5_u662F_u8868_u9762_u7684_uFF0C_u53EA_u77E5_u9053_u5B83_u8868_u793A_u4E00_u79CD_u53D8_u5316_u7684_u8D8B_u52BF/_u5F62_u5F0F_uFF0C_u5E76_u4E14_u53EA_u4F1A_u7528_u7B80_u5355_u7684_u52A0_u901F/_u51CF_u901F/_u52A0_u51CF_u901F_u63D2_u503C_u5668_uFF0C_u6628_u5929_u5728_u770B_u4E00_u4E2A_u5F00_u6E90_u52A8_u753B_u6E90_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E2A_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u7684_u4EE3_u7801_uFF0C_u4E8E_u662F_u53C8_u6536_u83B7_u5B66_u4E60_u5230_u4E86_u8BB8_u591A_u3002"><span class="toc-number">1.1.</span> <span class="toc-text">之前对于android插值器的理解仅仅是表面的，只知道它表示一种变化的趋势/形式，并且只会用简单的加速/减速/加减速插值器，昨天在看一个开源动画源码的时候看到了一个自定义插值器的代码，于是又收获学习到了许多。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E8C_u3001_u7CFB_u7EDF_u63D2_u503C_u5668"><span class="toc-number">2.</span> <span class="toc-text">二、系统插值器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E09_u3001_u7CFB_u7EDF_u63D2_u503C_u5668_u5206_u6790"><span class="toc-number">3.</span> <span class="toc-text">三、系统插值器分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u6240_u6709_u7684_u7CFB_u7EDF_u63D2_u503C_u5668_u90FD_u7EE7_u627F_u81EAInterpolator_u7C7B_uFF0C_u800CInterpolator_u53C8_u5B9E_u73B0_u4E86TimeInterpolator_u63A5_u53E3_uFF1A"><span class="toc-number">3.1.</span> <span class="toc-text">1、所有的系统插值器都继承自Interpolator类，而Interpolator又实现了TimeInterpolator接口：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2_u3001_u6240_u4EE5_u8BE5_u65B9_u6CD5_u662F_u6240_u6709_u63D2_u503C_u5668_u7684_u6838_u5FC3_u65B9_u6CD5_uFF0C_u5148_u7B80_u5355_u770B_u770B_u7CFB_u7EDF_u63D2_u503C_u5668_u7684_u8BE5_u65B9_u6CD5_uFF1A"><span class="toc-number">3.2.</span> <span class="toc-text">2、所以该方法是所有插值器的核心方法，先简单看看系统插值器的该方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3_u3001_u8BE5_u65B9_u6CD5_u8FD4_u56DE_u7684_u5C31_u662F_u4E00_u4E2A_u51FD_u6570_uFF0C_u6839_u636E_u51FD_u6570_u6211_u4EEC_u53EF_u4EE5_u5F97_u5230_u51FD_u6570_u7684_u56FE_u50CF_u3002_u8FD9_u91CC_uFF0C_u659C_u7387_u5E94_u8BE5_u5C31_u662F_u52A0_u901F_u5EA6_u4E86_u3002"><span class="toc-number">3.3.</span> <span class="toc-text">3、该方法返回的就是一个函数，根据函数我们可以得到函数的图像。这里，斜率应该就是加速度了。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u56DB_u3001_u5173_u4E8E_u81EA_u5B9A_u4E49_u63D2_u503C_u5668"><span class="toc-number">4.</span> <span class="toc-text">四、关于自定义插值器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u60F3_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u53EA_u9700_u8981implements_TimeInterpolator_u5C31_u53EF_u4EE5_u62C9_uFF0C_u7136_u540E_u590D_u5199_u4ED6_u7684getInterpolation_28float_t_29_uFF1B_u65B9_u6CD5_u3002_u4F46_uFF0C_u96BE_u70B9_u5728_u4E8E_u8FD0_u52A8_u51FD_u6570_u56FE_u50CF_u7684_u786E_u5B9A_u4E0A_u9762_u3002_u5982_u4F55_u7CBE_u786E_u5408_u7406_u7684_u5206_u6790_u81EA_u5DF1_u7684_u52A8_u753B_u7684_u901F_u5EA6_u7684_u53D8_u5316_u89C4_u5F8B_uFF0C_u7136_u540E_u627E_u5230_u7B26_u5408_u8BE5_u53D8_u5316_u89C4_u5F8B_u7684_u51FD_u6570_u662F_u4E00_u4E2A_u56F0_u96BE_u7684_u95EE_u9898_u3002_u5728_u8FD9_u91CC_u8981_u91CD_u70B9_u5173_u6CE8_u4E00_u4E0B_u3002"><span class="toc-number">4.1.</span> <span class="toc-text">想自定义插值器只需要implements TimeInterpolator就可以拉，然后复写他的getInterpolation(float t)；方法。但，难点在于运动函数图像的确定上面。如何精确合理的分析自己的动画的速度的变化规律，然后找到符合该变化规律的函数是一个困难的问题。在这里要重点关注一下。</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="codingWang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android，View/" title="Android，View">Android，View<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m duwei . <br/>
+			This is my blog .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/codingWang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:du2035392@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="duwei">duwei</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wangduwei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
