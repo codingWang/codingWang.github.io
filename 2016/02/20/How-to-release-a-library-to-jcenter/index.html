@@ -1,0 +1,501 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>How to release a library to jcenter | duwei&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="duwei">
+    
+
+    
+    <meta name="description" content="概述最近花时间写了两个自定义控件，一个是WaveLoadingView另外一个是PinWheel) 写Demo的时间没花多少，倒是往Jcenter上传花费了不少时间，在这过程中也遇到了许多的bug，不过在自己的努力下最后还是上传成功可以用了。下面就总结一下吧：第一步：1. 前往这里注册一个账号。2.点击下图所示的Maven：
+3.点击Add New Package:
+4.依次填写以下信息：
+Nam">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to release a library to jcenter">
+<meta property="og:url" content="http://duwei.com/2016/02/20/How-to-release-a-library-to-jcenter/index.html">
+<meta property="og:site_name" content="duwei's blog">
+<meta property="og:description" content="概述最近花时间写了两个自定义控件，一个是WaveLoadingView另外一个是PinWheel) 写Demo的时间没花多少，倒是往Jcenter上传花费了不少时间，在这过程中也遇到了许多的bug，不过在自己的努力下最后还是上传成功可以用了。下面就总结一下吧：第一步：1. 前往这里注册一个账号。2.点击下图所示的Maven：
+3.点击Add New Package:
+4.依次填写以下信息：
+Nam">
+<meta property="og:image" content="http://7xqumq.com1.z0.glb.clouddn.com/duweimaven.png">
+<meta property="og:image" content="http://7xqumq.com1.z0.glb.clouddn.com/duweinewpackage.png">
+<meta property="og:image" content="http://7xqumq.com1.z0.glb.clouddn.com/duwei_edit.png">
+<meta property="og:image" content="http://7xqumq.com1.z0.glb.clouddn.com/duwei_apikey.png">
+<meta property="og:updated_time" content="2016-02-20T04:13:12.674Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="How to release a library to jcenter">
+<meta name="twitter:description" content="概述最近花时间写了两个自定义控件，一个是WaveLoadingView另外一个是PinWheel) 写Demo的时间没花多少，倒是往Jcenter上传花费了不少时间，在这过程中也遇到了许多的bug，不过在自己的努力下最后还是上传成功可以用了。下面就总结一下吧：第一步：1. 前往这里注册一个账号。2.点击下图所示的Maven：
+3.点击Add New Package:
+4.依次填写以下信息：
+Nam">
+
+    
+    <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3492904c23dded877e5767fd9cd3e4da";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="duwei&#39;s blog">duwei&#39;s blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">文章</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:duwei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/20/How-to-release-a-library-to-jcenter/" title="How to release a library to jcenter" itemprop="url">How to release a library to jcenter</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-20T01:57:10.000Z" itemprop="datePublished"> 发表于 2016-02-20</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u6700_u8FD1_u82B1_u65F6_u95F4_u5199_u4E86_u4E24_u4E2A_u81EA_u5B9A_u4E49_u63A7_u4EF6_uFF0C_u4E00_u4E2A_u662FWaveLoadingView_u53E6_u5916_u4E00_u4E2A_u662FPinWheel_29__u5199Demo_u7684_u65F6_u95F4_u6CA1_u82B1_u591A_u5C11_uFF0C_u5012_u662F_u5F80Jcenter_u4E0A_u4F20_u82B1_u8D39_u4E86_u4E0D_u5C11_u65F6_u95F4_uFF0C_u5728_u8FD9_u8FC7_u7A0B_u4E2D_u4E5F_u9047_u5230_u4E86_u8BB8_u591A_u7684bug_uFF0C_u4E0D_u8FC7_u5728_u81EA_u5DF1_u7684_u52AA_u529B_u4E0B_u6700_u540E_u8FD8_u662F_u4E0A_u4F20_u6210_u529F_u53EF_u4EE5_u7528_u4E86_u3002_u4E0B_u9762_u5C31_u603B_u7ED3_u4E00_u4E0B_u5427_uFF1A"><span class="toc-number">1.1.</span> <span class="toc-text">最近花时间写了两个自定义控件，一个是WaveLoadingView另外一个是PinWheel) 写Demo的时间没花多少，倒是往Jcenter上传花费了不少时间，在这过程中也遇到了许多的bug，不过在自己的努力下最后还是上传成功可以用了。下面就总结一下吧：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E00_u6B65_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">第一步：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-__u524D_u5F80_u8FD9_u91CC_u6CE8_u518C_u4E00_u4E2A_u8D26_u53F7_u3002"><span class="toc-number">2.1.</span> <span class="toc-text">1. 前往这里注册一个账号。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_u70B9_u51FB_u4E0B_u56FE_u6240_u793A_u7684Maven_uFF1A"><span class="toc-number">2.2.</span> <span class="toc-text">2.点击下图所示的Maven：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_u70B9_u51FBAdd_New_Package_3A"><span class="toc-number">2.3.</span> <span class="toc-text">3.点击Add New Package:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_u4F9D_u6B21_u586B_u5199_u4EE5_u4E0B_u4FE1_u606F_uFF1A"><span class="toc-number">2.4.</span> <span class="toc-text">4.依次填写以下信息：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u586B_u5199_u5B8C_u6BD5_u70B9_u51FBCreate_uFF0COK_u3002"><span class="toc-number">2.5.</span> <span class="toc-text">填写完毕点击Create，OK。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E8C_u6B65_uFF1A"><span class="toc-number">3.</span> <span class="toc-text">第二步：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-__u65B0_u5EFA_u9879_u76EE_uFF08_u6216_u5DF2_u7ECF_u6709_u9879_u76EE_uFF09_u5E76_u6DFB_u52A0_u4EE5_u4E0B_u4E24_u53E5_u53BBProject__u7684_build-gradle"><span class="toc-number">3.1.</span> <span class="toc-text">1. 新建项目（或已经有项目）并添加以下两句去Project 的 build.gradle </span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_u5728Library_u7684build-gradle_u4E2D_u4F9D_u6B21_u6DFB_u52A0_u5982_u4E0B_uFF1A"><span class="toc-number">3.2.</span> <span class="toc-text">2.在Library的build.gradle中依次添加如下：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u76F4_u63A5_u590D_u5236_u4E0A_u8FF0_u5185_u5BB9_u6DFB_u52A0_u5230_u4F60_u7684Library_u7684build-grale_u5C31_u53EF_u4EE5_u4E86_uFF0C_u7136_u540E_u4FEE_u6539_u6807_uFF01_uFF01_uFF01_u7684_u5730_u65B9"><span class="toc-number">3.3.</span> <span class="toc-text">直接复制上述内容添加到你的Library的build.grale就可以了，然后修改标！！！的地方</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E09_u6B65_uFF1A"><span class="toc-number">4.</span> <span class="toc-text">第三步：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u6253_u5F00_u9879_u76EE_u7684local-properties_u6DFB_u52A0_u5982_u4E0B_u4FE1_u606F"><span class="toc-number">4.1.</span> <span class="toc-text">打开项目的local.properties添加如下信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u56DB_u6B65_uFF1A"><span class="toc-number">5.</span> <span class="toc-text">第四步：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5728Android_stuodio_u7684Terminal_u7EC8_u7AEF_u4F9D_u6B21_u6267_u884C_u4EE5_u4E0B_u547D_u4EE4"><span class="toc-number">5.1.</span> <span class="toc-text">在Android stuodio的Terminal终端依次执行以下命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E94_u6B65_uFF1A"><span class="toc-number">6.</span> <span class="toc-text">第五步：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5F15_u7528Library"><span class="toc-number">6.1.</span> <span class="toc-text">引用Library</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h2><h3 id="u6700_u8FD1_u82B1_u65F6_u95F4_u5199_u4E86_u4E24_u4E2A_u81EA_u5B9A_u4E49_u63A7_u4EF6_uFF0C_u4E00_u4E2A_u662FWaveLoadingView_u53E6_u5916_u4E00_u4E2A_u662FPinWheel_29__u5199Demo_u7684_u65F6_u95F4_u6CA1_u82B1_u591A_u5C11_uFF0C_u5012_u662F_u5F80Jcenter_u4E0A_u4F20_u82B1_u8D39_u4E86_u4E0D_u5C11_u65F6_u95F4_uFF0C_u5728_u8FD9_u8FC7_u7A0B_u4E2D_u4E5F_u9047_u5230_u4E86_u8BB8_u591A_u7684bug_uFF0C_u4E0D_u8FC7_u5728_u81EA_u5DF1_u7684_u52AA_u529B_u4E0B_u6700_u540E_u8FD8_u662F_u4E0A_u4F20_u6210_u529F_u53EF_u4EE5_u7528_u4E86_u3002_u4E0B_u9762_u5C31_u603B_u7ED3_u4E00_u4E0B_u5427_uFF1A"><a href="#u6700_u8FD1_u82B1_u65F6_u95F4_u5199_u4E86_u4E24_u4E2A_u81EA_u5B9A_u4E49_u63A7_u4EF6_uFF0C_u4E00_u4E2A_u662FWaveLoadingView_u53E6_u5916_u4E00_u4E2A_u662FPinWheel_29__u5199Demo_u7684_u65F6_u95F4_u6CA1_u82B1_u591A_u5C11_uFF0C_u5012_u662F_u5F80Jcenter_u4E0A_u4F20_u82B1_u8D39_u4E86_u4E0D_u5C11_u65F6_u95F4_uFF0C_u5728_u8FD9_u8FC7_u7A0B_u4E2D_u4E5F_u9047_u5230_u4E86_u8BB8_u591A_u7684bug_uFF0C_u4E0D_u8FC7_u5728_u81EA_u5DF1_u7684_u52AA_u529B_u4E0B_u6700_u540E_u8FD8_u662F_u4E0A_u4F20_u6210_u529F_u53EF_u4EE5_u7528_u4E86_u3002_u4E0B_u9762_u5C31_u603B_u7ED3_u4E00_u4E0B_u5427_uFF1A" class="headerlink" title="最近花时间写了两个自定义控件，一个是WaveLoadingView另外一个是PinWheel) 写Demo的时间没花多少，倒是往Jcenter上传花费了不少时间，在这过程中也遇到了许多的bug，不过在自己的努力下最后还是上传成功可以用了。下面就总结一下吧："></a>最近花时间写了两个自定义控件，一个是<a href="[https://github.com/codingWang/WaveLoadingView](https://github.com/codingWang/WaveLoadingView">WaveLoadingView</a>另外一个是<a href="[https://github.com/codingWang/PinWheel](https://github.com/codingWang/PinWheel">PinWheel</a>) 写Demo的时间没花多少，倒是往Jcenter上传花费了不少时间，在这过程中也遇到了许多的bug，不过在自己的努力下最后还是上传成功可以用了。下面就总结一下吧：</h3><h2 id="u7B2C_u4E00_u6B65_uFF1A"><a href="#u7B2C_u4E00_u6B65_uFF1A" class="headerlink" title="第一步："></a>第一步：</h2><h3 id="1-__u524D_u5F80_u8FD9_u91CC_u6CE8_u518C_u4E00_u4E2A_u8D26_u53F7_u3002"><a href="#1-__u524D_u5F80_u8FD9_u91CC_u6CE8_u518C_u4E00_u4E2A_u8D26_u53F7_u3002" class="headerlink" title="1. 前往这里注册一个账号。"></a>1. 前往<a href="[https://bintray.com/](https://bintray.com/">这里</a>注册一个账号。</h3><h3 id="2-_u70B9_u51FB_u4E0B_u56FE_u6240_u793A_u7684Maven_uFF1A"><a href="#2-_u70B9_u51FB_u4E0B_u56FE_u6240_u793A_u7684Maven_uFF1A" class="headerlink" title="2.点击下图所示的Maven："></a>2.点击下图所示的Maven：<br></h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duweimaven.png" alt=""><br></p>
+<h3 id="3-_u70B9_u51FBAdd_New_Package_3A"><a href="#3-_u70B9_u51FBAdd_New_Package_3A" class="headerlink" title="3.点击Add New Package:"></a>3.点击Add New Package:<br></h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duweinewpackage.png" alt=""><br></p>
+<h3 id="4-_u4F9D_u6B21_u586B_u5199_u4EE5_u4E0B_u4FE1_u606F_uFF1A"><a href="#4-_u4F9D_u6B21_u586B_u5199_u4EE5_u4E0B_u4FE1_u606F_uFF1A" class="headerlink" title="4.依次填写以下信息："></a>4.依次填写以下信息：</h3><ul>
+<li>Name：Library的名字（如:PinWheel）</li>
+<li>Description：Library的描述信息（如：a custom dialog）</li>
+<li>Licenses：Library遵循的协议（如：Apache2.0）</li>
+<li>Tags ：Library的标签（如：Android）</li>
+<li>Website：Library的网站（写github项目地址就好）</li>
+<li>Issues tracker：Issues的跟踪（写githubissues，如：<a href="https://github.com/codingWang/PinWheel/issues）" target="_blank" rel="external">https://github.com/codingWang/PinWheel/issues）</a></li>
+<li>Version control：版本控制（如：git@github.com:codingWang/PinWheel.git）</li>
+</ul>
+<h3 id="u586B_u5199_u5B8C_u6BD5_u70B9_u51FBCreate_uFF0COK_u3002"><a href="#u586B_u5199_u5B8C_u6BD5_u70B9_u51FBCreate_uFF0COK_u3002" class="headerlink" title="填写完毕点击Create，OK。"></a>填写完毕点击Create，OK。</h3><h2 id="u7B2C_u4E8C_u6B65_uFF1A"><a href="#u7B2C_u4E8C_u6B65_uFF1A" class="headerlink" title="第二步："></a>第二步：</h2><h3 id="1-__u65B0_u5EFA_u9879_u76EE_uFF08_u6216_u5DF2_u7ECF_u6709_u9879_u76EE_uFF09_u5E76_u6DFB_u52A0_u4EE5_u4E0B_u4E24_u53E5_u53BBProject__u7684_build-gradle"><a href="#1-__u65B0_u5EFA_u9879_u76EE_uFF08_u6216_u5DF2_u7ECF_u6709_u9879_u76EE_uFF09_u5E76_u6DFB_u52A0_u4EE5_u4E0B_u4E24_u53E5_u53BBProject__u7684_build-gradle" class="headerlink" title="1. 新建项目（或已经有项目）并添加以下两句去Project 的 build.gradle"></a>1. 新建项目（或已经有项目）并添加以下两句去<em>Project 的 build.gradle </em></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">classpath &#39;com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0&#39;&#10;classpath &#39;com.github.dcendents:android-maven-gradle-plugin:1.3&#39;</span><br></pre></td></tr></table></figure>
+<h3 id="2-_u5728Library_u7684build-gradle_u4E2D_u4F9D_u6B21_u6DFB_u52A0_u5982_u4E0B_uFF1A"><a href="#2-_u5728Library_u7684build-gradle_u4E2D_u4F9D_u6B21_u6DFB_u52A0_u5982_u4E0B_uFF1A" class="headerlink" title="2.在Library的build.gradle中依次添加如下："></a>2.在Library的build.gradle中依次添加如下：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.github.dcendents.android-maven'</span></span><br><span class="line">apply plugin: <span class="string">'com.jfrog.bintray'</span></span><br><span class="line">version = <span class="string">"0.1"</span></span><br><span class="line"></span><br><span class="line">def siteUrl = <span class="string">'https://github.com/codingWang/PinWheel'</span>    // 项目地址！！！！</span><br><span class="line">def gitUrl = <span class="string">'git@github.com:codingWang/PinWheel.git'</span> // git地址！！！</span><br><span class="line"></span><br><span class="line">group = <span class="string">"com.duwei.pinwheel"</span>	//！！！！！！</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">install &#123;</span><br><span class="line">    repositories.mavenInstaller &#123;</span><br><span class="line">        // This generates POM.xml with proper parameters</span><br><span class="line">        pom &#123;</span><br><span class="line">            project &#123;</span><br><span class="line">                packaging <span class="string">'aar'</span></span><br><span class="line">                name <span class="string">'PinWheel'</span>//！！！！！！！！！！！</span><br><span class="line">                url siteUrl</span><br><span class="line">                licenses &#123;</span><br><span class="line">                    license &#123;</span><br><span class="line">                        name <span class="string">'The Apache Software License, Version 2.0'</span></span><br><span class="line">                        url <span class="string">'http://www.apache.org/licenses/LICENSE-2.0.txt'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                developers &#123;</span><br><span class="line">                    developer &#123;</span><br><span class="line">                        id <span class="string">'duwei'</span>  //！！！！！！！！！！！！</span><br><span class="line">                        name <span class="string">'duwei'</span>//！！！！！！！！</span><br><span class="line">                        email <span class="string">'du2035392@gmail.com'</span>//！！！！！！！！！</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                scm &#123;</span><br><span class="line">                    connection gitUrl</span><br><span class="line">                    developerConnection gitUrl</span><br><span class="line">                    url siteUrl</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">task sourcesJar(<span class="built_in">type</span>: Jar) &#123;</span><br><span class="line">    from android.sourceSets.main.java.srcDirs</span><br><span class="line">    classifier = <span class="string">'sources'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task javadoc(<span class="built_in">type</span>: Javadoc) &#123;</span><br><span class="line">    options.encoding = <span class="string">"utf-8"</span>//！！！！文档中文编码乱码问题解决</span><br><span class="line">    <span class="built_in">source</span> = android.sourceSets.main.java.srcDirs</span><br><span class="line">    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task javadocJar(<span class="built_in">type</span>: Jar, dependsOn: javadoc) &#123;</span><br><span class="line">    classifier = <span class="string">'javadoc'</span></span><br><span class="line">    from javadoc.destinationDir</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">artifacts &#123;</span><br><span class="line">    archives javadocJar</span><br><span class="line">    archives sourcesJar</span><br><span class="line">&#125;</span><br><span class="line">Properties properties = new Properties()</span><br><span class="line">properties.load(project.rootProject.file(<span class="string">'local.properties'</span>).newDataInputStream())</span><br><span class="line">bintray &#123;</span><br><span class="line">    user = properties.getProperty(<span class="string">"bintray.user"</span>)</span><br><span class="line">    key = properties.getProperty(<span class="string">"bintray.apikey"</span>)</span><br><span class="line">    configurations = [<span class="string">'archives'</span>]</span><br><span class="line">    pkg &#123;</span><br><span class="line">        repo = <span class="string">"maven"</span></span><br><span class="line">        name = <span class="string">"PinWheel"</span>                // Jcenter项目中Name的值</span><br><span class="line">        websiteUrl = siteUrl</span><br><span class="line">        vcsUrl = gitUrl</span><br><span class="line">        licenses = [<span class="string">"Apache-2.0"</span>]</span><br><span class="line">        publish = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u76F4_u63A5_u590D_u5236_u4E0A_u8FF0_u5185_u5BB9_u6DFB_u52A0_u5230_u4F60_u7684Library_u7684build-grale_u5C31_u53EF_u4EE5_u4E86_uFF0C_u7136_u540E_u4FEE_u6539_u6807_uFF01_uFF01_uFF01_u7684_u5730_u65B9"><a href="#u76F4_u63A5_u590D_u5236_u4E0A_u8FF0_u5185_u5BB9_u6DFB_u52A0_u5230_u4F60_u7684Library_u7684build-grale_u5C31_u53EF_u4EE5_u4E86_uFF0C_u7136_u540E_u4FEE_u6539_u6807_uFF01_uFF01_uFF01_u7684_u5730_u65B9" class="headerlink" title="直接复制上述内容添加到你的Library的build.grale就可以了，然后修改标！！！的地方"></a>直接复制上述内容添加到你的Library的build.grale就可以了，然后修改标！！！的地方</h3><h2 id="u7B2C_u4E09_u6B65_uFF1A"><a href="#u7B2C_u4E09_u6B65_uFF1A" class="headerlink" title="第三步："></a>第三步：</h2><h3 id="u6253_u5F00_u9879_u76EE_u7684local-properties_u6DFB_u52A0_u5982_u4E0B_u4FE1_u606F"><a href="#u6253_u5F00_u9879_u76EE_u7684local-properties_u6DFB_u52A0_u5982_u4E0B_u4FE1_u606F" class="headerlink" title="打开项目的local.properties添加如下信息"></a>打开项目的local.properties添加如下信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bintray.user=duwei                                // bintray的用户有</span><br><span class="line">bintray.apikey= // 该值可在bintray中点击Edite</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_edit.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_edit.png"><br><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_apikey.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_apikey.png"></p>
+<h2 id="u7B2C_u56DB_u6B65_uFF1A"><a href="#u7B2C_u56DB_u6B65_uFF1A" class="headerlink" title="第四步："></a>第四步：</h2><h3 id="u5728Android_stuodio_u7684Terminal_u7EC8_u7AEF_u4F9D_u6B21_u6267_u884C_u4EE5_u4E0B_u547D_u4EE4"><a href="#u5728Android_stuodio_u7684Terminal_u7EC8_u7AEF_u4F9D_u6B21_u6267_u884C_u4EE5_u4E0B_u547D_u4EE4" class="headerlink" title="在Android stuodio的Terminal终端依次执行以下命令"></a>在Android stuodio的Terminal终端依次执行以下命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gradew javadocJar	</span><br><span class="line"></span><br><span class="line">gradew sourcesJar</span><br><span class="line"></span><br><span class="line">gradew install</span><br><span class="line"></span><br><span class="line">gradew bintrayUpload</span><br></pre></td></tr></table></figure>
+<h2 id="u7B2C_u4E94_u6B65_uFF1A"><a href="#u7B2C_u4E94_u6B65_uFF1A" class="headerlink" title="第五步："></a>第五步：</h2><h3 id="u5F15_u7528Library"><a href="#u5F15_u7528Library" class="headerlink" title="引用Library"></a>引用Library</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">repositories &#123;</span><br><span class="line"> maven &#123;</span><br><span class="line"> url <span class="string">'https://dl.bintray.com/duwei/maven/'</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line"></span><br><span class="line"> compile <span class="string">'com.duwei.pinwheel:pinwheel:0.1'</span></span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://duwei.com/2016/02/20/How-to-release-a-library-to-jcenter/" data-title="How to release a library to jcenter | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/02/16/Interpolator/"  title="Interpolator">
+ <strong>下一篇：</strong><br/> 
+ <span>Interpolator
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/02/20/How-to-release-a-library-to-jcenter/" data-title="How to release a library to jcenter" data-url="http://duwei.com/2016/02/20/How-to-release-a-library-to-jcenter/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u6700_u8FD1_u82B1_u65F6_u95F4_u5199_u4E86_u4E24_u4E2A_u81EA_u5B9A_u4E49_u63A7_u4EF6_uFF0C_u4E00_u4E2A_u662FWaveLoadingView_u53E6_u5916_u4E00_u4E2A_u662FPinWheel_29__u5199Demo_u7684_u65F6_u95F4_u6CA1_u82B1_u591A_u5C11_uFF0C_u5012_u662F_u5F80Jcenter_u4E0A_u4F20_u82B1_u8D39_u4E86_u4E0D_u5C11_u65F6_u95F4_uFF0C_u5728_u8FD9_u8FC7_u7A0B_u4E2D_u4E5F_u9047_u5230_u4E86_u8BB8_u591A_u7684bug_uFF0C_u4E0D_u8FC7_u5728_u81EA_u5DF1_u7684_u52AA_u529B_u4E0B_u6700_u540E_u8FD8_u662F_u4E0A_u4F20_u6210_u529F_u53EF_u4EE5_u7528_u4E86_u3002_u4E0B_u9762_u5C31_u603B_u7ED3_u4E00_u4E0B_u5427_uFF1A"><span class="toc-number">1.1.</span> <span class="toc-text">最近花时间写了两个自定义控件，一个是WaveLoadingView另外一个是PinWheel) 写Demo的时间没花多少，倒是往Jcenter上传花费了不少时间，在这过程中也遇到了许多的bug，不过在自己的努力下最后还是上传成功可以用了。下面就总结一下吧：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E00_u6B65_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">第一步：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-__u524D_u5F80_u8FD9_u91CC_u6CE8_u518C_u4E00_u4E2A_u8D26_u53F7_u3002"><span class="toc-number">2.1.</span> <span class="toc-text">1. 前往这里注册一个账号。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_u70B9_u51FB_u4E0B_u56FE_u6240_u793A_u7684Maven_uFF1A"><span class="toc-number">2.2.</span> <span class="toc-text">2.点击下图所示的Maven：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-_u70B9_u51FBAdd_New_Package_3A"><span class="toc-number">2.3.</span> <span class="toc-text">3.点击Add New Package:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-_u4F9D_u6B21_u586B_u5199_u4EE5_u4E0B_u4FE1_u606F_uFF1A"><span class="toc-number">2.4.</span> <span class="toc-text">4.依次填写以下信息：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u586B_u5199_u5B8C_u6BD5_u70B9_u51FBCreate_uFF0COK_u3002"><span class="toc-number">2.5.</span> <span class="toc-text">填写完毕点击Create，OK。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E8C_u6B65_uFF1A"><span class="toc-number">3.</span> <span class="toc-text">第二步：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-__u65B0_u5EFA_u9879_u76EE_uFF08_u6216_u5DF2_u7ECF_u6709_u9879_u76EE_uFF09_u5E76_u6DFB_u52A0_u4EE5_u4E0B_u4E24_u53E5_u53BBProject__u7684_build-gradle"><span class="toc-number">3.1.</span> <span class="toc-text">1. 新建项目（或已经有项目）并添加以下两句去Project 的 build.gradle </span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_u5728Library_u7684build-gradle_u4E2D_u4F9D_u6B21_u6DFB_u52A0_u5982_u4E0B_uFF1A"><span class="toc-number">3.2.</span> <span class="toc-text">2.在Library的build.gradle中依次添加如下：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u76F4_u63A5_u590D_u5236_u4E0A_u8FF0_u5185_u5BB9_u6DFB_u52A0_u5230_u4F60_u7684Library_u7684build-grale_u5C31_u53EF_u4EE5_u4E86_uFF0C_u7136_u540E_u4FEE_u6539_u6807_uFF01_uFF01_uFF01_u7684_u5730_u65B9"><span class="toc-number">3.3.</span> <span class="toc-text">直接复制上述内容添加到你的Library的build.grale就可以了，然后修改标！！！的地方</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E09_u6B65_uFF1A"><span class="toc-number">4.</span> <span class="toc-text">第三步：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u6253_u5F00_u9879_u76EE_u7684local-properties_u6DFB_u52A0_u5982_u4E0B_u4FE1_u606F"><span class="toc-number">4.1.</span> <span class="toc-text">打开项目的local.properties添加如下信息</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u56DB_u6B65_uFF1A"><span class="toc-number">5.</span> <span class="toc-text">第四步：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5728Android_stuodio_u7684Terminal_u7EC8_u7AEF_u4F9D_u6B21_u6267_u884C_u4EE5_u4E0B_u547D_u4EE4"><span class="toc-number">5.1.</span> <span class="toc-text">在Android stuodio的Terminal终端依次执行以下命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E94_u6B65_uFF1A"><span class="toc-number">6.</span> <span class="toc-text">第五步：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5F15_u7528Library"><span class="toc-number">6.1.</span> <span class="toc-text">引用Library</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="codingWang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>3</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android，View/" title="Android，View">Android，View<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m duwei . <br/>
+			This is my blog .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/codingWang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:du2035392@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="duwei">duwei</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wangduwei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
