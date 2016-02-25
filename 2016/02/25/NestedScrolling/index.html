@@ -1,0 +1,480 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>NestedScrolling | duwei&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="duwei">
+    
+
+    
+    <meta name="description" content="概述：前几天看到这样一个效果
+很想知道它的实现原理，于是看了一下源码，学到了一个新的东西：嵌套滑动背景在传统的View的事件分发机制中，事件一级一级的传递下去，直到被感兴趣的View拦截并消耗处理，如果所有的View都不拦截处理，那么最后一个View将会抛弃该事件。即：一个事件如果传给了子View那么父View将不可能再得到该事件。类：为了实现嵌套循环，5.0中提供了两个接口两个类：1234567">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NestedScrolling">
+<meta property="og:url" content="http://duwei.com/2016/02/25/NestedScrolling/index.html">
+<meta property="og:site_name" content="duwei's blog">
+<meta property="og:description" content="概述：前几天看到这样一个效果
+很想知道它的实现原理，于是看了一下源码，学到了一个新的东西：嵌套滑动背景在传统的View的事件分发机制中，事件一级一级的传递下去，直到被感兴趣的View拦截并消耗处理，如果所有的View都不拦截处理，那么最后一个View将会抛弃该事件。即：一个事件如果传给了子View那么父View将不可能再得到该事件。类：为了实现嵌套循环，5.0中提供了两个接口两个类：1234567">
+<meta property="og:image" content="http://7xqumq.com1.z0.glb.clouddn.com/duwei_nestedscroll.gif">
+<meta property="og:image" content="http://7xqumq.com1.z0.glb.clouddn.com/duwei_nestedScroll.png">
+<meta property="og:updated_time" content="2016-02-25T02:45:18.614Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NestedScrolling">
+<meta name="twitter:description" content="概述：前几天看到这样一个效果
+很想知道它的实现原理，于是看了一下源码，学到了一个新的东西：嵌套滑动背景在传统的View的事件分发机制中，事件一级一级的传递下去，直到被感兴趣的View拦截并消耗处理，如果所有的View都不拦截处理，那么最后一个View将会抛弃该事件。即：一个事件如果传给了子View那么父View将不可能再得到该事件。类：为了实现嵌套循环，5.0中提供了两个接口两个类：1234567">
+
+    
+    <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3492904c23dded877e5767fd9cd3e4da";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="duwei&#39;s blog">duwei&#39;s blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">文章</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:duwei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/25/NestedScrolling/" title="NestedScrolling" itemprop="url">NestedScrolling</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-25T01:39:04.000Z" itemprop="datePublished"> 发表于 2016-02-25</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6982_u8FF0_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">概述：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u524D_u51E0_u5929_u770B_u5230_u8FD9_u6837_u4E00_u4E2A_u6548_u679C"><span class="toc-number">1.1.</span> <span class="toc-text">前几天看到这样一个效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5F88_u60F3_u77E5_u9053_u5B83_u7684_u5B9E_u73B0_u539F_u7406_uFF0C_u4E8E_u662F_u770B_u4E86_u4E00_u4E0B_u6E90_u7801_uFF0C_u5B66_u5230_u4E86_u4E00_u4E2A_u65B0_u7684_u4E1C_u897F_uFF1A_u5D4C_u5957_u6ED1_u52A8"><span class="toc-number">1.2.</span> <span class="toc-text">很想知道它的实现原理，于是看了一下源码，学到了一个新的东西：嵌套滑动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u80CC_u666F"><span class="toc-number">2.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5728_u4F20_u7EDF_u7684View_u7684_u4E8B_u4EF6_u5206_u53D1_u673A_u5236_u4E2D_uFF0C_u4E8B_u4EF6_u4E00_u7EA7_u4E00_u7EA7_u7684_u4F20_u9012_u4E0B_u53BB_uFF0C_u76F4_u5230_u88AB_u611F_u5174_u8DA3_u7684View_u62E6_u622A_u5E76_u6D88_u8017_u5904_u7406_uFF0C_u5982_u679C_u6240_u6709_u7684View_u90FD_u4E0D_u62E6_u622A_u5904_u7406_uFF0C_u90A3_u4E48_u6700_u540E_u4E00_u4E2AView_u5C06_u4F1A_u629B_u5F03_u8BE5_u4E8B_u4EF6_u3002_u5373_uFF1A_u4E00_u4E2A_u4E8B_u4EF6_u5982_u679C_u4F20_u7ED9_u4E86_u5B50View_u90A3_u4E48_u7236View_u5C06_u4E0D_u53EF_u80FD_u518D_u5F97_u5230_u8BE5_u4E8B_u4EF6_u3002"><span class="toc-number">2.1.</span> <span class="toc-text">在传统的View的事件分发机制中，事件一级一级的传递下去，直到被感兴趣的View拦截并消耗处理，如果所有的View都不拦截处理，那么最后一个View将会抛弃该事件。即：一个事件如果传给了子View那么父View将不可能再得到该事件。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7C7B_uFF1A"><span class="toc-number">3.</span> <span class="toc-text">类：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E3A_u4E86_u5B9E_u73B0_u5D4C_u5957_u5FAA_u73AF_uFF0C5-0_u4E2D_u63D0_u4F9B_u4E86_u4E24_u4E2A_u63A5_u53E3_u4E24_u4E2A_u7C7B_uFF1A"><span class="toc-number">3.1.</span> <span class="toc-text">为了实现嵌套循环，5.0中提供了两个接口两个类：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E3B_u8981_u65B9_u6CD5"><span class="toc-number">4.</span> <span class="toc-text">主要方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u51FD_u6570_u7684_u56DE_u8C03_u5173_u7CFB_u5982_u4E0B_uFF1A"><span class="toc-number">5.</span> <span class="toc-text">函数的回调关系如下：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5DE6_u8FB9_u7684_u5B50View_u56DE_u8C03_u53F3_u8FB9_u7684_u7236View_u7684_u65B9_u6CD5"><span class="toc-number">5.1.</span> <span class="toc-text">左边的子View回调右边的父View的方法</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="u6982_u8FF0_uFF1A"><a href="#u6982_u8FF0_uFF1A" class="headerlink" title="概述："></a>概述：</h2><h3 id="u524D_u51E0_u5929_u770B_u5230_u8FD9_u6837_u4E00_u4E2A_u6548_u679C"><a href="#u524D_u51E0_u5929_u770B_u5230_u8FD9_u6837_u4E00_u4E2A_u6548_u679C" class="headerlink" title="前几天看到这样一个效果"></a>前几天看到这样一个效果</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_nestedscroll.gif" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_nestedscroll.gif"></p>
+<h3 id="u5F88_u60F3_u77E5_u9053_u5B83_u7684_u5B9E_u73B0_u539F_u7406_uFF0C_u4E8E_u662F_u770B_u4E86_u4E00_u4E0B_u6E90_u7801_uFF0C_u5B66_u5230_u4E86_u4E00_u4E2A_u65B0_u7684_u4E1C_u897F_uFF1A_u5D4C_u5957_u6ED1_u52A8"><a href="#u5F88_u60F3_u77E5_u9053_u5B83_u7684_u5B9E_u73B0_u539F_u7406_uFF0C_u4E8E_u662F_u770B_u4E86_u4E00_u4E0B_u6E90_u7801_uFF0C_u5B66_u5230_u4E86_u4E00_u4E2A_u65B0_u7684_u4E1C_u897F_uFF1A_u5D4C_u5957_u6ED1_u52A8" class="headerlink" title="很想知道它的实现原理，于是看了一下源码，学到了一个新的东西：嵌套滑动"></a>很想知道它的实现原理，于是看了一下源码，学到了一个新的东西：嵌套滑动</h3><h2 id="u80CC_u666F"><a href="#u80CC_u666F" class="headerlink" title="背景"></a>背景</h2><h3 id="u5728_u4F20_u7EDF_u7684View_u7684_u4E8B_u4EF6_u5206_u53D1_u673A_u5236_u4E2D_uFF0C_u4E8B_u4EF6_u4E00_u7EA7_u4E00_u7EA7_u7684_u4F20_u9012_u4E0B_u53BB_uFF0C_u76F4_u5230_u88AB_u611F_u5174_u8DA3_u7684View_u62E6_u622A_u5E76_u6D88_u8017_u5904_u7406_uFF0C_u5982_u679C_u6240_u6709_u7684View_u90FD_u4E0D_u62E6_u622A_u5904_u7406_uFF0C_u90A3_u4E48_u6700_u540E_u4E00_u4E2AView_u5C06_u4F1A_u629B_u5F03_u8BE5_u4E8B_u4EF6_u3002_u5373_uFF1A_u4E00_u4E2A_u4E8B_u4EF6_u5982_u679C_u4F20_u7ED9_u4E86_u5B50View_u90A3_u4E48_u7236View_u5C06_u4E0D_u53EF_u80FD_u518D_u5F97_u5230_u8BE5_u4E8B_u4EF6_u3002"><a href="#u5728_u4F20_u7EDF_u7684View_u7684_u4E8B_u4EF6_u5206_u53D1_u673A_u5236_u4E2D_uFF0C_u4E8B_u4EF6_u4E00_u7EA7_u4E00_u7EA7_u7684_u4F20_u9012_u4E0B_u53BB_uFF0C_u76F4_u5230_u88AB_u611F_u5174_u8DA3_u7684View_u62E6_u622A_u5E76_u6D88_u8017_u5904_u7406_uFF0C_u5982_u679C_u6240_u6709_u7684View_u90FD_u4E0D_u62E6_u622A_u5904_u7406_uFF0C_u90A3_u4E48_u6700_u540E_u4E00_u4E2AView_u5C06_u4F1A_u629B_u5F03_u8BE5_u4E8B_u4EF6_u3002_u5373_uFF1A_u4E00_u4E2A_u4E8B_u4EF6_u5982_u679C_u4F20_u7ED9_u4E86_u5B50View_u90A3_u4E48_u7236View_u5C06_u4E0D_u53EF_u80FD_u518D_u5F97_u5230_u8BE5_u4E8B_u4EF6_u3002" class="headerlink" title="在传统的View的事件分发机制中，事件一级一级的传递下去，直到被感兴趣的View拦截并消耗处理，如果所有的View都不拦截处理，那么最后一个View将会抛弃该事件。即：一个事件如果传给了子View那么父View将不可能再得到该事件。"></a>在传统的View的事件分发机制中，事件一级一级的传递下去，直到被感兴趣的View拦截并消耗处理，如果所有的View都不拦截处理，那么最后一个View将会抛弃该事件。即：<strong>一个事件如果传给了子View那么父View将不可能再得到该事件。</strong></h3><h2 id="u7C7B_uFF1A"><a href="#u7C7B_uFF1A" class="headerlink" title="类："></a>类：</h2><h3 id="u4E3A_u4E86_u5B9E_u73B0_u5D4C_u5957_u5FAA_u73AF_uFF0C5-0_u4E2D_u63D0_u4F9B_u4E86_u4E24_u4E2A_u63A5_u53E3_u4E24_u4E2A_u7C7B_uFF1A"><a href="#u4E3A_u4E86_u5B9E_u73B0_u5D4C_u5957_u5FAA_u73AF_uFF0C5-0_u4E2D_u63D0_u4F9B_u4E86_u4E24_u4E2A_u63A5_u53E3_u4E24_u4E2A_u7C7B_uFF1A" class="headerlink" title="为了实现嵌套循环，5.0中提供了两个接口两个类："></a>为了实现嵌套循环，5.0中提供了两个接口两个类：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//子View需实现的接口</span></span><br><span class="line">NestedScrollingChild</span><br><span class="line"></span><br><span class="line"><span class="comment">//父View实现的接口</span></span><br><span class="line">NestedScrollingParent</span><br><span class="line"></span><br><span class="line"><span class="comment">//子View的帮助类</span></span><br><span class="line">NestedScrollingChildHelper</span><br><span class="line"></span><br><span class="line"><span class="comment">//父View 的帮助类</span></span><br><span class="line">NestedScrollingParentHelper</span><br></pre></td></tr></table></figure>
+<h2 id="u4E3B_u8981_u65B9_u6CD5"><a href="#u4E3B_u8981_u65B9_u6CD5" class="headerlink" title="主要方法"></a>主要方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">     * <span class="doctag">@param</span> 水平滚动的像素值</span><br><span class="line">     * <span class="doctag">@param</span> 垂直滚动的距离像素值</span><br><span class="line">     * <span class="doctag">@param</span>  consumed[0] ：dx消耗掉的部分</span><br><span class="line">     *                  consumed[1] dy消费的部分</span><br><span class="line">     * <span class="doctag">@param</span> offsetInWindow Optional. If not null, on return this will contain the offset</span><br><span class="line">     *                       in local view coordinates of this view from before this operation</span><br><span class="line">     *                       to after it completes. View implementations may use this to adjust</span><br><span class="line">     *                       expected input coordinate tracking.</span><br><span class="line">     * <span class="doctag">@return</span> 如果父view消费了一些或全部，则返回true</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchNestedPreScroll</span><span class="params">(<span class="keyword">int</span> dx, <span class="keyword">int</span> dy, <span class="keyword">int</span>[] consumed, <span class="keyword">int</span>[] offsetInWindow)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (event.getAction()) &#123;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</span><br><span class="line">                ox = event.getX();</span><br><span class="line">                oy = event.getY();</span><br><span class="line">                <span class="comment">//开始滑动！！！！！！！！！！</span></span><br><span class="line">                startNestedScroll(ViewCompat.SCROLL_AXIS_HORIZONTAL | ViewCompat.SCROLL_AXIS_VERTICAL);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_MOVE:<span class="comment">//在MOVE中</span></span><br><span class="line">                <span class="comment">//结束点</span></span><br><span class="line">                <span class="keyword">float</span> clampedX = event.getX();</span><br><span class="line">                <span class="keyword">float</span> clampedY = event.getY();</span><br><span class="line">                <span class="comment">//移动的距离</span></span><br><span class="line">                <span class="keyword">int</span> dx = (<span class="keyword">int</span>) (clampedX - ox);</span><br><span class="line">                <span class="keyword">int</span> dy = (<span class="keyword">int</span>) (clampedY - oy);</span><br><span class="line">                <span class="comment">//分发触屏事件给父类处理</span></span><br><span class="line">                <span class="keyword">if</span> (dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow)) &#123;</span><br><span class="line">                    <span class="comment">//减掉父类消耗的距离</span></span><br><span class="line">                    dx -= consumed[<span class="number">0</span>];<span class="comment">//consumed[0] will contain the consumed component of dx</span></span><br><span class="line">                    dy -= consumed[<span class="number">1</span>];<span class="comment">//consumed[1] the consumed dy</span></span><br><span class="line">                &#125;</span><br><span class="line">                offsetLeftAndRight(dx);<span class="comment">//Offset this view's horizontal location by the specified amount of pixels</span></span><br><span class="line">                offsetTopAndBottom(dy);<span class="comment">//通过指定像素来弥补控件的垂直位置</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_UP:</span><br><span class="line">                stopNestedScroll();<span class="comment">//结束滑动！！！！！！！！</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;<span class="comment">/*super.onTouchEvent(event);*/</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">  *子类滑动事件分发回调</span><br><span class="line">  * <span class="doctag">@param</span> target View that initiated the nested scroll</span><br><span class="line">  * <span class="doctag">@param</span> dx Horizontal scroll distance in pixels</span><br><span class="line">  * <span class="doctag">@param</span> dy Vertical scroll distance in pixels</span><br><span class="line">  * <span class="doctag">@param</span> consumed Output. The horizontal and vertical scroll distance consumed by this parent</span><br><span class="line">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNestedPreScroll</span><span class="params">(View target, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy, <span class="keyword">int</span>[] consumed)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//子类滑动事件分发回调dispatchNestedPreScroll</span></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNestedPreScroll</span><span class="params">(View target, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy, <span class="keyword">int</span>[] consumed)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (dx &gt; <span class="number">0</span>) &#123;<span class="comment">//水平滚动距离大于0</span></span><br><span class="line">            <span class="keyword">if</span> (target.getRight() + dx &gt; getWidth()) &#123;<span class="comment">//子View右边+移动的距离越界了（父View）</span></span><br><span class="line">                dx = target.getRight() + dx - getWidth();<span class="comment">//越界这么多</span></span><br><span class="line">                offsetLeftAndRight(dx);<span class="comment">//父View偏移这么多</span></span><br><span class="line">                consumed[<span class="number">0</span>] += dx;   <span class="comment">//将消耗掉的距离返回给子类</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;<span class="comment">//水平滚动距离&lt;0</span></span><br><span class="line">            <span class="keyword">if</span> (target.getLeft() + dx &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                dx = target.getLeft() + dx;</span><br><span class="line">                offsetLeftAndRight(dx);</span><br><span class="line">                consumed[<span class="number">0</span>] += dx;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (dy &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (target.getBottom() + dy &gt; getHeight()) &#123;</span><br><span class="line">                dy = target.getBottom() +dy- getHeight();</span><br><span class="line">                offsetTopAndBottom(dy);</span><br><span class="line">                consumed[<span class="number">1</span>] += dy;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (target.getTop() + dy &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                dy = target.getTop() + dy;</span><br><span class="line">                offsetTopAndBottom(dy);</span><br><span class="line">                consumed[<span class="number">1</span>] += dy;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u51FD_u6570_u7684_u56DE_u8C03_u5173_u7CFB_u5982_u4E0B_uFF1A"><a href="#u51FD_u6570_u7684_u56DE_u8C03_u5173_u7CFB_u5982_u4E0B_uFF1A" class="headerlink" title="函数的回调关系如下："></a>函数的回调关系如下：</h2><h3 id="u5DE6_u8FB9_u7684_u5B50View_u56DE_u8C03_u53F3_u8FB9_u7684_u7236View_u7684_u65B9_u6CD5"><a href="#u5DE6_u8FB9_u7684_u5B50View_u56DE_u8C03_u53F3_u8FB9_u7684_u7236View_u7684_u65B9_u6CD5" class="headerlink" title="左边的子View回调右边的父View的方法"></a>左边的子View回调右边的父View的方法</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_nestedScroll.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_nestedScroll.png"></p>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://duwei.com/2016/02/25/NestedScrolling/" data-title="NestedScrolling | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/02/20/How-to-release-a-library-to-jcenter/"  title="How to release a library to jcenter">
+ <strong>下一篇：</strong><br/> 
+ <span>How to release a library to jcenter
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/02/25/NestedScrolling/" data-title="NestedScrolling" data-url="http://duwei.com/2016/02/25/NestedScrolling/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6982_u8FF0_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">概述：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u524D_u51E0_u5929_u770B_u5230_u8FD9_u6837_u4E00_u4E2A_u6548_u679C"><span class="toc-number">1.1.</span> <span class="toc-text">前几天看到这样一个效果</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5F88_u60F3_u77E5_u9053_u5B83_u7684_u5B9E_u73B0_u539F_u7406_uFF0C_u4E8E_u662F_u770B_u4E86_u4E00_u4E0B_u6E90_u7801_uFF0C_u5B66_u5230_u4E86_u4E00_u4E2A_u65B0_u7684_u4E1C_u897F_uFF1A_u5D4C_u5957_u6ED1_u52A8"><span class="toc-number">1.2.</span> <span class="toc-text">很想知道它的实现原理，于是看了一下源码，学到了一个新的东西：嵌套滑动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u80CC_u666F"><span class="toc-number">2.</span> <span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5728_u4F20_u7EDF_u7684View_u7684_u4E8B_u4EF6_u5206_u53D1_u673A_u5236_u4E2D_uFF0C_u4E8B_u4EF6_u4E00_u7EA7_u4E00_u7EA7_u7684_u4F20_u9012_u4E0B_u53BB_uFF0C_u76F4_u5230_u88AB_u611F_u5174_u8DA3_u7684View_u62E6_u622A_u5E76_u6D88_u8017_u5904_u7406_uFF0C_u5982_u679C_u6240_u6709_u7684View_u90FD_u4E0D_u62E6_u622A_u5904_u7406_uFF0C_u90A3_u4E48_u6700_u540E_u4E00_u4E2AView_u5C06_u4F1A_u629B_u5F03_u8BE5_u4E8B_u4EF6_u3002_u5373_uFF1A_u4E00_u4E2A_u4E8B_u4EF6_u5982_u679C_u4F20_u7ED9_u4E86_u5B50View_u90A3_u4E48_u7236View_u5C06_u4E0D_u53EF_u80FD_u518D_u5F97_u5230_u8BE5_u4E8B_u4EF6_u3002"><span class="toc-number">2.1.</span> <span class="toc-text">在传统的View的事件分发机制中，事件一级一级的传递下去，直到被感兴趣的View拦截并消耗处理，如果所有的View都不拦截处理，那么最后一个View将会抛弃该事件。即：一个事件如果传给了子View那么父View将不可能再得到该事件。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7C7B_uFF1A"><span class="toc-number">3.</span> <span class="toc-text">类：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E3A_u4E86_u5B9E_u73B0_u5D4C_u5957_u5FAA_u73AF_uFF0C5-0_u4E2D_u63D0_u4F9B_u4E86_u4E24_u4E2A_u63A5_u53E3_u4E24_u4E2A_u7C7B_uFF1A"><span class="toc-number">3.1.</span> <span class="toc-text">为了实现嵌套循环，5.0中提供了两个接口两个类：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E3B_u8981_u65B9_u6CD5"><span class="toc-number">4.</span> <span class="toc-text">主要方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u51FD_u6570_u7684_u56DE_u8C03_u5173_u7CFB_u5982_u4E0B_uFF1A"><span class="toc-number">5.</span> <span class="toc-text">函数的回调关系如下：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u5DE6_u8FB9_u7684_u5B50View_u56DE_u8C03_u53F3_u8FB9_u7684_u7236View_u7684_u65B9_u6CD5"><span class="toc-number">5.1.</span> <span class="toc-text">左边的子View回调右边的父View的方法</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="codingWang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>4</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android，View/" title="Android，View">Android，View<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m duwei . <br/>
+			This is my blog .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/codingWang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:du2035392@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="duwei">duwei</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wangduwei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
