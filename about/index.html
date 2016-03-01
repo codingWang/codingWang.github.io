@@ -1,26 +1,27 @@
 
- <!DOCTYPE HTML>
+  
+    <!DOCTYPE HTML>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
   
-    <title>a standard onMeasure method | duwei&#39;s blog</title>
+    <title>duwei&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="duwei">
     
 
     
-    <meta name="description" content="在Android自定义View中，一个标准的onMeasure()方法。1@Override&amp;#10;   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &amp;#123;&amp;#10;       super.onMeasure(widthMeasureSpec, heightMeasureSpec);&amp;#10;">
-<meta property="og:type" content="article">
-<meta property="og:title" content="a standard onMeasure method">
-<meta property="og:url" content="http://duwei.com/2016/02/11/a-standard-onMeasure-method/index.html">
+    <meta name="description" content="王杜伟Android developeremail: du2035392@gmail.coomINFORMATION -个人简介：Born in Shanxi Province -China 1993EDUCATION-教育经历：2013.9  —  now        WuyiUniversity - JiangMen - GuangDong - ChinaWORK HISTORY-工作经历：">
+<meta property="og:type" content="website">
+<meta property="og:title" content="duwei's blog">
+<meta property="og:url" content="http://duwei.com/about/index.html">
 <meta property="og:site_name" content="duwei's blog">
-<meta property="og:description" content="在Android自定义View中，一个标准的onMeasure()方法。1@Override&amp;#10;   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &amp;#123;&amp;#10;       super.onMeasure(widthMeasureSpec, heightMeasureSpec);&amp;#10;">
-<meta property="og:updated_time" content="2016-02-11T08:22:46.012Z">
+<meta property="og:description" content="王杜伟Android developeremail: du2035392@gmail.coomINFORMATION -个人简介：Born in Shanxi Province -China 1993EDUCATION-教育经历：2013.9  —  now        WuyiUniversity - JiangMen - GuangDong - ChinaWORK HISTORY-工作经历：">
+<meta property="og:updated_time" content="2016-03-01T03:13:35.046Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="a standard onMeasure method">
-<meta name="twitter:description" content="在Android自定义View中，一个标准的onMeasure()方法。1@Override&amp;#10;   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &amp;#123;&amp;#10;       super.onMeasure(widthMeasureSpec, heightMeasureSpec);&amp;#10;">
+<meta name="twitter:title" content="duwei's blog">
+<meta name="twitter:description" content="王杜伟Android developeremail: du2035392@gmail.coomINFORMATION -个人简介：Born in Shanxi Province -China 1993EDUCATION-教育经历：2013.9  —  now        WuyiUniversity - JiangMen - GuangDong - ChinaWORK HISTORY-工作经历：">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -46,9 +47,9 @@ var _hmt = _hmt || [];
 
 </head>
 
-  <body>
-    <header>
-      
+      <body>
+        <header>
+          
 <div>
 		
 			<div id="textlogo">
@@ -79,45 +80,44 @@ var _hmt = _hmt || [];
 				</ul>
 			</nav>			
 </div>
-    </header>
-    <div id="container">
-      <div id="main" class="post" itemscope itemprop="blogPost">
+        </header>
+        <div id="container">
+          <div id="main" class="page" itemscope itemprop="blogPost">
   
 	<article itemprop="articleBody"> 
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/02/11/a-standard-onMeasure-method/" title="a standard onMeasure method" itemprop="url">a standard onMeasure method</a>
+      <a href="/about/index.html" title="" itemprop="url"></a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-11T08:04:00.000Z" itemprop="datePublished"> 发表于 2016-02-11</time>
+    <time datetime="2016-03-01T03:13:35.046Z" itemprop="datePublished"> 发表于 2016-03-01</time>
     
   </p>
 </header>
 	<div class="article-content">
 		
-		<div id="toc" class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002"><span class="toc-number">1.</span> <span class="toc-text">在Android自定义View中，一个标准的onMeasure()方法。</span></a></li></ol>
-		
-		</div>
-		
-		<h2 id="u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002"><a href="#u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002" class="headerlink" title="在Android自定义View中，一个标准的onMeasure()方法。"></a>在Android自定义View中，一个标准的onMeasure()方法。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Override&#10;   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;&#10;       super.onMeasure(widthMeasureSpec, heightMeasureSpec);&#10;       int viewWidth = circleRadius /*&#40664;&#35748;size*/+ this.getPaddingLeft() + this.getPaddingRight();&#10;       int viewHeight = circleRadius + this.getPaddingTop() + this.getPaddingBottom();&#10;       int widthMode = MeasureSpec.getMode(widthMeasureSpec);//&#33719;&#21462;&#23485;&#24230;&#30340;&#27169;&#24335;&#10;       int widthSize = MeasureSpec.getSize(widthMeasureSpec);//&#33719;&#21462;&#23485;&#24230;&#30340;&#23610;&#23544;&#10;       int heightMode = MeasureSpec.getMode(heightMeasureSpec);//&#39640;&#24230;&#30340;&#27169;&#24335;&#10;       int heightSize = MeasureSpec.getSize(heightMeasureSpec);//&#39640;&#31471;&#30340;&#23610;&#23544;&#10;       int width;&#10;       int height;&#10;       //Measure Width&#10;       if (widthMode == MeasureSpec.EXACTLY) &#123;//&#25351;&#23450;&#20102;&#30830;&#23450;&#30340;&#23610;&#23544;&#65306;100dp,match_parent&#10;           //Must be this size&#10;           width = widthSize;&#10;       &#125; else if (widthMode == MeasureSpec.AT_MOST) &#123;//wrap_content&#31867;&#22411;&#10;           //Can&#39;t be bigger than...&#10;           width = Math.min(viewWidth, widthSize);&#10;       &#125; else &#123;&#10;           //Be whatever you want&#10;           width = viewWidth;&#10;       &#125;&#10;       //Measure Height&#10;       if (heightMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.EXACTLY) &#123;&#10;           //Must be this size&#10;           height = heightSize;&#10;       &#125; else if (heightMode == MeasureSpec.AT_MOST) &#123;&#10;           //Can&#39;t be bigger than...&#10;           height = Math.min(viewHeight, heightSize);&#10;       &#125; else &#123;&#10;           //Be whatever you want&#10;           height = viewHeight;&#10;       &#125;&#10;       setMeasuredDimension(width, height);&#10;   &#125;</span><br></pre></td></tr></table></figure>
-  
+		<h2 id="u738B_u675C_u4F1F"><a href="#u738B_u675C_u4F1F" class="headerlink" title="王杜伟"></a>王杜伟</h2><h3 id="Android_developer"><a href="#Android_developer" class="headerlink" title="Android developer"></a>Android developer</h3><h3 id="email_3A_du2035392@gmail-coom"><a href="#email_3A_du2035392@gmail-coom" class="headerlink" title="email: du2035392@gmail.coom"></a>email: du2035392@gmail.coom</h3><h2 id="INFORMATION_-_u4E2A_u4EBA_u7B80_u4ECB_uFF1A"><a href="#INFORMATION_-_u4E2A_u4EBA_u7B80_u4ECB_uFF1A" class="headerlink" title="INFORMATION -个人简介："></a>INFORMATION -个人简介：</h2><h3 id="Born_in_Shanxi_Province_-China_1993"><a href="#Born_in_Shanxi_Province_-China_1993" class="headerlink" title="Born in Shanxi Province -China 1993"></a>Born in Shanxi Province -China 1993</h3><h2 id="EDUCATION-_u6559_u80B2_u7ECF_u5386_uFF1A"><a href="#EDUCATION-_u6559_u80B2_u7ECF_u5386_uFF1A" class="headerlink" title="EDUCATION-教育经历："></a>EDUCATION-教育经历：</h2><h3 id="2013-9__u2014_now_WuyiUniversity_-_JiangMen_-_GuangDong_-_China"><a href="#2013-9__u2014_now_WuyiUniversity_-_JiangMen_-_GuangDong_-_China" class="headerlink" title="2013.9  —  now        WuyiUniversity - JiangMen - GuangDong - China"></a>2013.9  —  now        WuyiUniversity - JiangMen - GuangDong - China</h3><h2 id="WORK_HISTORY-_u5DE5_u4F5C_u7ECF_u5386_uFF1A"><a href="#WORK_HISTORY-_u5DE5_u4F5C_u7ECF_u5386_uFF1A" class="headerlink" title="WORK HISTORY-工作经历："></a>WORK HISTORY-工作经历：</h2><h3 id="no_works__7E_7E"><a href="#no_works__7E_7E" class="headerlink" title="no works ~~"></a>no works ~~</h3><h2 id="PROJECTS_EXPERIENCE-_u9879_u76EE_u7ECF_u9A8C_uFF1A"><a href="#PROJECTS_EXPERIENCE-_u9879_u76EE_u7ECF_u9A8C_uFF1A" class="headerlink" title="PROJECTS EXPERIENCE-项目经验："></a>PROJECTS EXPERIENCE-项目经验：</h2><h3 id="1_u3001File_Manag_System_For_JiangMen-Overseas-Chinese-Middle-School__28_2015-03_-_2015-04__29"><a href="#1_u3001File_Manag_System_For_JiangMen-Overseas-Chinese-Middle-School__28_2015-03_-_2015-04__29" class="headerlink" title="1、File Manag System For JiangMen-Overseas-Chinese-Middle-School  ( 2015.03 - 2015.04 )"></a>1、File Manag System For JiangMen-Overseas-Chinese-Middle-School  ( 2015.03 - 2015.04 )</h3><h3 id="Functions_3A"><a href="#Functions_3A" class="headerlink" title="Functions:"></a>Functions:</h3><ul>
+<li>The two-dimensional code scanning</li>
+<li>Network requests</li>
+<li>File download and management</li>
+<li>File query and so on…</li>
+</ul>
+<h3 id="2_u3001_u9AD8_u6821Plus__28_2015-07_-_2015-09__29"><a href="#2_u3001_u9AD8_u6821Plus__28_2015-07_-_2015-09__29" class="headerlink" title="2、高校Plus ( 2015.07 - 2015.09 )"></a>2、高校Plus ( 2015.07 - 2015.09 )</h3><h3 id="A_comprehensive_campus_service_platform"><a href="#A_comprehensive_campus_service_platform" class="headerlink" title="A comprehensive campus service platform"></a>A comprehensive campus service platform</h3><h3 id="functions_3A"><a href="#functions_3A" class="headerlink" title="functions:"></a>functions:</h3><ul>
+<li>The basic information query(empty classroom,scores,course table…)</li>
+<li>The publishing and registration module for part-time jobs</li>
+<li>Volunteer for the school student</li>
+<li>Latest school-news</li>
+</ul>
+<h2 id="SKILLS-_u6280_u80FD_uFF1A"><a href="#SKILLS-_u6280_u80FD_uFF1A" class="headerlink" title="SKILLS-技能："></a>SKILLS-技能：</h2><h3 id="Android_-_-_-__28skilled_29"><a href="#Android_-_-_-__28skilled_29" class="headerlink" title="Android      - - - (skilled)"></a>Android      - - - (skilled)</h3><h3 id="JAVA_-_-_-__28common_29"><a href="#JAVA_-_-_-__28common_29" class="headerlink" title="JAVA     - - - (common)"></a>JAVA     - - - (common)</h3><h3 id="PHP_-_-_-__28common_29"><a href="#PHP_-_-_-__28common_29" class="headerlink" title="PHP     - - - (common)"></a>PHP     - - - (common)</h3>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android，View/">Android，View</a>
-  </div>
 
 </div>
 
@@ -125,7 +125,7 @@ var _hmt = _hmt || [];
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://duwei.com/2016/02/11/a-standard-onMeasure-method/" data-title="a standard onMeasure method | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://duwei.com/about/index.html" data-title="duwei&#39;s blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -136,102 +136,15 @@ var _hmt = _hmt || [];
    	       
 	</article>
 	
-<nav class="article-nav clearfix">
- 
- <div class="prev" >
- <a href="/2016/02/12/how-annotation-works/" title="how annotation works">
-  <strong>上一篇：</strong><br/>
-  <span>
-  how annotation works</span>
-</a>
-</div>
-
-
-<div class="next">
-<a href="/2016/02/10/A-collection-of-RxJava-resource/"  title="A collection of RxJava resource">
- <strong>下一篇：</strong><br/> 
- <span>A collection of RxJava resource
-</span>
-</a>
-</div>
-
-</nav>
-
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/02/11/a-standard-onMeasure-method/" data-title="a standard onMeasure method" data-url="http://duwei.com/2016/02/11/a-standard-onMeasure-method/"></div>
+	<div class="ds-thread" data-thread-key="about/index.html" data-title="" data-url="http://duwei.com/about/index.html"></div>
 </section>
 
 
 </div>  
-      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
-
-  <div id="toc" class="toc-aside">
-  <strong class="toc-title">文章目录</strong>
- 
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002"><span class="toc-number">1.</span> <span class="toc-text">在Android自定义View中，一个标准的onMeasure()方法。</span></a></li></ol>
- 
-  </div>
-
-<div id="asidepart">
-<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
-<aside class="clearfix">
-
-  
-<div class="github-card">
-<p class="asidetitle">Github 名片</p>
-<div class="github-card" data-github="codingWang" data-width="220" data-height="119" data-theme="medium">
-<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
-</div>
-  </div>
-
-
-
-  
-
-  
-<div class="tagslist">
-	<p class="asidetitle">标签</p>
-		<ul class="clearfix">
-		
-			
-				<li><a href="/tags/Android/" title="Android">Android<sup>5</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Java/" title="Java">Java<sup>2</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Android，View/" title="Android，View">Android，View<sup>1</sup></a></li>
-			
-		
-		</ul>
-</div>
-
-
-  <div class="linkslist">
-  <p class="asidetitle">友情链接</p>
-    <ul>
-        
-    </ul>
-</div>
-
-  
-
-
-  <div class="rsspart">
-	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
-</div>
-
-</aside>
-</div>
-    </div>
-    <footer><div id="footer" >
+        </div>
+        <footer><div id="footer" >
 	
 	
 	<section class="info">
@@ -267,7 +180,7 @@ var _hmt = _hmt || [];
 		</p>
 </div>
 </footer>
-    <script src="/js/jquery-2.0.3.min.js"></script>
+        <script src="/js/jquery-2.0.3.min.js"></script>
 <script src="/js/jquery.imagesloaded.min.js"></script>
 <script src="/js/gallery.js"></script>
 <script src="/js/jquery.qrcode-0.12.0.min.js"></script>
@@ -311,36 +224,8 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
-      
-      $('#toc.toc-aside').css('display', 'none');
         
     }
-  });
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){ 
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  c.click(function(){
-    ta.css('display', 'block').addClass('fadeIn');
-  });
-  o.click(function(){
-    ta.css('display', 'none');
-  });
-  $(window).scroll(function(){
-    ta.css("top",Math.max(140,320-$(this).scrollTop()));
   });
 });
 </script>
@@ -475,5 +360,6 @@ var _hmt = _hmt || [];
 
 <!-- Tiny_search End -->
 
-  </body>
-</html>
+      </body>
+     </html>
+     
