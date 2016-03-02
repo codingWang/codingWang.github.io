@@ -1,0 +1,487 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>ViewDragHelper | duwei&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="duwei">
+    
+
+    
+    <meta name="description" content="概述：本文记录：
+ViewDragHelper的基本介绍和使用（初稿）
+
+1、What is ViewDragHelper ?ViewDragHelper is a utility class for writing custom ViewGroups. It offers a number of useful operations and state tracking for allowing">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ViewDragHelper">
+<meta property="og:url" content="http://duwei.com/2016/03/02/ViewDragHelper/index.html">
+<meta property="og:site_name" content="duwei's blog">
+<meta property="og:description" content="概述：本文记录：
+ViewDragHelper的基本介绍和使用（初稿）
+
+1、What is ViewDragHelper ?ViewDragHelper is a utility class for writing custom ViewGroups. It offers a number of useful operations and state tracking for allowing">
+<meta property="og:image" content="http://7xqumq.com1.z0.glb.clouddn.com/duwei_viewdraghelper.png">
+<meta property="og:updated_time" content="2016-03-02T13:46:53.147Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ViewDragHelper">
+<meta name="twitter:description" content="概述：本文记录：
+ViewDragHelper的基本介绍和使用（初稿）
+
+1、What is ViewDragHelper ?ViewDragHelper is a utility class for writing custom ViewGroups. It offers a number of useful operations and state tracking for allowing">
+
+    
+    <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3492904c23dded877e5767fd9cd3e4da";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="duwei&#39;s blog">duwei&#39;s blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">文章</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:duwei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/02/ViewDragHelper/" title="ViewDragHelper" itemprop="url">ViewDragHelper</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-02T13:05:14.000Z" itemprop="datePublished"> 发表于 2016-03-02</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6982_u8FF0_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">概述：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u672C_u6587_u8BB0_u5F55_uFF1A"><span class="toc-number">1.1.</span> <span class="toc-text">本文记录：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001What_is_ViewDragHelper__3F"><span class="toc-number">1.2.</span> <span class="toc-text">1、What is ViewDragHelper ?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ViewDragHelper_is_a_utility_class_for_writing_custom_ViewGroups-_It_offers_a_number_of_useful_operations_and_state_tracking_for_allowing_a_user_to_drag_and_reposition_views_within_their_parent_ViewGroup"><span class="toc-number">1.2.1.</span> <span class="toc-text">ViewDragHelper is a utility class for writing custom ViewGroups. It offers a number of useful operations and state tracking for allowing a user to drag and reposition views within their parent ViewGroup.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ViewDragHelper_u662F_u4E00_u4E2A_u5199_u81EA_u5B9A_u4E49ViewGroup_u7684_u5DE5_u5177_u7C7B_uFF0C_u5B83_u63D0_u4F9B_u4E86_u4E00_u4E9B_u6709_u7528_u7684_u64CD_u4F5C_u548C_u72B6_u6001_u8DDF_u8E2A_u6765_u8BA9_u7528_u6237_u5BF9View_u5728_u5176_u7236_u5BB9_u5668_u4E2D_u8FDB_u884C_u62D6_u62FD_u548C_u91CD_u65B0_u6446_u653E_u3002"><span class="toc-number">1.2.2.</span> <span class="toc-text">ViewDragHelper是一个写自定义ViewGroup的工具类，它提供了一些有用的操作和状态跟踪来让用户对View在其父容器中进行拖拽和重新摆放。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2_u3001How_to_create_it__3F"><span class="toc-number">1.3.</span> <span class="toc-text">2、How to create it ?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3_u3001Important_Callback"><span class="toc-number">1.4.</span> <span class="toc-text">3、Important Callback</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="u6982_u8FF0_uFF1A"><a href="#u6982_u8FF0_uFF1A" class="headerlink" title="概述："></a>概述：</h2><h3 id="u672C_u6587_u8BB0_u5F55_uFF1A"><a href="#u672C_u6587_u8BB0_u5F55_uFF1A" class="headerlink" title="本文记录："></a>本文记录：</h3><ul>
+<li>ViewDragHelper的基本介绍和使用（初稿）</li>
+</ul>
+<h3 id="1_u3001What_is_ViewDragHelper__3F"><a href="#1_u3001What_is_ViewDragHelper__3F" class="headerlink" title="1、What is ViewDragHelper ?"></a>1、What is ViewDragHelper ?</h3><h4 id="ViewDragHelper_is_a_utility_class_for_writing_custom_ViewGroups-_It_offers_a_number_of_useful_operations_and_state_tracking_for_allowing_a_user_to_drag_and_reposition_views_within_their_parent_ViewGroup"><a href="#ViewDragHelper_is_a_utility_class_for_writing_custom_ViewGroups-_It_offers_a_number_of_useful_operations_and_state_tracking_for_allowing_a_user_to_drag_and_reposition_views_within_their_parent_ViewGroup" class="headerlink" title="ViewDragHelper is a utility class for writing custom ViewGroups. It offers a number of useful operations and state tracking for allowing a user to drag and reposition views within their parent ViewGroup."></a>ViewDragHelper is a utility class for writing custom ViewGroups. It offers a number of useful operations and state tracking for allowing a user to drag and reposition views within their parent ViewGroup.</h4><h4 id="ViewDragHelper_u662F_u4E00_u4E2A_u5199_u81EA_u5B9A_u4E49ViewGroup_u7684_u5DE5_u5177_u7C7B_uFF0C_u5B83_u63D0_u4F9B_u4E86_u4E00_u4E9B_u6709_u7528_u7684_u64CD_u4F5C_u548C_u72B6_u6001_u8DDF_u8E2A_u6765_u8BA9_u7528_u6237_u5BF9View_u5728_u5176_u7236_u5BB9_u5668_u4E2D_u8FDB_u884C_u62D6_u62FD_u548C_u91CD_u65B0_u6446_u653E_u3002"><a href="#ViewDragHelper_u662F_u4E00_u4E2A_u5199_u81EA_u5B9A_u4E49ViewGroup_u7684_u5DE5_u5177_u7C7B_uFF0C_u5B83_u63D0_u4F9B_u4E86_u4E00_u4E9B_u6709_u7528_u7684_u64CD_u4F5C_u548C_u72B6_u6001_u8DDF_u8E2A_u6765_u8BA9_u7528_u6237_u5BF9View_u5728_u5176_u7236_u5BB9_u5668_u4E2D_u8FDB_u884C_u62D6_u62FD_u548C_u91CD_u65B0_u6446_u653E_u3002" class="headerlink" title="ViewDragHelper是一个写自定义ViewGroup的工具类，它提供了一些有用的操作和状态跟踪来让用户对View在其父容器中进行拖拽和重新摆放。"></a>ViewDragHelper是一个写自定义ViewGroup的工具类，它提供了一些有用的操作和状态跟踪来让用户对View在其父容器中进行拖拽和重新摆放。</h4><h3 id="2_u3001How_to_create_it__3F"><a href="#2_u3001How_to_create_it__3F" class="headerlink" title="2、How to create it ?"></a>2、How to create it ?</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">   * Factory method to create a new ViewDragHelper.//工厂方法创建一个ViewDragHelper</span><br><span class="line">   *</span><br><span class="line">   * <span class="doctag">@param</span> forParent Parent view to monitor</span><br><span class="line">   * <span class="doctag">@param</span> sensitivity Multiplier for how sensitive the helper should be about detecting  the start of a drag. Larger values are more sensitive. 1.0f is normal.</span><br><span class="line">   * <span class="doctag">@param</span> cb Callback to provide information and receive events//一个提供信息和接收事件的回调</span><br><span class="line">   * <span class="doctag">@return</span> a new ViewDragHelper instance</span><br><span class="line">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ViewDragHelper <span class="title">create</span><span class="params">(ViewGroup forParent, <span class="keyword">float</span> sensitivity, Callback cb)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">final</span> ViewDragHelper helper = create(forParent, cb);</span><br><span class="line">      helper.mTouchSlop = (<span class="keyword">int</span>) (helper.mTouchSlop * (<span class="number">1</span> / sensitivity));</span><br><span class="line">      <span class="keyword">return</span> helper;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3_u3001Important_Callback"><a href="#3_u3001Important_Callback" class="headerlink" title="3、Important Callback"></a>3、Important Callback</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_viewdraghelper.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_viewdraghelper.png"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">       * Called when the user's input indicates that they want to capture the given child view</span><br><span class="line">       * with the pointer indicated by pointerId. The callback should return true if the user</span><br><span class="line">       * is permitted to drag the given view with the indicated pointer.</span><br><span class="line">       *</span><br><span class="line">       * &lt;p&gt;ViewDragHelper may call this method multiple times for the same view even if</span><br><span class="line">       * the view is already captured; this indicates that a new pointer is trying to take</span><br><span class="line">       * control of the view.&lt;/p&gt;</span><br><span class="line">       *</span><br><span class="line">       * &lt;p&gt;If this method returns true, a call to &#123;<span class="doctag">@link</span> #onViewCaptured(android.view.View, int)&#125;</span><br><span class="line">       * will follow if the capture is successful.&lt;/p&gt;</span><br><span class="line">       *</span><br><span class="line">       * <span class="doctag">@param</span> child Child the user is attempting to capture</span><br><span class="line">       * <span class="doctag">@param</span> pointerId ID of the pointer attempting the capture</span><br><span class="line">       * <span class="doctag">@return</span> true if capture should be allowed, false otherwise</span><br><span class="line">       */</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">tryCaptureView</span><span class="params">(View child, <span class="keyword">int</span> pointerId)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">        * 约束被拖拽的子View沿着X轴移动，默认的实现不允许水平移动 ，子类必须覆盖这个方法并提供想要的 clamping.</span><br><span class="line">        *</span><br><span class="line">        * <span class="doctag">@param</span> child Child view being dragged</span><br><span class="line">        * <span class="doctag">@param</span> left Attempted motion along the X axis</span><br><span class="line">        * <span class="doctag">@param</span> dx Proposed change in position for left</span><br><span class="line">        * <span class="doctag">@return</span> The new clamped position for left</span><br><span class="line">        */</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">clampViewPositionHorizontal</span><span class="params">(View child, <span class="keyword">int</span> left, <span class="keyword">int</span> dx)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://duwei.com/2016/03/02/ViewDragHelper/" data-title="ViewDragHelper | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/02/26/recyclerview/"  title="recyclerview">
+ <strong>下一篇：</strong><br/> 
+ <span>recyclerview
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/03/02/ViewDragHelper/" data-title="ViewDragHelper" data-url="http://duwei.com/2016/03/02/ViewDragHelper/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6982_u8FF0_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">概述：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u672C_u6587_u8BB0_u5F55_uFF1A"><span class="toc-number">1.1.</span> <span class="toc-text">本文记录：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001What_is_ViewDragHelper__3F"><span class="toc-number">1.2.</span> <span class="toc-text">1、What is ViewDragHelper ?</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ViewDragHelper_is_a_utility_class_for_writing_custom_ViewGroups-_It_offers_a_number_of_useful_operations_and_state_tracking_for_allowing_a_user_to_drag_and_reposition_views_within_their_parent_ViewGroup"><span class="toc-number">1.2.1.</span> <span class="toc-text">ViewDragHelper is a utility class for writing custom ViewGroups. It offers a number of useful operations and state tracking for allowing a user to drag and reposition views within their parent ViewGroup.</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ViewDragHelper_u662F_u4E00_u4E2A_u5199_u81EA_u5B9A_u4E49ViewGroup_u7684_u5DE5_u5177_u7C7B_uFF0C_u5B83_u63D0_u4F9B_u4E86_u4E00_u4E9B_u6709_u7528_u7684_u64CD_u4F5C_u548C_u72B6_u6001_u8DDF_u8E2A_u6765_u8BA9_u7528_u6237_u5BF9View_u5728_u5176_u7236_u5BB9_u5668_u4E2D_u8FDB_u884C_u62D6_u62FD_u548C_u91CD_u65B0_u6446_u653E_u3002"><span class="toc-number">1.2.2.</span> <span class="toc-text">ViewDragHelper是一个写自定义ViewGroup的工具类，它提供了一些有用的操作和状态跟踪来让用户对View在其父容器中进行拖拽和重新摆放。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2_u3001How_to_create_it__3F"><span class="toc-number">1.3.</span> <span class="toc-text">2、How to create it ?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3_u3001Important_Callback"><span class="toc-number">1.4.</span> <span class="toc-text">3、Important Callback</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="codingWang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>6</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android，View/" title="Android，View">Android，View<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m duwei . <br/>
+			This is my blog .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/codingWang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:du2035392@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="duwei">duwei</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wangduwei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

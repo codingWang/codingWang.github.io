@@ -88,6 +88,70 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/03/02/ViewDragHelper/" title="ViewDragHelper" itemprop="url">ViewDragHelper</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-02T13:05:14.000Z" itemprop="datePublished"> 发表于 2016-03-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u6982_u8FF0_uFF1A"><a href="#u6982_u8FF0_uFF1A" class="headerlink" title="概述："></a>概述：</h2><h3 id="u672C_u6587_u8BB0_u5F55_uFF1A"><a href="#u672C_u6587_u8BB0_u5F55_uFF1A" class="headerlink" title="本文记录："></a>本文记录：</h3><ul>
+<li>ViewDragHelper的基本介绍和使用（初稿）</li>
+</ul>
+<h3 id="1_u3001What_is_ViewDragHelper__3F"><a href="#1_u3001What_is_ViewDragHelper__3F" class="headerlink" title="1、What is ViewDragHelper ?"></a>1、What is ViewDragHelper ?</h3><h4 id="ViewDragHelper_is_a_utility_class_for_writing_custom_ViewGroups-_It_offers_a_number_of_useful_operations_and_state_tracking_for_allowing_a_user_to_drag_and_reposition_views_within_their_parent_ViewGroup"><a href="#ViewDragHelper_is_a_utility_class_for_writing_custom_ViewGroups-_It_offers_a_number_of_useful_operations_and_state_tracking_for_allowing_a_user_to_drag_and_reposition_views_within_their_parent_ViewGroup" class="headerlink" title="ViewDragHelper is a utility class for writing custom ViewGroups. It offers a number of useful operations and state tracking for allowing a user to drag and reposition views within their parent ViewGroup."></a>ViewDragHelper is a utility class for writing custom ViewGroups. It offers a number of useful operations and state tracking for allowing a user to drag and reposition views within their parent ViewGroup.</h4><h4 id="ViewDragHelper_u662F_u4E00_u4E2A_u5199_u81EA_u5B9A_u4E49ViewGroup_u7684_u5DE5_u5177_u7C7B_uFF0C_u5B83_u63D0_u4F9B_u4E86_u4E00_u4E9B_u6709_u7528_u7684_u64CD_u4F5C_u548C_u72B6_u6001_u8DDF_u8E2A_u6765_u8BA9_u7528_u6237_u5BF9View_u5728_u5176_u7236_u5BB9_u5668_u4E2D_u8FDB_u884C_u62D6_u62FD_u548C_u91CD_u65B0_u6446_u653E_u3002"><a href="#ViewDragHelper_u662F_u4E00_u4E2A_u5199_u81EA_u5B9A_u4E49ViewGroup_u7684_u5DE5_u5177_u7C7B_uFF0C_u5B83_u63D0_u4F9B_u4E86_u4E00_u4E9B_u6709_u7528_u7684_u64CD_u4F5C_u548C_u72B6_u6001_u8DDF_u8E2A_u6765_u8BA9_u7528_u6237_u5BF9View_u5728_u5176_u7236_u5BB9_u5668_u4E2D_u8FDB_u884C_u62D6_u62FD_u548C_u91CD_u65B0_u6446_u653E_u3002" class="headerlink" title="ViewDragHelper是一个写自定义ViewGroup的工具类，它提供了一些有用的操作和状态跟踪来让用户对View在其父容器中进行拖拽和重新摆放。"></a>ViewDragHelper是一个写自定义ViewGroup的工具类，它提供了一些有用的操作和状态跟踪来让用户对View在其父容器中进行拖拽和重新摆放。</h4><h3 id="2_u3001How_to_create_it__3F"><a href="#2_u3001How_to_create_it__3F" class="headerlink" title="2、How to create it ?"></a>2、How to create it ?</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">   * Factory method to create a new ViewDragHelper.//工厂方法创建一个ViewDragHelper</span><br><span class="line">   *</span><br><span class="line">   * <span class="doctag">@param</span> forParent Parent view to monitor</span><br><span class="line">   * <span class="doctag">@param</span> sensitivity Multiplier for how sensitive the helper should be about detecting  the start of a drag. Larger values are more sensitive. 1.0f is normal.</span><br><span class="line">   * <span class="doctag">@param</span> cb Callback to provide information and receive events//一个提供信息和接收事件的回调</span><br><span class="line">   * <span class="doctag">@return</span> a new ViewDragHelper instance</span><br><span class="line">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ViewDragHelper <span class="title">create</span><span class="params">(ViewGroup forParent, <span class="keyword">float</span> sensitivity, Callback cb)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">final</span> ViewDragHelper helper = create(forParent, cb);</span><br><span class="line">      helper.mTouchSlop = (<span class="keyword">int</span>) (helper.mTouchSlop * (<span class="number">1</span> / sensitivity));</span><br><span class="line">      <span class="keyword">return</span> helper;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3_u3001Important_Callback"><a href="#3_u3001Important_Callback" class="headerlink" title="3、Important Callback"></a>3、Important Callback</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_viewdraghelper.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_viewdraghelper.png"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">       * Called when the user's input indicates that they want to capture the given child view</span><br><span class="line">       * with the pointer indicated by pointerId. The callback should return true if the user</span><br><span class="line">       * is permitted to drag the given view with the indicated pointer.</span><br><span class="line">       *</span><br><span class="line">       * &lt;p&gt;ViewDragHelper may call this method multiple times for the same view even if</span><br><span class="line">       * the view is already captured; this indicates that a new pointer is trying to take</span><br><span class="line">       * control of the view.&lt;/p&gt;</span><br><span class="line">       *</span><br><span class="line">       * &lt;p&gt;If this method returns true, a call to &#123;<span class="doctag">@link</span> #onViewCaptured(android.view.View, int)&#125;</span><br><span class="line">       * will follow if the capture is successful.&lt;/p&gt;</span><br><span class="line">       *</span><br><span class="line">       * <span class="doctag">@param</span> child Child the user is attempting to capture</span><br><span class="line">       * <span class="doctag">@param</span> pointerId ID of the pointer attempting the capture</span><br><span class="line">       * <span class="doctag">@return</span> true if capture should be allowed, false otherwise</span><br><span class="line">       */</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">tryCaptureView</span><span class="params">(View child, <span class="keyword">int</span> pointerId)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">        * 约束被拖拽的子View沿着X轴移动，默认的实现不允许水平移动 ，子类必须覆盖这个方法并提供想要的 clamping.</span><br><span class="line">        *</span><br><span class="line">        * <span class="doctag">@param</span> child Child view being dragged</span><br><span class="line">        * <span class="doctag">@param</span> left Attempted motion along the X axis</span><br><span class="line">        * <span class="doctag">@param</span> dx Proposed change in position for left</span><br><span class="line">        * <span class="doctag">@return</span> The new clamped position for left</span><br><span class="line">        */</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">clampViewPositionHorizontal</span><span class="params">(View child, <span class="keyword">int</span> left, <span class="keyword">int</span> dx)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/03/02/ViewDragHelper/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/02/ViewDragHelper/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/02/26/recyclerview/" title="recyclerview" itemprop="url">recyclerview</a>
   </h1>
   <p class="article-author">By
@@ -696,67 +760,10 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/09/hello-world/" title="使用Hexo搭建个人博客" itemprop="url">使用Hexo搭建个人博客</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-09T13:28:22.700Z" itemprop="datePublished"> 发表于 2016-02-09</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <p><a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>是一个使用Node.js开发的静态WEB框架，今天第一次使用它搭建了自己的博客系统，是一次新的尝试，同时也学习到了很多东西，希望这个博客可以记录我未来的学习情况。</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="u4F7F_u7528_u5982_u4E0B_u547D_u4EE4_u53EF_u4EE5_u521B_u5EFA_u4E00_u7BC7_u65B0_u7684_u535A_u5BA2"><a href="#u4F7F_u7528_u5982_u4E0B_u547D_u4EE4_u53EF_u4EE5_u521B_u5EFA_u4E00_u7BC7_u65B0_u7684_u535A_u5BA2" class="headerlink" title="使用如下命令可以创建一篇新的博客"></a>使用如下命令可以创建一篇新的博客</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="u542F_u52A8_u672C_u5730_u7684Nodejs_u670D_u52A1_u5668"><a href="#u542F_u52A8_u672C_u5730_u7684Nodejs_u670D_u52A1_u5668" class="headerlink" title="启动本地的Nodejs服务器"></a>启动本地的Nodejs服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="u751F_u6210_u9759_u6001_u9875_u9762_u4EE3_u7801"><a href="#u751F_u6210_u9759_u6001_u9875_u9762_u4EE3_u7801" class="headerlink" title="生成静态页面代码"></a>生成静态页面代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="u90E8_u7F72_u5230_u8FDC_u7A0BGithub"><a href="#u90E8_u7F72_u5230_u8FDC_u7A0BGithub" class="headerlink" title="部署到远程Github"></a>部署到远程Github</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/09/hello-world/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/09/hello-world/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
+  <nav id="page-nav" class="clearfix">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+  </nav>
 
 </div>
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
@@ -783,7 +790,7 @@ var _hmt = _hmt || [];
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Android/" title="Android">Android<sup>5</sup></a></li>
+				<li><a href="/tags/Android/" title="Android">Android<sup>6</sup></a></li>
 			
 		
 			
