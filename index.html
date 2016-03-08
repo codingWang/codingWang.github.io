@@ -88,6 +88,79 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/03/08/UML/" title="UML" itemprop="url">UML</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-08T12:15:44.000Z" itemprop="datePublished"> 发表于 2016-03-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u6982_u8FF0_uFF1A"><a href="#u6982_u8FF0_uFF1A" class="headerlink" title="概述："></a>概述：</h2><h3 id="u672C_u6587_u5BF9_u8FD9_u91CC_u7684UML_u6559_u7A0B_u8FDB_u884C_u6574_u7406_uFF0C_u4FBF_u4E8E_u81EA_u5DF1_u9605_u8BFB_u3002"><a href="#u672C_u6587_u5BF9_u8FD9_u91CC_u7684UML_u6559_u7A0B_u8FDB_u884C_u6574_u7406_uFF0C_u4FBF_u4E8E_u81EA_u5DF1_u9605_u8BFB_u3002" class="headerlink" title="本文对这里的UML教程进行整理，便于自己阅读。"></a>本文对<a href="http://blog.csdn.net/lovelion/article/details/7842898" target="_blank" rel="external">这里</a>的UML教程进行整理，便于自己阅读。</h3><h2 id="u4E00_u3001_u7C7B_u4E0E_u7C7B_u4E4B_u95F4_u7684_u5173_u7CFB_uFF1A"><a href="#u4E00_u3001_u7C7B_u4E0E_u7C7B_u4E4B_u95F4_u7684_u5173_u7CFB_uFF1A" class="headerlink" title="一、类与类之间的关系："></a>一、类与类之间的关系：</h2><h3 id="1_u3001_u5173_u8054_u5173_u7CFB_uFF1A"><a href="#1_u3001_u5173_u8054_u5173_u7CFB_uFF1A" class="headerlink" title="1、关联关系："></a>1、关联关系：</h3><h4 id="u56FE_uFF1A"><a href="#u56FE_uFF1A" class="headerlink" title="图："></a>图：</h4><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_contains.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_contains.png"></p>
+<h4 id="u4EE3_u7801_uFF1A"><a href="#u4EE3_u7801_uFF1A" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LoginForm</span> </span>&#123;  </span><br><span class="line"><span class="keyword">private</span> JButton loginButton; <span class="comment">//定义为成员变量  </span></span><br><span class="line">……  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JButton</span> </span>&#123;  </span><br><span class="line">    ……  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u5173_u8054_u5173_u7CFB_u7684_u5206_u7C7B_uFF1A_uFF08_u7565_u8FC7_u6682_u4E0D_u5B66_uFF09"><a href="#u5173_u8054_u5173_u7CFB_u7684_u5206_u7C7B_uFF1A_uFF08_u7565_u8FC7_u6682_u4E0D_u5B66_uFF09" class="headerlink" title="关联关系的分类：（略过暂不学）"></a>关联关系的分类：（略过暂不学）</h3><ul>
+<li>双向关联</li>
+<li>单向关联</li>
+<li>自关联</li>
+<li>多重性关联</li>
+<li>聚合关系</li>
+<li>组合关系</li>
+</ul>
+<h3 id="2_u3001_u4F9D_u8D56_u5173_u7CFB_uFF1A"><a href="#2_u3001_u4F9D_u8D56_u5173_u7CFB_uFF1A" class="headerlink" title="2、依赖关系："></a>2、依赖关系：</h3><h4 id="u56FE_uFF1A-1"><a href="#u56FE_uFF1A-1" class="headerlink" title="图："></a>图：</h4><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_dependency.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_dependency.png"></p>
+<h4 id="u4EE3_u7801_uFF1A-1"><a href="#u4EE3_u7801_uFF1A-1" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Driver</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drive</span><span class="params">(Car car)</span> </span>&#123;  </span><br><span class="line">        car.move();  </span><br><span class="line">    &#125;  </span><br><span class="line">    ……  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        ......  </span><br><span class="line">    &#125;  </span><br><span class="line">    ……  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3_u3001_u6CDB_u5316_u5173_u7CFB_28_u7EE7_u627F_u5173_u7CFB_29_uFF1A"><a href="#3_u3001_u6CDB_u5316_u5173_u7CFB_28_u7EE7_u627F_u5173_u7CFB_29_uFF1A" class="headerlink" title="3、泛化关系(继承关系)："></a>3、泛化关系(继承关系)：</h3><h4 id="u56FE_uFF1A-2"><a href="#u56FE_uFF1A-2" class="headerlink" title="图："></a>图：</h4><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_generalization.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_generalization.png"></p>
+<h4 id="u4EE3_u7801_uFF1A-2"><a href="#u4EE3_u7801_uFF1A-2" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父类  </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;  </span><br><span class="line"><span class="keyword">protected</span> String name;  </span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">int</span> age;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        ……  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">say</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">  ……  </span><br><span class="line">&#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//子类  </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;  </span><br><span class="line"><span class="keyword">private</span> String studentNo;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">study</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    ……  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//子类  </span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Teacher</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;  </span><br><span class="line"><span class="keyword">private</span> String teacherNo;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">teach</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    ……  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4_u3001_u63A5_u53E3_u4E0E_u5B9E_u73B0_u5173_u7CFB_3A"><a href="#4_u3001_u63A5_u53E3_u4E0E_u5B9E_u73B0_u5173_u7CFB_3A" class="headerlink" title="4、接口与实现关系:"></a>4、接口与实现关系:</h3><h4 id="u56FE_uFF1A-3"><a href="#u56FE_uFF1A-3" class="headerlink" title="图："></a>图：</h4><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_implement.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_implement.png"></p>
+<h4 id="u4EE3_u7801_uFF1A-3"><a href="#u4EE3_u7801_uFF1A-3" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Vehicle</span> </span>&#123;  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ship</span> <span class="keyword">implements</span> <span class="title">Vehicle</span> </span>&#123;  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    ……  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Car</span> <span class="keyword">implements</span> <span class="title">Vehicle</span> </span>&#123;  </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">move</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    ……  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/UML/">UML</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/03/08/UML/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/08/UML/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/03/05/comparable-Comparator/" title="comparable&amp;Comparator" itemprop="url">comparable&amp;Comparator</a>
   </h1>
   <p class="article-author">By
@@ -712,64 +785,6 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/11/a-standard-onMeasure-method/" title="a standard onMeasure method" itemprop="url">a standard onMeasure method</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-11T08:04:00.000Z" itemprop="datePublished"> 发表于 2016-02-11</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002"><a href="#u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002" class="headerlink" title="在Android自定义View中，一个标准的onMeasure()方法。"></a>在Android自定义View中，一个标准的onMeasure()方法。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Override&#10;   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;&#10;       super.onMeasure(widthMeasureSpec, heightMeasureSpec);&#10;       int viewWidth = circleRadius /*&#40664;&#35748;size*/+ this.getPaddingLeft() + this.getPaddingRight();&#10;       int viewHeight = circleRadius + this.getPaddingTop() + this.getPaddingBottom();&#10;       int widthMode = MeasureSpec.getMode(widthMeasureSpec);//&#33719;&#21462;&#23485;&#24230;&#30340;&#27169;&#24335;&#10;       int widthSize = MeasureSpec.getSize(widthMeasureSpec);//&#33719;&#21462;&#23485;&#24230;&#30340;&#23610;&#23544;&#10;       int heightMode = MeasureSpec.getMode(heightMeasureSpec);//&#39640;&#24230;&#30340;&#27169;&#24335;&#10;       int heightSize = MeasureSpec.getSize(heightMeasureSpec);//&#39640;&#31471;&#30340;&#23610;&#23544;&#10;       int width;&#10;       int height;&#10;       //Measure Width&#10;       if (widthMode == MeasureSpec.EXACTLY) &#123;//&#25351;&#23450;&#20102;&#30830;&#23450;&#30340;&#23610;&#23544;&#65306;100dp,match_parent&#10;           //Must be this size&#10;           width = widthSize;&#10;       &#125; else if (widthMode == MeasureSpec.AT_MOST) &#123;//wrap_content&#31867;&#22411;&#10;           //Can&#39;t be bigger than...&#10;           width = Math.min(viewWidth, widthSize);&#10;       &#125; else &#123;&#10;           //Be whatever you want&#10;           width = viewWidth;&#10;       &#125;&#10;       //Measure Height&#10;       if (heightMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.EXACTLY) &#123;&#10;           //Must be this size&#10;           height = heightSize;&#10;       &#125; else if (heightMode == MeasureSpec.AT_MOST) &#123;&#10;           //Can&#39;t be bigger than...&#10;           height = Math.min(viewHeight, heightSize);&#10;       &#125; else &#123;&#10;           //Be whatever you want&#10;           height = viewHeight;&#10;       &#125;&#10;       setMeasuredDimension(width, height);&#10;   &#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android，View/">Android，View</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/11/a-standard-onMeasure-method/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/11/a-standard-onMeasure-method/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -817,6 +832,10 @@ var _hmt = _hmt || [];
 		
 			
 				<li><a href="/tags/Android，View/" title="Android，View">Android，View<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/UML/" title="UML">UML<sup>1</sup></a></li>
 			
 		
 		</ul>
