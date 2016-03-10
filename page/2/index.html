@@ -88,6 +88,65 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/02/12/how-annotation-works/" title="how annotation works" itemprop="url">how annotation works</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-12T13:03:04.000Z" itemprop="datePublished"> 发表于 2016-02-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u4E00_u3001define_a_annotation"><a href="#u4E00_u3001define_a_annotation" class="headerlink" title="一、define a annotation"></a>一、define a annotation</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Target(ElementType.FIELD)&#10;@Retention(RetentionPolicy.RUNTIME) &#10;public @interface ViewInject &#123;  &#10;  &#9;int value() default 0 ;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u4E8C_u3001use_the_annotation"><a href="#u4E8C_u3001use_the_annotation" class="headerlink" title="二、use the annotation"></a>二、use the annotation</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;@ViewInject(R.id.tv_name)&#10;private TextView myTextView;</span><br></pre></td></tr></table></figure>
+<h2 id="u4E09_u3001parse_the_annotation"><a href="#u4E09_u3001parse_the_annotation" class="headerlink" title="三、parse the annotation"></a>三、parse the annotation</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public void parseAnnotation(Class&#60;?&#62;  clazz) &#123;  &#9;//&#20256;&#19968;&#20010;&#31867;&#36827;&#26469;&#10;    &#9;try &#123;  &#10;         Field[] fields = clazz.getDeclaredFields();&#9;//&#33719;&#21462;&#35813;&#31867;&#30340;&#23383;&#27573;&#10;         for (Field field : fields) &#123;  &#9;&#9;&#9;&#9;&#9;//&#36941;&#21382;&#23383;&#27573;&#10;           if (field.isAnnotationPresent(ViewInject.class)) &#123;  &#9;//&#23383;&#27573;&#34987;&#27880;&#35299;&#26631;&#27880;&#10;                ViewInject inject = field.getAnnotation(ViewInject.class);  &#9;//&#33719;&#21462;&#27880;&#35299;&#23545;&#35937;&#10;                &#9;int id = inject.value();  &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;//&#33719;&#21462;&#27880;&#35299;&#20540;&#10;                 &#9; if (id &#62; 0) &#123;  &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;//&#20540;&#26159;&#27491;&#30830;&#30340;&#10;                     field.setAccessible(true);  &#9;&#9;&#9;&#9;//&#35813;&#20540;&#21487;&#36798;&#10;                     field.set(this, this.findViewById(id));&#9;&#9;&#9;//&#32473;&#23383;&#27573;&#35774;&#32622;&#20540;  &#10;                 &#125;  &#10;             &#125;  &#10;         &#125;  &#10;     &#125; catch (IllegalAccessException e) &#123;  &#10;         e.printStackTrace();  &#10;    &#125; catch (IllegalArgumentException e) &#123;  &#10;         e.printStackTrace();  &#10;      &#125;  &#10; &#125;</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/02/12/how-annotation-works/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/12/how-annotation-works/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/02/11/a-standard-onMeasure-method/" title="a standard onMeasure method" itemprop="url">a standard onMeasure method</a>
   </h1>
   <p class="article-author">By
@@ -299,7 +358,7 @@ var _hmt = _hmt || [];
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Android/" title="Android">Android<sup>6</sup></a></li>
+				<li><a href="/tags/Android/" title="Android">Android<sup>7</sup></a></li>
 			
 		
 			

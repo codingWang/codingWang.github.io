@@ -4,23 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>Property Animation | duwei&#39;s blog</title>
+    <title>cool | duwei&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="duwei">
     
 
     
-    <meta name="description" content="一、概述这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：二、常用方法总结1/**&amp;#10;*&amp;#23558;&amp;#25351;&amp;#23450;&amp;#30340;&amp;#23545;&amp;#35937;&amp;#65288;target&amp;#65289;&amp;#30340;&amp;#23646;&amp;#24615;&amp;#65288;propertyName&amp;#65289">
+    <meta name="description" content="那些经典的写法：在阅读代码的时候看到了一些不错的可以借鉴的写法：1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。123private &amp;lt;T extends View&amp;gt; T $(@IdRes int id) &amp;#123;       return (T) findViewById(id);   &amp;#125;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Property Animation">
-<meta property="og:url" content="http://duwei.com/2016/02/15/Property-Animation/index.html">
+<meta property="og:title" content="cool">
+<meta property="og:url" content="http://duwei.com/2016/03/10/cool/index.html">
 <meta property="og:site_name" content="duwei's blog">
-<meta property="og:description" content="一、概述这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：二、常用方法总结1/**&amp;#10;*&amp;#23558;&amp;#25351;&amp;#23450;&amp;#30340;&amp;#23545;&amp;#35937;&amp;#65288;target&amp;#65289;&amp;#30340;&amp;#23646;&amp;#24615;&amp;#65288;propertyName&amp;#65289">
-<meta property="og:updated_time" content="2016-02-15T11:42:40.836Z">
+<meta property="og:description" content="那些经典的写法：在阅读代码的时候看到了一些不错的可以借鉴的写法：1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。123private &amp;lt;T extends View&amp;gt; T $(@IdRes int id) &amp;#123;       return (T) findViewById(id);   &amp;#125;">
+<meta property="og:updated_time" content="2016-03-10T07:49:38.120Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Property Animation">
-<meta name="twitter:description" content="一、概述这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：二、常用方法总结1/**&amp;#10;*&amp;#23558;&amp;#25351;&amp;#23450;&amp;#30340;&amp;#23545;&amp;#35937;&amp;#65288;target&amp;#65289;&amp;#30340;&amp;#23646;&amp;#24615;&amp;#65288;propertyName&amp;#65289">
+<meta name="twitter:title" content="cool">
+<meta name="twitter:description" content="那些经典的写法：在阅读代码的时候看到了一些不错的可以借鉴的写法：1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。123private &amp;lt;T extends View&amp;gt; T $(@IdRes int id) &amp;#123;       return (T) findViewById(id);   &amp;#125;">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -87,14 +87,14 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/02/15/Property-Animation/" title="Property Animation" itemprop="url">Property Animation</a>
+      <a href="/2016/03/10/cool/" title="cool" itemprop="url">cool</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-15T10:54:41.000Z" itemprop="datePublished"> 发表于 2016-02-15</time>
+    <time datetime="2016-03-10T07:45:24.000Z" itemprop="datePublished"> 发表于 2016-03-10</time>
     
   </p>
 </header>
@@ -103,16 +103,11 @@ var _hmt = _hmt || [];
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u3001_u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">一、概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A"><span class="toc-number">1.1.</span> <span class="toc-text">这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3"><span class="toc-number">2.</span> <span class="toc-text">二、常用方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A"><span class="toc-number">2.1.</span> <span class="toc-text">1、ObjectAnimator继承自ValueAnimator，都有以下常用方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2_u3001_u52A8_u753B_u96C6_uFF1A"><span class="toc-number">2.2.</span> <span class="toc-text">2、动画集：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E09_u3001_u76D1_u542C_u5668"><span class="toc-number">3.</span> <span class="toc-text">三、监听器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A"><span class="toc-number">3.1.</span> <span class="toc-text">提供了2个监听器：</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u90A3_u4E9B_u7ECF_u5178_u7684_u5199_u6CD5_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">那些经典的写法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5728_u9605_u8BFB_u4EE3_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E9B_u4E0D_u9519_u7684_u53EF_u4EE5_u501F_u9274_u7684_u5199_u6CD5_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">在阅读代码的时候看到了一些不错的可以借鉴的写法：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u867D_u7136_u6709butterknift_u53EF_u4EE5_u4E0D_u7528_u5199findViewById_u4F46_u8FD9_u6837_u4E00_u4E2A_u2018__24__u2018_u7B26_u53F7_u641E_u5B9A_u4E5F_u662F_u4E00_u79CD_u4E0D_u9519_u7684_u9009_u62E9_u3002"><span class="toc-number">2.1.</span> <span class="toc-text">1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="u4E00_u3001_u6982_u8FF0"><a href="#u4E00_u3001_u6982_u8FF0" class="headerlink" title="一、概述"></a>一、概述</h2><h3 id="u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A"><a href="#u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A" class="headerlink" title="这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结："></a>这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：</h3><h2 id="u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3"><a href="#u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3" class="headerlink" title="二、常用方法总结"></a>二、常用方法总结</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10;*&#23558;&#25351;&#23450;&#30340;&#23545;&#35937;&#65288;target&#65289;&#30340;&#23646;&#24615;&#65288;propertyName&#65289;&#22312;&#20540;&#65288;values&#65289;&#38388;&#36827;&#34892;&#21464;&#25442;&#10;**/&#10;public static ObjectAnimator ofFloat(Object target, String propertyName, float... values)&#123;&#125;&#10;&#10;&#10;/**&#10;*&#21482;&#25351;&#23450;&#21464;&#21270;&#30340;&#33539;&#22260;&#10;**/&#10;public static ValueAnimator ofFloat(float... values) &#123;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A"><a href="#1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A" class="headerlink" title="1、ObjectAnimator继承自ValueAnimator，都有以下常用方法："></a>1、ObjectAnimator继承自ValueAnimator，都有以下常用方法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;anim.setDuration(1000);//1&#31186;&#10;anim.setRepeatCount(-1);//&#26080;&#32447;&#24490;&#29615;&#10;anim.setInterpolator(new AccelerateDecelerateInterpolator());//&#25554;&#20540;&#22120;&#10;anim.start();//&#24320;&#22987;&#21160;&#30011;</span><br></pre></td></tr></table></figure>
-<h3 id="2_u3001_u52A8_u753B_u96C6_uFF1A"><a href="#2_u3001_u52A8_u753B_u96C6_uFF1A" class="headerlink" title="2、动画集："></a>2、动画集：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;AnimatorSet set = new AnimatorSet();&#10;set.playTogether(......);&#10;set.setDuration(1000);&#10;set.start();&#10;&#10;//----------------------------------------------&#10;set.plat().after(),with().befor();//&#30456;&#20851;&#26041;&#27861;</span><br></pre></td></tr></table></figure>
-<h2 id="u4E09_u3001_u76D1_u542C_u5668"><a href="#u4E09_u3001_u76D1_u542C_u5668" class="headerlink" title="三、监听器"></a>三、监听器</h2><h3 id="u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A"><a href="#u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A" class="headerlink" title="提供了2个监听器："></a>提供了2个监听器：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//Animator&#30340;&#20869;&#37096;&#31867;&#10;public static interface AnimatorListener &#123;&#10;&#10;       void onAnimationStart(Animator animation);&#10;       &#10;       void onAnimationEnd(Animator animation);&#10;       &#10;       void onAnimationCancel(Animator animation);&#10;       &#10;       void onAnimationRepeat(Animator animation);&#10;   &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static interface AnimatorUpdateListener &#123;&#10;      &#10;       void onAnimationUpdate(ValueAnimator animation);&#10;&#10; &#125;</span><br></pre></td></tr></table></figure>
-  
+		<h2 id="u90A3_u4E9B_u7ECF_u5178_u7684_u5199_u6CD5_uFF1A"><a href="#u90A3_u4E9B_u7ECF_u5178_u7684_u5199_u6CD5_uFF1A" class="headerlink" title="那些经典的写法："></a>那些经典的写法：</h2><h2 id="u5728_u9605_u8BFB_u4EE3_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E9B_u4E0D_u9519_u7684_u53EF_u4EE5_u501F_u9274_u7684_u5199_u6CD5_uFF1A"><a href="#u5728_u9605_u8BFB_u4EE3_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E9B_u4E0D_u9519_u7684_u53EF_u4EE5_u501F_u9274_u7684_u5199_u6CD5_uFF1A" class="headerlink" title="在阅读代码的时候看到了一些不错的可以借鉴的写法："></a>在阅读代码的时候看到了一些不错的可以借鉴的写法：</h2><h3 id="1_u3001_u867D_u7136_u6709butterknift_u53EF_u4EE5_u4E0D_u7528_u5199findViewById_u4F46_u8FD9_u6837_u4E00_u4E2A_u2018__24__u2018_u7B26_u53F7_u641E_u5B9A_u4E5F_u662F_u4E00_u79CD_u4E0D_u9519_u7684_u9009_u62E9_u3002"><a href="#1_u3001_u867D_u7136_u6709butterknift_u53EF_u4EE5_u4E0D_u7528_u5199findViewById_u4F46_u8FD9_u6837_u4E00_u4E2A_u2018__24__u2018_u7B26_u53F7_u641E_u5B9A_u4E5F_u662F_u4E00_u79CD_u4E0D_u9519_u7684_u9009_u62E9_u3002" class="headerlink" title="1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。"></a>1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> &lt;T extends View&gt; T $(<span class="annotation">@IdRes</span> <span class="keyword">int</span> id) &#123;</span><br><span class="line">       <span class="keyword">return</span> (T) findViewById(id);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -129,7 +124,7 @@ var _hmt = _hmt || [];
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://duwei.com/2016/02/15/Property-Animation/" data-title="Property Animation | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://duwei.com/2016/03/10/cool/" data-title="cool | duwei&#39;s blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -142,19 +137,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/02/16/Interpolator/" title="Interpolator">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Interpolator</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/02/13/ThreadLocal/"  title="ThreadLocal">
+<a href="/2016/03/08/UML/"  title="UML">
  <strong>下一篇：</strong><br/> 
- <span>ThreadLocal
+ <span>UML
 </span>
 </a>
 </div>
@@ -163,7 +150,7 @@ var _hmt = _hmt || [];
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/02/15/Property-Animation/" data-title="Property Animation" data-url="http://duwei.com/2016/02/15/Property-Animation/"></div>
+	<div class="ds-thread" data-thread-key="2016/03/10/cool/" data-title="cool" data-url="http://duwei.com/2016/03/10/cool/"></div>
 </section>
 
 
@@ -173,7 +160,7 @@ var _hmt = _hmt || [];
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u3001_u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">一、概述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A"><span class="toc-number">1.1.</span> <span class="toc-text">这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3"><span class="toc-number">2.</span> <span class="toc-text">二、常用方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A"><span class="toc-number">2.1.</span> <span class="toc-text">1、ObjectAnimator继承自ValueAnimator，都有以下常用方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2_u3001_u52A8_u753B_u96C6_uFF1A"><span class="toc-number">2.2.</span> <span class="toc-text">2、动画集：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E09_u3001_u76D1_u542C_u5668"><span class="toc-number">3.</span> <span class="toc-text">三、监听器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A"><span class="toc-number">3.1.</span> <span class="toc-text">提供了2个监听器：</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u90A3_u4E9B_u7ECF_u5178_u7684_u5199_u6CD5_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">那些经典的写法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5728_u9605_u8BFB_u4EE3_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E9B_u4E0D_u9519_u7684_u53EF_u4EE5_u501F_u9274_u7684_u5199_u6CD5_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">在阅读代码的时候看到了一些不错的可以借鉴的写法：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u867D_u7136_u6709butterknift_u53EF_u4EE5_u4E0D_u7528_u5199findViewById_u4F46_u8FD9_u6837_u4E00_u4E2A_u2018__24__u2018_u7B26_u53F7_u641E_u5B9A_u4E5F_u662F_u4E00_u79CD_u4E0D_u9519_u7684_u9009_u62E9_u3002"><span class="toc-number">2.1.</span> <span class="toc-text">1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。</span></a></li></ol></li></ol>
  
   </div>
 
