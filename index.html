@@ -88,6 +88,64 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/03/12/Android-Lifecycle/" title="Android-Lifecycle" itemprop="url">Android-Lifecycle</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-12T06:49:51.000Z" itemprop="datePublished"> 发表于 2016-03-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u9762_u8BD5_u5FC5_u5907_u5FC5_u770B_u7684Android_u4E4BActivity_26amp_3BFragment_u751F_u547D_u5468_u671F_u5BF9_u6BD4_u56FE"><a href="#u9762_u8BD5_u5FC5_u5907_u5FC5_u770B_u7684Android_u4E4BActivity_26amp_3BFragment_u751F_u547D_u5468_u671F_u5BF9_u6BD4_u56FE" class="headerlink" title="面试必备必看的Android之Activity&amp;Fragment生命周期对比图"></a>面试必备必看的Android之Activity&amp;Fragment生命周期对比图</h2><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_complete_android_fragment_lifecycle.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_complete_android_fragment_lifecycle.png"></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/03/12/Android-Lifecycle/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/12/Android-Lifecycle/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/03/12/Android-SystemService-Intro/" title="Android-SystemService-Intro" itemprop="url">Android-SystemService-Intro</a>
   </h1>
   <p class="article-author">By
@@ -576,82 +634,6 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/03/05/comparable-Comparator/" title="comparable&amp;Comparator" itemprop="url">comparable&amp;Comparator</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-05T03:57:23.000Z" itemprop="datePublished"> 发表于 2016-03-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u6982_u8FF0_uFF1A"><a href="#u6982_u8FF0_uFF1A" class="headerlink" title="概述："></a>概述：</h2><h3 id="u672C_u6587_u8BB0_u5F55_uFF1A"><a href="#u672C_u6587_u8BB0_u5F55_uFF1A" class="headerlink" title="本文记录："></a>本文记录：</h3><ul>
-<li>Comparable接口的介绍和使用</li>
-<li>Comparator接口的介绍和使用</li>
-<li>两个接口的比较</li>
-</ul>
-<h2 id="u4E00_u3001Comparable_u63A5_u53E3_u7684_u4ECB_u7ECD_u548C_u4F7F_u7528"><a href="#u4E00_u3001Comparable_u63A5_u53E3_u7684_u4ECB_u7ECD_u548C_u4F7F_u7528" class="headerlink" title="一、Comparable接口的介绍和使用"></a>一、Comparable接口的介绍和使用</h2><h3 id="1_u3001_u57FA_u672C_u4ECB_u7ECD"><a href="#1_u3001_u57FA_u672C_u4ECB_u7ECD" class="headerlink" title="1、基本介绍"></a>1、基本介绍</h3><h4 id="JAVA_u4E2D_u57FA_u672C_u6570_u636E_u7C7B_u578B_uFF08int_uFF09_u7B49_u53EF_u4EE5_u8FDB_u884C_u6BD4_u8F83_u548C_u6392_u5E8F_uFF0C_u90A3_u4E48_u5BF9_u8C61_u6570_u636E_u7C7B_u578B_u662F_u5426_u53EF_u4EE5_u8FDB_u884C_u6392_u5E8F_u5462_uFF1F_u7B54_u6848_u662F_u80AF_u5B9A_u7684_u3002"><a href="#JAVA_u4E2D_u57FA_u672C_u6570_u636E_u7C7B_u578B_uFF08int_uFF09_u7B49_u53EF_u4EE5_u8FDB_u884C_u6BD4_u8F83_u548C_u6392_u5E8F_uFF0C_u90A3_u4E48_u5BF9_u8C61_u6570_u636E_u7C7B_u578B_u662F_u5426_u53EF_u4EE5_u8FDB_u884C_u6392_u5E8F_u5462_uFF1F_u7B54_u6848_u662F_u80AF_u5B9A_u7684_u3002" class="headerlink" title="JAVA中基本数据类型（int）等可以进行比较和排序，那么对象数据类型是否可以进行排序呢？答案是肯定的。"></a>JAVA中基本数据类型（int）等可以进行比较和排序，那么对象数据类型是否可以进行排序呢？答案是肯定的。</h4><ul>
-<li>Comparable接口可以强行对实现它的 每个类的对象进行整体排序。</li>
-<li>实现此接口的对象列表（和数组）可以通过 Collections.sort （和 Arrays.sort ）进行自动排序。</li>
-<li>实现此接口的类需要复写compareTo（）方法。</li>
-</ul>
-<h4 id="u4F8B_uFF1A"><a href="#u4F8B_uFF1A" class="headerlink" title="例："></a>例：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Comparable</span>&lt;<span class="title">Person</span>&gt;</span>&#123;<span class="comment">//实现接口	</span></span><br><span class="line">	<span class="keyword">int</span> age;</span><br><span class="line">	String name;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">(<span class="keyword">int</span> age,String name)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.age = age;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//getter&amp;setters</span></span><br><span class="line">	</span><br><span class="line">	<span class="annotation">@Override</span>			<span class="comment">//如果前者大于后者，返回1，等于返回0，小于返回-1</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Person person)</span> </span>&#123;<span class="comment">//复写方法</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="keyword">this</span>.age&lt;person.age)</span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(<span class="keyword">this</span>.age==person.age)</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试代码</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestComparable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List&lt;Person&gt; person = <span class="keyword">new</span> ArrayList&lt;Person&gt;();</span><br><span class="line">		</span><br><span class="line">		person.add(<span class="keyword">new</span> Person(<span class="number">15</span>,<span class="string">"xiaoming"</span>));</span><br><span class="line">		person.add(<span class="keyword">new</span> Person(<span class="number">20</span>,<span class="string">"xiaoli"</span>));</span><br><span class="line">		person.add(<span class="keyword">new</span> Person(<span class="number">18</span>,<span class="string">"xiaowang"</span>));</span><br><span class="line">		Collections.sort(person);</span><br><span class="line">		<span class="keyword">for</span> (Person person2 : person) &#123;</span><br><span class="line">			System.out.println(person2.getAge());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="u4E8C_u3001Comparator_u63A5_u53E3_u7684_u4ECB_u7ECD_u548C_u4F7F_u7528"><a href="#u4E8C_u3001Comparator_u63A5_u53E3_u7684_u4ECB_u7ECD_u548C_u4F7F_u7528" class="headerlink" title="二、Comparator接口的介绍和使用"></a>二、Comparator接口的介绍和使用</h2><h4 id="u4F8B_uFF1AComparator_u5B9E_u73B0"><a href="#u4F8B_uFF1AComparator_u5B9E_u73B0" class="headerlink" title="例：Comparator实现"></a>例：Comparator实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyComparable</span> <span class="keyword">implements</span> <span class="title">Comparator</span>&lt;<span class="title">Person</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Person person1, Person person2)</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">if</span>(person1.age&lt;person2.age)</span><br><span class="line">			<span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(person1.age == person2.age)</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestComparator</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		List&lt;Person&gt; person = <span class="keyword">new</span> ArrayList&lt;Person&gt;();</span><br><span class="line">		MyComparable c= <span class="keyword">new</span> MyComparable();</span><br><span class="line">		person.add(<span class="keyword">new</span> Person(<span class="number">15</span>,<span class="string">"xiaoming"</span>));</span><br><span class="line">		person.add(<span class="keyword">new</span> Person(<span class="number">20</span>,<span class="string">"xiaoli"</span>));</span><br><span class="line">		person.add(<span class="keyword">new</span> Person(<span class="number">18</span>,<span class="string">"xiaowang"</span>));</span><br><span class="line">		person.add(<span class="keyword">new</span> Person(<span class="number">27</span>,<span class="string">"xiaoma"</span>));</span><br><span class="line">		Collections.sort(person,c);</span><br><span class="line">		<span class="keyword">for</span> (Person person2 : person) &#123;</span><br><span class="line">			System.out.println(person2.getAge());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="u4E09_u3001_u4E24_u4E2A_u63A5_u53E3_u7684_u6BD4_u8F83"><a href="#u4E09_u3001_u4E24_u4E2A_u63A5_u53E3_u7684_u6BD4_u8F83" class="headerlink" title="三、两个接口的比较"></a>三、两个接口的比较</h2><ul>
-<li>Comparator位于包java.util下，而Comparable位于包java.lang下</li>
-<li>Comparable定义在模型的内部，而Comparator实现在模型外部</li>
-<li>Comparable覆盖compareTo()方法，Comparator覆盖compare()方法</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/JAVA/">JAVA</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/03/05/comparable-Comparator/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/05/comparable-Comparator/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -682,23 +664,15 @@ var _hmt = _hmt || [];
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Android/" title="Android">Android<sup>9</sup></a></li>
+				<li><a href="/tags/Android/" title="Android">Android<sup>11</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/Java/" title="Java">Java<sup>2</sup></a></li>
+				<li><a href="/tags/Java/" title="Java">Java<sup>3</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/JAVA/" title="JAVA">JAVA<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/Android，View/" title="Android，View">Android，View<sup>1</sup></a></li>
 			
 		
 			

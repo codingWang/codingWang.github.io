@@ -4,23 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>cool | duwei&#39;s blog</title>
+    <title>Android-Lifecycle | duwei&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="duwei">
     
 
     
-    <meta name="description" content="那些经典的写法：在阅读代码的时候看到了一些不错的可以借鉴的写法：1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。123private &amp;lt;T extends View&amp;gt; T $(@IdRes int id) &amp;#123;       return (T) findViewById(id);   &amp;#125;">
+    <meta name="description" content="面试必备必看的Android之Activity&amp;amp;Fragment生命周期对比图">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cool">
-<meta property="og:url" content="http://duwei.com/2016/03/10/cool/index.html">
+<meta property="og:title" content="Android-Lifecycle">
+<meta property="og:url" content="http://duwei.com/2016/03/12/Android-Lifecycle/index.html">
 <meta property="og:site_name" content="duwei's blog">
-<meta property="og:description" content="那些经典的写法：在阅读代码的时候看到了一些不错的可以借鉴的写法：1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。123private &amp;lt;T extends View&amp;gt; T $(@IdRes int id) &amp;#123;       return (T) findViewById(id);   &amp;#125;">
-<meta property="og:updated_time" content="2016-03-10T07:49:38.120Z">
+<meta property="og:description" content="面试必备必看的Android之Activity&amp;amp;Fragment生命周期对比图">
+<meta property="og:image" content="http://7xqumq.com1.z0.glb.clouddn.com/duwei_complete_android_fragment_lifecycle.png">
+<meta property="og:updated_time" content="2016-03-12T06:52:12.313Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cool">
-<meta name="twitter:description" content="那些经典的写法：在阅读代码的时候看到了一些不错的可以借鉴的写法：1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。123private &amp;lt;T extends View&amp;gt; T $(@IdRes int id) &amp;#123;       return (T) findViewById(id);   &amp;#125;">
+<meta name="twitter:title" content="Android-Lifecycle">
+<meta name="twitter:description" content="面试必备必看的Android之Activity&amp;amp;Fragment生命周期对比图">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -87,14 +88,14 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/10/cool/" title="cool" itemprop="url">cool</a>
+      <a href="/2016/03/12/Android-Lifecycle/" title="Android-Lifecycle" itemprop="url">Android-Lifecycle</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-10T07:45:24.000Z" itemprop="datePublished"> 发表于 2016-03-10</time>
+    <time datetime="2016-03-12T06:49:51.000Z" itemprop="datePublished"> 发表于 2016-03-12</time>
     
   </p>
 </header>
@@ -103,11 +104,12 @@ var _hmt = _hmt || [];
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u90A3_u4E9B_u7ECF_u5178_u7684_u5199_u6CD5_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">那些经典的写法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5728_u9605_u8BFB_u4EE3_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E9B_u4E0D_u9519_u7684_u53EF_u4EE5_u501F_u9274_u7684_u5199_u6CD5_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">在阅读代码的时候看到了一些不错的可以借鉴的写法：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u867D_u7136_u6709butterknift_u53EF_u4EE5_u4E0D_u7528_u5199findViewById_u4F46_u8FD9_u6837_u4E00_u4E2A_u2018__24__u2018_u7B26_u53F7_u641E_u5B9A_u4E5F_u662F_u4E00_u79CD_u4E0D_u9519_u7684_u9009_u62E9_u3002"><span class="toc-number">2.1.</span> <span class="toc-text">1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u9762_u8BD5_u5FC5_u5907_u5FC5_u770B_u7684Android_u4E4BActivity_26amp_3BFragment_u751F_u547D_u5468_u671F_u5BF9_u6BD4_u56FE"><span class="toc-number">1.</span> <span class="toc-text">面试必备必看的Android之Activity&Fragment生命周期对比图</span></a></li></ol>
 		
 		</div>
 		
-		<h2 id="u90A3_u4E9B_u7ECF_u5178_u7684_u5199_u6CD5_uFF1A"><a href="#u90A3_u4E9B_u7ECF_u5178_u7684_u5199_u6CD5_uFF1A" class="headerlink" title="那些经典的写法："></a>那些经典的写法：</h2><h2 id="u5728_u9605_u8BFB_u4EE3_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E9B_u4E0D_u9519_u7684_u53EF_u4EE5_u501F_u9274_u7684_u5199_u6CD5_uFF1A"><a href="#u5728_u9605_u8BFB_u4EE3_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E9B_u4E0D_u9519_u7684_u53EF_u4EE5_u501F_u9274_u7684_u5199_u6CD5_uFF1A" class="headerlink" title="在阅读代码的时候看到了一些不错的可以借鉴的写法："></a>在阅读代码的时候看到了一些不错的可以借鉴的写法：</h2><h3 id="1_u3001_u867D_u7136_u6709butterknift_u53EF_u4EE5_u4E0D_u7528_u5199findViewById_u4F46_u8FD9_u6837_u4E00_u4E2A_u2018__24__u2018_u7B26_u53F7_u641E_u5B9A_u4E5F_u662F_u4E00_u79CD_u4E0D_u9519_u7684_u9009_u62E9_u3002"><a href="#1_u3001_u867D_u7136_u6709butterknift_u53EF_u4EE5_u4E0D_u7528_u5199findViewById_u4F46_u8FD9_u6837_u4E00_u4E2A_u2018__24__u2018_u7B26_u53F7_u641E_u5B9A_u4E5F_u662F_u4E00_u79CD_u4E0D_u9519_u7684_u9009_u62E9_u3002" class="headerlink" title="1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。"></a>1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> &lt;T extends View&gt; T $(<span class="annotation">@IdRes</span> <span class="keyword">int</span> id) &#123;</span><br><span class="line">       <span class="keyword">return</span> (T) findViewById(id);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>  
+		<h2 id="u9762_u8BD5_u5FC5_u5907_u5FC5_u770B_u7684Android_u4E4BActivity_26amp_3BFragment_u751F_u547D_u5468_u671F_u5BF9_u6BD4_u56FE"><a href="#u9762_u8BD5_u5FC5_u5907_u5FC5_u770B_u7684Android_u4E4BActivity_26amp_3BFragment_u751F_u547D_u5468_u671F_u5BF9_u6BD4_u56FE" class="headerlink" title="面试必备必看的Android之Activity&amp;Fragment生命周期对比图"></a>面试必备必看的Android之Activity&amp;Fragment生命周期对比图</h2><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_complete_android_fragment_lifecycle.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_complete_android_fragment_lifecycle.png"></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -124,7 +126,7 @@ var _hmt = _hmt || [];
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://duwei.com/2016/03/10/cool/" data-title="cool | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://duwei.com/2016/03/12/Android-Lifecycle/" data-title="Android-Lifecycle | duwei&#39;s blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -137,19 +139,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/03/11/NBAPlus-Analysis/" title="NBAPlus-Analysis">
-  <strong>上一篇：</strong><br/>
-  <span>
-  NBAPlus-Analysis</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/03/08/UML/"  title="UML">
+<a href="/2016/03/12/Android-SystemService-Intro/"  title="Android-SystemService-Intro">
  <strong>下一篇：</strong><br/> 
- <span>UML
+ <span>Android-SystemService-Intro
 </span>
 </a>
 </div>
@@ -158,7 +152,7 @@ var _hmt = _hmt || [];
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/03/10/cool/" data-title="cool" data-url="http://duwei.com/2016/03/10/cool/"></div>
+	<div class="ds-thread" data-thread-key="2016/03/12/Android-Lifecycle/" data-title="Android-Lifecycle" data-url="http://duwei.com/2016/03/12/Android-Lifecycle/"></div>
 </section>
 
 
@@ -168,7 +162,7 @@ var _hmt = _hmt || [];
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u90A3_u4E9B_u7ECF_u5178_u7684_u5199_u6CD5_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">那些经典的写法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5728_u9605_u8BFB_u4EE3_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E9B_u4E0D_u9519_u7684_u53EF_u4EE5_u501F_u9274_u7684_u5199_u6CD5_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">在阅读代码的时候看到了一些不错的可以借鉴的写法：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u867D_u7136_u6709butterknift_u53EF_u4EE5_u4E0D_u7528_u5199findViewById_u4F46_u8FD9_u6837_u4E00_u4E2A_u2018__24__u2018_u7B26_u53F7_u641E_u5B9A_u4E5F_u662F_u4E00_u79CD_u4E0D_u9519_u7684_u9009_u62E9_u3002"><span class="toc-number">2.1.</span> <span class="toc-text">1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u9762_u8BD5_u5FC5_u5907_u5FC5_u770B_u7684Android_u4E4BActivity_26amp_3BFragment_u751F_u547D_u5468_u671F_u5BF9_u6BD4_u56FE"><span class="toc-number">1.</span> <span class="toc-text">面试必备必看的Android之Activity&Fragment生命周期对比图</span></a></li></ol>
  
   </div>
 
