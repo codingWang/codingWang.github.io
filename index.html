@@ -88,6 +88,277 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/03/12/Android-SystemService-Intro/" title="Android-SystemService-Intro" itemprop="url">Android-SystemService-Intro</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-12T03:36:42.000Z" itemprop="datePublished"> 发表于 2016-03-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u4E00_u3001_u7CFB_u7EDF_u670D_u52A1_u6982_u89C8"><a href="#u4E00_u3001_u7CFB_u7EDF_u670D_u52A1_u6982_u89C8" class="headerlink" title="一、系统服务概览"></a>一、系统服务概览</h2><h2 id="JAVA_u670D_u52A1"><a href="#JAVA_u670D_u52A1" class="headerlink" title="JAVA服务"></a>JAVA服务</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>简介</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EntropyService</td>
+<td>提供伪随机数</td>
+</tr>
+<tr>
+<td>PowerManagerService</td>
+<td>电源管理服务</td>
+</tr>
+<tr>
+<td>ActivityManagerService</td>
+<td>管理Activity</td>
+</tr>
+<tr>
+<td>TelephonyRegistry</td>
+<td>电话注册、管理服务模块，可以获取电话的链接状态、信号强度等等</td>
+</tr>
+<tr>
+<td>PackageManagerService</td>
+<td>程序包管理服务，包括对软件包的解包，验证，安装以及升级等</td>
+</tr>
+<tr>
+<td>AccountManagerService</td>
+<td></td>
+</tr>
+<tr>
+<td>ContentService</td>
+<td>跨进程数据交换</td>
+</tr>
+<tr>
+<td>BatteryService</td>
+<td>电池管理服务，监控电池充电及状态的服务，当状态改变时，会广播Intent</td>
+</tr>
+<tr>
+<td>HardwareService</td>
+<td></td>
+</tr>
+<tr>
+<td>SensorService</td>
+<td></td>
+</tr>
+<tr>
+<td>WindowManagerService</td>
+<td>Framework最核心的服务之一，负责窗口管理</td>
+</tr>
+<tr>
+<td>AlarmManagerService</td>
+<td>定时器管理服务，提供定时提醒服务</td>
+</tr>
+<tr>
+<td>BluetoothService</td>
+<td>蓝牙服务</td>
+</tr>
+<tr>
+<td>StatusBarService</td>
+<td></td>
+</tr>
+<tr>
+<td>ClipboardService</td>
+<td>系统剪切板服务</td>
+</tr>
+<tr>
+<td>InputMethodManagerService</td>
+<td>输入法管理服务</td>
+</tr>
+<tr>
+<td>NetStatService</td>
+<td>网络状态服务</td>
+</tr>
+<tr>
+<td>ConnectivityService</td>
+<td>网络连接管理服务</td>
+</tr>
+<tr>
+<td>AccessibilityManagerService</td>
+<td>主要是一些View获得点击、焦点、文字改变等事件的分发管理</td>
+</tr>
+<tr>
+<td>NotificationManagerService</td>
+<td>通知栏管理服务，Android中的通知栏和状态栏在一起，只是界面上前者在左边，后者在右边</td>
+</tr>
+<tr>
+<td>MountService</td>
+<td>挂载服务，可通过该服务调用Linux层面的mount程序，主要负责监听并广播device的mount/unmount/bad removal等等事件。</td>
+</tr>
+<tr>
+<td>DeviceStorageMonitorService</td>
+<td>磁盘空间状态检测服务</td>
+</tr>
+<tr>
+<td>LocationManagerService</td>
+<td>地理位置服务</td>
+</tr>
+<tr>
+<td>SearchManagerService</td>
+<td></td>
+</tr>
+<tr>
+<td>CheckinService</td>
+<td></td>
+</tr>
+<tr>
+<td>WallpaperManagerService</td>
+<td></td>
+</tr>
+<tr>
+<td>AudioService</td>
+<td>音频管理服务</td>
+</tr>
+<tr>
+<td>HeadsetObserver</td>
+<td>耳机插拔事件的监控小循环</td>
+</tr>
+<tr>
+<td>DockObserver</td>
+<td>如果系统有个座子，当手机装上或拔出这个座子的话，就得靠他来管理了</td>
+</tr>
+<tr>
+<td>BackupManagerService</td>
+<td>备份服务</td>
+</tr>
+<tr>
+<td>AppWidgetService</td>
+<td>桌面小控件</td>
+</tr>
+<tr>
+<td>StatusBarPolicy</td>
+<td>管理哪个图标该在status bar上显示的策略</td>
+</tr>
+</tbody>
+</table>
+<h2 id="u83B7_u53D6_u76F8_u5173_u670D_u52A1_uFF1AgetSystemService_28String_name_29"><a href="#u83B7_u53D6_u76F8_u5173_u670D_u52A1_uFF1AgetSystemService_28String_name_29" class="headerlink" title="获取相关服务：getSystemService(String name)"></a>获取相关服务：getSystemService(String name)</h2><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>返回对象</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WINDOW_SERVICE</td>
+<td>WindowManager</td>
+<td>管理打开的窗口程序</td>
+</tr>
+<tr>
+<td>LAYOUT_INFLATER_SERVICE</td>
+<td>LayoutInflater</td>
+<td>取得xml里定义的view</td>
+</tr>
+<tr>
+<td>ACTIVITY_SERVICE</td>
+<td>ActivityManager</td>
+<td>管理应用程序的系统状态</td>
+</tr>
+<tr>
+<td>POWER_SERVICE</td>
+<td>PowerManger</td>
+<td>电源的服务</td>
+</tr>
+<tr>
+<td>ALARM_SERVICE</td>
+<td>AlarmManager</td>
+<td>闹钟的服务</td>
+</tr>
+<tr>
+<td>NOTIFICATION_SERVICE</td>
+<td>NotificationManager</td>
+<td>状态栏的服务</td>
+</tr>
+<tr>
+<td>KEYGUARD_SERVICE</td>
+<td>KeyguardManager</td>
+<td>键盘锁的服务</td>
+</tr>
+<tr>
+<td>LOCATION_SERVICE</td>
+<td>LocationManager</td>
+<td>位置的服务，如GPS</td>
+</tr>
+<tr>
+<td>SEARCH_SERVICE</td>
+<td>SearchManager</td>
+<td>搜索的服务</td>
+</tr>
+<tr>
+<td>VIBRATOR_SERVICE</td>
+<td>Vibrator</td>
+<td>手机震动的服务</td>
+</tr>
+<tr>
+<td>CONNECTIVITY_SERVICE</td>
+<td>Connectivity</td>
+<td>网络连接的服务</td>
+</tr>
+<tr>
+<td>WIFI_SERVICE</td>
+<td>WifiManager</td>
+<td>Wi-Fi服务</td>
+</tr>
+<tr>
+<td>TELEPHONY_SERVICE</td>
+<td>TeleponyManager</td>
+<td>电话服务</td>
+</tr>
+</tbody>
+</table>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/03/12/Android-SystemService-Intro/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/12/Android-SystemService-Intro/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/03/11/NBAPlus-Analysis/" title="NBAPlus-Analysis" itemprop="url">NBAPlus-Analysis</a>
   </h1>
   <p class="article-author">By
@@ -381,445 +652,9 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/03/02/ViewDragHelper/" title="ViewDragHelper" itemprop="url">ViewDragHelper</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-02T13:05:14.000Z" itemprop="datePublished"> 发表于 2016-03-02</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u6982_u8FF0_uFF1A"><a href="#u6982_u8FF0_uFF1A" class="headerlink" title="概述："></a>概述：</h2><h3 id="u672C_u6587_u8BB0_u5F55_uFF1A"><a href="#u672C_u6587_u8BB0_u5F55_uFF1A" class="headerlink" title="本文记录："></a>本文记录：</h3><ul>
-<li>ViewDragHelper的基本介绍和使用（初稿）</li>
-</ul>
-<h3 id="1_u3001What_is_ViewDragHelper__3F"><a href="#1_u3001What_is_ViewDragHelper__3F" class="headerlink" title="1、What is ViewDragHelper ?"></a>1、What is ViewDragHelper ?</h3><h4 id="ViewDragHelper_is_a_utility_class_for_writing_custom_ViewGroups-_It_offers_a_number_of_useful_operations_and_state_tracking_for_allowing_a_user_to_drag_and_reposition_views_within_their_parent_ViewGroup"><a href="#ViewDragHelper_is_a_utility_class_for_writing_custom_ViewGroups-_It_offers_a_number_of_useful_operations_and_state_tracking_for_allowing_a_user_to_drag_and_reposition_views_within_their_parent_ViewGroup" class="headerlink" title="ViewDragHelper is a utility class for writing custom ViewGroups. It offers a number of useful operations and state tracking for allowing a user to drag and reposition views within their parent ViewGroup."></a>ViewDragHelper is a utility class for writing custom ViewGroups. It offers a number of useful operations and state tracking for allowing a user to drag and reposition views within their parent ViewGroup.</h4><h4 id="ViewDragHelper_u662F_u4E00_u4E2A_u5199_u81EA_u5B9A_u4E49ViewGroup_u7684_u5DE5_u5177_u7C7B_uFF0C_u5B83_u63D0_u4F9B_u4E86_u4E00_u4E9B_u6709_u7528_u7684_u64CD_u4F5C_u548C_u72B6_u6001_u8DDF_u8E2A_u6765_u8BA9_u7528_u6237_u5BF9View_u5728_u5176_u7236_u5BB9_u5668_u4E2D_u8FDB_u884C_u62D6_u62FD_u548C_u91CD_u65B0_u6446_u653E_u3002"><a href="#ViewDragHelper_u662F_u4E00_u4E2A_u5199_u81EA_u5B9A_u4E49ViewGroup_u7684_u5DE5_u5177_u7C7B_uFF0C_u5B83_u63D0_u4F9B_u4E86_u4E00_u4E9B_u6709_u7528_u7684_u64CD_u4F5C_u548C_u72B6_u6001_u8DDF_u8E2A_u6765_u8BA9_u7528_u6237_u5BF9View_u5728_u5176_u7236_u5BB9_u5668_u4E2D_u8FDB_u884C_u62D6_u62FD_u548C_u91CD_u65B0_u6446_u653E_u3002" class="headerlink" title="ViewDragHelper是一个写自定义ViewGroup的工具类，它提供了一些有用的操作和状态跟踪来让用户对View在其父容器中进行拖拽和重新摆放。"></a>ViewDragHelper是一个写自定义ViewGroup的工具类，它提供了一些有用的操作和状态跟踪来让用户对View在其父容器中进行拖拽和重新摆放。</h4><h3 id="2_u3001How_to_create_it__3F"><a href="#2_u3001How_to_create_it__3F" class="headerlink" title="2、How to create it ?"></a>2、How to create it ?</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">   * Factory method to create a new ViewDragHelper.//工厂方法创建一个ViewDragHelper</span><br><span class="line">   *</span><br><span class="line">   * <span class="doctag">@param</span> forParent Parent view to monitor</span><br><span class="line">   * <span class="doctag">@param</span> sensitivity Multiplier for how sensitive the helper should be about detecting  the start of a drag. Larger values are more sensitive. 1.0f is normal.</span><br><span class="line">   * <span class="doctag">@param</span> cb Callback to provide information and receive events//一个提供信息和接收事件的回调</span><br><span class="line">   * <span class="doctag">@return</span> a new ViewDragHelper instance</span><br><span class="line">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ViewDragHelper <span class="title">create</span><span class="params">(ViewGroup forParent, <span class="keyword">float</span> sensitivity, Callback cb)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">final</span> ViewDragHelper helper = create(forParent, cb);</span><br><span class="line">      helper.mTouchSlop = (<span class="keyword">int</span>) (helper.mTouchSlop * (<span class="number">1</span> / sensitivity));</span><br><span class="line">      <span class="keyword">return</span> helper;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3_u3001Important_Callback"><a href="#3_u3001Important_Callback" class="headerlink" title="3、Important Callback"></a>3、Important Callback</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_viewdraghelper.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_viewdraghelper.png"></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">       * Called when the user's input indicates that they want to capture the given child view</span><br><span class="line">       * with the pointer indicated by pointerId. The callback should return true if the user</span><br><span class="line">       * is permitted to drag the given view with the indicated pointer.</span><br><span class="line">       *</span><br><span class="line">       * &lt;p&gt;ViewDragHelper may call this method multiple times for the same view even if</span><br><span class="line">       * the view is already captured; this indicates that a new pointer is trying to take</span><br><span class="line">       * control of the view.&lt;/p&gt;</span><br><span class="line">       *</span><br><span class="line">       * &lt;p&gt;If this method returns true, a call to &#123;<span class="doctag">@link</span> #onViewCaptured(android.view.View, int)&#125;</span><br><span class="line">       * will follow if the capture is successful.&lt;/p&gt;</span><br><span class="line">       *</span><br><span class="line">       * <span class="doctag">@param</span> child Child the user is attempting to capture</span><br><span class="line">       * <span class="doctag">@param</span> pointerId ID of the pointer attempting the capture</span><br><span class="line">       * <span class="doctag">@return</span> true if capture should be allowed, false otherwise</span><br><span class="line">       */</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">tryCaptureView</span><span class="params">(View child, <span class="keyword">int</span> pointerId)</span></span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">        * 约束被拖拽的子View沿着X轴移动，默认的实现不允许水平移动 ，子类必须覆盖这个方法并提供想要的 clamping.</span><br><span class="line">        *</span><br><span class="line">        * <span class="doctag">@param</span> child Child view being dragged</span><br><span class="line">        * <span class="doctag">@param</span> left Attempted motion along the X axis</span><br><span class="line">        * <span class="doctag">@param</span> dx Proposed change in position for left</span><br><span class="line">        * <span class="doctag">@return</span> The new clamped position for left</span><br><span class="line">        */</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">clampViewPositionHorizontal</span><span class="params">(View child, <span class="keyword">int</span> left, <span class="keyword">int</span> dx)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/03/02/ViewDragHelper/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/02/ViewDragHelper/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/26/recyclerview/" title="recyclerview" itemprop="url">recyclerview</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-26T11:38:37.000Z" itemprop="datePublished"> 发表于 2016-02-26</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u4E00_u3001_u6982_u8FF0"><a href="#u4E00_u3001_u6982_u8FF0" class="headerlink" title="一、概述"></a>一、概述</h2><h3 id="u8FD9_u7BC7_u6587_u7AE0_u8BB0_u5F55_uFF1A"><a href="#u8FD9_u7BC7_u6587_u7AE0_u8BB0_u5F55_uFF1A" class="headerlink" title="这篇文章记录："></a>这篇文章记录：</h3><ul>
-<li>recyclerView的基本用法</li>
-<li>为recyclerview添加点击事件</li>
-<li>添加上拉加载更多</li>
-<li>拖拽排序&amp;滑动删除（初稿）</li>
-</ul>
-<h2 id="u4E8C_u3001recyclerview_u57FA_u672C_u7528_u6CD5_uFF1A"><a href="#u4E8C_u3001recyclerview_u57FA_u672C_u7528_u6CD5_uFF1A" class="headerlink" title="二、recyclerview基本用法："></a>二、recyclerview基本用法：</h2><ul>
-<li>写item和recyclerview布局</li>
-<li>写Adapter</li>
-<li>绑定数据、适配器、recyclerview</li>
-</ul>
-<h3 id="1_u3001_u57FA_u672C_u64CD_u4F5C"><a href="#1_u3001_u57FA_u672C_u64CD_u4F5C" class="headerlink" title="1、基本操作"></a>1、基本操作</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">//1、找到控件</span></span><br><span class="line">mRecyclerView = findView(R.id.id_recyclerview);</span><br><span class="line">	<span class="comment">//2、设置布局管理器</span></span><br><span class="line">mRecyclerView.setLayoutManager(layout);</span><br><span class="line">	<span class="comment">//3、设置adapter</span></span><br><span class="line">mRecyclerView.setAdapter(adapter)</span><br><span class="line">	<span class="comment">//4、设置Item动画</span></span><br><span class="line">mRecyclerView.setItemAnimator(<span class="keyword">new</span> DefaultItemAnimator());</span><br><span class="line">	<span class="comment">//5、添加分割线</span></span><br><span class="line">mRecyclerView.addItemDecoration(<span class="keyword">new</span> DividerItemDecoration( getActivity(), DividerItemDecoration.HORIZONTAL_LIST));</span><br><span class="line">   	<span class="comment">//6、保持固定的大小,提高性能</span></span><br><span class="line">mRecyclerView.setHasFixedSize(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="2_u3001_u9002_u914D_u5668_26amp_3BViewHolder"><a href="#2_u3001_u9002_u914D_u5668_26amp_3BViewHolder" class="headerlink" title="2、适配器&amp;ViewHolder"></a>2、适配器&amp;ViewHolder</h3><ul>
-<li>继承RecyclerView.Adapter</li>
-<li>复写下面三个方法：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> RecyclerView.<span class="function">ViewHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup viewGroup, <span class="keyword">int</span> i)</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(RecyclerView.ViewHolder viewHolder, <span class="keyword">int</span> i)</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getItemCount</span><span class="params">()</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>写ViewHolder继承RecyclerView.ViewHolder</li>
-</ul>
-<h3 id="3_u3001Click_u548CLongClick_u4E8B_u4EF6"><a href="#3_u3001Click_u548CLongClick_u4E8B_u4EF6" class="headerlink" title="3、Click和LongClick事件"></a>3、Click和LongClick事件</h3><ul>
-<li>1、在Adapter中定义如下接口：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnRecyclerViewItemClickListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onItemClick</span><span class="params">(View view , String data)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>2、在onCreateViewHolder()中为每个item添加点击事件</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ViewHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup viewGroup,  <span class="keyword">int</span> viewType)</span> </span>&#123;</span><br><span class="line">        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, <span class="keyword">false</span>);</span><br><span class="line">        ViewHolder vh = <span class="keyword">new</span> ViewHolder(view);</span><br><span class="line">        <span class="comment">//将创建的View注册点击事件</span></span><br><span class="line">        view.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">return</span> vh;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>3、将点击事件转移给外面的调用者：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mOnItemClickListener != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">//注意这里使用getTag方法获取数据</span></span><br><span class="line">        mOnItemClickListener.onItemClick(v,(String)v.getTag());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="u6CE8_u610F_uFF1A_onBindViewHolder_28_29_u65B9_u6CD5_u4E2D_u8BBE_u7F6E_u548Citem_u76F8_u5173_u7684_u6570_u636E"><a href="#u6CE8_u610F_uFF1A_onBindViewHolder_28_29_u65B9_u6CD5_u4E2D_u8BBE_u7F6E_u548Citem_u76F8_u5173_u7684_u6570_u636E" class="headerlink" title="注意： onBindViewHolder()方法中设置和item相关的数据"></a><strong>注意：</strong> onBindViewHolder()方法中设置和item相关的数据</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   </span><br><span class="line"><span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(ViewHolder viewHolder,  <span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">        viewHolder.mTextView.setText(datas[position]);</span><br><span class="line">        <span class="comment">//将数据保存在itemView的Tag中，以便点击时进行获取</span></span><br><span class="line">        viewHolder.itemView.setTag(datas[position]);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>4、最后暴露给外面的调用者，定义一个设置Listener的方法（）</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnItemClickListener</span><span class="params">(OnRecyclerViewItemClickListener listener)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mOnItemClickListener = listener;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4_u3001_u4E0A_u62C9_u52A0_u8F7D_u66F4_u591A"><a href="#4_u3001_u4E0A_u62C9_u52A0_u8F7D_u66F4_u591A" class="headerlink" title="4、上拉加载更多"></a>4、上拉加载更多</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">recyclerView.setOnScrollListener(<span class="keyword">new</span> RecyclerView.OnScrollListener() &#123;</span><br><span class="line">         <span class="annotation">@Override</span></span><br><span class="line">         <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onScrolled</span><span class="params">(RecyclerView recyclerView, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy)</span> </span>&#123;</span><br><span class="line">             <span class="keyword">super</span>.onScrolled(recyclerView, dx, dy);</span><br><span class="line">             <span class="keyword">int</span> lastVisibleItem = ((LinearLayoutManager) mLayoutManager).findLastVisibleItemPosition();</span><br><span class="line">             <span class="keyword">int</span> totalItemCount = mLayoutManager.getItemCount();</span><br><span class="line">             <span class="comment">//lastVisibleItem &gt;= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择</span></span><br><span class="line">             <span class="comment">// dy&gt;0 表示向下滑动</span></span><br><span class="line">             <span class="keyword">if</span> (lastVisibleItem &gt;= totalItemCount - <span class="number">4</span> &amp;&amp; dy &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                 <span class="keyword">if</span>(isLoadingMore)&#123;</span><br><span class="line">                      Log.d(TAG,<span class="string">"ignore manually update!"</span>);</span><br><span class="line">                 &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">                      loadPage();<span class="comment">//这里多线程也要手动控制isLoadingMore</span></span><br><span class="line">                     isLoadingMore = <span class="keyword">false</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="5_u3001ItemTouchHelper"><a href="#5_u3001ItemTouchHelper" class="headerlink" title="5、ItemTouchHelper"></a>5、ItemTouchHelper</h3><h4 id="This_is_a_utility_class_to_add_swipe_to_dismiss_and_drag__26amp_3B_drop_support_to_RecyclerView_28from_google_docs_29"><a href="#This_is_a_utility_class_to_add_swipe_to_dismiss_and_drag__26amp_3B_drop_support_to_RecyclerView_28from_google_docs_29" class="headerlink" title="This is a utility class to add swipe to dismiss and drag &amp; drop support to RecyclerView(from google docs)"></a>This is a utility class to add swipe to dismiss and drag &amp; drop support to RecyclerView(from google docs)</h4><ul>
-<li><p>类的大概声明</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ItemTouchHelper</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">ItemDecoration</span></span><br><span class="line">        <span class="keyword">implements</span> <span class="title">RecyclerView</span>.<span class="title">OnChildAttachStateChangeListener</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//构造函数</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ItemTouchHelper</span><span class="params">(Callback callback)</span> </span>&#123;<span class="comment">//传入一个Callback，两个内部类可用</span></span><br><span class="line">        mCallback = callback;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//与recyclerview绑定</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attachToRecyclerView</span><span class="params">(RecyclerView recyclerView)</span></span>&#123;&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//some code here</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Callback</span> </span>&#123;&#125;	<span class="comment">//嵌套类</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleCallback</span> <span class="keyword">extends</span> <span class="title">Callback</span></span>&#123;&#125; 	<span class="comment">//嵌套类</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>SimpleCallback</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> *dragDirs- 表示拖拽的方向，有六个类型的值：LEFT、RIGHT、START、END、UP、DOWN</span><br><span class="line"> *swipeDirs- 表示滑动的方向，有六个类型的值：LEFT、RIGHT、START、END、UP、DOWN</span><br><span class="line"> */</span></span><br><span class="line">ItemTouchHelper.Callback mCallback = <span class="keyword">new</span> ItemTouchHelper.SimpleCallback(<span class="keyword">int</span> dragDirs, <span class="keyword">int</span> swipeDirs) &#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@param</span> recyclerView</span><br><span class="line">     * <span class="doctag">@param</span> viewHolder 拖动的ViewHolder</span><br><span class="line">     * <span class="doctag">@param</span> target 目标位置的ViewHolder</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onMove</span><span class="params">(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@param</span> viewHolder 滑动的ViewHolder</span><br><span class="line">     * <span class="doctag">@param</span> direction 滑动的方向</span><br><span class="line">     */</span></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSwiped</span><span class="params">(RecyclerView.ViewHolder viewHolder, <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Examples</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//0则不执行拖动或者滑动</span></span><br><span class="line">ItemTouchHelper.Callback mCallback = <span class="keyword">new</span> ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,ItemTouchHelper.RIGHT) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="annotation">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onMove</span><span class="params">(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> fromPosition = viewHolder.getAdapterPosition();<span class="comment">//得到拖动ViewHolder的position</span></span><br><span class="line">    <span class="keyword">int</span> toPosition = target.getAdapterPosition();<span class="comment">//得到目标ViewHolder的position</span></span><br><span class="line">    <span class="keyword">if</span> (fromPosition &lt; toPosition) &#123;</span><br><span class="line">      <span class="comment">//分别把中间所有的item的位置重新交换</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = fromPosition; i &lt; toPosition; i++) &#123;</span><br><span class="line">        Collections.swap(datas, i, i + <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = fromPosition; i &gt; toPosition; i--) &#123;</span><br><span class="line">        Collections.swap(datas, i, i - <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    mAdapter.notifyItemMoved(fromPosition, toPosition);</span><br><span class="line">    <span class="comment">//返回true表示执行拖动</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="annotation">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSwiped</span><span class="params">(RecyclerView.ViewHolder viewHolder, <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> position = viewHolder.getAdapterPosition();</span><br><span class="line">    datas.remove(position);</span><br><span class="line">    mAdapter.notifyItemRemoved(position);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="annotation">@Override</span><span class="comment">//画每一个Item时回调</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onChildDraw</span><span class="params">(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, <span class="keyword">float</span> dX, <span class="keyword">float</span> dY, <span class="keyword">int</span> actionState, <span class="keyword">boolean</span> isCurrentlyActive)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);</span><br><span class="line">    <span class="keyword">if</span>(actionState == ItemTouchHelper.ACTION_STATE_SWIPE) &#123;</span><br><span class="line">      <span class="comment">//滑动时改变Item的透明度</span></span><br><span class="line">      <span class="keyword">final</span> <span class="keyword">float</span> alpha = <span class="number">1</span> - Math.abs(dX) / (<span class="keyword">float</span>)viewHolder.itemView.getWidth();</span><br><span class="line">      viewHolder.itemView.setAlpha(alpha);</span><br><span class="line">      viewHolder.itemView.setTranslationX(dX);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">ItemTouchHelper itemTouchHelper = <span class="keyword">new</span> ItemTouchHelper(mCallback);</span><br><span class="line">itemTouchHelper.attachToRecyclerView(mRecyclerView);</span><br></pre></td></tr></table></figure>
-<h3 id="u53C2_u8003_u94FE_u63A5_uFF1A"><a href="#u53C2_u8003_u94FE_u63A5_uFF1A" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://github.com/devunwired/recyclerview-playground" target="_blank" rel="external">https://github.com/devunwired/recyclerview-playground</a></p>
-<p><a href="https://github.com/AleBarreto/DragRecyclerView.git" target="_blank" rel="external">https://github.com/AleBarreto/DragRecyclerView.git</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/26/recyclerview/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/26/recyclerview/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/25/NestedScrolling/" title="NestedScrolling" itemprop="url">NestedScrolling</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-25T01:39:04.000Z" itemprop="datePublished"> 发表于 2016-02-25</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u6982_u8FF0_uFF1A"><a href="#u6982_u8FF0_uFF1A" class="headerlink" title="概述："></a>概述：</h2><h3 id="u524D_u51E0_u5929_u770B_u5230_u8FD9_u6837_u4E00_u4E2A_u6548_u679C"><a href="#u524D_u51E0_u5929_u770B_u5230_u8FD9_u6837_u4E00_u4E2A_u6548_u679C" class="headerlink" title="前几天看到这样一个效果"></a>前几天看到这样一个效果</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_nestedscroll.gif" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_nestedscroll.gif"></p>
-<h3 id="u5F88_u60F3_u77E5_u9053_u5B83_u7684_u5B9E_u73B0_u539F_u7406_uFF0C_u4E8E_u662F_u770B_u4E86_u4E00_u4E0B_u6E90_u7801_uFF0C_u5B66_u5230_u4E86_u4E00_u4E2A_u65B0_u7684_u4E1C_u897F_uFF1A_u5D4C_u5957_u6ED1_u52A8"><a href="#u5F88_u60F3_u77E5_u9053_u5B83_u7684_u5B9E_u73B0_u539F_u7406_uFF0C_u4E8E_u662F_u770B_u4E86_u4E00_u4E0B_u6E90_u7801_uFF0C_u5B66_u5230_u4E86_u4E00_u4E2A_u65B0_u7684_u4E1C_u897F_uFF1A_u5D4C_u5957_u6ED1_u52A8" class="headerlink" title="很想知道它的实现原理，于是看了一下源码，学到了一个新的东西：嵌套滑动"></a>很想知道它的实现原理，于是看了一下源码，学到了一个新的东西：嵌套滑动</h3><h2 id="u80CC_u666F"><a href="#u80CC_u666F" class="headerlink" title="背景"></a>背景</h2><h3 id="u5728_u4F20_u7EDF_u7684View_u7684_u4E8B_u4EF6_u5206_u53D1_u673A_u5236_u4E2D_uFF0C_u4E8B_u4EF6_u4E00_u7EA7_u4E00_u7EA7_u7684_u4F20_u9012_u4E0B_u53BB_uFF0C_u76F4_u5230_u88AB_u611F_u5174_u8DA3_u7684View_u62E6_u622A_u5E76_u6D88_u8017_u5904_u7406_uFF0C_u5982_u679C_u6240_u6709_u7684View_u90FD_u4E0D_u62E6_u622A_u5904_u7406_uFF0C_u90A3_u4E48_u6700_u540E_u4E00_u4E2AView_u5C06_u4F1A_u629B_u5F03_u8BE5_u4E8B_u4EF6_u3002_u5373_uFF1A_u4E00_u4E2A_u4E8B_u4EF6_u5982_u679C_u4F20_u7ED9_u4E86_u5B50View_u90A3_u4E48_u7236View_u5C06_u4E0D_u53EF_u80FD_u518D_u5F97_u5230_u8BE5_u4E8B_u4EF6_u3002"><a href="#u5728_u4F20_u7EDF_u7684View_u7684_u4E8B_u4EF6_u5206_u53D1_u673A_u5236_u4E2D_uFF0C_u4E8B_u4EF6_u4E00_u7EA7_u4E00_u7EA7_u7684_u4F20_u9012_u4E0B_u53BB_uFF0C_u76F4_u5230_u88AB_u611F_u5174_u8DA3_u7684View_u62E6_u622A_u5E76_u6D88_u8017_u5904_u7406_uFF0C_u5982_u679C_u6240_u6709_u7684View_u90FD_u4E0D_u62E6_u622A_u5904_u7406_uFF0C_u90A3_u4E48_u6700_u540E_u4E00_u4E2AView_u5C06_u4F1A_u629B_u5F03_u8BE5_u4E8B_u4EF6_u3002_u5373_uFF1A_u4E00_u4E2A_u4E8B_u4EF6_u5982_u679C_u4F20_u7ED9_u4E86_u5B50View_u90A3_u4E48_u7236View_u5C06_u4E0D_u53EF_u80FD_u518D_u5F97_u5230_u8BE5_u4E8B_u4EF6_u3002" class="headerlink" title="在传统的View的事件分发机制中，事件一级一级的传递下去，直到被感兴趣的View拦截并消耗处理，如果所有的View都不拦截处理，那么最后一个View将会抛弃该事件。即：一个事件如果传给了子View那么父View将不可能再得到该事件。"></a>在传统的View的事件分发机制中，事件一级一级的传递下去，直到被感兴趣的View拦截并消耗处理，如果所有的View都不拦截处理，那么最后一个View将会抛弃该事件。即：<strong>一个事件如果传给了子View那么父View将不可能再得到该事件。</strong></h3><h2 id="u7C7B_uFF1A"><a href="#u7C7B_uFF1A" class="headerlink" title="类："></a>类：</h2><h3 id="u4E3A_u4E86_u5B9E_u73B0_u5D4C_u5957_u5FAA_u73AF_uFF0C5-0_u4E2D_u63D0_u4F9B_u4E86_u4E24_u4E2A_u63A5_u53E3_u4E24_u4E2A_u7C7B_uFF1A"><a href="#u4E3A_u4E86_u5B9E_u73B0_u5D4C_u5957_u5FAA_u73AF_uFF0C5-0_u4E2D_u63D0_u4F9B_u4E86_u4E24_u4E2A_u63A5_u53E3_u4E24_u4E2A_u7C7B_uFF1A" class="headerlink" title="为了实现嵌套循环，5.0中提供了两个接口两个类："></a>为了实现嵌套循环，5.0中提供了两个接口两个类：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//子View需实现的接口</span></span><br><span class="line">NestedScrollingChild</span><br><span class="line"></span><br><span class="line"><span class="comment">//父View实现的接口</span></span><br><span class="line">NestedScrollingParent</span><br><span class="line"></span><br><span class="line"><span class="comment">//子View的帮助类</span></span><br><span class="line">NestedScrollingChildHelper</span><br><span class="line"></span><br><span class="line"><span class="comment">//父View 的帮助类</span></span><br><span class="line">NestedScrollingParentHelper</span><br></pre></td></tr></table></figure>
-<h2 id="u4E3B_u8981_u65B9_u6CD5"><a href="#u4E3B_u8981_u65B9_u6CD5" class="headerlink" title="主要方法"></a>主要方法</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">     * <span class="doctag">@param</span> 水平滚动的像素值</span><br><span class="line">     * <span class="doctag">@param</span> 垂直滚动的距离像素值</span><br><span class="line">     * <span class="doctag">@param</span>  consumed[0] ：dx消耗掉的部分</span><br><span class="line">     *                  consumed[1] dy消费的部分</span><br><span class="line">     * <span class="doctag">@param</span> offsetInWindow Optional. If not null, on return this will contain the offset</span><br><span class="line">     *                       in local view coordinates of this view from before this operation</span><br><span class="line">     *                       to after it completes. View implementations may use this to adjust</span><br><span class="line">     *                       expected input coordinate tracking.</span><br><span class="line">     * <span class="doctag">@return</span> 如果父view消费了一些或全部，则返回true</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchNestedPreScroll</span><span class="params">(<span class="keyword">int</span> dx, <span class="keyword">int</span> dy, <span class="keyword">int</span>[] consumed, <span class="keyword">int</span>[] offsetInWindow)</span></span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (event.getAction()) &#123;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</span><br><span class="line">                ox = event.getX();</span><br><span class="line">                oy = event.getY();</span><br><span class="line">                <span class="comment">//开始滑动！！！！！！！！！！</span></span><br><span class="line">                startNestedScroll(ViewCompat.SCROLL_AXIS_HORIZONTAL | ViewCompat.SCROLL_AXIS_VERTICAL);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_MOVE:<span class="comment">//在MOVE中</span></span><br><span class="line">                <span class="comment">//结束点</span></span><br><span class="line">                <span class="keyword">float</span> clampedX = event.getX();</span><br><span class="line">                <span class="keyword">float</span> clampedY = event.getY();</span><br><span class="line">                <span class="comment">//移动的距离</span></span><br><span class="line">                <span class="keyword">int</span> dx = (<span class="keyword">int</span>) (clampedX - ox);</span><br><span class="line">                <span class="keyword">int</span> dy = (<span class="keyword">int</span>) (clampedY - oy);</span><br><span class="line">                <span class="comment">//分发触屏事件给父类处理</span></span><br><span class="line">                <span class="keyword">if</span> (dispatchNestedPreScroll(dx, dy, consumed, offsetInWindow)) &#123;</span><br><span class="line">                    <span class="comment">//减掉父类消耗的距离</span></span><br><span class="line">                    dx -= consumed[<span class="number">0</span>];<span class="comment">//consumed[0] will contain the consumed component of dx</span></span><br><span class="line">                    dy -= consumed[<span class="number">1</span>];<span class="comment">//consumed[1] the consumed dy</span></span><br><span class="line">                &#125;</span><br><span class="line">                offsetLeftAndRight(dx);<span class="comment">//Offset this view's horizontal location by the specified amount of pixels</span></span><br><span class="line">                offsetTopAndBottom(dy);<span class="comment">//通过指定像素来弥补控件的垂直位置</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_UP:</span><br><span class="line">                stopNestedScroll();<span class="comment">//结束滑动！！！！！！！！</span></span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;<span class="comment">/*super.onTouchEvent(event);*/</span></span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">  *子类滑动事件分发回调</span><br><span class="line">  * <span class="doctag">@param</span> target View that initiated the nested scroll</span><br><span class="line">  * <span class="doctag">@param</span> dx Horizontal scroll distance in pixels</span><br><span class="line">  * <span class="doctag">@param</span> dy Vertical scroll distance in pixels</span><br><span class="line">  * <span class="doctag">@param</span> consumed Output. The horizontal and vertical scroll distance consumed by this parent</span><br><span class="line">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNestedPreScroll</span><span class="params">(View target, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy, <span class="keyword">int</span>[] consumed)</span></span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//子类滑动事件分发回调dispatchNestedPreScroll</span></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNestedPreScroll</span><span class="params">(View target, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy, <span class="keyword">int</span>[] consumed)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (dx &gt; <span class="number">0</span>) &#123;<span class="comment">//水平滚动距离大于0</span></span><br><span class="line">            <span class="keyword">if</span> (target.getRight() + dx &gt; getWidth()) &#123;<span class="comment">//子View右边+移动的距离越界了（父View）</span></span><br><span class="line">                dx = target.getRight() + dx - getWidth();<span class="comment">//越界这么多</span></span><br><span class="line">                offsetLeftAndRight(dx);<span class="comment">//父View偏移这么多</span></span><br><span class="line">                consumed[<span class="number">0</span>] += dx;   <span class="comment">//将消耗掉的距离返回给子类</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;<span class="comment">//水平滚动距离&lt;0</span></span><br><span class="line">            <span class="keyword">if</span> (target.getLeft() + dx &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                dx = target.getLeft() + dx;</span><br><span class="line">                offsetLeftAndRight(dx);</span><br><span class="line">                consumed[<span class="number">0</span>] += dx;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (dy &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (target.getBottom() + dy &gt; getHeight()) &#123;</span><br><span class="line">                dy = target.getBottom() +dy- getHeight();</span><br><span class="line">                offsetTopAndBottom(dy);</span><br><span class="line">                consumed[<span class="number">1</span>] += dy;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (target.getTop() + dy &lt; <span class="number">0</span>) &#123;</span><br><span class="line">                dy = target.getTop() + dy;</span><br><span class="line">                offsetTopAndBottom(dy);</span><br><span class="line">                consumed[<span class="number">1</span>] += dy;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="u51FD_u6570_u7684_u56DE_u8C03_u5173_u7CFB_u5982_u4E0B_uFF1A"><a href="#u51FD_u6570_u7684_u56DE_u8C03_u5173_u7CFB_u5982_u4E0B_uFF1A" class="headerlink" title="函数的回调关系如下："></a>函数的回调关系如下：</h2><h3 id="u5DE6_u8FB9_u7684_u5B50View_u56DE_u8C03_u53F3_u8FB9_u7684_u7236View_u7684_u65B9_u6CD5"><a href="#u5DE6_u8FB9_u7684_u5B50View_u56DE_u8C03_u53F3_u8FB9_u7684_u7236View_u7684_u65B9_u6CD5" class="headerlink" title="左边的子View回调右边的父View的方法"></a>左边的子View回调右边的父View的方法</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_nestedScroll.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_nestedScroll.png"></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/25/NestedScrolling/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/25/NestedScrolling/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/20/How-to-release-a-library-to-jcenter/" title="How to release a library to jcenter" itemprop="url">How to release a library to jcenter</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-20T01:57:10.000Z" itemprop="datePublished"> 发表于 2016-02-20</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h2><h3 id="u6700_u8FD1_u82B1_u65F6_u95F4_u5199_u4E86_u4E24_u4E2A_u81EA_u5B9A_u4E49_u63A7_u4EF6_uFF0C_u4E00_u4E2A_u662FWaveLoadingView_u53E6_u5916_u4E00_u4E2A_u662FPinWheel_29__u5199Demo_u7684_u65F6_u95F4_u6CA1_u82B1_u591A_u5C11_uFF0C_u5012_u662F_u5F80Jcenter_u4E0A_u4F20_u82B1_u8D39_u4E86_u4E0D_u5C11_u65F6_u95F4_uFF0C_u5728_u8FD9_u8FC7_u7A0B_u4E2D_u4E5F_u9047_u5230_u4E86_u8BB8_u591A_u7684bug_uFF0C_u4E0D_u8FC7_u5728_u81EA_u5DF1_u7684_u52AA_u529B_u4E0B_u6700_u540E_u8FD8_u662F_u4E0A_u4F20_u6210_u529F_u53EF_u4EE5_u7528_u4E86_u3002_u4E0B_u9762_u5C31_u603B_u7ED3_u4E00_u4E0B_u5427_uFF1A"><a href="#u6700_u8FD1_u82B1_u65F6_u95F4_u5199_u4E86_u4E24_u4E2A_u81EA_u5B9A_u4E49_u63A7_u4EF6_uFF0C_u4E00_u4E2A_u662FWaveLoadingView_u53E6_u5916_u4E00_u4E2A_u662FPinWheel_29__u5199Demo_u7684_u65F6_u95F4_u6CA1_u82B1_u591A_u5C11_uFF0C_u5012_u662F_u5F80Jcenter_u4E0A_u4F20_u82B1_u8D39_u4E86_u4E0D_u5C11_u65F6_u95F4_uFF0C_u5728_u8FD9_u8FC7_u7A0B_u4E2D_u4E5F_u9047_u5230_u4E86_u8BB8_u591A_u7684bug_uFF0C_u4E0D_u8FC7_u5728_u81EA_u5DF1_u7684_u52AA_u529B_u4E0B_u6700_u540E_u8FD8_u662F_u4E0A_u4F20_u6210_u529F_u53EF_u4EE5_u7528_u4E86_u3002_u4E0B_u9762_u5C31_u603B_u7ED3_u4E00_u4E0B_u5427_uFF1A" class="headerlink" title="最近花时间写了两个自定义控件，一个是WaveLoadingView另外一个是PinWheel) 写Demo的时间没花多少，倒是往Jcenter上传花费了不少时间，在这过程中也遇到了许多的bug，不过在自己的努力下最后还是上传成功可以用了。下面就总结一下吧："></a>最近花时间写了两个自定义控件，一个是<a href="[https://github.com/codingWang/WaveLoadingView](https://github.com/codingWang/WaveLoadingView">WaveLoadingView</a>另外一个是<a href="[https://github.com/codingWang/PinWheel](https://github.com/codingWang/PinWheel">PinWheel</a>) 写Demo的时间没花多少，倒是往Jcenter上传花费了不少时间，在这过程中也遇到了许多的bug，不过在自己的努力下最后还是上传成功可以用了。下面就总结一下吧：</h3><h2 id="u7B2C_u4E00_u6B65_uFF1A"><a href="#u7B2C_u4E00_u6B65_uFF1A" class="headerlink" title="第一步："></a>第一步：</h2><h3 id="1-__u524D_u5F80_u8FD9_u91CC_u6CE8_u518C_u4E00_u4E2A_u8D26_u53F7_u3002"><a href="#1-__u524D_u5F80_u8FD9_u91CC_u6CE8_u518C_u4E00_u4E2A_u8D26_u53F7_u3002" class="headerlink" title="1. 前往这里注册一个账号。"></a>1. 前往<a href="[https://bintray.com/](https://bintray.com/">这里</a>注册一个账号。</h3><h3 id="2-_u70B9_u51FB_u4E0B_u56FE_u6240_u793A_u7684Maven_uFF1A"><a href="#2-_u70B9_u51FB_u4E0B_u56FE_u6240_u793A_u7684Maven_uFF1A" class="headerlink" title="2.点击下图所示的Maven："></a>2.点击下图所示的Maven：<br></h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duweimaven.png" alt=""><br></p>
-<h3 id="3-_u70B9_u51FBAdd_New_Package_3A"><a href="#3-_u70B9_u51FBAdd_New_Package_3A" class="headerlink" title="3.点击Add New Package:"></a>3.点击Add New Package:<br></h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duweinewpackage.png" alt=""><br></p>
-<h3 id="4-_u4F9D_u6B21_u586B_u5199_u4EE5_u4E0B_u4FE1_u606F_uFF1A"><a href="#4-_u4F9D_u6B21_u586B_u5199_u4EE5_u4E0B_u4FE1_u606F_uFF1A" class="headerlink" title="4.依次填写以下信息："></a>4.依次填写以下信息：</h3><ul>
-<li>Name：Library的名字（如:PinWheel）</li>
-<li>Description：Library的描述信息（如：a custom dialog）</li>
-<li>Licenses：Library遵循的协议（如：Apache2.0）</li>
-<li>Tags ：Library的标签（如：Android）</li>
-<li>Website：Library的网站（写github项目地址就好）</li>
-<li>Issues tracker：Issues的跟踪（写githubissues，如：<a href="https://github.com/codingWang/PinWheel/issues）" target="_blank" rel="external">https://github.com/codingWang/PinWheel/issues）</a></li>
-<li>Version control：版本控制（如：git@github.com:codingWang/PinWheel.git）</li>
-</ul>
-<h3 id="u586B_u5199_u5B8C_u6BD5_u70B9_u51FBCreate_uFF0COK_u3002"><a href="#u586B_u5199_u5B8C_u6BD5_u70B9_u51FBCreate_uFF0COK_u3002" class="headerlink" title="填写完毕点击Create，OK。"></a>填写完毕点击Create，OK。</h3><h2 id="u7B2C_u4E8C_u6B65_uFF1A"><a href="#u7B2C_u4E8C_u6B65_uFF1A" class="headerlink" title="第二步："></a>第二步：</h2><h3 id="1-__u65B0_u5EFA_u9879_u76EE_uFF08_u6216_u5DF2_u7ECF_u6709_u9879_u76EE_uFF09_u5E76_u6DFB_u52A0_u4EE5_u4E0B_u4E24_u53E5_u53BBProject__u7684_build-gradle"><a href="#1-__u65B0_u5EFA_u9879_u76EE_uFF08_u6216_u5DF2_u7ECF_u6709_u9879_u76EE_uFF09_u5E76_u6DFB_u52A0_u4EE5_u4E0B_u4E24_u53E5_u53BBProject__u7684_build-gradle" class="headerlink" title="1. 新建项目（或已经有项目）并添加以下两句去Project 的 build.gradle"></a>1. 新建项目（或已经有项目）并添加以下两句去<em>Project 的 build.gradle </em></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">classpath &#39;com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0&#39;&#10;classpath &#39;com.github.dcendents:android-maven-gradle-plugin:1.3&#39;</span><br></pre></td></tr></table></figure>
-<h3 id="2-_u5728Library_u7684build-gradle_u4E2D_u4F9D_u6B21_u6DFB_u52A0_u5982_u4E0B_uFF1A"><a href="#2-_u5728Library_u7684build-gradle_u4E2D_u4F9D_u6B21_u6DFB_u52A0_u5982_u4E0B_uFF1A" class="headerlink" title="2.在Library的build.gradle中依次添加如下："></a>2.在Library的build.gradle中依次添加如下：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.github.dcendents.android-maven'</span></span><br><span class="line">apply plugin: <span class="string">'com.jfrog.bintray'</span></span><br><span class="line">version = <span class="string">"0.1"</span></span><br><span class="line"></span><br><span class="line">def siteUrl = <span class="string">'https://github.com/codingWang/PinWheel'</span>    // 项目地址！！！！</span><br><span class="line">def gitUrl = <span class="string">'git@github.com:codingWang/PinWheel.git'</span> // git地址！！！</span><br><span class="line"></span><br><span class="line">group = <span class="string">"com.duwei.pinwheel"</span>	//！！！！！！</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">install &#123;</span><br><span class="line">    repositories.mavenInstaller &#123;</span><br><span class="line">        // This generates POM.xml with proper parameters</span><br><span class="line">        pom &#123;</span><br><span class="line">            project &#123;</span><br><span class="line">                packaging <span class="string">'aar'</span></span><br><span class="line">                name <span class="string">'PinWheel'</span>//！！！！！！！！！！！</span><br><span class="line">                url siteUrl</span><br><span class="line">                licenses &#123;</span><br><span class="line">                    license &#123;</span><br><span class="line">                        name <span class="string">'The Apache Software License, Version 2.0'</span></span><br><span class="line">                        url <span class="string">'http://www.apache.org/licenses/LICENSE-2.0.txt'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                developers &#123;</span><br><span class="line">                    developer &#123;</span><br><span class="line">                        id <span class="string">'duwei'</span>  //！！！！！！！！！！！！</span><br><span class="line">                        name <span class="string">'duwei'</span>//！！！！！！！！</span><br><span class="line">                        email <span class="string">'du2035392@gmail.com'</span>//！！！！！！！！！</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                scm &#123;</span><br><span class="line">                    connection gitUrl</span><br><span class="line">                    developerConnection gitUrl</span><br><span class="line">                    url siteUrl</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">task sourcesJar(<span class="built_in">type</span>: Jar) &#123;</span><br><span class="line">    from android.sourceSets.main.java.srcDirs</span><br><span class="line">    classifier = <span class="string">'sources'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task javadoc(<span class="built_in">type</span>: Javadoc) &#123;</span><br><span class="line">    options.encoding = <span class="string">"utf-8"</span>//！！！！文档中文编码乱码问题解决</span><br><span class="line">    <span class="built_in">source</span> = android.sourceSets.main.java.srcDirs</span><br><span class="line">    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task javadocJar(<span class="built_in">type</span>: Jar, dependsOn: javadoc) &#123;</span><br><span class="line">    classifier = <span class="string">'javadoc'</span></span><br><span class="line">    from javadoc.destinationDir</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">artifacts &#123;</span><br><span class="line">    archives javadocJar</span><br><span class="line">    archives sourcesJar</span><br><span class="line">&#125;</span><br><span class="line">Properties properties = new Properties()</span><br><span class="line">properties.load(project.rootProject.file(<span class="string">'local.properties'</span>).newDataInputStream())</span><br><span class="line">bintray &#123;</span><br><span class="line">    user = properties.getProperty(<span class="string">"bintray.user"</span>)</span><br><span class="line">    key = properties.getProperty(<span class="string">"bintray.apikey"</span>)</span><br><span class="line">    configurations = [<span class="string">'archives'</span>]</span><br><span class="line">    pkg &#123;</span><br><span class="line">        repo = <span class="string">"maven"</span></span><br><span class="line">        name = <span class="string">"PinWheel"</span>                // Jcenter项目中Name的值</span><br><span class="line">        websiteUrl = siteUrl</span><br><span class="line">        vcsUrl = gitUrl</span><br><span class="line">        licenses = [<span class="string">"Apache-2.0"</span>]</span><br><span class="line">        publish = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="u76F4_u63A5_u590D_u5236_u4E0A_u8FF0_u5185_u5BB9_u6DFB_u52A0_u5230_u4F60_u7684Library_u7684build-grale_u5C31_u53EF_u4EE5_u4E86_uFF0C_u7136_u540E_u4FEE_u6539_u6807_uFF01_uFF01_uFF01_u7684_u5730_u65B9"><a href="#u76F4_u63A5_u590D_u5236_u4E0A_u8FF0_u5185_u5BB9_u6DFB_u52A0_u5230_u4F60_u7684Library_u7684build-grale_u5C31_u53EF_u4EE5_u4E86_uFF0C_u7136_u540E_u4FEE_u6539_u6807_uFF01_uFF01_uFF01_u7684_u5730_u65B9" class="headerlink" title="直接复制上述内容添加到你的Library的build.grale就可以了，然后修改标！！！的地方"></a>直接复制上述内容添加到你的Library的build.grale就可以了，然后修改标！！！的地方</h3><h2 id="u7B2C_u4E09_u6B65_uFF1A"><a href="#u7B2C_u4E09_u6B65_uFF1A" class="headerlink" title="第三步："></a>第三步：</h2><h3 id="u6253_u5F00_u9879_u76EE_u7684local-properties_u6DFB_u52A0_u5982_u4E0B_u4FE1_u606F"><a href="#u6253_u5F00_u9879_u76EE_u7684local-properties_u6DFB_u52A0_u5982_u4E0B_u4FE1_u606F" class="headerlink" title="打开项目的local.properties添加如下信息"></a>打开项目的local.properties添加如下信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bintray.user=duwei                                // bintray的用户有</span><br><span class="line">bintray.apikey= // 该值可在bintray中点击Edite</span><br></pre></td></tr></table></figure>
-<p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_edit.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_edit.png"><br><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_apikey.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_apikey.png"></p>
-<h2 id="u7B2C_u56DB_u6B65_uFF1A"><a href="#u7B2C_u56DB_u6B65_uFF1A" class="headerlink" title="第四步："></a>第四步：</h2><h3 id="u5728Android_stuodio_u7684Terminal_u7EC8_u7AEF_u4F9D_u6B21_u6267_u884C_u4EE5_u4E0B_u547D_u4EE4"><a href="#u5728Android_stuodio_u7684Terminal_u7EC8_u7AEF_u4F9D_u6B21_u6267_u884C_u4EE5_u4E0B_u547D_u4EE4" class="headerlink" title="在Android stuodio的Terminal终端依次执行以下命令"></a>在Android stuodio的Terminal终端依次执行以下命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gradew javadocJar	</span><br><span class="line"></span><br><span class="line">gradew sourcesJar</span><br><span class="line"></span><br><span class="line">gradew install</span><br><span class="line"></span><br><span class="line">gradew bintrayUpload</span><br></pre></td></tr></table></figure>
-<h2 id="u7B2C_u4E94_u6B65_uFF1A"><a href="#u7B2C_u4E94_u6B65_uFF1A" class="headerlink" title="第五步："></a>第五步：</h2><h3 id="u5F15_u7528Library"><a href="#u5F15_u7528Library" class="headerlink" title="引用Library"></a>引用Library</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">repositories &#123;</span><br><span class="line"> maven &#123;</span><br><span class="line"> url <span class="string">'https://dl.bintray.com/duwei/maven/'</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line"></span><br><span class="line"> compile <span class="string">'com.duwei.pinwheel:pinwheel:0.1'</span></span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/20/How-to-release-a-library-to-jcenter/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/20/How-to-release-a-library-to-jcenter/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/16/Interpolator/" title="Interpolator" itemprop="url">Interpolator</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-16T14:11:36.000Z" itemprop="datePublished"> 发表于 2016-02-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u4E00_u3001_u6982_u8FF0"><a href="#u4E00_u3001_u6982_u8FF0" class="headerlink" title="一、概述"></a>一、概述</h2><h3 id="u4E4B_u524D_u5BF9_u4E8Eandroid_u63D2_u503C_u5668_u7684_u7406_u89E3_u4EC5_u4EC5_u662F_u8868_u9762_u7684_uFF0C_u53EA_u77E5_u9053_u5B83_u8868_u793A_u4E00_u79CD_u53D8_u5316_u7684_u8D8B_u52BF/_u5F62_u5F0F_uFF0C_u5E76_u4E14_u53EA_u4F1A_u7528_u7B80_u5355_u7684_u52A0_u901F/_u51CF_u901F/_u52A0_u51CF_u901F_u63D2_u503C_u5668_uFF0C_u6628_u5929_u5728_u770B_u4E00_u4E2A_u5F00_u6E90_u52A8_u753B_u6E90_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E2A_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u7684_u4EE3_u7801_uFF0C_u4E8E_u662F_u53C8_u6536_u83B7_u5B66_u4E60_u5230_u4E86_u8BB8_u591A_u3002"><a href="#u4E4B_u524D_u5BF9_u4E8Eandroid_u63D2_u503C_u5668_u7684_u7406_u89E3_u4EC5_u4EC5_u662F_u8868_u9762_u7684_uFF0C_u53EA_u77E5_u9053_u5B83_u8868_u793A_u4E00_u79CD_u53D8_u5316_u7684_u8D8B_u52BF/_u5F62_u5F0F_uFF0C_u5E76_u4E14_u53EA_u4F1A_u7528_u7B80_u5355_u7684_u52A0_u901F/_u51CF_u901F/_u52A0_u51CF_u901F_u63D2_u503C_u5668_uFF0C_u6628_u5929_u5728_u770B_u4E00_u4E2A_u5F00_u6E90_u52A8_u753B_u6E90_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E2A_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u7684_u4EE3_u7801_uFF0C_u4E8E_u662F_u53C8_u6536_u83B7_u5B66_u4E60_u5230_u4E86_u8BB8_u591A_u3002" class="headerlink" title="之前对于android插值器的理解仅仅是表面的，只知道它表示一种变化的趋势/形式，并且只会用简单的加速/减速/加减速插值器，昨天在看一个开源动画源码的时候看到了一个自定义插值器的代码，于是又收获学习到了许多。"></a>之前对于android插值器的理解仅仅是表面的，只知道它表示一种变化的趋势/形式，并且只会用简单的<strong>加速</strong>/<strong>减速</strong>/<strong>加减速</strong>插值器，昨天在看一个开源动画源码的时候看到了一个自定义插值器的代码，于是又收获学习到了许多。</h3><h2 id="u4E8C_u3001_u7CFB_u7EDF_u63D2_u503C_u5668"><a href="#u4E8C_u3001_u7CFB_u7EDF_u63D2_u503C_u5668" class="headerlink" title="二、系统插值器"></a>二、系统插值器</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">AccelerateDecelerateInterpolator	<span class="comment">//加速减速插值器</span></span><br><span class="line"></span><br><span class="line">AccelerateInterpolator			<span class="comment">//加速插值器</span></span><br><span class="line"></span><br><span class="line">DecelerateInterpolator			<span class="comment">//减速插值器</span></span><br><span class="line"></span><br><span class="line">LinearInterpolator		<span class="comment">//线性插值器</span></span><br><span class="line"></span><br><span class="line">OvershootInterpolator		<span class="comment">//超越插值器--&gt;向前甩一定值后再回到原来位置</span></span><br><span class="line"></span><br><span class="line">AnticipateInterpolator			<span class="comment">//预先插值器（先这样翻译吧~~）--&gt;开始的时候向后然后向前甩</span></span><br><span class="line"></span><br><span class="line">AnticipateOvershootInterpolator	<span class="comment">//预先超过插值器--&gt;开始的时候向后然后向前甩一定值后返回最后的值</span></span><br><span class="line"></span><br><span class="line">BounceInterpolator		<span class="comment">//弹跳插值器--&gt;动画结束的时候弹起</span></span><br><span class="line"></span><br><span class="line">CycleInterpolator		<span class="comment">//循环插值器--&gt;循环播放特定的次数，速率改变沿着正弦曲线</span></span><br></pre></td></tr></table></figure>
-<h2 id="u4E09_u3001_u7CFB_u7EDF_u63D2_u503C_u5668_u5206_u6790"><a href="#u4E09_u3001_u7CFB_u7EDF_u63D2_u503C_u5668_u5206_u6790" class="headerlink" title="三、系统插值器分析"></a>三、系统插值器分析</h2><h3 id="1_u3001_u6240_u6709_u7684_u7CFB_u7EDF_u63D2_u503C_u5668_u90FD_u7EE7_u627F_u81EAInterpolator_u7C7B_uFF0C_u800CInterpolator_u53C8_u5B9E_u73B0_u4E86TimeInterpolator_u63A5_u53E3_uFF1A"><a href="#1_u3001_u6240_u6709_u7684_u7CFB_u7EDF_u63D2_u503C_u5668_u90FD_u7EE7_u627F_u81EAInterpolator_u7C7B_uFF0C_u800CInterpolator_u53C8_u5B9E_u73B0_u4E86TimeInterpolator_u63A5_u53E3_uFF1A" class="headerlink" title="1、所有的系统插值器都继承自Interpolator类，而Interpolator又实现了TimeInterpolator接口："></a>1、所有的系统插值器都继承自Interpolator类，而Interpolator又实现了TimeInterpolator接口：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TimeInterpolator</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="2_u3001_u6240_u4EE5_u8BE5_u65B9_u6CD5_u662F_u6240_u6709_u63D2_u503C_u5668_u7684_u6838_u5FC3_u65B9_u6CD5_uFF0C_u5148_u7B80_u5355_u770B_u770B_u7CFB_u7EDF_u63D2_u503C_u5668_u7684_u8BE5_u65B9_u6CD5_uFF1A"><a href="#2_u3001_u6240_u4EE5_u8BE5_u65B9_u6CD5_u662F_u6240_u6709_u63D2_u503C_u5668_u7684_u6838_u5FC3_u65B9_u6CD5_uFF0C_u5148_u7B80_u5355_u770B_u770B_u7CFB_u7EDF_u63D2_u503C_u5668_u7684_u8BE5_u65B9_u6CD5_uFF1A" class="headerlink" title="2、所以该方法是所有插值器的核心方法，先简单看看系统插值器的该方法："></a>2、所以该方法是所有插值器的核心方法，先简单看看系统插值器的该方法：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//AccelerateDecelerateInterpolator</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">float</span>)(Math.cos((input + <span class="number">1</span>) * Math.PI) / <span class="number">2.0f</span>) + <span class="number">0.5f</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//LinearInterpolator</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> input;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3_u3001_u8BE5_u65B9_u6CD5_u8FD4_u56DE_u7684_u5C31_u662F_u4E00_u4E2A_u51FD_u6570_uFF0C_u6839_u636E_u51FD_u6570_u6211_u4EEC_u53EF_u4EE5_u5F97_u5230_u51FD_u6570_u7684_u56FE_u50CF_u3002_u8FD9_u91CC_uFF0C_u659C_u7387_u5E94_u8BE5_u5C31_u662F_u52A0_u901F_u5EA6_u4E86_u3002"><a href="#3_u3001_u8BE5_u65B9_u6CD5_u8FD4_u56DE_u7684_u5C31_u662F_u4E00_u4E2A_u51FD_u6570_uFF0C_u6839_u636E_u51FD_u6570_u6211_u4EEC_u53EF_u4EE5_u5F97_u5230_u51FD_u6570_u7684_u56FE_u50CF_u3002_u8FD9_u91CC_uFF0C_u659C_u7387_u5E94_u8BE5_u5C31_u662F_u52A0_u901F_u5EA6_u4E86_u3002" class="headerlink" title="3、该方法返回的就是一个函数，根据函数我们可以得到函数的图像。这里，斜率应该就是加速度了。"></a>3、该方法返回的就是一个函数，根据函数我们可以得到函数的图像。<a href="http://www.wolframalpha.com/" target="_blank" rel="external">这里</a>，斜率应该就是加速度了。</h3><h2 id="u56DB_u3001_u5173_u4E8E_u81EA_u5B9A_u4E49_u63D2_u503C_u5668"><a href="#u56DB_u3001_u5173_u4E8E_u81EA_u5B9A_u4E49_u63D2_u503C_u5668" class="headerlink" title="四、关于自定义插值器"></a>四、关于自定义插值器</h2><h3 id="u60F3_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u53EA_u9700_u8981implements_TimeInterpolator_u5C31_u53EF_u4EE5_u62C9_uFF0C_u7136_u540E_u590D_u5199_u4ED6_u7684getInterpolation_28float_t_29_uFF1B_u65B9_u6CD5_u3002_u4F46_uFF0C_u96BE_u70B9_u5728_u4E8E_u8FD0_u52A8_u51FD_u6570_u56FE_u50CF_u7684_u786E_u5B9A_u4E0A_u9762_u3002_u5982_u4F55_u7CBE_u786E_u5408_u7406_u7684_u5206_u6790_u81EA_u5DF1_u7684_u52A8_u753B_u7684_u901F_u5EA6_u7684_u53D8_u5316_u89C4_u5F8B_uFF0C_u7136_u540E_u627E_u5230_u7B26_u5408_u8BE5_u53D8_u5316_u89C4_u5F8B_u7684_u51FD_u6570_u662F_u4E00_u4E2A_u56F0_u96BE_u7684_u95EE_u9898_u3002_u5728_u8FD9_u91CC_u8981_u91CD_u70B9_u5173_u6CE8_u4E00_u4E0B_u3002"><a href="#u60F3_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u53EA_u9700_u8981implements_TimeInterpolator_u5C31_u53EF_u4EE5_u62C9_uFF0C_u7136_u540E_u590D_u5199_u4ED6_u7684getInterpolation_28float_t_29_uFF1B_u65B9_u6CD5_u3002_u4F46_uFF0C_u96BE_u70B9_u5728_u4E8E_u8FD0_u52A8_u51FD_u6570_u56FE_u50CF_u7684_u786E_u5B9A_u4E0A_u9762_u3002_u5982_u4F55_u7CBE_u786E_u5408_u7406_u7684_u5206_u6790_u81EA_u5DF1_u7684_u52A8_u753B_u7684_u901F_u5EA6_u7684_u53D8_u5316_u89C4_u5F8B_uFF0C_u7136_u540E_u627E_u5230_u7B26_u5408_u8BE5_u53D8_u5316_u89C4_u5F8B_u7684_u51FD_u6570_u662F_u4E00_u4E2A_u56F0_u96BE_u7684_u95EE_u9898_u3002_u5728_u8FD9_u91CC_u8981_u91CD_u70B9_u5173_u6CE8_u4E00_u4E0B_u3002" class="headerlink" title="想自定义插值器只需要implements TimeInterpolator就可以拉，然后复写他的getInterpolation(float t)；方法。但，难点在于运动函数图像的确定上面。如何精确合理的分析自己的动画的速度的变化规律，然后找到符合该变化规律的函数是一个困难的问题。在这里要重点关注一下。"></a>想自定义插值器只需要implements TimeInterpolator就可以拉，然后复写他的getInterpolation(float t)；方法。但，难点在于运动函数图像的确定上面。如何精确合理的分析自己的动画的速度的变化规律，然后找到符合该变化规律的函数是一个困难的问题。在这里要重点关注一下。</h3>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/16/Interpolator/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/16/Interpolator/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/15/Property-Animation/" title="Property Animation" itemprop="url">Property Animation</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-15T10:54:41.000Z" itemprop="datePublished"> 发表于 2016-02-15</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u4E00_u3001_u6982_u8FF0"><a href="#u4E00_u3001_u6982_u8FF0" class="headerlink" title="一、概述"></a>一、概述</h2><h3 id="u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A"><a href="#u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A" class="headerlink" title="这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结："></a>这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：</h3><h2 id="u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3"><a href="#u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3" class="headerlink" title="二、常用方法总结"></a>二、常用方法总结</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10;*&#23558;&#25351;&#23450;&#30340;&#23545;&#35937;&#65288;target&#65289;&#30340;&#23646;&#24615;&#65288;propertyName&#65289;&#22312;&#20540;&#65288;values&#65289;&#38388;&#36827;&#34892;&#21464;&#25442;&#10;**/&#10;public static ObjectAnimator ofFloat(Object target, String propertyName, float... values)&#123;&#125;&#10;&#10;&#10;/**&#10;*&#21482;&#25351;&#23450;&#21464;&#21270;&#30340;&#33539;&#22260;&#10;**/&#10;public static ValueAnimator ofFloat(float... values) &#123;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A"><a href="#1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A" class="headerlink" title="1、ObjectAnimator继承自ValueAnimator，都有以下常用方法："></a>1、ObjectAnimator继承自ValueAnimator，都有以下常用方法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;anim.setDuration(1000);//1&#31186;&#10;anim.setRepeatCount(-1);//&#26080;&#32447;&#24490;&#29615;&#10;anim.setInterpolator(new AccelerateDecelerateInterpolator());//&#25554;&#20540;&#22120;&#10;anim.start();//&#24320;&#22987;&#21160;&#30011;</span><br></pre></td></tr></table></figure>
-<h3 id="2_u3001_u52A8_u753B_u96C6_uFF1A"><a href="#2_u3001_u52A8_u753B_u96C6_uFF1A" class="headerlink" title="2、动画集："></a>2、动画集：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;AnimatorSet set = new AnimatorSet();&#10;set.playTogether(......);&#10;set.setDuration(1000);&#10;set.start();&#10;&#10;//----------------------------------------------&#10;set.plat().after(),with().befor();//&#30456;&#20851;&#26041;&#27861;</span><br></pre></td></tr></table></figure>
-<h2 id="u4E09_u3001_u76D1_u542C_u5668"><a href="#u4E09_u3001_u76D1_u542C_u5668" class="headerlink" title="三、监听器"></a>三、监听器</h2><h3 id="u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A"><a href="#u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A" class="headerlink" title="提供了2个监听器："></a>提供了2个监听器：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//Animator&#30340;&#20869;&#37096;&#31867;&#10;public static interface AnimatorListener &#123;&#10;&#10;       void onAnimationStart(Animator animation);&#10;       &#10;       void onAnimationEnd(Animator animation);&#10;       &#10;       void onAnimationCancel(Animator animation);&#10;       &#10;       void onAnimationRepeat(Animator animation);&#10;   &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static interface AnimatorUpdateListener &#123;&#10;      &#10;       void onAnimationUpdate(ValueAnimator animation);&#10;&#10; &#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/15/Property-Animation/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/15/Property-Animation/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
@@ -847,7 +682,7 @@ var _hmt = _hmt || [];
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Android/" title="Android">Android<sup>8</sup></a></li>
+				<li><a href="/tags/Android/" title="Android">Android<sup>9</sup></a></li>
 			
 		
 			

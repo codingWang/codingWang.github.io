@@ -1,0 +1,621 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>duwei&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="duwei">
+    
+
+    
+    <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="duwei's blog">
+<meta property="og:url" content="http://duwei.com/page/3/index.html">
+<meta property="og:site_name" content="duwei's blog">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="duwei's blog">
+<meta name="twitter:description">
+
+    
+    <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3492904c23dded877e5767fd9cd3e4da";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="duwei&#39;s blog">duwei&#39;s blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">文章</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:duwei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main">
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/15/Property-Animation/" title="Property Animation" itemprop="url">Property Animation</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-15T10:54:41.000Z" itemprop="datePublished"> 发表于 2016-02-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u4E00_u3001_u6982_u8FF0"><a href="#u4E00_u3001_u6982_u8FF0" class="headerlink" title="一、概述"></a>一、概述</h2><h3 id="u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A"><a href="#u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A" class="headerlink" title="这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结："></a>这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：</h3><h2 id="u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3"><a href="#u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3" class="headerlink" title="二、常用方法总结"></a>二、常用方法总结</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10;*&#23558;&#25351;&#23450;&#30340;&#23545;&#35937;&#65288;target&#65289;&#30340;&#23646;&#24615;&#65288;propertyName&#65289;&#22312;&#20540;&#65288;values&#65289;&#38388;&#36827;&#34892;&#21464;&#25442;&#10;**/&#10;public static ObjectAnimator ofFloat(Object target, String propertyName, float... values)&#123;&#125;&#10;&#10;&#10;/**&#10;*&#21482;&#25351;&#23450;&#21464;&#21270;&#30340;&#33539;&#22260;&#10;**/&#10;public static ValueAnimator ofFloat(float... values) &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A"><a href="#1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A" class="headerlink" title="1、ObjectAnimator继承自ValueAnimator，都有以下常用方法："></a>1、ObjectAnimator继承自ValueAnimator，都有以下常用方法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;anim.setDuration(1000);//1&#31186;&#10;anim.setRepeatCount(-1);//&#26080;&#32447;&#24490;&#29615;&#10;anim.setInterpolator(new AccelerateDecelerateInterpolator());//&#25554;&#20540;&#22120;&#10;anim.start();//&#24320;&#22987;&#21160;&#30011;</span><br></pre></td></tr></table></figure>
+<h3 id="2_u3001_u52A8_u753B_u96C6_uFF1A"><a href="#2_u3001_u52A8_u753B_u96C6_uFF1A" class="headerlink" title="2、动画集："></a>2、动画集：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;AnimatorSet set = new AnimatorSet();&#10;set.playTogether(......);&#10;set.setDuration(1000);&#10;set.start();&#10;&#10;//----------------------------------------------&#10;set.plat().after(),with().befor();//&#30456;&#20851;&#26041;&#27861;</span><br></pre></td></tr></table></figure>
+<h2 id="u4E09_u3001_u76D1_u542C_u5668"><a href="#u4E09_u3001_u76D1_u542C_u5668" class="headerlink" title="三、监听器"></a>三、监听器</h2><h3 id="u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A"><a href="#u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A" class="headerlink" title="提供了2个监听器："></a>提供了2个监听器：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//Animator&#30340;&#20869;&#37096;&#31867;&#10;public static interface AnimatorListener &#123;&#10;&#10;       void onAnimationStart(Animator animation);&#10;       &#10;       void onAnimationEnd(Animator animation);&#10;       &#10;       void onAnimationCancel(Animator animation);&#10;       &#10;       void onAnimationRepeat(Animator animation);&#10;   &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static interface AnimatorUpdateListener &#123;&#10;      &#10;       void onAnimationUpdate(ValueAnimator animation);&#10;&#10; &#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/02/15/Property-Animation/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/15/Property-Animation/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/13/ThreadLocal/" title="ThreadLocal" itemprop="url">ThreadLocal</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-13T14:38:02.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="What_is_ThreadLocal"><a href="#What_is_ThreadLocal" class="headerlink" title="What is ThreadLocal"></a>What is ThreadLocal</h2><h3 id="u4E00_u3001ThreadLocal_u662F_u4E00_u4E2A_u7EBF_u7A0B_u5185_u90E8_u7684_u6570_u636E_u5B58_u50A8_u7C7B_uFF0C_u53EA_u80FD_u5728_u6307_u5B9A_u7684_u7EBF_u7A0B_u5B58_u53D6_u6570_u636E_u3002"><a href="#u4E00_u3001ThreadLocal_u662F_u4E00_u4E2A_u7EBF_u7A0B_u5185_u90E8_u7684_u6570_u636E_u5B58_u50A8_u7C7B_uFF0C_u53EA_u80FD_u5728_u6307_u5B9A_u7684_u7EBF_u7A0B_u5B58_u53D6_u6570_u636E_u3002" class="headerlink" title="一、ThreadLocal是一个线程内部的数据存储类，只能在指定的线程存取数据。"></a>一、ThreadLocal是一个线程内部的数据存储类，只能在指定的线程存取数据。</h3><h3 id="u4E8C_u3001_u53EA_u6709_u4E09_u4E2A_u65B9_u6CD5"><a href="#u4E8C_u3001_u53EA_u6709_u4E09_u4E2A_u65B9_u6CD5" class="headerlink" title="二、只有三个方法"></a>二、只有三个方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class ThreadLocal&#60;T&#62;&#123;&#10;&#9;public void set(T value)&#123;&#10;&#9;&#9;...&#10;&#9;&#125;&#10;&#9;public T get()&#123;&#10;&#9;&#9;...&#10;&#9;&#125;&#10;&#9;protected T initialValue()&#123;&#10;&#9;&#9;...&#10;&#9;&#125;&#10;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u4E09_u3001_u5185_u90E8_u5B9E_u73B0_u5927_u6982_u5982_u4E0B_uFF1A"><a href="#u4E09_u3001_u5185_u90E8_u5B9E_u73B0_u5927_u6982_u5982_u4E0B_uFF1A" class="headerlink" title="三、内部实现大概如下："></a>三、内部实现大概如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private Map&#60;Thread,Integer&#62; threadData = new HashMap&#60;Thread,Integer&#62;();//&#20869;&#37096;&#32500;&#25252;&#19968;&#20010;&#35013;&#32447;&#31243;&#21644;&#25968;&#25454;&#30340;Map&#10;&#10;threadData.put(Thread.currentThread(),data);//&#23558;&#32447;&#31243;&#21450;&#23545;&#24212;&#30340;&#25968;&#25454;&#35013;&#20837;</span><br></pre></td></tr></table></figure>
+<h2 id="u4E0Esynchronized"><a href="#u4E0Esynchronized" class="headerlink" title="与synchronized"></a>与synchronized</h2><h3 id="1_u3001_u90FD_u662F_u4E3A_u4E86_u89E3_u51B3_u591A_u7EBF_u7A0B_u4E2D_u5BF9_u6570_u636E_u8BBF_u95EE_u7684_u5B89_u5168_u6027_u95EE_u9898_u3002"><a href="#1_u3001_u90FD_u662F_u4E3A_u4E86_u89E3_u51B3_u591A_u7EBF_u7A0B_u4E2D_u5BF9_u6570_u636E_u8BBF_u95EE_u7684_u5B89_u5168_u6027_u95EE_u9898_u3002" class="headerlink" title="1、都是为了解决多线程中对数据访问的安全性问题。"></a>1、都是为了解决多线程中对数据访问的安全性问题。</h3><h3 id="2_u3001synchronized_u91C7_u7528_u4E86_u201C_u4EE5_u65F6_u95F4_u6362_u7A7A_u95F4_u201D_u7684_u65B9_u5F0F_uFF0CThreadLocal_u91C7_u7528_u4E86_u201C_u4EE5_u7A7A_u95F4_u6362_u65F6_u95F4_u201D_u7684_u65B9_u5F0F_u3002"><a href="#2_u3001synchronized_u91C7_u7528_u4E86_u201C_u4EE5_u65F6_u95F4_u6362_u7A7A_u95F4_u201D_u7684_u65B9_u5F0F_uFF0CThreadLocal_u91C7_u7528_u4E86_u201C_u4EE5_u7A7A_u95F4_u6362_u65F6_u95F4_u201D_u7684_u65B9_u5F0F_u3002" class="headerlink" title="2、synchronized采用了“以时间换空间”的方式，ThreadLocal采用了“以空间换时间”的方式。"></a>2、synchronized采用了“以时间换空间”的方式，ThreadLocal采用了“以空间换时间”的方式。</h3>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/02/13/ThreadLocal/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/13/ThreadLocal/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/12/how-annotation-works/" title="how annotation works" itemprop="url">how annotation works</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-12T13:03:04.000Z" itemprop="datePublished"> 发表于 2016-02-12</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u4E00_u3001define_a_annotation"><a href="#u4E00_u3001define_a_annotation" class="headerlink" title="一、define a annotation"></a>一、define a annotation</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Target(ElementType.FIELD)&#10;@Retention(RetentionPolicy.RUNTIME) &#10;public @interface ViewInject &#123;  &#10;  &#9;int value() default 0 ;  &#10;&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="u4E8C_u3001use_the_annotation"><a href="#u4E8C_u3001use_the_annotation" class="headerlink" title="二、use the annotation"></a>二、use the annotation</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;@ViewInject(R.id.tv_name)&#10;private TextView myTextView;</span><br></pre></td></tr></table></figure>
+<h2 id="u4E09_u3001parse_the_annotation"><a href="#u4E09_u3001parse_the_annotation" class="headerlink" title="三、parse the annotation"></a>三、parse the annotation</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public void parseAnnotation(Class&#60;?&#62;  clazz) &#123;  &#9;//&#20256;&#19968;&#20010;&#31867;&#36827;&#26469;&#10;    &#9;try &#123;  &#10;         Field[] fields = clazz.getDeclaredFields();&#9;//&#33719;&#21462;&#35813;&#31867;&#30340;&#23383;&#27573;&#10;         for (Field field : fields) &#123;  &#9;&#9;&#9;&#9;&#9;//&#36941;&#21382;&#23383;&#27573;&#10;           if (field.isAnnotationPresent(ViewInject.class)) &#123;  &#9;//&#23383;&#27573;&#34987;&#27880;&#35299;&#26631;&#27880;&#10;                ViewInject inject = field.getAnnotation(ViewInject.class);  &#9;//&#33719;&#21462;&#27880;&#35299;&#23545;&#35937;&#10;                &#9;int id = inject.value();  &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;//&#33719;&#21462;&#27880;&#35299;&#20540;&#10;                 &#9; if (id &#62; 0) &#123;  &#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;&#9;//&#20540;&#26159;&#27491;&#30830;&#30340;&#10;                     field.setAccessible(true);  &#9;&#9;&#9;&#9;//&#35813;&#20540;&#21487;&#36798;&#10;                     field.set(this, this.findViewById(id));&#9;&#9;&#9;//&#32473;&#23383;&#27573;&#35774;&#32622;&#20540;  &#10;                 &#125;  &#10;             &#125;  &#10;         &#125;  &#10;     &#125; catch (IllegalAccessException e) &#123;  &#10;         e.printStackTrace();  &#10;    &#125; catch (IllegalArgumentException e) &#123;  &#10;         e.printStackTrace();  &#10;      &#125;  &#10; &#125;</span><br></pre></td></tr></table></figure>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/02/12/how-annotation-works/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/12/how-annotation-works/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/11/a-standard-onMeasure-method/" title="a standard onMeasure method" itemprop="url">a standard onMeasure method</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-11T08:04:00.000Z" itemprop="datePublished"> 发表于 2016-02-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002"><a href="#u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002" class="headerlink" title="在Android自定义View中，一个标准的onMeasure()方法。"></a>在Android自定义View中，一个标准的onMeasure()方法。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Override&#10;   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;&#10;       super.onMeasure(widthMeasureSpec, heightMeasureSpec);&#10;       int viewWidth = circleRadius /*&#40664;&#35748;size*/+ this.getPaddingLeft() + this.getPaddingRight();&#10;       int viewHeight = circleRadius + this.getPaddingTop() + this.getPaddingBottom();&#10;       int widthMode = MeasureSpec.getMode(widthMeasureSpec);//&#33719;&#21462;&#23485;&#24230;&#30340;&#27169;&#24335;&#10;       int widthSize = MeasureSpec.getSize(widthMeasureSpec);//&#33719;&#21462;&#23485;&#24230;&#30340;&#23610;&#23544;&#10;       int heightMode = MeasureSpec.getMode(heightMeasureSpec);//&#39640;&#24230;&#30340;&#27169;&#24335;&#10;       int heightSize = MeasureSpec.getSize(heightMeasureSpec);//&#39640;&#31471;&#30340;&#23610;&#23544;&#10;       int width;&#10;       int height;&#10;       //Measure Width&#10;       if (widthMode == MeasureSpec.EXACTLY) &#123;//&#25351;&#23450;&#20102;&#30830;&#23450;&#30340;&#23610;&#23544;&#65306;100dp,match_parent&#10;           //Must be this size&#10;           width = widthSize;&#10;       &#125; else if (widthMode == MeasureSpec.AT_MOST) &#123;//wrap_content&#31867;&#22411;&#10;           //Can&#39;t be bigger than...&#10;           width = Math.min(viewWidth, widthSize);&#10;       &#125; else &#123;&#10;           //Be whatever you want&#10;           width = viewWidth;&#10;       &#125;&#10;       //Measure Height&#10;       if (heightMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.EXACTLY) &#123;&#10;           //Must be this size&#10;           height = heightSize;&#10;       &#125; else if (heightMode == MeasureSpec.AT_MOST) &#123;&#10;           //Can&#39;t be bigger than...&#10;           height = Math.min(viewHeight, heightSize);&#10;       &#125; else &#123;&#10;           //Be whatever you want&#10;           height = viewHeight;&#10;       &#125;&#10;       setMeasuredDimension(width, height);&#10;   &#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android，View/">Android，View</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/02/11/a-standard-onMeasure-method/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/11/a-standard-onMeasure-method/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/02/10/A-collection-of-RxJava-resource/" title="A collection of RxJava resource" itemprop="url">A collection of RxJava resource</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-10T12:36:02.000Z" itemprop="datePublished"> 发表于 2016-02-10</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u57FA_u7840_u90E8_u5206"><a href="#u57FA_u7840_u90E8_u5206" class="headerlink" title="基础部分"></a>基础部分</h2><h3 id="u6254_u7269_u7EBF_u8001_u5E08_u7684_uFF1A_u7ED9_Android__u5F00_u53D1_u8005_u7684_RxJava__u8BE6_u89E3"><a href="#u6254_u7269_u7EBF_u8001_u5E08_u7684_uFF1A_u7ED9_Android__u5F00_u53D1_u8005_u7684_RxJava__u8BE6_u89E3" class="headerlink" title="扔物线老师的：给 Android 开发者的 RxJava 详解"></a>扔物线老师的：给 Android 开发者的 RxJava 详解</h3><p> <a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="external">http://gank.io/post/560e15be2dca930e00da1083</a></p>
+<h3 id="u6781_u5BA2_u5B66_u9662_u7684_uFF1A_u300ARxJava_Essentials_u300B_u4E2D_u6587_u7FFB_u8BD1"><a href="#u6781_u5BA2_u5B66_u9662_u7684_uFF1A_u300ARxJava_Essentials_u300B_u4E2D_u6587_u7FFB_u8BD1" class="headerlink" title="极客学院的：《RxJava Essentials》中文翻译"></a>极客学院的：《RxJava Essentials》中文翻译</h3><p><a href="http://wiki.jikexueyuan.com/project/rxjava/" target="_blank" rel="external">http://wiki.jikexueyuan.com/project/rxjava/</a></p>
+<h3 id="u4E00_u4E2A_u56FD_u5916_u7684_u535A_u5BA2_u6559_u7A0B"><a href="#u4E00_u4E2A_u56FD_u5916_u7684_u535A_u5BA2_u6559_u7A0B" class="headerlink" title="一个国外的博客教程"></a>一个国外的博客教程</h3><p><a href="http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1/" target="_blank" rel="external">http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1/</a></p>
+<h3 id="Rx-Java_u64CD_u4F5C_u7B26_u52A8_u6001_u6F14_u793A"><a href="#Rx-Java_u64CD_u4F5C_u7B26_u52A8_u6001_u6F14_u793A" class="headerlink" title="Rx-Java操作符动态演示"></a>Rx-Java操作符动态演示</h3><p><a href="http://rxmarbles.com/" target="_blank" rel="external">http://rxmarbles.com/</a></p>
+<h3 id="RxJava-Samples"><a href="#RxJava-Samples" class="headerlink" title="RxJava-Samples"></a>RxJava-Samples</h3><p><a href="https://github.com/THEONE10211024/RxJavaSamples" target="_blank" rel="external">https://github.com/THEONE10211024/RxJavaSamples</a></p>
+<h3 id="RxJava-Android-Samples"><a href="#RxJava-Android-Samples" class="headerlink" title="RxJava-Android-Samples"></a>RxJava-Android-Samples</h3><p><a href="https://github.com/kaushikgopal/RxJava-Android-Samples" target="_blank" rel="external">https://github.com/kaushikgopal/RxJava-Android-Samples</a></p>
+<h2 id="Library"><a href="#Library" class="headerlink" title="Library"></a>Library</h2><h3 id="RxJava_u5BF9Activity/Fragment_u751F_u547D_u5468_u671F_u7684_u5C01_u88C5"><a href="#RxJava_u5BF9Activity/Fragment_u751F_u547D_u5468_u671F_u7684_u5C01_u88C5" class="headerlink" title="RxJava对Activity/Fragment生命周期的封装"></a>RxJava对Activity/Fragment生命周期的封装</h3><p><a href="https://github.com/trello/RxLifecycle" target="_blank" rel="external">https://github.com/trello/RxLifecycle</a></p>
+<h3 id="RxJava_u5BF9SharedPreferences_u7684_u5C01_u88C5"><a href="#RxJava_u5BF9SharedPreferences_u7684_u5C01_u88C5" class="headerlink" title="RxJava对SharedPreferences的封装"></a>RxJava对SharedPreferences的封装</h3><p><a href="https://github.com/f2prateek/rx-preferences" target="_blank" rel="external">https://github.com/f2prateek/rx-preferences</a></p>
+<h2 id="u5B8C_u6574_u9879_u76EE"><a href="#u5B8C_u6574_u9879_u76EE" class="headerlink" title="完整项目"></a>完整项目</h2><h3 id="u4E00_u4E2A_u5929_u6C14_u9884_u62A5_u5C0F_u9879_u76EE"><a href="#u4E00_u4E2A_u5929_u6C14_u9884_u62A5_u5C0F_u9879_u76EE" class="headerlink" title="一个天气预报小项目"></a>一个天气预报小项目</h3><p><a href="https://github.com/SmartDengg/RxWeather" target="_blank" rel="external">https://github.com/SmartDengg/RxWeather</a></p>
+<h3 id="u91CD_u6784_u7248_u59B9_u5B50_uFF08Rx+Retrofit+okhttp_uFF09"><a href="#u91CD_u6784_u7248_u59B9_u5B50_uFF08Rx+Retrofit+okhttp_uFF09" class="headerlink" title="重构版妹子（Rx+Retrofit+okhttp）"></a>重构版妹子（Rx+Retrofit+okhttp）</h3><p><a href="https://github.com/CaMnter/EasyGank" target="_blank" rel="external">https://github.com/CaMnter/EasyGank</a></p>
+<h3 id="u7528RxJava_u5904_u7406_u548C_u64CD_u4F5C_u9AD8_u65AF_u6A21_u7CCA_u6548_u679C_u7684_u7B80_u5355_u7528_u4F8B"><a href="#u7528RxJava_u5904_u7406_u548C_u64CD_u4F5C_u9AD8_u65AF_u6A21_u7CCA_u6548_u679C_u7684_u7B80_u5355_u7528_u4F8B" class="headerlink" title="用RxJava处理和操作高斯模糊效果的简单用例"></a>用RxJava处理和操作高斯模糊效果的简单用例</h3><p><a href="https://github.com/SmartDengg/RxBlur" target="_blank" rel="external">https://github.com/SmartDengg/RxBlur</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/RxJava/">RxJava</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/02/10/A-collection-of-RxJava-resource/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/10/A-collection-of-RxJava-resource/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+
+  <nav id="page-nav" class="clearfix">
+    <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
+  </nav>
+
+</div>
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="codingWang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>9</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JAVA/" title="JAVA">JAVA<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Android，View/" title="Android，View">Android，View<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/UML/" title="UML">UML<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m duwei . <br/>
+			This is my blog .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/codingWang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:du2035392@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="duwei">duwei</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+ </html>
