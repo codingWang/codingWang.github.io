@@ -4,22 +4,23 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>duwei&#39;s blog</title>
+    <title>Handler-Looper | duwei&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="duwei">
     
 
     
-    <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="duwei's blog">
-<meta property="og:url" content="http://duwei.com/index.html">
+    <meta name="description" content="一、概述：Android中太多的东西和Handler-Looper有关了（HandlerThread，IntentService），要想了解他们必须把Handler基础掌握，之前对Handler了解了不知道多少遍，今天终于看了一下源码。还好Handler，Looper，MessageQueue都没有很深的继承结构，代码量也不多，所以看起来比较轻松好理解。二、从基本的使用开始说起：123456789">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Handler-Looper">
+<meta property="og:url" content="http://duwei.com/2016/03/13/Handler-Looper/index.html">
 <meta property="og:site_name" content="duwei's blog">
-<meta property="og:description">
+<meta property="og:description" content="一、概述：Android中太多的东西和Handler-Looper有关了（HandlerThread，IntentService），要想了解他们必须把Handler基础掌握，之前对Handler了解了不知道多少遍，今天终于看了一下源码。还好Handler，Looper，MessageQueue都没有很深的继承结构，代码量也不多，所以看起来比较轻松好理解。二、从基本的使用开始说起：123456789">
+<meta property="og:updated_time" content="2016-03-13T05:26:18.267Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="duwei's blog">
-<meta name="twitter:description">
+<meta name="twitter:title" content="Handler-Looper">
+<meta name="twitter:description" content="一、概述：Android中太多的东西和Handler-Looper有关了（HandlerThread，IntentService），要想了解他们必须把Handler基础掌握，之前对Handler了解了不知道多少遍，今天终于看了一下源码。还好Handler，Looper，MessageQueue都没有很深的继承结构，代码量也不多，所以看起来比较轻松好理解。二、从基本的使用开始说起：123456789">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -80,12 +81,10 @@ var _hmt = _hmt || [];
 </div>
     </header>
     <div id="container">
-      <div id="main">
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
   <h1 itemprop="name">
     
       <a href="/2016/03/13/Handler-Looper/" title="Handler-Looper" itemprop="url">Handler-Looper</a>
@@ -99,9 +98,16 @@ var _hmt = _hmt || [];
     
   </p>
 </header>
-    <div class="article-content">
-        
-        <h2 id="u4E00_u3001_u6982_u8FF0_uFF1A"><a href="#u4E00_u3001_u6982_u8FF0_uFF1A" class="headerlink" title="一、概述："></a>一、概述：</h2><h3 id="Android_u4E2D_u592A_u591A_u7684_u4E1C_u897F_u548CHandler-Looper_u6709_u5173_u4E86_uFF08HandlerThread_uFF0CIntentService_uFF09_uFF0C_u8981_u60F3_u4E86_u89E3_u4ED6_u4EEC_u5FC5_u987B_u628AHandler_u57FA_u7840_u638C_u63E1_uFF0C_u4E4B_u524D_u5BF9Handler_u4E86_u89E3_u4E86_u4E0D_u77E5_u9053_u591A_u5C11_u904D_uFF0C_u4ECA_u5929_u7EC8_u4E8E_u770B_u4E86_u4E00_u4E0B_u6E90_u7801_u3002_u8FD8_u597DHandler_uFF0CLooper_uFF0CMessageQueue_u90FD_u6CA1_u6709_u5F88_u6DF1_u7684_u7EE7_u627F_u7ED3_u6784_uFF0C_u4EE3_u7801_u91CF_u4E5F_u4E0D_u591A_uFF0C_u6240_u4EE5_u770B_u8D77_u6765_u6BD4_u8F83_u8F7B_u677E_u597D_u7406_u89E3_u3002"><a href="#Android_u4E2D_u592A_u591A_u7684_u4E1C_u897F_u548CHandler-Looper_u6709_u5173_u4E86_uFF08HandlerThread_uFF0CIntentService_uFF09_uFF0C_u8981_u60F3_u4E86_u89E3_u4ED6_u4EEC_u5FC5_u987B_u628AHandler_u57FA_u7840_u638C_u63E1_uFF0C_u4E4B_u524D_u5BF9Handler_u4E86_u89E3_u4E86_u4E0D_u77E5_u9053_u591A_u5C11_u904D_uFF0C_u4ECA_u5929_u7EC8_u4E8E_u770B_u4E86_u4E00_u4E0B_u6E90_u7801_u3002_u8FD8_u597DHandler_uFF0CLooper_uFF0CMessageQueue_u90FD_u6CA1_u6709_u5F88_u6DF1_u7684_u7EE7_u627F_u7ED3_u6784_uFF0C_u4EE3_u7801_u91CF_u4E5F_u4E0D_u591A_uFF0C_u6240_u4EE5_u770B_u8D77_u6765_u6BD4_u8F83_u8F7B_u677E_u597D_u7406_u89E3_u3002" class="headerlink" title="Android中太多的东西和Handler-Looper有关了（HandlerThread，IntentService），要想了解他们必须把Handler基础掌握，之前对Handler了解了不知道多少遍，今天终于看了一下源码。还好Handler，Looper，MessageQueue都没有很深的继承结构，代码量也不多，所以看起来比较轻松好理解。"></a>Android中太多的东西和Handler-Looper有关了（HandlerThread，IntentService），要想了解他们必须把Handler基础掌握，之前对Handler了解了不知道多少遍，今天终于看了一下源码。还好Handler，Looper，MessageQueue都没有很深的继承结构，代码量也不多，所以看起来比较轻松好理解。</h3><h2 id="u4E8C_u3001_u4ECE_u57FA_u672C_u7684_u4F7F_u7528_u5F00_u59CB_u8BF4_u8D77_uFF1A"><a href="#u4E8C_u3001_u4ECE_u57FA_u672C_u7684_u4F7F_u7528_u5F00_u59CB_u8BF4_u8D77_uFF1A" class="headerlink" title="二、从基本的使用开始说起："></a>二、从基本的使用开始说起：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Handler mHandler = <span class="keyword">new</span> Handler()&#123;</span><br><span class="line"> <span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handlerMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line"> 	mHandler.sendEmptyMessage(xxx);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u3001_u6982_u8FF0_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">一、概述：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Android_u4E2D_u592A_u591A_u7684_u4E1C_u897F_u548CHandler-Looper_u6709_u5173_u4E86_uFF08HandlerThread_uFF0CIntentService_uFF09_uFF0C_u8981_u60F3_u4E86_u89E3_u4ED6_u4EEC_u5FC5_u987B_u628AHandler_u57FA_u7840_u638C_u63E1_uFF0C_u4E4B_u524D_u5BF9Handler_u4E86_u89E3_u4E86_u4E0D_u77E5_u9053_u591A_u5C11_u904D_uFF0C_u4ECA_u5929_u7EC8_u4E8E_u770B_u4E86_u4E00_u4E0B_u6E90_u7801_u3002_u8FD8_u597DHandler_uFF0CLooper_uFF0CMessageQueue_u90FD_u6CA1_u6709_u5F88_u6DF1_u7684_u7EE7_u627F_u7ED3_u6784_uFF0C_u4EE3_u7801_u91CF_u4E5F_u4E0D_u591A_uFF0C_u6240_u4EE5_u770B_u8D77_u6765_u6BD4_u8F83_u8F7B_u677E_u597D_u7406_u89E3_u3002"><span class="toc-number">1.1.</span> <span class="toc-text">Android中太多的东西和Handler-Looper有关了（HandlerThread，IntentService），要想了解他们必须把Handler基础掌握，之前对Handler了解了不知道多少遍，今天终于看了一下源码。还好Handler，Looper，MessageQueue都没有很深的继承结构，代码量也不多，所以看起来比较轻松好理解。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E8C_u3001_u4ECE_u57FA_u672C_u7684_u4F7F_u7528_u5F00_u59CB_u8BF4_u8D77_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">二、从基本的使用开始说起：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u9996_u5148new_u4E00_u4E2AHandler_u8C03_u7528_u6784_u9020_u51FD_u6570_uFF1A"><span class="toc-number">2.1.</span> <span class="toc-text">1、首先new一个Handler调用构造函数：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1_u5728_u4EE3_u7801_u4E2D_u6211_u4EEC_u770B_u5230_u521D_u59CB_u5316_u4E86mLooper_u53D8_u91CF_u548CmQueue_u53D8_u91CF_uFF1A"><span class="toc-number">2.1.1.</span> <span class="toc-text">1.1在代码中我们看到初始化了mLooper变量和mQueue变量：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Looper-myLooper_28_29_u662F_u8FD9_u6837_u7684_uFF1A"><span class="toc-number">2.1.2.</span> <span class="toc-text">Looper.myLooper()是这样的：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4ECE_u88C5_u6709Looper_u5BF9_u8C61_u7684ThreadLocal_u4E2D_u53D6_u51FA_u4E00_u4E2ALooper_u8FD4_u56DE_u3002_u90A3_u4E48_u53D6_u51FA_u6765_u7684_u662F_u54EA_u4E00_u4E2ALooper_u90A3_uFF1F_u6211_u4EEC_u770B_u4E00_u4E0BThreadLocal_u7684get_28_29_u65B9_u6CD5"><span class="toc-number">2.1.3.</span> <span class="toc-text">从装有Looper对象的ThreadLocal中取出一个Looper返回。那么取出来的是哪一个Looper那？我们看一下ThreadLocal的get()方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6211_u4EEC_u53EF_u4EE5_u786E_u5B9A_u53D6_u51FA_u7684_u662F_u5F53_u524D_u7EBF_u7A0B_u7684Looper"><span class="toc-number">2.2.</span> <span class="toc-text">我们可以确定取出的是当前线程的Looper.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u901A_u8FC7_u4E0A_u9762_u8FD9_u53E5_u6211_u4EEC_u77E5_u9053MessageQueue_u662F_u5728Looper_u4E2D_u7684_u3002"><span class="toc-number">2.2.1.</span> <span class="toc-text">通过上面这句我们知道MessageQueue是在Looper中的。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5728Looper_u7684_u79C1_u6709_u6784_u9020_u51FD_u6570_u4E2D_u521D_u59CB_u5316_u4E86_u4E00_u4E2AMessageQueue_u5BF9_u8C61_u3002"><span class="toc-number">2.2.2.</span> <span class="toc-text">在Looper的私有构造函数中初始化了一个MessageQueue对象。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Looper_u4E0D_u65AD_u5FAA_u73AFMessageQueue_u4E2D_u7684Message_uFF1A"><span class="toc-number">2.3.</span> <span class="toc-text">Looper不断循环MessageQueue中的Message：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#msg-target_u8FD4_u56DE_u4E00_u4E2AHandler_u5BF9_u8C61_u3002_u8C03_u7528Handler_u7684dispatchMessage_28_29_u65B9_u6CD5_uFF1A"><span class="toc-number">2.4.</span> <span class="toc-text">msg.target返回一个Handler对象。调用Handler的dispatchMessage()方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5728dispatchMessage_u65B9_u6CD5_u4E2D_u53C8_u56DE_u8C03_u4E86handleMessage_28msg_29_u65B9_u6CD5"><span class="toc-number">2.5.</span> <span class="toc-text">在dispatchMessage方法中又回调了handleMessage(msg)方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7ED3_u8BBA_uFF1A"><span class="toc-number">3.</span> <span class="toc-text">结论：</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="u4E00_u3001_u6982_u8FF0_uFF1A"><a href="#u4E00_u3001_u6982_u8FF0_uFF1A" class="headerlink" title="一、概述："></a>一、概述：</h2><h3 id="Android_u4E2D_u592A_u591A_u7684_u4E1C_u897F_u548CHandler-Looper_u6709_u5173_u4E86_uFF08HandlerThread_uFF0CIntentService_uFF09_uFF0C_u8981_u60F3_u4E86_u89E3_u4ED6_u4EEC_u5FC5_u987B_u628AHandler_u57FA_u7840_u638C_u63E1_uFF0C_u4E4B_u524D_u5BF9Handler_u4E86_u89E3_u4E86_u4E0D_u77E5_u9053_u591A_u5C11_u904D_uFF0C_u4ECA_u5929_u7EC8_u4E8E_u770B_u4E86_u4E00_u4E0B_u6E90_u7801_u3002_u8FD8_u597DHandler_uFF0CLooper_uFF0CMessageQueue_u90FD_u6CA1_u6709_u5F88_u6DF1_u7684_u7EE7_u627F_u7ED3_u6784_uFF0C_u4EE3_u7801_u91CF_u4E5F_u4E0D_u591A_uFF0C_u6240_u4EE5_u770B_u8D77_u6765_u6BD4_u8F83_u8F7B_u677E_u597D_u7406_u89E3_u3002"><a href="#Android_u4E2D_u592A_u591A_u7684_u4E1C_u897F_u548CHandler-Looper_u6709_u5173_u4E86_uFF08HandlerThread_uFF0CIntentService_uFF09_uFF0C_u8981_u60F3_u4E86_u89E3_u4ED6_u4EEC_u5FC5_u987B_u628AHandler_u57FA_u7840_u638C_u63E1_uFF0C_u4E4B_u524D_u5BF9Handler_u4E86_u89E3_u4E86_u4E0D_u77E5_u9053_u591A_u5C11_u904D_uFF0C_u4ECA_u5929_u7EC8_u4E8E_u770B_u4E86_u4E00_u4E0B_u6E90_u7801_u3002_u8FD8_u597DHandler_uFF0CLooper_uFF0CMessageQueue_u90FD_u6CA1_u6709_u5F88_u6DF1_u7684_u7EE7_u627F_u7ED3_u6784_uFF0C_u4EE3_u7801_u91CF_u4E5F_u4E0D_u591A_uFF0C_u6240_u4EE5_u770B_u8D77_u6765_u6BD4_u8F83_u8F7B_u677E_u597D_u7406_u89E3_u3002" class="headerlink" title="Android中太多的东西和Handler-Looper有关了（HandlerThread，IntentService），要想了解他们必须把Handler基础掌握，之前对Handler了解了不知道多少遍，今天终于看了一下源码。还好Handler，Looper，MessageQueue都没有很深的继承结构，代码量也不多，所以看起来比较轻松好理解。"></a>Android中太多的东西和Handler-Looper有关了（HandlerThread，IntentService），要想了解他们必须把Handler基础掌握，之前对Handler了解了不知道多少遍，今天终于看了一下源码。还好Handler，Looper，MessageQueue都没有很深的继承结构，代码量也不多，所以看起来比较轻松好理解。</h3><h2 id="u4E8C_u3001_u4ECE_u57FA_u672C_u7684_u4F7F_u7528_u5F00_u59CB_u8BF4_u8D77_uFF1A"><a href="#u4E8C_u3001_u4ECE_u57FA_u672C_u7684_u4F7F_u7528_u5F00_u59CB_u8BF4_u8D77_uFF1A" class="headerlink" title="二、从基本的使用开始说起："></a>二、从基本的使用开始说起：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Handler mHandler = <span class="keyword">new</span> Handler()&#123;</span><br><span class="line"> <span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handlerMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line"> 	mHandler.sendEmptyMessage(xxx);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
 <h3 id="1_u3001_u9996_u5148new_u4E00_u4E2AHandler_u8C03_u7528_u6784_u9020_u51FD_u6570_uFF1A"><a href="#1_u3001_u9996_u5148new_u4E00_u4E2AHandler_u8C03_u7528_u6784_u9020_u51FD_u6570_uFF1A" class="headerlink" title="1、首先new一个Handler调用构造函数："></a>1、首先new一个Handler调用构造函数：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(Callback callback, <span class="keyword">boolean</span> async)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (FIND_POTENTIAL_LEAKS) &#123;</span><br><span class="line">            <span class="keyword">final</span> Class&lt;? extends Handler&gt; klass = getClass();</span><br><span class="line">            <span class="keyword">if</span> ((klass.isAnonymousClass() || klass.isMemberClass() || klass.isLocalClass()) &amp;&amp;</span><br><span class="line">                    (klass.getModifiers() &amp; Modifier.STATIC) == <span class="number">0</span>) &#123;</span><br><span class="line">                Log.w(TAG, <span class="string">"The following Handler class should be static or leaks might occur: "</span> +</span><br><span class="line">                    klass.getCanonicalName());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mLooper = Looper.myLooper();</span><br><span class="line">        <span class="keyword">if</span> (mLooper == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(</span><br><span class="line">                <span class="string">"Can't create handler inside thread that has not called Looper.prepare()"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        mQueue = mLooper.mQueue;</span><br><span class="line">        mCallback = callback;</span><br><span class="line">        mAsynchronous = async;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <h4 id="1-1_u5728_u4EE3_u7801_u4E2D_u6211_u4EEC_u770B_u5230_u521D_u59CB_u5316_u4E86mLooper_u53D8_u91CF_u548CmQueue_u53D8_u91CF_uFF1A"><a href="#1-1_u5728_u4EE3_u7801_u4E2D_u6211_u4EEC_u770B_u5230_u521D_u59CB_u5316_u4E86mLooper_u53D8_u91CF_u548CmQueue_u53D8_u91CF_uFF1A" class="headerlink" title="1.1在代码中我们看到初始化了mLooper变量和mQueue变量："></a>1.1在代码中我们看到初始化了mLooper变量和mQueue变量：</h4><h4 id="Looper-myLooper_28_29_u662F_u8FD9_u6837_u7684_uFF1A"><a href="#Looper-myLooper_28_29_u662F_u8FD9_u6837_u7684_uFF1A" class="headerlink" title="Looper.myLooper()是这样的："></a>Looper.myLooper()是这样的：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;Looper&gt; sThreadLocal = <span class="keyword">new</span> ThreadLocal&lt;Looper&gt;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="annotation">@Nullable</span> <span class="function">Looper <span class="title">myLooper</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> sThreadLocal.get();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <h4 id="u4ECE_u88C5_u6709Looper_u5BF9_u8C61_u7684ThreadLocal_u4E2D_u53D6_u51FA_u4E00_u4E2ALooper_u8FD4_u56DE_u3002_u90A3_u4E48_u53D6_u51FA_u6765_u7684_u662F_u54EA_u4E00_u4E2ALooper_u90A3_uFF1F_u6211_u4EEC_u770B_u4E00_u4E0BThreadLocal_u7684get_28_29_u65B9_u6CD5"><a href="#u4ECE_u88C5_u6709Looper_u5BF9_u8C61_u7684ThreadLocal_u4E2D_u53D6_u51FA_u4E00_u4E2ALooper_u8FD4_u56DE_u3002_u90A3_u4E48_u53D6_u51FA_u6765_u7684_u662F_u54EA_u4E00_u4E2ALooper_u90A3_uFF1F_u6211_u4EEC_u770B_u4E00_u4E0BThreadLocal_u7684get_28_29_u65B9_u6CD5" class="headerlink" title="从装有Looper对象的ThreadLocal中取出一个Looper返回。那么取出来的是哪一个Looper那？我们看一下ThreadLocal的get()方法"></a>从装有Looper对象的ThreadLocal中取出一个Looper返回。那么取出来的是哪一个Looper那？我们看一下ThreadLocal的get()方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Optimized for the fast path.</span></span><br><span class="line">        Thread currentThread = Thread.currentThread();<span class="comment">//看这里</span></span><br><span class="line">        Values values = values(currentThread);</span><br><span class="line">        <span class="keyword">if</span> (values != <span class="keyword">null</span>) &#123;</span><br><span class="line">            Object[] table = values.table;</span><br><span class="line">            <span class="keyword">int</span> index = hash &amp; values.mask;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.reference == table[index]) &#123;</span><br><span class="line">                <span class="keyword">return</span> (T) table[index + <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            values = initializeValues(currentThread);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (T) values.getAfterMiss(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
@@ -116,14 +122,9 @@ var _hmt = _hmt || [];
 <li>死循环中msg.target.dispatchMessage(msg);通过Message将消息扔给Handler</li>
 <li>回调Handler的handleMessage方法完成处理</li>
 </ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
+  
+	</div>
+		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
 
@@ -136,510 +137,47 @@ var _hmt = _hmt || [];
 
 
 
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://duwei.com/2016/03/13/Handler-Looper/" data-title="Handler-Looper | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
 
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/03/13/Handler-Looper/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/13/Handler-Looper/" data-count-type="comments">&nbsp;</a>
-	
-</div>
 
 </footer>
 
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/03/12/Android-Lifecycle/" title="Android-Lifecycle" itemprop="url">Android-Lifecycle</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-12T06:49:51.000Z" itemprop="datePublished"> 发表于 2016-03-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u9762_u8BD5_u5FC5_u5907_u5FC5_u770B_u7684Android_u4E4BActivity_26amp_3BFragment_u751F_u547D_u5468_u671F_u5BF9_u6BD4_u56FE"><a href="#u9762_u8BD5_u5FC5_u5907_u5FC5_u770B_u7684Android_u4E4BActivity_26amp_3BFragment_u751F_u547D_u5468_u671F_u5BF9_u6BD4_u56FE" class="headerlink" title="面试必备必看的Android之Activity&amp;Fragment生命周期对比图"></a>面试必备必看的Android之Activity&amp;Fragment生命周期对比图</h2><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_complete_android_fragment_lifecycle.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_complete_android_fragment_lifecycle.png"></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
+   	       
+	</article>
 	
-	  	<span></span>
-		<a href="/2016/03/12/Android-Lifecycle/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/12/Android-Lifecycle/" data-count-type="comments">&nbsp;</a>
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/03/12/Android-Lifecycle/"  title="Android-Lifecycle">
+ <strong>下一篇：</strong><br/> 
+ <span>Android-Lifecycle
+</span>
+</a>
+</div>
+
+</nav>
+
 	
-</div>
-
-</footer>
-
-
-    </article>
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/03/13/Handler-Looper/" data-title="Handler-Looper" data-url="http://duwei.com/2016/03/13/Handler-Looper/"></div>
+</section>
 
 
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/03/12/Android-SystemService-Intro/" title="Android-SystemService-Intro" itemprop="url">Android-SystemService-Intro</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-12T03:36:42.000Z" itemprop="datePublished"> 发表于 2016-03-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u4E00_u3001_u7CFB_u7EDF_u670D_u52A1_u6982_u89C8"><a href="#u4E00_u3001_u7CFB_u7EDF_u670D_u52A1_u6982_u89C8" class="headerlink" title="一、系统服务概览"></a>一、系统服务概览</h2><h2 id="JAVA_u670D_u52A1"><a href="#JAVA_u670D_u52A1" class="headerlink" title="JAVA服务"></a>JAVA服务</h2><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>简介</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>EntropyService</td>
-<td>提供伪随机数</td>
-</tr>
-<tr>
-<td>PowerManagerService</td>
-<td>电源管理服务</td>
-</tr>
-<tr>
-<td>ActivityManagerService</td>
-<td>管理Activity</td>
-</tr>
-<tr>
-<td>TelephonyRegistry</td>
-<td>电话注册、管理服务模块，可以获取电话的链接状态、信号强度等等</td>
-</tr>
-<tr>
-<td>PackageManagerService</td>
-<td>程序包管理服务，包括对软件包的解包，验证，安装以及升级等</td>
-</tr>
-<tr>
-<td>AccountManagerService</td>
-<td></td>
-</tr>
-<tr>
-<td>ContentService</td>
-<td>跨进程数据交换</td>
-</tr>
-<tr>
-<td>BatteryService</td>
-<td>电池管理服务，监控电池充电及状态的服务，当状态改变时，会广播Intent</td>
-</tr>
-<tr>
-<td>HardwareService</td>
-<td></td>
-</tr>
-<tr>
-<td>SensorService</td>
-<td></td>
-</tr>
-<tr>
-<td>WindowManagerService</td>
-<td>Framework最核心的服务之一，负责窗口管理</td>
-</tr>
-<tr>
-<td>AlarmManagerService</td>
-<td>定时器管理服务，提供定时提醒服务</td>
-</tr>
-<tr>
-<td>BluetoothService</td>
-<td>蓝牙服务</td>
-</tr>
-<tr>
-<td>StatusBarService</td>
-<td></td>
-</tr>
-<tr>
-<td>ClipboardService</td>
-<td>系统剪切板服务</td>
-</tr>
-<tr>
-<td>InputMethodManagerService</td>
-<td>输入法管理服务</td>
-</tr>
-<tr>
-<td>NetStatService</td>
-<td>网络状态服务</td>
-</tr>
-<tr>
-<td>ConnectivityService</td>
-<td>网络连接管理服务</td>
-</tr>
-<tr>
-<td>AccessibilityManagerService</td>
-<td>主要是一些View获得点击、焦点、文字改变等事件的分发管理</td>
-</tr>
-<tr>
-<td>NotificationManagerService</td>
-<td>通知栏管理服务，Android中的通知栏和状态栏在一起，只是界面上前者在左边，后者在右边</td>
-</tr>
-<tr>
-<td>MountService</td>
-<td>挂载服务，可通过该服务调用Linux层面的mount程序，主要负责监听并广播device的mount/unmount/bad removal等等事件。</td>
-</tr>
-<tr>
-<td>DeviceStorageMonitorService</td>
-<td>磁盘空间状态检测服务</td>
-</tr>
-<tr>
-<td>LocationManagerService</td>
-<td>地理位置服务</td>
-</tr>
-<tr>
-<td>SearchManagerService</td>
-<td></td>
-</tr>
-<tr>
-<td>CheckinService</td>
-<td></td>
-</tr>
-<tr>
-<td>WallpaperManagerService</td>
-<td></td>
-</tr>
-<tr>
-<td>AudioService</td>
-<td>音频管理服务</td>
-</tr>
-<tr>
-<td>HeadsetObserver</td>
-<td>耳机插拔事件的监控小循环</td>
-</tr>
-<tr>
-<td>DockObserver</td>
-<td>如果系统有个座子，当手机装上或拔出这个座子的话，就得靠他来管理了</td>
-</tr>
-<tr>
-<td>BackupManagerService</td>
-<td>备份服务</td>
-</tr>
-<tr>
-<td>AppWidgetService</td>
-<td>桌面小控件</td>
-</tr>
-<tr>
-<td>StatusBarPolicy</td>
-<td>管理哪个图标该在status bar上显示的策略</td>
-</tr>
-</tbody>
-</table>
-<h2 id="u83B7_u53D6_u76F8_u5173_u670D_u52A1_uFF1AgetSystemService_28String_name_29"><a href="#u83B7_u53D6_u76F8_u5173_u670D_u52A1_uFF1AgetSystemService_28String_name_29" class="headerlink" title="获取相关服务：getSystemService(String name)"></a>获取相关服务：getSystemService(String name)</h2><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>返回对象</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>WINDOW_SERVICE</td>
-<td>WindowManager</td>
-<td>管理打开的窗口程序</td>
-</tr>
-<tr>
-<td>LAYOUT_INFLATER_SERVICE</td>
-<td>LayoutInflater</td>
-<td>取得xml里定义的view</td>
-</tr>
-<tr>
-<td>ACTIVITY_SERVICE</td>
-<td>ActivityManager</td>
-<td>管理应用程序的系统状态</td>
-</tr>
-<tr>
-<td>POWER_SERVICE</td>
-<td>PowerManger</td>
-<td>电源的服务</td>
-</tr>
-<tr>
-<td>ALARM_SERVICE</td>
-<td>AlarmManager</td>
-<td>闹钟的服务</td>
-</tr>
-<tr>
-<td>NOTIFICATION_SERVICE</td>
-<td>NotificationManager</td>
-<td>状态栏的服务</td>
-</tr>
-<tr>
-<td>KEYGUARD_SERVICE</td>
-<td>KeyguardManager</td>
-<td>键盘锁的服务</td>
-</tr>
-<tr>
-<td>LOCATION_SERVICE</td>
-<td>LocationManager</td>
-<td>位置的服务，如GPS</td>
-</tr>
-<tr>
-<td>SEARCH_SERVICE</td>
-<td>SearchManager</td>
-<td>搜索的服务</td>
-</tr>
-<tr>
-<td>VIBRATOR_SERVICE</td>
-<td>Vibrator</td>
-<td>手机震动的服务</td>
-</tr>
-<tr>
-<td>CONNECTIVITY_SERVICE</td>
-<td>Connectivity</td>
-<td>网络连接的服务</td>
-</tr>
-<tr>
-<td>WIFI_SERVICE</td>
-<td>WifiManager</td>
-<td>Wi-Fi服务</td>
-</tr>
-<tr>
-<td>TELEPHONY_SERVICE</td>
-<td>TeleponyManager</td>
-<td>电话服务</td>
-</tr>
-</tbody>
-</table>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/03/12/Android-SystemService-Intro/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/12/Android-SystemService-Intro/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/03/11/NBAPlus-Analysis/" title="NBAPlus-Analysis" itemprop="url">NBAPlus-Analysis</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-11T01:54:40.000Z" itemprop="datePublished"> 发表于 2016-03-11</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u6982_u8FF0_uFF1A"><a href="#u6982_u8FF0_uFF1A" class="headerlink" title="概述："></a>概述：</h2><h3 id="u9605_u8BFB_u4F18_u79C0_u7684_u5F00_u6E90_u9879_u76EE_uFF1ANBAPlus"><a href="#u9605_u8BFB_u4F18_u79C0_u7684_u5F00_u6E90_u9879_u76EE_uFF1ANBAPlus" class="headerlink" title="阅读优秀的开源项目：NBAPlus"></a>阅读优秀的开源项目：<a href="https://github.com/SilenceDut/NBAPlus" target="_blank" rel="external">NBAPlus</a></h3><h3 id="u4E00_u3001_u5E94_u7528_u542F_u52A8_u5206_u6790_uFF1A"><a href="#u4E00_u3001_u5E94_u7528_u542F_u52A8_u5206_u6790_uFF1A" class="headerlink" title="一、应用启动分析："></a>一、应用启动分析：</h3><ul>
-<li><p>1、初始化LeakCanary进行内存泄露检测</p>
-</li>
-<li><p>2、AppService类的初始化</p>
-</li>
-</ul>
-<h3 id="AppService_u7C7B_uFF1A_u6B64_u7C7B_u5C06_u5E38_u7528_u7684_u5168_u5C40_u5BF9_u8C61_u8FDB_u884C_u7EDF_u4E00_u7684_u5C01_u88C5_u7BA1_u7406_uFF0C_u907F_u514D_u4E86Application_u7684_u81C3_u80BF_u3002"><a href="#AppService_u7C7B_uFF1A_u6B64_u7C7B_u5C06_u5E38_u7528_u7684_u5168_u5C40_u5BF9_u8C61_u8FDB_u884C_u7EDF_u4E00_u7684_u5C01_u88C5_u7BA1_u7406_uFF0C_u907F_u514D_u4E86Application_u7684_u81C3_u80BF_u3002" class="headerlink" title="AppService类：此类将常用的全局对象进行统一的封装管理，避免了Application的臃肿。"></a>AppService类：此类将常用的全局对象进行统一的封装管理，避免了Application的臃肿。</h3><ul>
-<li><p>1、常用全局对象的初始化</p>
-</li>
-<li><p>2、Subscription的管理，避免内存泄露（CompositeSubscription）</p>
-</li>
-<li><p>3、初始化了一个后台线程对<strong>数据库操作对象</strong>和<strong>API请求对象</strong>进行初始化（为了启动效率问题吗？）</p>
-</li>
-</ul>
-<h3 id="u4E8C_u3001_u57FA_u7C7B_u7684_u5C01_u88C5_uFF1A"><a href="#u4E8C_u3001_u57FA_u7C7B_u7684_u5C01_u88C5_uFF1A" class="headerlink" title="二、基类的封装："></a>二、基类的封装：</h3><h4 id="1_u3001BaseActivity"><a href="#1_u3001BaseActivity" class="headerlink" title="1、BaseActivity"></a>1、BaseActivity</h4><ul>
-<li>ButterKnife的绑定</li>
-<li>EventBus的注册</li>
-<li>CompositeSubscription的添加</li>
-<li>onDestory方法中反注册与remove</li>
-</ul>
-<h4 id="2_u3001BaseFragment"><a href="#2_u3001BaseFragment" class="headerlink" title="2、BaseFragment"></a>2、BaseFragment</h4><ul>
-<li>ButterKnife的绑定</li>
-<li>EventBus的注册及反注册</li>
-</ul>
-<h3 id="u4E09_u3001MainActivity_u5206_u6790_uFF1A"><a href="#u4E09_u3001MainActivity_u5206_u6790_uFF1A" class="headerlink" title="三、MainActivity分析："></a>三、MainActivity分析：</h3><ul>
-<li>1、进行Drawer的初始化</li>
-<li>2、EventBus的onEventMainThread（）方法</li>
-<li>3、默认初始化“新闻”Fragment</li>
-</ul>
-<h3 id="u56DB_u3001_u7F51_u7EDC_u8BF7_u6C42_u5206_u6790_uFF1A"><a href="#u56DB_u3001_u7F51_u7EDC_u8BF7_u6C42_u5206_u6790_uFF1A" class="headerlink" title="四、网络请求分析："></a>四、网络请求分析：</h3><ul>
-<li>0、声明NbaplusAPI和NewsDetileAPI请求接口</li>
-<li>1、NbaplusFactory生产NbaplusAPI和NewsDetileAPI两个接口对象</li>
-<li>2、以上两个对象在NbaplusClient中通过Retrofit构建。</li>
-</ul>
-<h3 id="u4E94_u3001rxmethod_u5305"><a href="#u4E94_u3001rxmethod_u5305" class="headerlink" title="五、rxmethod包"></a>五、rxmethod包</h3><h4 id="u5BF9_u6570_u636E_u7684_u64CD_u4F5C_u65B9_u6CD5_uFF0C_u53D1_u8D77_u7F51_u7EDC_u8BF7_u6C42_uFF0C_u5E76_u56DE_u8C03EventBus"><a href="#u5BF9_u6570_u636E_u7684_u64CD_u4F5C_u65B9_u6CD5_uFF0C_u53D1_u8D77_u7F51_u7EDC_u8BF7_u6C42_uFF0C_u5E76_u56DE_u8C03EventBus" class="headerlink" title="对数据的操作方法，发起网络请求，并回调EventBus"></a>对数据的操作方法，发起网络请求，并回调EventBus</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Subscription <span class="title">getTeams</span><span class="params">(String date)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Subscription subscription = AppService.getNbaplus().getGames(date)</span><br><span class="line">                .subscribeOn(Schedulers.io())</span><br><span class="line">                .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">                .subscribe(<span class="keyword">new</span> Action1&lt;Games&gt;() &#123;</span><br><span class="line">                    <span class="annotation">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Games games)</span> </span>&#123;<span class="comment">//成功的回调</span></span><br><span class="line">                        AppService.getBus().post(<span class="keyword">new</span> GamesEvent(games, Constant.Result.SUCCESS));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, <span class="keyword">new</span> Action1&lt;Throwable&gt;() &#123;<span class="comment">//失败的回调</span></span><br><span class="line">                    <span class="annotation">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Throwable throwable)</span> </span>&#123;</span><br><span class="line">                        AppService.getBus().post(<span class="keyword">new</span> GamesEvent(<span class="keyword">null</span>, Constant.Result.FAIL));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">        <span class="keyword">return</span> subscription;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="u516D_u3001_u6570_u636E_u7684_u7F13_u5B58_u4F7F_u7528greenDAO_uFF1A"><a href="#u516D_u3001_u6570_u636E_u7684_u7F13_u5B58_u4F7F_u7528greenDAO_uFF1A" class="headerlink" title="六、数据的缓存使用greenDAO："></a>六、数据的缓存使用greenDAO：</h3><h4 id="u8BE6_u7EC6_u7528_u6CD5_uFF1A"><a href="#u8BE6_u7EC6_u7528_u6CD5_uFF1A" class="headerlink" title="详细用法："></a>详细用法：</h4><p><a href="http://www.open-open.com/lib/view/open1438065400878.html" target="_blank" rel="external">http://www.open-open.com/lib/view/open1438065400878.html</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/03/11/NBAPlus-Analysis/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/11/NBAPlus-Analysis/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/03/10/cool/" title="cool" itemprop="url">cool</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-10T07:45:24.000Z" itemprop="datePublished"> 发表于 2016-03-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u90A3_u4E9B_u7ECF_u5178_u7684_u5199_u6CD5_uFF1A"><a href="#u90A3_u4E9B_u7ECF_u5178_u7684_u5199_u6CD5_uFF1A" class="headerlink" title="那些经典的写法："></a>那些经典的写法：</h2><h2 id="u5728_u9605_u8BFB_u4EE3_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E9B_u4E0D_u9519_u7684_u53EF_u4EE5_u501F_u9274_u7684_u5199_u6CD5_uFF1A"><a href="#u5728_u9605_u8BFB_u4EE3_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E9B_u4E0D_u9519_u7684_u53EF_u4EE5_u501F_u9274_u7684_u5199_u6CD5_uFF1A" class="headerlink" title="在阅读代码的时候看到了一些不错的可以借鉴的写法："></a>在阅读代码的时候看到了一些不错的可以借鉴的写法：</h2><h3 id="1_u3001_u867D_u7136_u6709butterknift_u53EF_u4EE5_u4E0D_u7528_u5199findViewById_u4F46_u8FD9_u6837_u4E00_u4E2A_u2018__24__u2018_u7B26_u53F7_u641E_u5B9A_u4E5F_u662F_u4E00_u79CD_u4E0D_u9519_u7684_u9009_u62E9_u3002"><a href="#1_u3001_u867D_u7136_u6709butterknift_u53EF_u4EE5_u4E0D_u7528_u5199findViewById_u4F46_u8FD9_u6837_u4E00_u4E2A_u2018__24__u2018_u7B26_u53F7_u641E_u5B9A_u4E5F_u662F_u4E00_u79CD_u4E0D_u9519_u7684_u9009_u62E9_u3002" class="headerlink" title="1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。"></a>1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> &lt;T extends View&gt; T $(<span class="annotation">@IdRes</span> <span class="keyword">int</span> id) &#123;</span><br><span class="line">       <span class="keyword">return</span> (T) findViewById(id);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/03/10/cool/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/10/cool/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-
-  <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
-  </nav>
-
-</div>
+</div>  
       <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u3001_u6982_u8FF0_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">一、概述：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Android_u4E2D_u592A_u591A_u7684_u4E1C_u897F_u548CHandler-Looper_u6709_u5173_u4E86_uFF08HandlerThread_uFF0CIntentService_uFF09_uFF0C_u8981_u60F3_u4E86_u89E3_u4ED6_u4EEC_u5FC5_u987B_u628AHandler_u57FA_u7840_u638C_u63E1_uFF0C_u4E4B_u524D_u5BF9Handler_u4E86_u89E3_u4E86_u4E0D_u77E5_u9053_u591A_u5C11_u904D_uFF0C_u4ECA_u5929_u7EC8_u4E8E_u770B_u4E86_u4E00_u4E0B_u6E90_u7801_u3002_u8FD8_u597DHandler_uFF0CLooper_uFF0CMessageQueue_u90FD_u6CA1_u6709_u5F88_u6DF1_u7684_u7EE7_u627F_u7ED3_u6784_uFF0C_u4EE3_u7801_u91CF_u4E5F_u4E0D_u591A_uFF0C_u6240_u4EE5_u770B_u8D77_u6765_u6BD4_u8F83_u8F7B_u677E_u597D_u7406_u89E3_u3002"><span class="toc-number">1.1.</span> <span class="toc-text">Android中太多的东西和Handler-Looper有关了（HandlerThread，IntentService），要想了解他们必须把Handler基础掌握，之前对Handler了解了不知道多少遍，今天终于看了一下源码。还好Handler，Looper，MessageQueue都没有很深的继承结构，代码量也不多，所以看起来比较轻松好理解。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E8C_u3001_u4ECE_u57FA_u672C_u7684_u4F7F_u7528_u5F00_u59CB_u8BF4_u8D77_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">二、从基本的使用开始说起：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u9996_u5148new_u4E00_u4E2AHandler_u8C03_u7528_u6784_u9020_u51FD_u6570_uFF1A"><span class="toc-number">2.1.</span> <span class="toc-text">1、首先new一个Handler调用构造函数：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-1_u5728_u4EE3_u7801_u4E2D_u6211_u4EEC_u770B_u5230_u521D_u59CB_u5316_u4E86mLooper_u53D8_u91CF_u548CmQueue_u53D8_u91CF_uFF1A"><span class="toc-number">2.1.1.</span> <span class="toc-text">1.1在代码中我们看到初始化了mLooper变量和mQueue变量：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Looper-myLooper_28_29_u662F_u8FD9_u6837_u7684_uFF1A"><span class="toc-number">2.1.2.</span> <span class="toc-text">Looper.myLooper()是这样的：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4ECE_u88C5_u6709Looper_u5BF9_u8C61_u7684ThreadLocal_u4E2D_u53D6_u51FA_u4E00_u4E2ALooper_u8FD4_u56DE_u3002_u90A3_u4E48_u53D6_u51FA_u6765_u7684_u662F_u54EA_u4E00_u4E2ALooper_u90A3_uFF1F_u6211_u4EEC_u770B_u4E00_u4E0BThreadLocal_u7684get_28_29_u65B9_u6CD5"><span class="toc-number">2.1.3.</span> <span class="toc-text">从装有Looper对象的ThreadLocal中取出一个Looper返回。那么取出来的是哪一个Looper那？我们看一下ThreadLocal的get()方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6211_u4EEC_u53EF_u4EE5_u786E_u5B9A_u53D6_u51FA_u7684_u662F_u5F53_u524D_u7EBF_u7A0B_u7684Looper"><span class="toc-number">2.2.</span> <span class="toc-text">我们可以确定取出的是当前线程的Looper.</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u901A_u8FC7_u4E0A_u9762_u8FD9_u53E5_u6211_u4EEC_u77E5_u9053MessageQueue_u662F_u5728Looper_u4E2D_u7684_u3002"><span class="toc-number">2.2.1.</span> <span class="toc-text">通过上面这句我们知道MessageQueue是在Looper中的。</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u5728Looper_u7684_u79C1_u6709_u6784_u9020_u51FD_u6570_u4E2D_u521D_u59CB_u5316_u4E86_u4E00_u4E2AMessageQueue_u5BF9_u8C61_u3002"><span class="toc-number">2.2.2.</span> <span class="toc-text">在Looper的私有构造函数中初始化了一个MessageQueue对象。</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Looper_u4E0D_u65AD_u5FAA_u73AFMessageQueue_u4E2D_u7684Message_uFF1A"><span class="toc-number">2.3.</span> <span class="toc-text">Looper不断循环MessageQueue中的Message：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#msg-target_u8FD4_u56DE_u4E00_u4E2AHandler_u5BF9_u8C61_u3002_u8C03_u7528Handler_u7684dispatchMessage_28_29_u65B9_u6CD5_uFF1A"><span class="toc-number">2.4.</span> <span class="toc-text">msg.target返回一个Handler对象。调用Handler的dispatchMessage()方法：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5728dispatchMessage_u65B9_u6CD5_u4E2D_u53C8_u56DE_u8C03_u4E86handleMessage_28msg_29_u65B9_u6CD5"><span class="toc-number">2.5.</span> <span class="toc-text">在dispatchMessage方法中又回调了handleMessage(msg)方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7ED3_u8BBA_uFF1A"><span class="toc-number">3.</span> <span class="toc-text">结论：</span></a></li></ol>
+ 
+  </div>
 
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -779,14 +317,103 @@ $(document).ready(function(){
       m.removeClass('moveMain');
       a.css('display', 'block').removeClass('fadeOut');
       o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
         
     }
   });
 });
 </script>
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
 
 
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wangduwei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
 
 
 
@@ -855,4 +482,4 @@ var _hmt = _hmt || [];
 <!-- Tiny_search End -->
 
   </body>
- </html>
+</html>
