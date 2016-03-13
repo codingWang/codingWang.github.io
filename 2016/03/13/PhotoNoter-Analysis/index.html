@@ -4,23 +4,24 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>ThreadLocal | duwei&#39;s blog</title>
+    <title>PhotoNoter-Analysis | duwei&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="duwei">
     
 
     
-    <meta name="description" content="What is ThreadLocal一、ThreadLocal是一个线程内部的数据存储类，只能在指定的线程存取数据。二、只有三个方法1public class ThreadLocal&amp;#60;T&amp;#62;&amp;#123;&amp;#10;&amp;#9;public void set(T value)&amp;#123;&amp;#10;&amp;#9;&amp;#9;...&amp;#10;&amp;#9;&amp;#125;&amp;#10;&amp;#9;public T get">
+    <meta name="description" content="PhotoNoter是一款Material Design风格的开源照片笔记。(MVP+Dagger2+RxJava+Dex分包异步加载)，分析MVP模式的项目有点吃力。一，对启动界面的分析学习。Jump2xxx方法的回调感觉很好下次可以学习使用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ThreadLocal">
-<meta property="og:url" content="http://duwei.com/2016/02/13/ThreadLocal/index.html">
+<meta property="og:title" content="PhotoNoter-Analysis">
+<meta property="og:url" content="http://duwei.com/2016/03/13/PhotoNoter-Analysis/index.html">
 <meta property="og:site_name" content="duwei's blog">
-<meta property="og:description" content="What is ThreadLocal一、ThreadLocal是一个线程内部的数据存储类，只能在指定的线程存取数据。二、只有三个方法1public class ThreadLocal&amp;#60;T&amp;#62;&amp;#123;&amp;#10;&amp;#9;public void set(T value)&amp;#123;&amp;#10;&amp;#9;&amp;#9;...&amp;#10;&amp;#9;&amp;#125;&amp;#10;&amp;#9;public T get">
-<meta property="og:updated_time" content="2016-02-13T15:07:38.835Z">
+<meta property="og:description" content="PhotoNoter是一款Material Design风格的开源照片笔记。(MVP+Dagger2+RxJava+Dex分包异步加载)，分析MVP模式的项目有点吃力。一，对启动界面的分析学习。Jump2xxx方法的回调感觉很好下次可以学习使用">
+<meta property="og:image" content="http://7xqumq.com1.z0.glb.clouddn.com/duwei_photonoter.png">
+<meta property="og:updated_time" content="2016-03-13T08:22:28.402Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ThreadLocal">
-<meta name="twitter:description" content="What is ThreadLocal一、ThreadLocal是一个线程内部的数据存储类，只能在指定的线程存取数据。二、只有三个方法1public class ThreadLocal&amp;#60;T&amp;#62;&amp;#123;&amp;#10;&amp;#9;public void set(T value)&amp;#123;&amp;#10;&amp;#9;&amp;#9;...&amp;#10;&amp;#9;&amp;#125;&amp;#10;&amp;#9;public T get">
+<meta name="twitter:title" content="PhotoNoter-Analysis">
+<meta name="twitter:description" content="PhotoNoter是一款Material Design风格的开源照片笔记。(MVP+Dagger2+RxJava+Dex分包异步加载)，分析MVP模式的项目有点吃力。一，对启动界面的分析学习。Jump2xxx方法的回调感觉很好下次可以学习使用">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -87,14 +88,14 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/02/13/ThreadLocal/" title="ThreadLocal" itemprop="url">ThreadLocal</a>
+      <a href="/2016/03/13/PhotoNoter-Analysis/" title="PhotoNoter-Analysis" itemprop="url">PhotoNoter-Analysis</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
 		
   <p class="article-time">
-    <time datetime="2016-02-13T14:38:02.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
+    <time datetime="2016-03-13T08:12:19.000Z" itemprop="datePublished"> 发表于 2016-03-13</time>
     
   </p>
 </header>
@@ -103,13 +104,12 @@ var _hmt = _hmt || [];
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What_is_ThreadLocal"><span class="toc-number">1.</span> <span class="toc-text">What is ThreadLocal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E00_u3001ThreadLocal_u662F_u4E00_u4E2A_u7EBF_u7A0B_u5185_u90E8_u7684_u6570_u636E_u5B58_u50A8_u7C7B_uFF0C_u53EA_u80FD_u5728_u6307_u5B9A_u7684_u7EBF_u7A0B_u5B58_u53D6_u6570_u636E_u3002"><span class="toc-number">1.1.</span> <span class="toc-text">一、ThreadLocal是一个线程内部的数据存储类，只能在指定的线程存取数据。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E8C_u3001_u53EA_u6709_u4E09_u4E2A_u65B9_u6CD5"><span class="toc-number">1.2.</span> <span class="toc-text">二、只有三个方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E09_u3001_u5185_u90E8_u5B9E_u73B0_u5927_u6982_u5982_u4E0B_uFF1A"><span class="toc-number">1.3.</span> <span class="toc-text">三、内部实现大概如下：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E0Esynchronized"><span class="toc-number">2.</span> <span class="toc-text">与synchronized</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u90FD_u662F_u4E3A_u4E86_u89E3_u51B3_u591A_u7EBF_u7A0B_u4E2D_u5BF9_u6570_u636E_u8BBF_u95EE_u7684_u5B89_u5168_u6027_u95EE_u9898_u3002"><span class="toc-number">2.1.</span> <span class="toc-text">1、都是为了解决多线程中对数据访问的安全性问题。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2_u3001synchronized_u91C7_u7528_u4E86_u201C_u4EE5_u65F6_u95F4_u6362_u7A7A_u95F4_u201D_u7684_u65B9_u5F0F_uFF0CThreadLocal_u91C7_u7528_u4E86_u201C_u4EE5_u7A7A_u95F4_u6362_u65F6_u95F4_u201D_u7684_u65B9_u5F0F_u3002"><span class="toc-number">2.2.</span> <span class="toc-text">2、synchronized采用了“以时间换空间”的方式，ThreadLocal采用了“以空间换时间”的方式。</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PhotoNoter_u662F_u4E00_u6B3EMaterial_Design_u98CE_u683C_u7684_u5F00_u6E90_u7167_u7247_u7B14_u8BB0_u3002_28MVP+Dagger2+RxJava+Dex_u5206_u5305_u5F02_u6B65_u52A0_u8F7D_29_uFF0C_u5206_u6790MVP_u6A21_u5F0F_u7684_u9879_u76EE_u6709_u70B9_u5403_u529B_u3002"><span class="toc-number">1.</span> <span class="toc-text">PhotoNoter是一款Material Design风格的开源照片笔记。(MVP+Dagger2+RxJava+Dex分包异步加载)，分析MVP模式的项目有点吃力。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E00_uFF0C_u5BF9_u542F_u52A8_u754C_u9762_u7684_u5206_u6790_u5B66_u4E60_u3002"><span class="toc-number">1.1.</span> <span class="toc-text">一，对启动界面的分析学习。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Jump2xxx_u65B9_u6CD5_u7684_u56DE_u8C03_u611F_u89C9_u5F88_u597D_u4E0B_u6B21_u53EF_u4EE5_u5B66_u4E60_u4F7F_u7528"><span class="toc-number">1.1.1.</span> <span class="toc-text">Jump2xxx方法的回调感觉很好下次可以学习使用</span></a></li></ol></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="What_is_ThreadLocal"><a href="#What_is_ThreadLocal" class="headerlink" title="What is ThreadLocal"></a>What is ThreadLocal</h2><h3 id="u4E00_u3001ThreadLocal_u662F_u4E00_u4E2A_u7EBF_u7A0B_u5185_u90E8_u7684_u6570_u636E_u5B58_u50A8_u7C7B_uFF0C_u53EA_u80FD_u5728_u6307_u5B9A_u7684_u7EBF_u7A0B_u5B58_u53D6_u6570_u636E_u3002"><a href="#u4E00_u3001ThreadLocal_u662F_u4E00_u4E2A_u7EBF_u7A0B_u5185_u90E8_u7684_u6570_u636E_u5B58_u50A8_u7C7B_uFF0C_u53EA_u80FD_u5728_u6307_u5B9A_u7684_u7EBF_u7A0B_u5B58_u53D6_u6570_u636E_u3002" class="headerlink" title="一、ThreadLocal是一个线程内部的数据存储类，只能在指定的线程存取数据。"></a>一、ThreadLocal是一个线程内部的数据存储类，只能在指定的线程存取数据。</h3><h3 id="u4E8C_u3001_u53EA_u6709_u4E09_u4E2A_u65B9_u6CD5"><a href="#u4E8C_u3001_u53EA_u6709_u4E09_u4E2A_u65B9_u6CD5" class="headerlink" title="二、只有三个方法"></a>二、只有三个方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class ThreadLocal&#60;T&#62;&#123;&#10;&#9;public void set(T value)&#123;&#10;&#9;&#9;...&#10;&#9;&#125;&#10;&#9;public T get()&#123;&#10;&#9;&#9;...&#10;&#9;&#125;&#10;&#9;protected T initialValue()&#123;&#10;&#9;&#9;...&#10;&#9;&#125;&#10;&#10;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="u4E09_u3001_u5185_u90E8_u5B9E_u73B0_u5927_u6982_u5982_u4E0B_uFF1A"><a href="#u4E09_u3001_u5185_u90E8_u5B9E_u73B0_u5927_u6982_u5982_u4E0B_uFF1A" class="headerlink" title="三、内部实现大概如下："></a>三、内部实现大概如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private Map&#60;Thread,Integer&#62; threadData = new HashMap&#60;Thread,Integer&#62;();//&#20869;&#37096;&#32500;&#25252;&#19968;&#20010;&#35013;&#32447;&#31243;&#21644;&#25968;&#25454;&#30340;Map&#10;&#10;threadData.put(Thread.currentThread(),data);//&#23558;&#32447;&#31243;&#21450;&#23545;&#24212;&#30340;&#25968;&#25454;&#35013;&#20837;</span><br></pre></td></tr></table></figure>
-<h2 id="u4E0Esynchronized"><a href="#u4E0Esynchronized" class="headerlink" title="与synchronized"></a>与synchronized</h2><h3 id="1_u3001_u90FD_u662F_u4E3A_u4E86_u89E3_u51B3_u591A_u7EBF_u7A0B_u4E2D_u5BF9_u6570_u636E_u8BBF_u95EE_u7684_u5B89_u5168_u6027_u95EE_u9898_u3002"><a href="#1_u3001_u90FD_u662F_u4E3A_u4E86_u89E3_u51B3_u591A_u7EBF_u7A0B_u4E2D_u5BF9_u6570_u636E_u8BBF_u95EE_u7684_u5B89_u5168_u6027_u95EE_u9898_u3002" class="headerlink" title="1、都是为了解决多线程中对数据访问的安全性问题。"></a>1、都是为了解决多线程中对数据访问的安全性问题。</h3><h3 id="2_u3001synchronized_u91C7_u7528_u4E86_u201C_u4EE5_u65F6_u95F4_u6362_u7A7A_u95F4_u201D_u7684_u65B9_u5F0F_uFF0CThreadLocal_u91C7_u7528_u4E86_u201C_u4EE5_u7A7A_u95F4_u6362_u65F6_u95F4_u201D_u7684_u65B9_u5F0F_u3002"><a href="#2_u3001synchronized_u91C7_u7528_u4E86_u201C_u4EE5_u65F6_u95F4_u6362_u7A7A_u95F4_u201D_u7684_u65B9_u5F0F_uFF0CThreadLocal_u91C7_u7528_u4E86_u201C_u4EE5_u7A7A_u95F4_u6362_u65F6_u95F4_u201D_u7684_u65B9_u5F0F_u3002" class="headerlink" title="2、synchronized采用了“以时间换空间”的方式，ThreadLocal采用了“以空间换时间”的方式。"></a>2、synchronized采用了“以时间换空间”的方式，ThreadLocal采用了“以空间换时间”的方式。</h3>  
+		<h2 id="PhotoNoter_u662F_u4E00_u6B3EMaterial_Design_u98CE_u683C_u7684_u5F00_u6E90_u7167_u7247_u7B14_u8BB0_u3002_28MVP+Dagger2+RxJava+Dex_u5206_u5305_u5F02_u6B65_u52A0_u8F7D_29_uFF0C_u5206_u6790MVP_u6A21_u5F0F_u7684_u9879_u76EE_u6709_u70B9_u5403_u529B_u3002"><a href="#PhotoNoter_u662F_u4E00_u6B3EMaterial_Design_u98CE_u683C_u7684_u5F00_u6E90_u7167_u7247_u7B14_u8BB0_u3002_28MVP+Dagger2+RxJava+Dex_u5206_u5305_u5F02_u6B65_u52A0_u8F7D_29_uFF0C_u5206_u6790MVP_u6A21_u5F0F_u7684_u9879_u76EE_u6709_u70B9_u5403_u529B_u3002" class="headerlink" title="PhotoNoter是一款Material Design风格的开源照片笔记。(MVP+Dagger2+RxJava+Dex分包异步加载)，分析MVP模式的项目有点吃力。"></a><a href="https://github.com/yydcdut/PhotoNoter" target="_blank" rel="external">PhotoNoter</a>是一款Material Design风格的开源照片笔记。(MVP+Dagger2+RxJava+Dex分包异步加载)，分析MVP模式的项目有点吃力。</h2><h3 id="u4E00_uFF0C_u5BF9_u542F_u52A8_u754C_u9762_u7684_u5206_u6790_u5B66_u4E60_u3002"><a href="#u4E00_uFF0C_u5BF9_u542F_u52A8_u754C_u9762_u7684_u5206_u6790_u5B66_u4E60_u3002" class="headerlink" title="一，对启动界面的分析学习。"></a>一，对启动界面的分析学习。</h3><h4 id="Jump2xxx_u65B9_u6CD5_u7684_u56DE_u8C03_u611F_u89C9_u5F88_u597D_u4E0B_u6B21_u53EF_u4EE5_u5B66_u4E60_u4F7F_u7528"><a href="#Jump2xxx_u65B9_u6CD5_u7684_u56DE_u8C03_u611F_u89C9_u5F88_u597D_u4E0B_u6B21_u53EF_u4EE5_u5B66_u4E60_u4F7F_u7528" class="headerlink" title="Jump2xxx方法的回调感觉很好下次可以学习使用"></a>Jump2xxx方法的回调感觉很好下次可以学习使用</h4><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_photonoter.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_photonoter.png"></p>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -117,7 +117,7 @@ var _hmt = _hmt || [];
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Java/">Java</a>
+  <span></span> <a href="/tags/源码阅读/">源码阅读</a>
   </div>
 
 </div>
@@ -126,7 +126,7 @@ var _hmt = _hmt || [];
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://duwei.com/2016/02/13/ThreadLocal/" data-title="ThreadLocal | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://duwei.com/2016/03/13/PhotoNoter-Analysis/" data-title="PhotoNoter-Analysis | duwei&#39;s blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -139,19 +139,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/02/15/Property-Animation/" title="Property Animation">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Property Animation</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/02/12/how-annotation-works/"  title="how annotation works">
+<a href="/2016/03/13/Handler-Looper/"  title="Handler-Looper">
  <strong>下一篇：</strong><br/> 
- <span>how annotation works
+ <span>Handler-Looper
 </span>
 </a>
 </div>
@@ -160,7 +152,7 @@ var _hmt = _hmt || [];
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/02/13/ThreadLocal/" data-title="ThreadLocal" data-url="http://duwei.com/2016/02/13/ThreadLocal/"></div>
+	<div class="ds-thread" data-thread-key="2016/03/13/PhotoNoter-Analysis/" data-title="PhotoNoter-Analysis" data-url="http://duwei.com/2016/03/13/PhotoNoter-Analysis/"></div>
 </section>
 
 
@@ -170,7 +162,7 @@ var _hmt = _hmt || [];
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#What_is_ThreadLocal"><span class="toc-number">1.</span> <span class="toc-text">What is ThreadLocal</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E00_u3001ThreadLocal_u662F_u4E00_u4E2A_u7EBF_u7A0B_u5185_u90E8_u7684_u6570_u636E_u5B58_u50A8_u7C7B_uFF0C_u53EA_u80FD_u5728_u6307_u5B9A_u7684_u7EBF_u7A0B_u5B58_u53D6_u6570_u636E_u3002"><span class="toc-number">1.1.</span> <span class="toc-text">一、ThreadLocal是一个线程内部的数据存储类，只能在指定的线程存取数据。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E8C_u3001_u53EA_u6709_u4E09_u4E2A_u65B9_u6CD5"><span class="toc-number">1.2.</span> <span class="toc-text">二、只有三个方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E09_u3001_u5185_u90E8_u5B9E_u73B0_u5927_u6982_u5982_u4E0B_uFF1A"><span class="toc-number">1.3.</span> <span class="toc-text">三、内部实现大概如下：</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E0Esynchronized"><span class="toc-number">2.</span> <span class="toc-text">与synchronized</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u90FD_u662F_u4E3A_u4E86_u89E3_u51B3_u591A_u7EBF_u7A0B_u4E2D_u5BF9_u6570_u636E_u8BBF_u95EE_u7684_u5B89_u5168_u6027_u95EE_u9898_u3002"><span class="toc-number">2.1.</span> <span class="toc-text">1、都是为了解决多线程中对数据访问的安全性问题。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2_u3001synchronized_u91C7_u7528_u4E86_u201C_u4EE5_u65F6_u95F4_u6362_u7A7A_u95F4_u201D_u7684_u65B9_u5F0F_uFF0CThreadLocal_u91C7_u7528_u4E86_u201C_u4EE5_u7A7A_u95F4_u6362_u65F6_u95F4_u201D_u7684_u65B9_u5F0F_u3002"><span class="toc-number">2.2.</span> <span class="toc-text">2、synchronized采用了“以时间换空间”的方式，ThreadLocal采用了“以空间换时间”的方式。</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PhotoNoter_u662F_u4E00_u6B3EMaterial_Design_u98CE_u683C_u7684_u5F00_u6E90_u7167_u7247_u7B14_u8BB0_u3002_28MVP+Dagger2+RxJava+Dex_u5206_u5305_u5F02_u6B65_u52A0_u8F7D_29_uFF0C_u5206_u6790MVP_u6A21_u5F0F_u7684_u9879_u76EE_u6709_u70B9_u5403_u529B_u3002"><span class="toc-number">1.</span> <span class="toc-text">PhotoNoter是一款Material Design风格的开源照片笔记。(MVP+Dagger2+RxJava+Dex分包异步加载)，分析MVP模式的项目有点吃力。</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u4E00_uFF0C_u5BF9_u542F_u52A8_u754C_u9762_u7684_u5206_u6790_u5B66_u4E60_u3002"><span class="toc-number">1.1.</span> <span class="toc-text">一，对启动界面的分析学习。</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Jump2xxx_u65B9_u6CD5_u7684_u56DE_u8C03_u611F_u89C9_u5F88_u597D_u4E0B_u6B21_u53EF_u4EE5_u5B66_u4E60_u4F7F_u7528"><span class="toc-number">1.1.1.</span> <span class="toc-text">Jump2xxx方法的回调感觉很好下次可以学习使用</span></a></li></ol></li></ol></li></ol>
  
   </div>
 
