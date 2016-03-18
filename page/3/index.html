@@ -90,6 +90,70 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/03/02/ViewDragHelper/" title="ViewDragHelper" itemprop="url">ViewDragHelper</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-02T13:05:14.000Z" itemprop="datePublished"> 发表于 2016-03-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u6982_u8FF0_uFF1A"><a href="#u6982_u8FF0_uFF1A" class="headerlink" title="概述："></a>概述：</h2><h3 id="u672C_u6587_u8BB0_u5F55_uFF1A"><a href="#u672C_u6587_u8BB0_u5F55_uFF1A" class="headerlink" title="本文记录："></a>本文记录：</h3><ul>
+<li>ViewDragHelper的基本介绍和使用（初稿）</li>
+</ul>
+<h3 id="1_u3001What_is_ViewDragHelper__3F"><a href="#1_u3001What_is_ViewDragHelper__3F" class="headerlink" title="1、What is ViewDragHelper ?"></a>1、What is ViewDragHelper ?</h3><h4 id="ViewDragHelper_is_a_utility_class_for_writing_custom_ViewGroups-_It_offers_a_number_of_useful_operations_and_state_tracking_for_allowing_a_user_to_drag_and_reposition_views_within_their_parent_ViewGroup"><a href="#ViewDragHelper_is_a_utility_class_for_writing_custom_ViewGroups-_It_offers_a_number_of_useful_operations_and_state_tracking_for_allowing_a_user_to_drag_and_reposition_views_within_their_parent_ViewGroup" class="headerlink" title="ViewDragHelper is a utility class for writing custom ViewGroups. It offers a number of useful operations and state tracking for allowing a user to drag and reposition views within their parent ViewGroup."></a>ViewDragHelper is a utility class for writing custom ViewGroups. It offers a number of useful operations and state tracking for allowing a user to drag and reposition views within their parent ViewGroup.</h4><h4 id="ViewDragHelper_u662F_u4E00_u4E2A_u5199_u81EA_u5B9A_u4E49ViewGroup_u7684_u5DE5_u5177_u7C7B_uFF0C_u5B83_u63D0_u4F9B_u4E86_u4E00_u4E9B_u6709_u7528_u7684_u64CD_u4F5C_u548C_u72B6_u6001_u8DDF_u8E2A_u6765_u8BA9_u7528_u6237_u5BF9View_u5728_u5176_u7236_u5BB9_u5668_u4E2D_u8FDB_u884C_u62D6_u62FD_u548C_u91CD_u65B0_u6446_u653E_u3002"><a href="#ViewDragHelper_u662F_u4E00_u4E2A_u5199_u81EA_u5B9A_u4E49ViewGroup_u7684_u5DE5_u5177_u7C7B_uFF0C_u5B83_u63D0_u4F9B_u4E86_u4E00_u4E9B_u6709_u7528_u7684_u64CD_u4F5C_u548C_u72B6_u6001_u8DDF_u8E2A_u6765_u8BA9_u7528_u6237_u5BF9View_u5728_u5176_u7236_u5BB9_u5668_u4E2D_u8FDB_u884C_u62D6_u62FD_u548C_u91CD_u65B0_u6446_u653E_u3002" class="headerlink" title="ViewDragHelper是一个写自定义ViewGroup的工具类，它提供了一些有用的操作和状态跟踪来让用户对View在其父容器中进行拖拽和重新摆放。"></a>ViewDragHelper是一个写自定义ViewGroup的工具类，它提供了一些有用的操作和状态跟踪来让用户对View在其父容器中进行拖拽和重新摆放。</h4><h3 id="2_u3001How_to_create_it__3F"><a href="#2_u3001How_to_create_it__3F" class="headerlink" title="2、How to create it ?"></a>2、How to create it ?</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">   * Factory method to create a new ViewDragHelper.//工厂方法创建一个ViewDragHelper</span><br><span class="line">   *</span><br><span class="line">   * <span class="doctag">@param</span> forParent Parent view to monitor</span><br><span class="line">   * <span class="doctag">@param</span> sensitivity Multiplier for how sensitive the helper should be about detecting  the start of a drag. Larger values are more sensitive. 1.0f is normal.</span><br><span class="line">   * <span class="doctag">@param</span> cb Callback to provide information and receive events//一个提供信息和接收事件的回调</span><br><span class="line">   * <span class="doctag">@return</span> a new ViewDragHelper instance</span><br><span class="line">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> ViewDragHelper <span class="title">create</span><span class="params">(ViewGroup forParent, <span class="keyword">float</span> sensitivity, Callback cb)</span> </span>&#123;</span><br><span class="line">      <span class="keyword">final</span> ViewDragHelper helper = create(forParent, cb);</span><br><span class="line">      helper.mTouchSlop = (<span class="keyword">int</span>) (helper.mTouchSlop * (<span class="number">1</span> / sensitivity));</span><br><span class="line">      <span class="keyword">return</span> helper;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3_u3001Important_Callback"><a href="#3_u3001Important_Callback" class="headerlink" title="3、Important Callback"></a>3、Important Callback</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_viewdraghelper.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_viewdraghelper.png"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span><br><span class="line">       * Called when the user's input indicates that they want to capture the given child view</span><br><span class="line">       * with the pointer indicated by pointerId. The callback should return true if the user</span><br><span class="line">       * is permitted to drag the given view with the indicated pointer.</span><br><span class="line">       *</span><br><span class="line">       * &lt;p&gt;ViewDragHelper may call this method multiple times for the same view even if</span><br><span class="line">       * the view is already captured; this indicates that a new pointer is trying to take</span><br><span class="line">       * control of the view.&lt;/p&gt;</span><br><span class="line">       *</span><br><span class="line">       * &lt;p&gt;If this method returns true, a call to &#123;<span class="doctag">@link</span> #onViewCaptured(android.view.View, int)&#125;</span><br><span class="line">       * will follow if the capture is successful.&lt;/p&gt;</span><br><span class="line">       *</span><br><span class="line">       * <span class="doctag">@param</span> child Child the user is attempting to capture</span><br><span class="line">       * <span class="doctag">@param</span> pointerId ID of the pointer attempting the capture</span><br><span class="line">       * <span class="doctag">@return</span> true if capture should be allowed, false otherwise</span><br><span class="line">       */</span></span><br><span class="line">      <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">tryCaptureView</span><span class="params">(View child, <span class="keyword">int</span> pointerId)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line">        * 约束被拖拽的子View沿着X轴移动，默认的实现不允许水平移动 ，子类必须覆盖这个方法并提供想要的 clamping.</span><br><span class="line">        *</span><br><span class="line">        * <span class="doctag">@param</span> child Child view being dragged</span><br><span class="line">        * <span class="doctag">@param</span> left Attempted motion along the X axis</span><br><span class="line">        * <span class="doctag">@param</span> dx Proposed change in position for left</span><br><span class="line">        * <span class="doctag">@return</span> The new clamped position for left</span><br><span class="line">        */</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">clampViewPositionHorizontal</span><span class="params">(View child, <span class="keyword">int</span> left, <span class="keyword">int</span> dx)</span> </span>&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/03/02/ViewDragHelper/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/02/ViewDragHelper/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/02/26/recyclerview/" title="recyclerview" itemprop="url">recyclerview</a>
   </h1>
   <p class="article-author">By
@@ -395,71 +459,9 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/15/Property-Animation/" title="Property Animation" itemprop="url">Property Animation</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-15T10:54:41.000Z" itemprop="datePublished"> 发表于 2016-02-15</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u4E00_u3001_u6982_u8FF0"><a href="#u4E00_u3001_u6982_u8FF0" class="headerlink" title="一、概述"></a>一、概述</h2><h3 id="u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A"><a href="#u8FD9_u4E9B_u5929_u770B_u4E86_u5F88_u591A_u5F00_u6E90_u9879_u76EE_u7684_u6E90_u7801_uFF08_u81EA_u5B9A_u4E49View_u65B9_u9762_uFF09_uFF0C_u5BF9_u5C5E_u6027_u52A8_u753B_u4E5F_u7528_u7684_u76F8_u5BF9_u719F_u7EC3_u4E00_u70B9_u4E86_uFF0C_u4E0B_u9762_u5C31_u662F_u5BF9_u76F8_u5173_u65B9_u6CD5_u7684_u4E00_u4E9B_u603B_u7ED3_uFF1A" class="headerlink" title="这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结："></a>这些天看了很多开源项目的源码（自定义View方面），对属性动画也用的相对熟练一点了，下面就是对相关方法的一些总结：</h3><h2 id="u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3"><a href="#u4E8C_u3001_u5E38_u7528_u65B9_u6CD5_u603B_u7ED3" class="headerlink" title="二、常用方法总结"></a>二、常用方法总结</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**&#10;*&#23558;&#25351;&#23450;&#30340;&#23545;&#35937;&#65288;target&#65289;&#30340;&#23646;&#24615;&#65288;propertyName&#65289;&#22312;&#20540;&#65288;values&#65289;&#38388;&#36827;&#34892;&#21464;&#25442;&#10;**/&#10;public static ObjectAnimator ofFloat(Object target, String propertyName, float... values)&#123;&#125;&#10;&#10;&#10;/**&#10;*&#21482;&#25351;&#23450;&#21464;&#21270;&#30340;&#33539;&#22260;&#10;**/&#10;public static ValueAnimator ofFloat(float... values) &#123;&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A"><a href="#1_u3001ObjectAnimator_u7EE7_u627F_u81EAValueAnimator_uFF0C_u90FD_u6709_u4EE5_u4E0B_u5E38_u7528_u65B9_u6CD5_uFF1A" class="headerlink" title="1、ObjectAnimator继承自ValueAnimator，都有以下常用方法："></a>1、ObjectAnimator继承自ValueAnimator，都有以下常用方法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;anim.setDuration(1000);//1&#31186;&#10;anim.setRepeatCount(-1);//&#26080;&#32447;&#24490;&#29615;&#10;anim.setInterpolator(new AccelerateDecelerateInterpolator());//&#25554;&#20540;&#22120;&#10;anim.start();//&#24320;&#22987;&#21160;&#30011;</span><br></pre></td></tr></table></figure>
-<h3 id="2_u3001_u52A8_u753B_u96C6_uFF1A"><a href="#2_u3001_u52A8_u753B_u96C6_uFF1A" class="headerlink" title="2、动画集："></a>2、动画集：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;AnimatorSet set = new AnimatorSet();&#10;set.playTogether(......);&#10;set.setDuration(1000);&#10;set.start();&#10;&#10;//----------------------------------------------&#10;set.plat().after(),with().befor();//&#30456;&#20851;&#26041;&#27861;</span><br></pre></td></tr></table></figure>
-<h2 id="u4E09_u3001_u76D1_u542C_u5668"><a href="#u4E09_u3001_u76D1_u542C_u5668" class="headerlink" title="三、监听器"></a>三、监听器</h2><h3 id="u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A"><a href="#u63D0_u4F9B_u4E862_u4E2A_u76D1_u542C_u5668_uFF1A" class="headerlink" title="提供了2个监听器："></a>提供了2个监听器：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//Animator&#30340;&#20869;&#37096;&#31867;&#10;public static interface AnimatorListener &#123;&#10;&#10;       void onAnimationStart(Animator animation);&#10;       &#10;       void onAnimationEnd(Animator animation);&#10;       &#10;       void onAnimationCancel(Animator animation);&#10;       &#10;       void onAnimationRepeat(Animator animation);&#10;   &#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public static interface AnimatorUpdateListener &#123;&#10;      &#10;       void onAnimationUpdate(ValueAnimator animation);&#10;&#10; &#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/15/Property-Animation/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/15/Property-Animation/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
   </nav>
 
 </div>
@@ -487,7 +489,7 @@ var _hmt = _hmt || [];
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Android/" title="Android">Android<sup>12</sup></a></li>
+				<li><a href="/tags/Android/" title="Android">Android<sup>13</sup></a></li>
 			
 		
 			
