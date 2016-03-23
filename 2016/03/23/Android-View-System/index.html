@@ -4,44 +4,53 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>mvp | duwei&#39;s blog</title>
+    <title>Android-View-System | duwei&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="duwei">
     
 
     
-    <meta name="description" content="初次尝试使用MVP进行APP开发，对MVP的几点个人理解记录：
-1、建议以功能模块进行包结构的管理。
+    <meta name="description" content="概述：Android的View系统的体系结构总结：
+View与ViewRoot的关系
+Activity与Window的关系
+Window与WindowManagerImpl的关系
+ViewRoot和WindowManagerImpl的关系
+ViewRootImpl与WindowManagerService关系
 
-2、每个功能模块下都要定义View层及其接口+Presenter接口及其实现+Model层及接口（如果有数据操作）。
+View与ViewRoot的关系
+ViewRoot中的成员变量指向View树的根
 
-3、对View的操作及其行为要在View层接口定义，对业务逻辑处理要定义在Presenter接口。
-
-4、Presenter层必须要持有View层接口的引用，可通过构造函数传入">
+A">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mvp">
-<meta property="og:url" content="http://duwei.com/2016/03/18/MVP-Using/index.html">
+<meta property="og:title" content="Android-View-System">
+<meta property="og:url" content="http://duwei.com/2016/03/23/Android-View-System/index.html">
 <meta property="og:site_name" content="duwei's blog">
-<meta property="og:description" content="初次尝试使用MVP进行APP开发，对MVP的几点个人理解记录：
-1、建议以功能模块进行包结构的管理。
+<meta property="og:description" content="概述：Android的View系统的体系结构总结：
+View与ViewRoot的关系
+Activity与Window的关系
+Window与WindowManagerImpl的关系
+ViewRoot和WindowManagerImpl的关系
+ViewRootImpl与WindowManagerService关系
 
-2、每个功能模块下都要定义View层及其接口+Presenter接口及其实现+Model层及接口（如果有数据操作）。
+View与ViewRoot的关系
+ViewRoot中的成员变量指向View树的根
 
-3、对View的操作及其行为要在View层接口定义，对业务逻辑处理要定义在Presenter接口。
-
-4、Presenter层必须要持有View层接口的引用，可通过构造函数传入">
-<meta property="og:updated_time" content="2016-03-22T08:33:05.168Z">
+A">
+<meta property="og:updated_time" content="2016-03-23T07:59:23.627Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mvp">
-<meta name="twitter:description" content="初次尝试使用MVP进行APP开发，对MVP的几点个人理解记录：
-1、建议以功能模块进行包结构的管理。
+<meta name="twitter:title" content="Android-View-System">
+<meta name="twitter:description" content="概述：Android的View系统的体系结构总结：
+View与ViewRoot的关系
+Activity与Window的关系
+Window与WindowManagerImpl的关系
+ViewRoot和WindowManagerImpl的关系
+ViewRootImpl与WindowManagerService关系
 
-2、每个功能模块下都要定义View层及其接口+Presenter接口及其实现+Model层及接口（如果有数据操作）。
+View与ViewRoot的关系
+ViewRoot中的成员变量指向View树的根
 
-3、对View的操作及其行为要在View层接口定义，对业务逻辑处理要定义在Presenter接口。
-
-4、Presenter层必须要持有View层接口的引用，可通过构造函数传入">
+A">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -110,14 +119,14 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/18/MVP-Using/" title="mvp" itemprop="url">mvp</a>
+      <a href="/2016/03/23/Android-View-System/" title="Android-View-System" itemprop="url">Android-View-System</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-18T03:14:13.000Z" itemprop="datePublished"> 发表于 2016-03-18</time>
+    <time datetime="2016-03-23T02:38:38.000Z" itemprop="datePublished"> 发表于 2016-03-23</time>
     
   </p>
 </header>
@@ -126,24 +135,32 @@ var _hmt = _hmt || [];
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u521D_u6B21_u5C1D_u8BD5_u4F7F_u7528MVP_u8FDB_u884CAPP_u5F00_u53D1_uFF0C_u5BF9MVP_u7684_u51E0_u70B9_u4E2A_u4EBA_u7406_u89E3_u8BB0_u5F55_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">初次尝试使用MVP进行APP开发，对MVP的几点个人理解记录：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u53EF_u8FDB_u4E00_u6B65_u8003_u8651_u7684_u4F18_u5316_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">可进一步考虑的优化：</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6982_u8FF0_uFF1AAndroid_u7684View_u7CFB_u7EDF_u7684_u4F53_u7CFB_u7ED3_u6784_u603B_u7ED3_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">概述：Android的View系统的体系结构总结：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#View_u4E0EViewRoot_u7684_u5173_u7CFB"><span class="toc-number">1.1.</span> <span class="toc-text">View与ViewRoot的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Activity_u4E0EWindow_u7684_u5173_u7CFB"><span class="toc-number">1.2.</span> <span class="toc-text">Activity与Window的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Window_u4E0EWindowManagerImpl_u7684_u5173_u7CFB"><span class="toc-number">1.3.</span> <span class="toc-text">Window与WindowManagerImpl的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ViewRoot_u548CWindowManagerImpl_u7684_u5173_u7CFB"><span class="toc-number">1.4.</span> <span class="toc-text">ViewRoot和WindowManagerImpl的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ViewRootImpl_u4E0EWindowManagerService_u5173_u7CFB"><span class="toc-number">1.5.</span> <span class="toc-text">ViewRootImpl与WindowManagerService关系</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="u521D_u6B21_u5C1D_u8BD5_u4F7F_u7528MVP_u8FDB_u884CAPP_u5F00_u53D1_uFF0C_u5BF9MVP_u7684_u51E0_u70B9_u4E2A_u4EBA_u7406_u89E3_u8BB0_u5F55_uFF1A"><a href="#u521D_u6B21_u5C1D_u8BD5_u4F7F_u7528MVP_u8FDB_u884CAPP_u5F00_u53D1_uFF0C_u5BF9MVP_u7684_u51E0_u70B9_u4E2A_u4EBA_u7406_u89E3_u8BB0_u5F55_uFF1A" class="headerlink" title="初次尝试使用MVP进行APP开发，对MVP的几点个人理解记录："></a>初次尝试使用MVP进行APP开发，对MVP的几点个人理解记录：</h2><ul>
-<li><p>1、建议以功能模块进行包结构的管理。</p>
-</li>
-<li><p>2、每个功能模块下都要定义View层及其接口+Presenter接口及其实现+Model层及接口（如果有数据操作）。</p>
-</li>
-<li><p>3、对View的操作及其行为要在View层接口定义，对业务逻辑处理要定义在Presenter接口。</p>
-</li>
-<li><p>4、Presenter层必须要持有View层接口的引用，可通过构造函数传入。</p>
-</li>
-<li><p>5、在Presenter层定义onDestroy方法记得释放View层引用。</p>
+		<h2 id="u6982_u8FF0_uFF1AAndroid_u7684View_u7CFB_u7EDF_u7684_u4F53_u7CFB_u7ED3_u6784_u603B_u7ED3_uFF1A"><a href="#u6982_u8FF0_uFF1AAndroid_u7684View_u7CFB_u7EDF_u7684_u4F53_u7CFB_u7ED3_u6784_u603B_u7ED3_uFF1A" class="headerlink" title="概述：Android的View系统的体系结构总结："></a>概述：Android的View系统的体系结构总结：</h2><ul>
+<li>View与ViewRoot的关系</li>
+<li>Activity与Window的关系</li>
+<li>Window与WindowManagerImpl的关系</li>
+<li>ViewRoot和WindowManagerImpl的关系</li>
+<li>ViewRootImpl与WindowManagerService关系</li>
+</ul>
+<h3 id="View_u4E0EViewRoot_u7684_u5173_u7CFB"><a href="#View_u4E0EViewRoot_u7684_u5173_u7CFB" class="headerlink" title="View与ViewRoot的关系"></a>View与ViewRoot的关系</h3><ul>
+<li>ViewRoot中的成员变量指向View树的根</li>
+</ul>
+<h3 id="Activity_u4E0EWindow_u7684_u5173_u7CFB"><a href="#Activity_u4E0EWindow_u7684_u5173_u7CFB" class="headerlink" title="Activity与Window的关系"></a>Activity与Window的关系</h3><ul>
+<li>Activity内部有一个Window的成员变量指向其子类PhoneWindow</li>
+</ul>
+<h3 id="Window_u4E0EWindowManagerImpl_u7684_u5173_u7CFB"><a href="#Window_u4E0EWindowManagerImpl_u7684_u5173_u7CFB" class="headerlink" title="Window与WindowManagerImpl的关系"></a>Window与WindowManagerImpl的关系</h3><ul>
+<li>WindowManager是Window的成员变量，其实现类为WindowManagerImpl</li>
+</ul>
+<h3 id="ViewRoot_u548CWindowManagerImpl_u7684_u5173_u7CFB"><a href="#ViewRoot_u548CWindowManagerImpl_u7684_u5173_u7CFB" class="headerlink" title="ViewRoot和WindowManagerImpl的关系"></a>ViewRoot和WindowManagerImpl的关系</h3><ul>
+<li>WindowManagerImpl内部通过WindowManagerGlobal对象对如下三个对象进行管理：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;View&gt; mViews = <span class="keyword">new</span> ArrayList&lt;View&gt;();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;ViewRootImpl&gt; mRoots = <span class="keyword">new</span> ArrayList&lt;ViewRootImpl&gt;();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;WindowManager.LayoutParams&gt; mParams =<span class="keyword">new</span> ArrayList&lt;WindowManager.LayoutParams&gt;();</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="u53EF_u8FDB_u4E00_u6B65_u8003_u8651_u7684_u4F18_u5316_uFF1A"><a href="#u53EF_u8FDB_u4E00_u6B65_u8003_u8651_u7684_u4F18_u5316_uFF1A" class="headerlink" title="可进一步考虑的优化："></a>可进一步考虑的优化：</h2><ul>
-<li>1、因为Presenter必须持有View层引用，Presenter必须最后释放引用，所以建议定义所有Presenter接口的父接口，抽离出onAttach和onDetach方法。</li>
+<h3 id="ViewRootImpl_u4E0EWindowManagerService_u5173_u7CFB"><a href="#ViewRootImpl_u4E0EWindowManagerService_u5173_u7CFB" class="headerlink" title="ViewRootImpl与WindowManagerService关系"></a>ViewRootImpl与WindowManagerService关系</h3><ul>
+<li>ViewRootImpl负责与WMS进行通信（IWindowSession），反向通过IWindow来完成。</li>
 </ul>
   
 	</div>
@@ -153,7 +170,7 @@ var _hmt = _hmt || [];
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Android/">Android</a>
+  <span></span> <a href="/tags/framwork/">framwork</a>
   </div>
 
 </div>
@@ -162,7 +179,7 @@ var _hmt = _hmt || [];
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://duwei.com/2016/03/18/MVP-Using/" data-title="mvp | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://duwei.com/2016/03/23/Android-View-System/" data-title="Android-View-System | duwei&#39;s blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -175,19 +192,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/03/23/Android-View-System/" title="Android-View-System">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Android-View-System</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/03/16/highcharts/"  title="highcharts使用心得">
+<a href="/2016/03/18/MVP-Using/"  title="mvp">
  <strong>下一篇：</strong><br/> 
- <span>highcharts使用心得
+ <span>mvp
 </span>
 </a>
 </div>
@@ -196,7 +205,7 @@ var _hmt = _hmt || [];
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/03/18/MVP-Using/" data-title="mvp" data-url="http://duwei.com/2016/03/18/MVP-Using/"></div>
+	<div class="ds-thread" data-thread-key="2016/03/23/Android-View-System/" data-title="Android-View-System" data-url="http://duwei.com/2016/03/23/Android-View-System/"></div>
 </section>
 
 
@@ -206,7 +215,7 @@ var _hmt = _hmt || [];
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u521D_u6B21_u5C1D_u8BD5_u4F7F_u7528MVP_u8FDB_u884CAPP_u5F00_u53D1_uFF0C_u5BF9MVP_u7684_u51E0_u70B9_u4E2A_u4EBA_u7406_u89E3_u8BB0_u5F55_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">初次尝试使用MVP进行APP开发，对MVP的几点个人理解记录：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u53EF_u8FDB_u4E00_u6B65_u8003_u8651_u7684_u4F18_u5316_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">可进一步考虑的优化：</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6982_u8FF0_uFF1AAndroid_u7684View_u7CFB_u7EDF_u7684_u4F53_u7CFB_u7ED3_u6784_u603B_u7ED3_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">概述：Android的View系统的体系结构总结：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#View_u4E0EViewRoot_u7684_u5173_u7CFB"><span class="toc-number">1.1.</span> <span class="toc-text">View与ViewRoot的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Activity_u4E0EWindow_u7684_u5173_u7CFB"><span class="toc-number">1.2.</span> <span class="toc-text">Activity与Window的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Window_u4E0EWindowManagerImpl_u7684_u5173_u7CFB"><span class="toc-number">1.3.</span> <span class="toc-text">Window与WindowManagerImpl的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ViewRoot_u548CWindowManagerImpl_u7684_u5173_u7CFB"><span class="toc-number">1.4.</span> <span class="toc-text">ViewRoot和WindowManagerImpl的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ViewRootImpl_u4E0EWindowManagerService_u5173_u7CFB"><span class="toc-number">1.5.</span> <span class="toc-text">ViewRootImpl与WindowManagerService关系</span></a></li></ol></li></ol>
  
   </div>
 

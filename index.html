@@ -90,6 +90,86 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/03/23/Android-View-System/" title="Android-View-System" itemprop="url">Android-View-System</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-23T02:38:38.000Z" itemprop="datePublished"> 发表于 2016-03-23</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u6982_u8FF0_uFF1AAndroid_u7684View_u7CFB_u7EDF_u7684_u4F53_u7CFB_u7ED3_u6784_u603B_u7ED3_uFF1A"><a href="#u6982_u8FF0_uFF1AAndroid_u7684View_u7CFB_u7EDF_u7684_u4F53_u7CFB_u7ED3_u6784_u603B_u7ED3_uFF1A" class="headerlink" title="概述：Android的View系统的体系结构总结："></a>概述：Android的View系统的体系结构总结：</h2><ul>
+<li>View与ViewRoot的关系</li>
+<li>Activity与Window的关系</li>
+<li>Window与WindowManagerImpl的关系</li>
+<li>ViewRoot和WindowManagerImpl的关系</li>
+<li>ViewRootImpl与WindowManagerService关系</li>
+</ul>
+<h3 id="View_u4E0EViewRoot_u7684_u5173_u7CFB"><a href="#View_u4E0EViewRoot_u7684_u5173_u7CFB" class="headerlink" title="View与ViewRoot的关系"></a>View与ViewRoot的关系</h3><ul>
+<li>ViewRoot中的成员变量指向View树的根</li>
+</ul>
+<h3 id="Activity_u4E0EWindow_u7684_u5173_u7CFB"><a href="#Activity_u4E0EWindow_u7684_u5173_u7CFB" class="headerlink" title="Activity与Window的关系"></a>Activity与Window的关系</h3><ul>
+<li>Activity内部有一个Window的成员变量指向其子类PhoneWindow</li>
+</ul>
+<h3 id="Window_u4E0EWindowManagerImpl_u7684_u5173_u7CFB"><a href="#Window_u4E0EWindowManagerImpl_u7684_u5173_u7CFB" class="headerlink" title="Window与WindowManagerImpl的关系"></a>Window与WindowManagerImpl的关系</h3><ul>
+<li>WindowManager是Window的成员变量，其实现类为WindowManagerImpl</li>
+</ul>
+<h3 id="ViewRoot_u548CWindowManagerImpl_u7684_u5173_u7CFB"><a href="#ViewRoot_u548CWindowManagerImpl_u7684_u5173_u7CFB" class="headerlink" title="ViewRoot和WindowManagerImpl的关系"></a>ViewRoot和WindowManagerImpl的关系</h3><ul>
+<li>WindowManagerImpl内部通过WindowManagerGlobal对象对如下三个对象进行管理：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;View&gt; mViews = <span class="keyword">new</span> ArrayList&lt;View&gt;();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;ViewRootImpl&gt; mRoots = <span class="keyword">new</span> ArrayList&lt;ViewRootImpl&gt;();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;WindowManager.LayoutParams&gt; mParams =<span class="keyword">new</span> ArrayList&lt;WindowManager.LayoutParams&gt;();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="ViewRootImpl_u4E0EWindowManagerService_u5173_u7CFB"><a href="#ViewRootImpl_u4E0EWindowManagerService_u5173_u7CFB" class="headerlink" title="ViewRootImpl与WindowManagerService关系"></a>ViewRootImpl与WindowManagerService关系</h3><ul>
+<li>ViewRootImpl负责与WMS进行通信（IWindowSession），反向通过IWindow来完成。</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/framwork/">framwork</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/03/23/Android-View-System/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/23/Android-View-System/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/03/18/MVP-Using/" title="mvp" itemprop="url">mvp</a>
   </h1>
   <p class="article-author">By
@@ -357,64 +437,6 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/03/12/Android-Lifecycle/" title="Android-Lifecycle" itemprop="url">Android-Lifecycle</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-12T06:49:51.000Z" itemprop="datePublished"> 发表于 2016-03-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u9762_u8BD5_u5FC5_u5907_u5FC5_u770B_u7684Android_u4E4BActivity_26amp_3BFragment_u751F_u547D_u5468_u671F_u5BF9_u6BD4_u56FE"><a href="#u9762_u8BD5_u5FC5_u5907_u5FC5_u770B_u7684Android_u4E4BActivity_26amp_3BFragment_u751F_u547D_u5468_u671F_u5BF9_u6BD4_u56FE" class="headerlink" title="面试必备必看的Android之Activity&amp;Fragment生命周期对比图"></a>面试必备必看的Android之Activity&amp;Fragment生命周期对比图</h2><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_complete_android_fragment_lifecycle.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_complete_android_fragment_lifecycle.png"></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/03/12/Android-Lifecycle/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/12/Android-Lifecycle/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -466,6 +488,10 @@ var _hmt = _hmt || [];
 		
 			
 				<li><a href="/tags/源码阅读/" title="源码阅读">源码阅读<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/framwork/" title="framwork">framwork<sup>1</sup></a></li>
 			
 		
 		</ul>
