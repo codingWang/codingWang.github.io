@@ -103,15 +103,15 @@ var _hmt = _hmt || [];
 </header>
     <div class="article-content">
         
-        <h2 id="u6982_u8FF0_uFF1AAndroid_u7684View_u7CFB_u7EDF_u7684_u4F53_u7CFB_u7ED3_u6784_u603B_u7ED3_uFF1A"><a href="#u6982_u8FF0_uFF1AAndroid_u7684View_u7CFB_u7EDF_u7684_u4F53_u7CFB_u7ED3_u6784_u603B_u7ED3_uFF1A" class="headerlink" title="概述：Android的View系统的体系结构总结："></a>概述：Android的View系统的体系结构总结：</h2><ul>
-<li>View与ViewRoot的关系</li>
+        <h2 id="u6982_u8FF0_uFF1AAndroid_u7684View_u7CFB_u7EDF_u7684_u4F53_u7CFB_u7ED3_u6784_u603B_u7ED3_uFF1A_28ViewRoot_u2013_26gt_3BViewRootImpl_29"><a href="#u6982_u8FF0_uFF1AAndroid_u7684View_u7CFB_u7EDF_u7684_u4F53_u7CFB_u7ED3_u6784_u603B_u7ED3_uFF1A_28ViewRoot_u2013_26gt_3BViewRootImpl_29" class="headerlink" title="概述：Android的View系统的体系结构总结：(ViewRoot–&gt;ViewRootImpl)"></a>概述：Android的View系统的体系结构总结：(ViewRoot–&gt;ViewRootImpl)</h2><ul>
+<li>View与ViewRootImpl的关系</li>
 <li>Activity与Window的关系</li>
 <li>Window与WindowManagerImpl的关系</li>
-<li>ViewRoot和WindowManagerImpl的关系</li>
+<li>ViewRootImpl和WindowManagerImpl的关系</li>
 <li>ViewRootImpl与WindowManagerService关系</li>
 </ul>
 <h3 id="View_u4E0EViewRoot_u7684_u5173_u7CFB"><a href="#View_u4E0EViewRoot_u7684_u5173_u7CFB" class="headerlink" title="View与ViewRoot的关系"></a>View与ViewRoot的关系</h3><ul>
-<li>ViewRoot中的成员变量指向View树的根</li>
+<li>ViewRootImpl中的成员变量指向View树的根</li>
 </ul>
 <h3 id="Activity_u4E0EWindow_u7684_u5173_u7CFB"><a href="#Activity_u4E0EWindow_u7684_u5173_u7CFB" class="headerlink" title="Activity与Window的关系"></a>Activity与Window的关系</h3><ul>
 <li>Activity内部有一个Window的成员变量指向其子类PhoneWindow</li>
