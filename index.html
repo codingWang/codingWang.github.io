@@ -90,6 +90,94 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/03/27/实践JNI调用及BUG汇总/" title="实践JNI调用及BUG汇总" itemprop="url">实践JNI调用及BUG汇总</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-27T03:15:42.000Z" itemprop="datePublished"> 发表于 2016-03-27</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u4ECA_u5929_u82B1_u4E86_u4E00_u4E0A_u5348_u7684_u65F6_u95F4_u5B9E_u8DF5_u4E86_u4E00_u4E0B_u901A_u8FC7JNI_u8C03_u7528C/C++_u7A0B_u5E8F_uFF0C_u9047_u5230BUG_u4E5F_u4E0D_u5C11_uFF0C_u603B_u7ED3_u5982_u4E0B_uFF1A"><a href="#u4ECA_u5929_u82B1_u4E86_u4E00_u4E0A_u5348_u7684_u65F6_u95F4_u5B9E_u8DF5_u4E86_u4E00_u4E0B_u901A_u8FC7JNI_u8C03_u7528C/C++_u7A0B_u5E8F_uFF0C_u9047_u5230BUG_u4E5F_u4E0D_u5C11_uFF0C_u603B_u7ED3_u5982_u4E0B_uFF1A" class="headerlink" title="今天花了一上午的时间实践了一下通过JNI调用C/C++程序，遇到BUG也不少，总结如下："></a>今天花了一上午的时间实践了一下通过JNI调用C/C++程序，遇到BUG也不少，总结如下：</h2><h3 id="u4F7F_u7528_u5230_u7684_u5DE5_u5177_uFF1A"><a href="#u4F7F_u7528_u5230_u7684_u5DE5_u5177_uFF1A" class="headerlink" title="使用到的工具："></a>使用到的工具：</h3><ul>
+<li>eclipse </li>
+<li>visual studio 2013</li>
+<li>jdk1.7</li>
+</ul>
+<h3 id="u7B2C_u4E00_u6B65_uFF1A_u65B0_u5EFAeclipse_u9879_u76EE"><a href="#u7B2C_u4E00_u6B65_uFF1A_u65B0_u5EFAeclipse_u9879_u76EE" class="headerlink" title="第一步：新建eclipse项目"></a>第一步：新建eclipse项目</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.duwei.jni;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 静态代码块加载C/C++库</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.loadLibrary(<span class="string">"ConsoleApplication3"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * main函数测试</span><br><span class="line">	 * <span class="doctag">@param</span> args</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		HelloWorld word = <span class="keyword">new</span> HelloWorld();</span><br><span class="line">		word.sayHello();</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">/**</span><br><span class="line">	 * 所有的native方法都用C/C++实现</span><br><span class="line">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u7B2C_u4E8C_u6B65_uFF1A_u751F_u6210_u5934_u6587_u4EF6"><a href="#u7B2C_u4E8C_u6B65_uFF1A_u751F_u6210_u5934_u6587_u4EF6" class="headerlink" title="第二步：生成头文件"></a>第二步：生成头文件</h3><ul>
+<li><p>在java项目的bin目录下执行如下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">D:\Usersworkspace\Java\bin&gt;javah -classpath . -jni com.duwei.jni.HelloWorld</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在bin目录下将生成如下格式的头文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">com_duwei_jni_HelloWorld.h</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="u7B2C_u4E09_u6B65_uFF1A_u5B9E_u73B0_u4E0A_u8FF0_u5934_u6587_u4EF6_u7684_u51FD_u6570_u4F53_uFF1A"><a href="#u7B2C_u4E09_u6B65_uFF1A_u5B9E_u73B0_u4E0A_u8FF0_u5934_u6587_u4EF6_u7684_u51FD_u6570_u4F53_uFF1A" class="headerlink" title="第三步：实现上述头文件的函数体："></a>第三步：实现上述头文件的函数体：</h3><ul>
+<li><p>打开visual studio 2013</p>
+</li>
+<li><p>新建Win32 Console Application-&gt;next-&gt;dll(动态链接库)-&gt;finish</p>
+</li>
+<li><p>打开项目所在文件夹将第二步生成的头文件拖入(实践证明直接再接在vs中拖入会报找不到文件的bug)<br><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_jni_folder.png" alt=""></p>
+</li>
+<li><p>右键项目-&gt;properties-&gt;C/C++-&gt;General-&gt;Additional Include Directories添加如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>、JDK目录下include文件夹</span><br><span class="line">C:\Program Files\Java\jdk1.<span class="number">7.0</span>_60\include</span><br><span class="line"><span class="number">2</span>、JDK目录下include文件夹下的win32</span><br><span class="line">C:\Program Files\Java\jdk1.<span class="number">7.0</span>_60\include\win32</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如下图实现头文件中函数声明的函数体：<br><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_jni_code.png" alt=""></p>
+</li>
+</ul>
+<p><strong>注意：如果为64位JDK请将图片上方的标示改为x64</strong></p>
+<h3 id="u7B2C_u56DB_u6B65_uFF1A_u4F7F_u7528dll"><a href="#u7B2C_u56DB_u6B65_uFF1A_u4F7F_u7528dll" class="headerlink" title="第四步：使用dll"></a>第四步：使用dll</h3><ul>
+<li>将上述生成的dll放于java项目的根目录，运行-&gt;run</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/03/27/实践JNI调用及BUG汇总/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/27/实践JNI调用及BUG汇总/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/03/23/Android-View-System/" title="Android-View-System" itemprop="url">Android-View-System</a>
   </h1>
   <p class="article-author">By
@@ -365,78 +453,6 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/03/13/Handler-Looper/" title="Handler-Looper" itemprop="url">Handler-Looper</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-13T04:39:42.000Z" itemprop="datePublished"> 发表于 2016-03-13</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u4E00_u3001_u6982_u8FF0_uFF1A"><a href="#u4E00_u3001_u6982_u8FF0_uFF1A" class="headerlink" title="一、概述："></a>一、概述：</h2><h3 id="Android_u4E2D_u592A_u591A_u7684_u4E1C_u897F_u548CHandler-Looper_u6709_u5173_u4E86_uFF08HandlerThread_uFF0CIntentService_uFF09_uFF0C_u8981_u60F3_u4E86_u89E3_u4ED6_u4EEC_u5FC5_u987B_u628AHandler_u57FA_u7840_u638C_u63E1_uFF0C_u4E4B_u524D_u5BF9Handler_u4E86_u89E3_u4E86_u4E0D_u77E5_u9053_u591A_u5C11_u904D_uFF0C_u4ECA_u5929_u7EC8_u4E8E_u770B_u4E86_u4E00_u4E0B_u6E90_u7801_u3002_u8FD8_u597DHandler_uFF0CLooper_uFF0CMessageQueue_u90FD_u6CA1_u6709_u5F88_u6DF1_u7684_u7EE7_u627F_u7ED3_u6784_uFF0C_u4EE3_u7801_u91CF_u4E5F_u4E0D_u591A_uFF0C_u6240_u4EE5_u770B_u8D77_u6765_u6BD4_u8F83_u8F7B_u677E_u597D_u7406_u89E3_u3002"><a href="#Android_u4E2D_u592A_u591A_u7684_u4E1C_u897F_u548CHandler-Looper_u6709_u5173_u4E86_uFF08HandlerThread_uFF0CIntentService_uFF09_uFF0C_u8981_u60F3_u4E86_u89E3_u4ED6_u4EEC_u5FC5_u987B_u628AHandler_u57FA_u7840_u638C_u63E1_uFF0C_u4E4B_u524D_u5BF9Handler_u4E86_u89E3_u4E86_u4E0D_u77E5_u9053_u591A_u5C11_u904D_uFF0C_u4ECA_u5929_u7EC8_u4E8E_u770B_u4E86_u4E00_u4E0B_u6E90_u7801_u3002_u8FD8_u597DHandler_uFF0CLooper_uFF0CMessageQueue_u90FD_u6CA1_u6709_u5F88_u6DF1_u7684_u7EE7_u627F_u7ED3_u6784_uFF0C_u4EE3_u7801_u91CF_u4E5F_u4E0D_u591A_uFF0C_u6240_u4EE5_u770B_u8D77_u6765_u6BD4_u8F83_u8F7B_u677E_u597D_u7406_u89E3_u3002" class="headerlink" title="Android中太多的东西和Handler-Looper有关了（HandlerThread，IntentService），要想了解他们必须把Handler基础掌握，之前对Handler了解了不知道多少遍，今天终于看了一下源码。还好Handler，Looper，MessageQueue都没有很深的继承结构，代码量也不多，所以看起来比较轻松好理解。"></a>Android中太多的东西和Handler-Looper有关了（HandlerThread，IntentService），要想了解他们必须把Handler基础掌握，之前对Handler了解了不知道多少遍，今天终于看了一下源码。还好Handler，Looper，MessageQueue都没有很深的继承结构，代码量也不多，所以看起来比较轻松好理解。</h3><h2 id="u4E8C_u3001_u4ECE_u57FA_u672C_u7684_u4F7F_u7528_u5F00_u59CB_u8BF4_u8D77_uFF1A"><a href="#u4E8C_u3001_u4ECE_u57FA_u672C_u7684_u4F7F_u7528_u5F00_u59CB_u8BF4_u8D77_uFF1A" class="headerlink" title="二、从基本的使用开始说起："></a>二、从基本的使用开始说起：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Handler mHandler = <span class="keyword">new</span> Handler()&#123;</span><br><span class="line"> <span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handlerMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="comment">//</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line"> 	mHandler.sendEmptyMessage(xxx);</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line">&#125;).start();</span><br></pre></td></tr></table></figure>
-<h3 id="1_u3001_u9996_u5148new_u4E00_u4E2AHandler_u8C03_u7528_u6784_u9020_u51FD_u6570_uFF1A"><a href="#1_u3001_u9996_u5148new_u4E00_u4E2AHandler_u8C03_u7528_u6784_u9020_u51FD_u6570_uFF1A" class="headerlink" title="1、首先new一个Handler调用构造函数："></a>1、首先new一个Handler调用构造函数：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">Handler</span><span class="params">(Callback callback, <span class="keyword">boolean</span> async)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (FIND_POTENTIAL_LEAKS) &#123;</span><br><span class="line">            <span class="keyword">final</span> Class&lt;? extends Handler&gt; klass = getClass();</span><br><span class="line">            <span class="keyword">if</span> ((klass.isAnonymousClass() || klass.isMemberClass() || klass.isLocalClass()) &amp;&amp;</span><br><span class="line">                    (klass.getModifiers() &amp; Modifier.STATIC) == <span class="number">0</span>) &#123;</span><br><span class="line">                Log.w(TAG, <span class="string">"The following Handler class should be static or leaks might occur: "</span> +</span><br><span class="line">                    klass.getCanonicalName());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        mLooper = Looper.myLooper();<span class="comment">//mLooper对象的初始化</span></span><br><span class="line">        <span class="keyword">if</span> (mLooper == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(</span><br><span class="line">                <span class="string">"Can't create handler inside thread that has not called Looper.prepare()"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        mQueue = mLooper.mQueue;<span class="comment">//mQueue对象的初始化</span></span><br><span class="line">        mCallback = callback;</span><br><span class="line">        mAsynchronous = async;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="1-1_u5728_u4EE3_u7801_u4E2D_u6211_u4EEC_u770B_u5230_u521D_u59CB_u5316_u4E86mLooper_u53D8_u91CF_u548CmQueue_u53D8_u91CF_uFF1A"><a href="#1-1_u5728_u4EE3_u7801_u4E2D_u6211_u4EEC_u770B_u5230_u521D_u59CB_u5316_u4E86mLooper_u53D8_u91CF_u548CmQueue_u53D8_u91CF_uFF1A" class="headerlink" title="1.1在代码中我们看到初始化了mLooper变量和mQueue变量："></a>1.1在代码中我们看到初始化了mLooper变量和mQueue变量：</h4><h4 id="Looper-myLooper_28_29_u662F_u8FD9_u6837_u7684_uFF1A"><a href="#Looper-myLooper_28_29_u662F_u8FD9_u6837_u7684_uFF1A" class="headerlink" title="Looper.myLooper()是这样的："></a>Looper.myLooper()是这样的：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;Looper&gt; sThreadLocal = <span class="keyword">new</span> ThreadLocal&lt;Looper&gt;();</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="annotation">@Nullable</span> <span class="function">Looper <span class="title">myLooper</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> sThreadLocal.get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="u4ECE_u88C5_u6709Looper_u5BF9_u8C61_u7684ThreadLocal_u4E2D_u53D6_u51FA_u4E00_u4E2ALooper_u8FD4_u56DE_u3002_u90A3_u4E48_u53D6_u51FA_u6765_u7684_u662F_u54EA_u4E00_u4E2ALooper_u90A3_uFF1F_u6211_u4EEC_u770B_u4E00_u4E0BThreadLocal_u7684get_28_29_u65B9_u6CD5"><a href="#u4ECE_u88C5_u6709Looper_u5BF9_u8C61_u7684ThreadLocal_u4E2D_u53D6_u51FA_u4E00_u4E2ALooper_u8FD4_u56DE_u3002_u90A3_u4E48_u53D6_u51FA_u6765_u7684_u662F_u54EA_u4E00_u4E2ALooper_u90A3_uFF1F_u6211_u4EEC_u770B_u4E00_u4E0BThreadLocal_u7684get_28_29_u65B9_u6CD5" class="headerlink" title="从装有Looper对象的ThreadLocal中取出一个Looper返回。那么取出来的是哪一个Looper那？我们看一下ThreadLocal的get()方法"></a>从装有Looper对象的ThreadLocal中取出一个Looper返回。那么取出来的是哪一个Looper那？我们看一下ThreadLocal的get()方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// Optimized for the fast path.</span></span><br><span class="line">        Thread currentThread = Thread.currentThread();<span class="comment">//看这里</span></span><br><span class="line">        Values values = values(currentThread);</span><br><span class="line">        <span class="keyword">if</span> (values != <span class="keyword">null</span>) &#123;</span><br><span class="line">            Object[] table = values.table;</span><br><span class="line">            <span class="keyword">int</span> index = hash &amp; values.mask;</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.reference == table[index]) &#123;</span><br><span class="line">                <span class="keyword">return</span> (T) table[index + <span class="number">1</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            values = initializeValues(currentThread);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (T) values.getAfterMiss(<span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="u6211_u4EEC_u53EF_u4EE5_u786E_u5B9A_u53D6_u51FA_u7684_u662F_u5F53_u524D_u7EBF_u7A0B_u7684Looper"><a href="#u6211_u4EEC_u53EF_u4EE5_u786E_u5B9A_u53D6_u51FA_u7684_u662F_u5F53_u524D_u7EBF_u7A0B_u7684Looper" class="headerlink" title="我们可以确定取出的是当前线程的Looper."></a><strong>我们可以确定取出的是当前线程的Looper.</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mQueue = mLooper.mQueue;</span><br></pre></td></tr></table></figure>
-<h4 id="u901A_u8FC7_u4E0A_u9762_u8FD9_u53E5_u6211_u4EEC_u77E5_u9053MessageQueue_u662F_u5728Looper_u4E2D_u7684_u3002"><a href="#u901A_u8FC7_u4E0A_u9762_u8FD9_u53E5_u6211_u4EEC_u77E5_u9053MessageQueue_u662F_u5728Looper_u4E2D_u7684_u3002" class="headerlink" title="通过上面这句我们知道MessageQueue是在Looper中的。"></a>通过上面这句我们知道MessageQueue是在Looper中的。</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="title">Looper</span><span class="params">(<span class="keyword">boolean</span> quitAllowed)</span> </span>&#123;</span><br><span class="line">        mQueue = <span class="keyword">new</span> MessageQueue(quitAllowed);</span><br><span class="line">        mThread = Thread.currentThread();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h4 id="u5728Looper_u7684_u79C1_u6709_u6784_u9020_u51FD_u6570_u4E2D_u521D_u59CB_u5316_u4E86_u4E00_u4E2AMessageQueue_u5BF9_u8C61_u3002"><a href="#u5728Looper_u7684_u79C1_u6709_u6784_u9020_u51FD_u6570_u4E2D_u521D_u59CB_u5316_u4E86_u4E00_u4E2AMessageQueue_u5BF9_u8C61_u3002" class="headerlink" title="在Looper的私有构造函数中初始化了一个MessageQueue对象。"></a>在Looper的私有构造函数中初始化了一个MessageQueue对象。</h4><h3 id="Looper_u4E0D_u65AD_u5FAA_u73AFMessageQueue_u4E2D_u7684Message_uFF1A"><a href="#Looper_u4E0D_u65AD_u5FAA_u73AFMessageQueue_u4E2D_u7684Message_uFF1A" class="headerlink" title="Looper不断循环MessageQueue中的Message："></a>Looper不断循环MessageQueue中的Message：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">final</span> Looper me = myLooper();</span><br><span class="line">        <span class="keyword">if</span> (me == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"No Looper; Looper.prepare() wasn't called on this thread."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">final</span> MessageQueue queue = me.mQueue;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Make sure the identity of this thread is that of the local process,</span></span><br><span class="line">        <span class="comment">// and keep track of what that identity token actually is.</span></span><br><span class="line">        Binder.clearCallingIdentity();</span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">long</span> ident = Binder.clearCallingIdentity();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (;;) &#123;</span><br><span class="line">            Message msg = queue.next(); <span class="comment">// might block</span></span><br><span class="line">            <span class="keyword">if</span> (msg == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">// No message indicates that the message queue is quitting.</span></span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// This must be in a local variable, in case a UI event sets the logger</span></span><br><span class="line">            Printer logging = me.mLogging;</span><br><span class="line">            <span class="keyword">if</span> (logging != <span class="keyword">null</span>) &#123;</span><br><span class="line">                logging.println(<span class="string">"&gt;&gt;&gt;&gt;&gt; Dispatching to "</span> + msg.target + <span class="string">" "</span> +</span><br><span class="line">                        msg.callback + <span class="string">": "</span> + msg.what);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            msg.target.dispatchMessage(msg);<span class="comment">//看这里</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (logging != <span class="keyword">null</span>) &#123;</span><br><span class="line">                logging.println(<span class="string">"&lt;&lt;&lt;&lt;&lt; Finished to "</span> + msg.target + <span class="string">" "</span> + msg.callback);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Make sure that during the course of dispatching the</span></span><br><span class="line">            <span class="comment">// identity of the thread wasn't corrupted.</span></span><br><span class="line">            <span class="keyword">final</span> <span class="keyword">long</span> newIdent = Binder.clearCallingIdentity();</span><br><span class="line">            <span class="keyword">if</span> (ident != newIdent) &#123;</span><br><span class="line">                Log.wtf(TAG, <span class="string">"Thread identity changed from 0x"</span></span><br><span class="line">                        + Long.toHexString(ident) + <span class="string">" to 0x"</span></span><br><span class="line">                        + Long.toHexString(newIdent) + <span class="string">" while dispatching to "</span></span><br><span class="line">                        + msg.target.getClass().getName() + <span class="string">" "</span></span><br><span class="line">                        + msg.callback + <span class="string">" what="</span> + msg.what);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            msg.recycleUnchecked();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="msg-target_u8FD4_u56DE_u4E00_u4E2AHandler_u5BF9_u8C61_u3002_u8C03_u7528Handler_u7684dispatchMessage_28_29_u65B9_u6CD5_uFF1A"><a href="#msg-target_u8FD4_u56DE_u4E00_u4E2AHandler_u5BF9_u8C61_u3002_u8C03_u7528Handler_u7684dispatchMessage_28_29_u65B9_u6CD5_uFF1A" class="headerlink" title="msg.target返回一个Handler对象。调用Handler的dispatchMessage()方法："></a>msg.target返回一个Handler对象。调用Handler的dispatchMessage()方法：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">dispatchMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (msg.callback != <span class="keyword">null</span>) &#123;</span><br><span class="line">            handleCallback(msg);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (mCallback != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">if</span> (mCallback.handleMessage(msg)) &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            handleMessage(msg);<span class="comment">//看这里</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="u5728dispatchMessage_u65B9_u6CD5_u4E2D_u53C8_u56DE_u8C03_u4E86handleMessage_28msg_29_u65B9_u6CD5"><a href="#u5728dispatchMessage_u65B9_u6CD5_u4E2D_u53C8_u56DE_u8C03_u4E86handleMessage_28msg_29_u65B9_u6CD5" class="headerlink" title="在dispatchMessage方法中又回调了handleMessage(msg)方法"></a>在dispatchMessage方法中又回调了handleMessage(msg)方法</h3><hr>
-<h2 id="u7ED3_u8BBA_uFF1A"><a href="#u7ED3_u8BBA_uFF1A" class="headerlink" title="结论："></a>结论：</h2><ul>
-<li>主线程默认有自己的Looper</li>
-<li>Looper在不断死循环MessageQueue</li>
-<li>死循环中msg.target.dispatchMessage(msg);通过Message将消息扔给Handler</li>
-<li>回调Handler的handleMessage方法完成处理</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/03/13/Handler-Looper/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/13/Handler-Looper/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -471,7 +487,7 @@ var _hmt = _hmt || [];
 			
 		
 			
-				<li><a href="/tags/Java/" title="Java">Java<sup>3</sup></a></li>
+				<li><a href="/tags/Java/" title="Java">Java<sup>4</sup></a></li>
 			
 		
 			
