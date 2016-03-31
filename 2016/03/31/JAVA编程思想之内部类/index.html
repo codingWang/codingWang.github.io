@@ -1,0 +1,492 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>JAVA编程思想之内部类 | duwei&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="duwei">
+    
+
+    
+    <meta name="description" content="一、彻底学习JAVA基础非编程思想莫属。越看越觉得自己基础薄弱，很多用法都没有见过。学而时习之，学而时总结之。二、内部类语法总结1、定义：将一个类的定义放在另一个类内部123456789101112131415161718192021222324252627282930313233343536373839404142434445464748/** * 访问非静态内部类的方法 * 访问外部类的属性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA编程思想之内部类">
+<meta property="og:url" content="http://duwei.com/2016/03/31/JAVA编程思想之内部类/index.html">
+<meta property="og:site_name" content="duwei's blog">
+<meta property="og:description" content="一、彻底学习JAVA基础非编程思想莫属。越看越觉得自己基础薄弱，很多用法都没有见过。学而时习之，学而时总结之。二、内部类语法总结1、定义：将一个类的定义放在另一个类内部123456789101112131415161718192021222324252627282930313233343536373839404142434445464748/** * 访问非静态内部类的方法 * 访问外部类的属性">
+<meta property="og:updated_time" content="2016-03-31T06:05:51.795Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA编程思想之内部类">
+<meta name="twitter:description" content="一、彻底学习JAVA基础非编程思想莫属。越看越觉得自己基础薄弱，很多用法都没有见过。学而时习之，学而时总结之。二、内部类语法总结1、定义：将一个类的定义放在另一个类内部123456789101112131415161718192021222324252627282930313233343536373839404142434445464748/** * 访问非静态内部类的方法 * 访问外部类的属性">
+
+    
+    <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3492904c23dded877e5767fd9cd3e4da";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="duwei&#39;s blog">duwei&#39;s blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">文章</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/life">感悟</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:duwei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/03/31/JAVA编程思想之内部类/" title="JAVA编程思想之内部类" itemprop="url">JAVA编程思想之内部类</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-31T04:13:28.000Z" itemprop="datePublished"> 发表于 2016-03-31</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u3001_u5F7B_u5E95_u5B66_u4E60JAVA_u57FA_u7840_u975E_u7F16_u7A0B_u601D_u60F3_u83AB_u5C5E_u3002_u8D8A_u770B_u8D8A_u89C9_u5F97_u81EA_u5DF1_u57FA_u7840_u8584_u5F31_uFF0C_u5F88_u591A_u7528_u6CD5_u90FD_u6CA1_u6709_u89C1_u8FC7_u3002_u5B66_u800C_u65F6_u4E60_u4E4B_uFF0C_u5B66_u800C_u65F6_u603B_u7ED3_u4E4B_u3002"><span class="toc-number">1.</span> <span class="toc-text">一、彻底学习JAVA基础非编程思想莫属。越看越觉得自己基础薄弱，很多用法都没有见过。学而时习之，学而时总结之。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E8C_u3001_u5185_u90E8_u7C7B_u8BED_u6CD5_u603B_u7ED3"><span class="toc-number">2.</span> <span class="toc-text">二、内部类语法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u5B9A_u4E49_uFF1A_u5C06_u4E00_u4E2A_u7C7B_u7684_u5B9A_u4E49_u653E_u5728_u53E6_u4E00_u4E2A_u7C7B_u5185_u90E8"><span class="toc-number">2.1.</span> <span class="toc-text">1、定义：将一个类的定义放在另一个类内部</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2_u3001_u9759_u6001_u5185_u90E8_u7C7B_uFF1A_u5D4C_u5957_u7C7B"><span class="toc-number">2.2.</span> <span class="toc-text">2、静态内部类：嵌套类</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="u4E00_u3001_u5F7B_u5E95_u5B66_u4E60JAVA_u57FA_u7840_u975E_u7F16_u7A0B_u601D_u60F3_u83AB_u5C5E_u3002_u8D8A_u770B_u8D8A_u89C9_u5F97_u81EA_u5DF1_u57FA_u7840_u8584_u5F31_uFF0C_u5F88_u591A_u7528_u6CD5_u90FD_u6CA1_u6709_u89C1_u8FC7_u3002_u5B66_u800C_u65F6_u4E60_u4E4B_uFF0C_u5B66_u800C_u65F6_u603B_u7ED3_u4E4B_u3002"><a href="#u4E00_u3001_u5F7B_u5E95_u5B66_u4E60JAVA_u57FA_u7840_u975E_u7F16_u7A0B_u601D_u60F3_u83AB_u5C5E_u3002_u8D8A_u770B_u8D8A_u89C9_u5F97_u81EA_u5DF1_u57FA_u7840_u8584_u5F31_uFF0C_u5F88_u591A_u7528_u6CD5_u90FD_u6CA1_u6709_u89C1_u8FC7_u3002_u5B66_u800C_u65F6_u4E60_u4E4B_uFF0C_u5B66_u800C_u65F6_u603B_u7ED3_u4E4B_u3002" class="headerlink" title="一、彻底学习JAVA基础非编程思想莫属。越看越觉得自己基础薄弱，很多用法都没有见过。学而时习之，学而时总结之。"></a>一、彻底学习JAVA基础非编程思想莫属。越看越觉得自己基础薄弱，很多用法都没有见过。学而时习之，学而时总结之。</h2><h2 id="u4E8C_u3001_u5185_u90E8_u7C7B_u8BED_u6CD5_u603B_u7ED3"><a href="#u4E8C_u3001_u5185_u90E8_u7C7B_u8BED_u6CD5_u603B_u7ED3" class="headerlink" title="二、内部类语法总结"></a>二、内部类语法总结</h2><h3 id="1_u3001_u5B9A_u4E49_uFF1A_u5C06_u4E00_u4E2A_u7C7B_u7684_u5B9A_u4E49_u653E_u5728_u53E6_u4E00_u4E2A_u7C7B_u5185_u90E8"><a href="#1_u3001_u5B9A_u4E49_uFF1A_u5C06_u4E00_u4E2A_u7C7B_u7684_u5B9A_u4E49_u653E_u5728_u53E6_u4E00_u4E2A_u7C7B_u5185_u90E8" class="headerlink" title="1、定义：将一个类的定义放在另一个类内部"></a>1、定义：将一个类的定义放在另一个类内部</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> * 访问非静态内部类的方法</span><br><span class="line"> * 访问外部类的属性</span><br><span class="line"> * <span class="doctag">@author</span> 杜伟</span><br><span class="line"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OutterClass</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name = <span class="string">"duwei"</span>;		<span class="comment">//私有变量</span></span><br><span class="line">	<span class="keyword">public</span> String sex = <span class="string">"man"</span>;			<span class="comment">//公有变量</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> age = <span class="number">15</span>;		<span class="comment">//静态变量</span></span><br><span class="line">	</span><br><span class="line">	<span class="class"><span class="keyword">interface</span> <span class="title">IPrintString</span></span>&#123;</span><br><span class="line">		<span class="function">String <span class="title">print</span><span class="params">()</span></span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">sayOutter</span><span class="params">()</span>  </span>&#123;		<span class="comment">//1、这是局部内部类</span></span><br><span class="line">		<span class="class"><span class="keyword">class</span> <span class="title">PrintString</span> <span class="keyword">implements</span> <span class="title">IPrintString</span></span>&#123;</span><br><span class="line">			<span class="annotation">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> String <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="string">"Outter"</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> PrintString().print();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">sayOutter2</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> IPrintString() &#123;		<span class="comment">//2、这是匿名内部类</span></span><br><span class="line">			<span class="annotation">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> String <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="string">"Outter2"</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;.print();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">InnerClass</span> </span>&#123;</span><br><span class="line">		<span class="comment">//private static String name = "123";	//不可以有静态变量</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayInner</span><span class="params">()</span> </span>&#123;			<span class="comment">//访问外部类的私有，共有，静态属性</span></span><br><span class="line">			System.out.println(<span class="string">"inner：name="</span>+name+<span class="string">",sex="</span>+sex+<span class="string">",age = "</span>+age);</span><br><span class="line">			System.out.println(OutterClass.<span class="keyword">this</span>.sayOutter()+<span class="string">";匿名内部类："</span></span><br><span class="line">			+OutterClass.<span class="keyword">this</span>.sayOutter2());<span class="comment">//访问外部类的方法</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		OutterClass outter = <span class="keyword">new</span> OutterClass();</span><br><span class="line">		InnerClass inner = outter.new InnerClass();<span class="comment">//内部类对象的初始化方式</span></span><br><span class="line">		inner.sayInner();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>1、内部类自动拥有对外围类的所有成员的访问权。</strong></li>
+<li><strong>2、上述1处演示了局部内部类</strong></li>
+<li><strong>3、上述2处演示了匿名内部类</strong></li>
+<li><strong>4、当方法的参数在匿名内部类使用时要用final关键字修饰参数</strong></li>
+<li><strong>5、匿名内部类既可以扩展类也可以实现接口，但二者不可兼得，如果实现接口也只能实现一个</strong></li>
+</ul>
+<h3 id="2_u3001_u9759_u6001_u5185_u90E8_u7C7B_uFF1A_u5D4C_u5957_u7C7B"><a href="#2_u3001_u9759_u6001_u5185_u90E8_u7C7B_uFF1A_u5D4C_u5957_u7C7B" class="headerlink" title="2、静态内部类：嵌套类"></a>2、静态内部类：嵌套类</h3>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://duwei.com/2016/03/31/JAVA编程思想之内部类/" data-title="JAVA编程思想之内部类 | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/03/27/实践JNI调用及BUG汇总/"  title="实践JNI调用及BUG汇总">
+ <strong>下一篇：</strong><br/> 
+ <span>实践JNI调用及BUG汇总
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/03/31/JAVA编程思想之内部类/" data-title="JAVA编程思想之内部类" data-url="http://duwei.com/2016/03/31/JAVA编程思想之内部类/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u3001_u5F7B_u5E95_u5B66_u4E60JAVA_u57FA_u7840_u975E_u7F16_u7A0B_u601D_u60F3_u83AB_u5C5E_u3002_u8D8A_u770B_u8D8A_u89C9_u5F97_u81EA_u5DF1_u57FA_u7840_u8584_u5F31_uFF0C_u5F88_u591A_u7528_u6CD5_u90FD_u6CA1_u6709_u89C1_u8FC7_u3002_u5B66_u800C_u65F6_u4E60_u4E4B_uFF0C_u5B66_u800C_u65F6_u603B_u7ED3_u4E4B_u3002"><span class="toc-number">1.</span> <span class="toc-text">一、彻底学习JAVA基础非编程思想莫属。越看越觉得自己基础薄弱，很多用法都没有见过。学而时习之，学而时总结之。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E8C_u3001_u5185_u90E8_u7C7B_u8BED_u6CD5_u603B_u7ED3"><span class="toc-number">2.</span> <span class="toc-text">二、内部类语法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u5B9A_u4E49_uFF1A_u5C06_u4E00_u4E2A_u7C7B_u7684_u5B9A_u4E49_u653E_u5728_u53E6_u4E00_u4E2A_u7C7B_u5185_u90E8"><span class="toc-number">2.1.</span> <span class="toc-text">1、定义：将一个类的定义放在另一个类内部</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2_u3001_u9759_u6001_u5185_u90E8_u7C7B_uFF1A_u5D4C_u5957_u7C7B"><span class="toc-number">2.2.</span> <span class="toc-text">2、静态内部类：嵌套类</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="codingWang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>13</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>5</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/js/" title="js">js<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/UML/" title="UML">UML<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/源码阅读/" title="源码阅读">源码阅读<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/framwork/" title="framwork">framwork<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m duwei . <br/>
+			This is my blog .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/codingWang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:du2035392@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="duwei">duwei</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wangduwei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
