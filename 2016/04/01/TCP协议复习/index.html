@@ -4,23 +4,69 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>cool | duwei&#39;s blog</title>
+    <title>TCP协议复习一 | duwei&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="duwei">
     
 
     
-    <meta name="description" content="那些经典的写法：在阅读代码的时候看到了一些不错的可以借鉴的写法：1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。123private &amp;lt;T extends View&amp;gt; T $(@IdRes int id) &amp;#123;       return (T) findViewById(id);   &amp;#125;">
+    <meta name="description" content="概述：计算机网络原理之TCP笔记一
+TCP的特点：
+1、面向连接
+2、每一条连接只能有两个端点（套接字：IP:端口号）
+3、TCP提供可靠的交付服务
+4、TCP提供全双工通讯
+5、面向字节流
+
+停止等待协议：每发完一个分组就停止发送,等待对方确认,收到确认后再发下一个分组。
+1、无差错情况
+
+2、有查错情况（超时重传）
+
+发送方暂时保存已发送分组的副本
+分组与确认分组要进行编号对应
+超时计时器时间">
 <meta property="og:type" content="article">
-<meta property="og:title" content="cool">
-<meta property="og:url" content="http://duwei.com/2016/03/10/cool/index.html">
+<meta property="og:title" content="TCP协议复习一">
+<meta property="og:url" content="http://duwei.com/2016/04/01/TCP协议复习/index.html">
 <meta property="og:site_name" content="duwei's blog">
-<meta property="og:description" content="那些经典的写法：在阅读代码的时候看到了一些不错的可以借鉴的写法：1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。123private &amp;lt;T extends View&amp;gt; T $(@IdRes int id) &amp;#123;       return (T) findViewById(id);   &amp;#125;">
-<meta property="og:updated_time" content="2016-03-10T07:49:38.120Z">
+<meta property="og:description" content="概述：计算机网络原理之TCP笔记一
+TCP的特点：
+1、面向连接
+2、每一条连接只能有两个端点（套接字：IP:端口号）
+3、TCP提供可靠的交付服务
+4、TCP提供全双工通讯
+5、面向字节流
+
+停止等待协议：每发完一个分组就停止发送,等待对方确认,收到确认后再发下一个分组。
+1、无差错情况
+
+2、有查错情况（超时重传）
+
+发送方暂时保存已发送分组的副本
+分组与确认分组要进行编号对应
+超时计时器时间">
+<meta property="og:image" content="http://7xqumq.com1.z0.glb.clouddn.com/duwei_TCP1.png">
+<meta property="og:updated_time" content="2016-04-01T14:00:23.135Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="cool">
-<meta name="twitter:description" content="那些经典的写法：在阅读代码的时候看到了一些不错的可以借鉴的写法：1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。123private &amp;lt;T extends View&amp;gt; T $(@IdRes int id) &amp;#123;       return (T) findViewById(id);   &amp;#125;">
+<meta name="twitter:title" content="TCP协议复习一">
+<meta name="twitter:description" content="概述：计算机网络原理之TCP笔记一
+TCP的特点：
+1、面向连接
+2、每一条连接只能有两个端点（套接字：IP:端口号）
+3、TCP提供可靠的交付服务
+4、TCP提供全双工通讯
+5、面向字节流
+
+停止等待协议：每发完一个分组就停止发送,等待对方确认,收到确认后再发下一个分组。
+1、无差错情况
+
+2、有查错情况（超时重传）
+
+发送方暂时保存已发送分组的副本
+分组与确认分组要进行编号对应
+超时计时器时间">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -89,14 +135,14 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/03/10/cool/" title="cool" itemprop="url">cool</a>
+      <a href="/2016/04/01/TCP协议复习/" title="TCP协议复习一" itemprop="url">TCP协议复习一</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
 		
   <p class="article-time">
-    <time datetime="2016-03-10T07:45:24.000Z" itemprop="datePublished"> 发表于 2016-03-10</time>
+    <time datetime="2016-04-01T08:20:49.000Z" itemprop="datePublished"> 发表于 2016-04-01</time>
     
   </p>
 </header>
@@ -105,11 +151,62 @@ var _hmt = _hmt || [];
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u90A3_u4E9B_u7ECF_u5178_u7684_u5199_u6CD5_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">那些经典的写法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5728_u9605_u8BFB_u4EE3_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E9B_u4E0D_u9519_u7684_u53EF_u4EE5_u501F_u9274_u7684_u5199_u6CD5_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">在阅读代码的时候看到了一些不错的可以借鉴的写法：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u867D_u7136_u6709butterknift_u53EF_u4EE5_u4E0D_u7528_u5199findViewById_u4F46_u8FD9_u6837_u4E00_u4E2A_u2018__24__u2018_u7B26_u53F7_u641E_u5B9A_u4E5F_u662F_u4E00_u79CD_u4E0D_u9519_u7684_u9009_u62E9_u3002"><span class="toc-number">2.1.</span> <span class="toc-text">1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。</span></a></li></ol></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6982_u8FF0_uFF1A_u8BA1_u7B97_u673A_u7F51_u7EDC_u539F_u7406_u4E4BTCP_u7B14_u8BB0_u4E00"><span class="toc-number">1.</span> <span class="toc-text">概述：计算机网络原理之TCP笔记一</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP_u7684_u7279_u70B9_uFF1A"><span class="toc-number">1.1.</span> <span class="toc-text">TCP的特点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u505C_u6B62_u7B49_u5F85_u534F_u8BAE_uFF1A_u6BCF_u53D1_u5B8C_u4E00_u4E2A_u5206_u7EC4_u5C31_u505C_u6B62_u53D1_u9001_2C_u7B49_u5F85_u5BF9_u65B9_u786E_u8BA4_2C_u6536_u5230_u786E_u8BA4_u540E_u518D_u53D1_u4E0B_u4E00_u4E2A_u5206_u7EC4_u3002"><span class="toc-number">1.2.</span> <span class="toc-text">停止等待协议：每发完一个分组就停止发送,等待对方确认,收到确认后再发下一个分组。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FDE_u7EEDARQ_u534F_u8BAE_u548C_u6ED1_u52A8_u7A97_u53E3_u534F_u8BAE_uFF1A_u505C_u6B62_u7B49_u5F85_u534F_u8BAE_u4F4E_u6548"><span class="toc-number">1.3.</span> <span class="toc-text">连续ARQ协议和滑动窗口协议：停止等待协议低效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP_u62A5_u6587_u9996_u90E8_u683C_u5F0F_uFF1A"><span class="toc-number">1.4.</span> <span class="toc-text">TCP报文首部格式：</span></a></li></ol></li></ol>
 		
 		</div>
 		
-		<h2 id="u90A3_u4E9B_u7ECF_u5178_u7684_u5199_u6CD5_uFF1A"><a href="#u90A3_u4E9B_u7ECF_u5178_u7684_u5199_u6CD5_uFF1A" class="headerlink" title="那些经典的写法："></a>那些经典的写法：</h2><h2 id="u5728_u9605_u8BFB_u4EE3_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E9B_u4E0D_u9519_u7684_u53EF_u4EE5_u501F_u9274_u7684_u5199_u6CD5_uFF1A"><a href="#u5728_u9605_u8BFB_u4EE3_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E9B_u4E0D_u9519_u7684_u53EF_u4EE5_u501F_u9274_u7684_u5199_u6CD5_uFF1A" class="headerlink" title="在阅读代码的时候看到了一些不错的可以借鉴的写法："></a>在阅读代码的时候看到了一些不错的可以借鉴的写法：</h2><h3 id="1_u3001_u867D_u7136_u6709butterknift_u53EF_u4EE5_u4E0D_u7528_u5199findViewById_u4F46_u8FD9_u6837_u4E00_u4E2A_u2018__24__u2018_u7B26_u53F7_u641E_u5B9A_u4E5F_u662F_u4E00_u79CD_u4E0D_u9519_u7684_u9009_u62E9_u3002"><a href="#1_u3001_u867D_u7136_u6709butterknift_u53EF_u4EE5_u4E0D_u7528_u5199findViewById_u4F46_u8FD9_u6837_u4E00_u4E2A_u2018__24__u2018_u7B26_u53F7_u641E_u5B9A_u4E5F_u662F_u4E00_u79CD_u4E0D_u9519_u7684_u9009_u62E9_u3002" class="headerlink" title="1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。"></a>1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> &lt;T extends View&gt; T $(<span class="annotation">@IdRes</span> <span class="keyword">int</span> id) &#123;</span><br><span class="line">       <span class="keyword">return</span> (T) findViewById(id);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>  
+		<h2 id="u6982_u8FF0_uFF1A_u8BA1_u7B97_u673A_u7F51_u7EDC_u539F_u7406_u4E4BTCP_u7B14_u8BB0_u4E00"><a href="#u6982_u8FF0_uFF1A_u8BA1_u7B97_u673A_u7F51_u7EDC_u539F_u7406_u4E4BTCP_u7B14_u8BB0_u4E00" class="headerlink" title="概述：计算机网络原理之TCP笔记一"></a>概述：计算机网络原理之TCP笔记一</h2><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_TCP1.png" alt=""></p>
+<h3 id="TCP_u7684_u7279_u70B9_uFF1A"><a href="#TCP_u7684_u7279_u70B9_uFF1A" class="headerlink" title="TCP的特点："></a>TCP的特点：</h3><ul>
+<li>1、面向连接</li>
+<li>2、每一条连接只能有两个端点（套接字：IP:端口号）</li>
+<li>3、TCP提供可靠的交付服务</li>
+<li>4、TCP提供全双工通讯</li>
+<li>5、面向字节流</li>
+</ul>
+<h3 id="u505C_u6B62_u7B49_u5F85_u534F_u8BAE_uFF1A_u6BCF_u53D1_u5B8C_u4E00_u4E2A_u5206_u7EC4_u5C31_u505C_u6B62_u53D1_u9001_2C_u7B49_u5F85_u5BF9_u65B9_u786E_u8BA4_2C_u6536_u5230_u786E_u8BA4_u540E_u518D_u53D1_u4E0B_u4E00_u4E2A_u5206_u7EC4_u3002"><a href="#u505C_u6B62_u7B49_u5F85_u534F_u8BAE_uFF1A_u6BCF_u53D1_u5B8C_u4E00_u4E2A_u5206_u7EC4_u5C31_u505C_u6B62_u53D1_u9001_2C_u7B49_u5F85_u5BF9_u65B9_u786E_u8BA4_2C_u6536_u5230_u786E_u8BA4_u540E_u518D_u53D1_u4E0B_u4E00_u4E2A_u5206_u7EC4_u3002" class="headerlink" title="停止等待协议：每发完一个分组就停止发送,等待对方确认,收到确认后再发下一个分组。"></a>停止等待协议：每发完一个分组就停止发送,等待对方确认,收到确认后再发下一个分组。</h3><ul>
+<li><p>1、无差错情况</p>
+</li>
+<li><p>2、有查错情况（超时重传）</p>
+<ul>
+<li>发送方暂时保存已发送分组的副本</li>
+<li>分组与确认分组要进行编号对应</li>
+<li>超时计时器时间的设定</li>
+</ul>
+</li>
+<li><p>3、确认分组丢失&amp;确认分组迟到</p>
+<ul>
+<li>丢弃重复分组，再发确认</li>
+</ul>
+</li>
+</ul>
+<h3 id="u8FDE_u7EEDARQ_u534F_u8BAE_u548C_u6ED1_u52A8_u7A97_u53E3_u534F_u8BAE_uFF1A_u505C_u6B62_u7B49_u5F85_u534F_u8BAE_u4F4E_u6548"><a href="#u8FDE_u7EEDARQ_u534F_u8BAE_u548C_u6ED1_u52A8_u7A97_u53E3_u534F_u8BAE_uFF1A_u505C_u6B62_u7B49_u5F85_u534F_u8BAE_u4F4E_u6548" class="headerlink" title="连续ARQ协议和滑动窗口协议：停止等待协议低效"></a>连续ARQ协议和滑动窗口协议：停止等待协议低效</h3><ul>
+<li><p>位于窗口中的分组可以连续的发送出去，而不需要等待对方的确认。</p>
+</li>
+<li><p>发送方每收到一个确认就把窗口向前滑动一个分组的位置。</p>
+</li>
+<li><p>接收方采用累积确认方式：对按序到达的最后一个分组发送确认。</p>
+</li>
+</ul>
+<h3 id="TCP_u62A5_u6587_u9996_u90E8_u683C_u5F0F_uFF1A"><a href="#TCP_u62A5_u6587_u9996_u90E8_u683C_u5F0F_uFF1A" class="headerlink" title="TCP报文首部格式："></a>TCP报文首部格式：</h3><ul>
+<li>1、首部最小长度20字节<ul>
+<li>源端口&amp;目的端口</li>
+<li>序号：本报文段所发送的数据的<strong>第一个字节</strong>的序号</li>
+<li>确认号：期望收到对方下一个报文段的第一个字节的序号</li>
+<li>数据偏移：数据起始处距离报文起始处的距离（首部长度）</li>
+<li>保留：目前权全为0</li>
+<li>URG：URG=1时 紧急指针字段</li>
+<li>ACK：ACK=1时 确认号字段，TCP连接后所传送的报文必须把ACK置1</li>
+<li>PSH：推送</li>
+<li>RST：复位</li>
+<li>SYN：连接时进行同步</li>
+<li>FIN：释放连接</li>
+<li>窗口：发送本报文的一方的接收窗口（允许对方发送的数据）</li>
+<li>检验和：检验首部和数据部分</li>
+<li>紧急指针：URG=1时有意义（紧急数据字节数）</li>
+</ul>
+</li>
+</ul>
+  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
@@ -117,7 +214,7 @@ var _hmt = _hmt || [];
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Android/">Android</a>
+  <span></span> <a href="/tags/计算机网络/">计算机网络</a>
   </div>
 
 </div>
@@ -126,7 +223,7 @@ var _hmt = _hmt || [];
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://duwei.com/2016/03/10/cool/" data-title="cool | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://duwei.com/2016/04/01/TCP协议复习/" data-title="TCP协议复习一 | duwei&#39;s blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -139,19 +236,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/03/11/NBAPlus-Analysis/" title="NBAPlus-Analysis">
-  <strong>上一篇：</strong><br/>
-  <span>
-  NBAPlus-Analysis</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/03/08/UML/"  title="UML">
+<a href="/2016/03/31/JAVA编程思想之内部类/"  title="JAVA编程思想之内部类">
  <strong>下一篇：</strong><br/> 
- <span>UML
+ <span>JAVA编程思想之内部类
 </span>
 </a>
 </div>
@@ -160,7 +249,7 @@ var _hmt = _hmt || [];
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/03/10/cool/" data-title="cool" data-url="http://duwei.com/2016/03/10/cool/"></div>
+	<div class="ds-thread" data-thread-key="2016/04/01/TCP协议复习/" data-title="TCP协议复习一" data-url="http://duwei.com/2016/04/01/TCP协议复习/"></div>
 </section>
 
 
@@ -170,7 +259,7 @@ var _hmt = _hmt || [];
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u90A3_u4E9B_u7ECF_u5178_u7684_u5199_u6CD5_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">那些经典的写法：</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u5728_u9605_u8BFB_u4EE3_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E9B_u4E0D_u9519_u7684_u53EF_u4EE5_u501F_u9274_u7684_u5199_u6CD5_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">在阅读代码的时候看到了一些不错的可以借鉴的写法：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1_u3001_u867D_u7136_u6709butterknift_u53EF_u4EE5_u4E0D_u7528_u5199findViewById_u4F46_u8FD9_u6837_u4E00_u4E2A_u2018__24__u2018_u7B26_u53F7_u641E_u5B9A_u4E5F_u662F_u4E00_u79CD_u4E0D_u9519_u7684_u9009_u62E9_u3002"><span class="toc-number">2.1.</span> <span class="toc-text">1、虽然有butterknift可以不用写findViewById但这样一个‘ $ ‘符号搞定也是一种不错的选择。</span></a></li></ol></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6982_u8FF0_uFF1A_u8BA1_u7B97_u673A_u7F51_u7EDC_u539F_u7406_u4E4BTCP_u7B14_u8BB0_u4E00"><span class="toc-number">1.</span> <span class="toc-text">概述：计算机网络原理之TCP笔记一</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP_u7684_u7279_u70B9_uFF1A"><span class="toc-number">1.1.</span> <span class="toc-text">TCP的特点：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u505C_u6B62_u7B49_u5F85_u534F_u8BAE_uFF1A_u6BCF_u53D1_u5B8C_u4E00_u4E2A_u5206_u7EC4_u5C31_u505C_u6B62_u53D1_u9001_2C_u7B49_u5F85_u5BF9_u65B9_u786E_u8BA4_2C_u6536_u5230_u786E_u8BA4_u540E_u518D_u53D1_u4E0B_u4E00_u4E2A_u5206_u7EC4_u3002"><span class="toc-number">1.2.</span> <span class="toc-text">停止等待协议：每发完一个分组就停止发送,等待对方确认,收到确认后再发下一个分组。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FDE_u7EEDARQ_u534F_u8BAE_u548C_u6ED1_u52A8_u7A97_u53E3_u534F_u8BAE_uFF1A_u505C_u6B62_u7B49_u5F85_u534F_u8BAE_u4F4E_u6548"><span class="toc-number">1.3.</span> <span class="toc-text">连续ARQ协议和滑动窗口协议：停止等待协议低效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#TCP_u62A5_u6587_u9996_u90E8_u683C_u5F0F_uFF1A"><span class="toc-number">1.4.</span> <span class="toc-text">TCP报文首部格式：</span></a></li></ol></li></ol>
  
   </div>
 
