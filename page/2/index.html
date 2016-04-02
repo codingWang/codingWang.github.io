@@ -90,6 +90,78 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/03/18/MVP-Using/" title="mvp" itemprop="url">mvp</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-18T03:14:13.000Z" itemprop="datePublished"> 发表于 2016-03-18</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u521D_u6B21_u5C1D_u8BD5_u4F7F_u7528MVP_u8FDB_u884CAPP_u5F00_u53D1_uFF0C_u5BF9MVP_u7684_u51E0_u70B9_u4E2A_u4EBA_u7406_u89E3_u8BB0_u5F55_uFF1A"><a href="#u521D_u6B21_u5C1D_u8BD5_u4F7F_u7528MVP_u8FDB_u884CAPP_u5F00_u53D1_uFF0C_u5BF9MVP_u7684_u51E0_u70B9_u4E2A_u4EBA_u7406_u89E3_u8BB0_u5F55_uFF1A" class="headerlink" title="初次尝试使用MVP进行APP开发，对MVP的几点个人理解记录："></a>初次尝试使用MVP进行APP开发，对MVP的几点个人理解记录：</h2><ul>
+<li><p>1、建议以功能模块进行包结构的管理。</p>
+</li>
+<li><p>2、每个功能模块下都要定义View层及其接口+Presenter接口及其实现+Model层及接口（如果有数据操作）。</p>
+</li>
+<li><p>3、对View的操作及其行为要在View层接口定义，对业务逻辑处理要定义在Presenter接口。</p>
+</li>
+<li><p>4、Presenter层必须要持有View层接口的引用，可通过构造函数传入。</p>
+</li>
+<li><p>5、在Presenter层定义onDestroy方法记得释放View层引用。</p>
+</li>
+</ul>
+<h2 id="u53EF_u8FDB_u4E00_u6B65_u8003_u8651_u7684_u4F18_u5316_uFF1A"><a href="#u53EF_u8FDB_u4E00_u6B65_u8003_u8651_u7684_u4F18_u5316_uFF1A" class="headerlink" title="可进一步考虑的优化："></a>可进一步考虑的优化：</h2><ul>
+<li>1、因为Presenter必须持有View层引用，Presenter必须最后释放引用，所以建议定义所有Presenter接口的父接口，抽离出onAttach和onDetach方法。</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/03/18/MVP-Using/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/18/MVP-Using/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/03/16/highcharts/" title="highcharts使用心得" itemprop="url">highcharts使用心得</a>
   </h1>
   <p class="article-author">By
@@ -343,280 +415,9 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/03/12/Android-SystemService-Intro/" title="Android-SystemService-Intro" itemprop="url">Android-SystemService-Intro</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-12T03:36:42.000Z" itemprop="datePublished"> 发表于 2016-03-12</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u4E00_u3001_u7CFB_u7EDF_u670D_u52A1_u6982_u89C8"><a href="#u4E00_u3001_u7CFB_u7EDF_u670D_u52A1_u6982_u89C8" class="headerlink" title="一、系统服务概览"></a>一、系统服务概览</h2><h2 id="JAVA_u670D_u52A1"><a href="#JAVA_u670D_u52A1" class="headerlink" title="JAVA服务"></a>JAVA服务</h2><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>简介</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>EntropyService</td>
-<td>提供伪随机数</td>
-</tr>
-<tr>
-<td>PowerManagerService</td>
-<td>电源管理服务</td>
-</tr>
-<tr>
-<td>ActivityManagerService</td>
-<td>管理Activity</td>
-</tr>
-<tr>
-<td>TelephonyRegistry</td>
-<td>电话注册、管理服务模块，可以获取电话的链接状态、信号强度等等</td>
-</tr>
-<tr>
-<td>PackageManagerService</td>
-<td>程序包管理服务，包括对软件包的解包，验证，安装以及升级等</td>
-</tr>
-<tr>
-<td>AccountManagerService</td>
-<td></td>
-</tr>
-<tr>
-<td>ContentService</td>
-<td>跨进程数据交换</td>
-</tr>
-<tr>
-<td>BatteryService</td>
-<td>电池管理服务，监控电池充电及状态的服务，当状态改变时，会广播Intent</td>
-</tr>
-<tr>
-<td>HardwareService</td>
-<td></td>
-</tr>
-<tr>
-<td>SensorService</td>
-<td></td>
-</tr>
-<tr>
-<td>WindowManagerService</td>
-<td>Framework最核心的服务之一，负责窗口管理</td>
-</tr>
-<tr>
-<td>AlarmManagerService</td>
-<td>定时器管理服务，提供定时提醒服务</td>
-</tr>
-<tr>
-<td>BluetoothService</td>
-<td>蓝牙服务</td>
-</tr>
-<tr>
-<td>StatusBarService</td>
-<td></td>
-</tr>
-<tr>
-<td>ClipboardService</td>
-<td>系统剪切板服务</td>
-</tr>
-<tr>
-<td>InputMethodManagerService</td>
-<td>输入法管理服务</td>
-</tr>
-<tr>
-<td>NetStatService</td>
-<td>网络状态服务</td>
-</tr>
-<tr>
-<td>ConnectivityService</td>
-<td>网络连接管理服务</td>
-</tr>
-<tr>
-<td>AccessibilityManagerService</td>
-<td>主要是一些View获得点击、焦点、文字改变等事件的分发管理</td>
-</tr>
-<tr>
-<td>NotificationManagerService</td>
-<td>通知栏管理服务，Android中的通知栏和状态栏在一起，只是界面上前者在左边，后者在右边</td>
-</tr>
-<tr>
-<td>MountService</td>
-<td>挂载服务，可通过该服务调用Linux层面的mount程序，主要负责监听并广播device的mount/unmount/bad removal等等事件。</td>
-</tr>
-<tr>
-<td>DeviceStorageMonitorService</td>
-<td>磁盘空间状态检测服务</td>
-</tr>
-<tr>
-<td>LocationManagerService</td>
-<td>地理位置服务</td>
-</tr>
-<tr>
-<td>SearchManagerService</td>
-<td></td>
-</tr>
-<tr>
-<td>CheckinService</td>
-<td></td>
-</tr>
-<tr>
-<td>WallpaperManagerService</td>
-<td></td>
-</tr>
-<tr>
-<td>AudioService</td>
-<td>音频管理服务</td>
-</tr>
-<tr>
-<td>HeadsetObserver</td>
-<td>耳机插拔事件的监控小循环</td>
-</tr>
-<tr>
-<td>DockObserver</td>
-<td>如果系统有个座子，当手机装上或拔出这个座子的话，就得靠他来管理了</td>
-</tr>
-<tr>
-<td>BackupManagerService</td>
-<td>备份服务</td>
-</tr>
-<tr>
-<td>AppWidgetService</td>
-<td>桌面小控件</td>
-</tr>
-<tr>
-<td>StatusBarPolicy</td>
-<td>管理哪个图标该在status bar上显示的策略</td>
-</tr>
-</tbody>
-</table>
-<h2 id="u83B7_u53D6_u76F8_u5173_u670D_u52A1_uFF1AgetSystemService_28String_name_29"><a href="#u83B7_u53D6_u76F8_u5173_u670D_u52A1_uFF1AgetSystemService_28String_name_29" class="headerlink" title="获取相关服务：getSystemService(String name)"></a>获取相关服务：getSystemService(String name)</h2><table>
-<thead>
-<tr>
-<th>名称</th>
-<th>返回对象</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>WINDOW_SERVICE</td>
-<td>WindowManager</td>
-<td>管理打开的窗口程序</td>
-</tr>
-<tr>
-<td>LAYOUT_INFLATER_SERVICE</td>
-<td>LayoutInflater</td>
-<td>取得xml里定义的view</td>
-</tr>
-<tr>
-<td>ACTIVITY_SERVICE</td>
-<td>ActivityManager</td>
-<td>管理应用程序的系统状态</td>
-</tr>
-<tr>
-<td>POWER_SERVICE</td>
-<td>PowerManger</td>
-<td>电源的服务</td>
-</tr>
-<tr>
-<td>ALARM_SERVICE</td>
-<td>AlarmManager</td>
-<td>闹钟的服务</td>
-</tr>
-<tr>
-<td>NOTIFICATION_SERVICE</td>
-<td>NotificationManager</td>
-<td>状态栏的服务</td>
-</tr>
-<tr>
-<td>KEYGUARD_SERVICE</td>
-<td>KeyguardManager</td>
-<td>键盘锁的服务</td>
-</tr>
-<tr>
-<td>LOCATION_SERVICE</td>
-<td>LocationManager</td>
-<td>位置的服务，如GPS</td>
-</tr>
-<tr>
-<td>SEARCH_SERVICE</td>
-<td>SearchManager</td>
-<td>搜索的服务</td>
-</tr>
-<tr>
-<td>VIBRATOR_SERVICE</td>
-<td>Vibrator</td>
-<td>手机震动的服务</td>
-</tr>
-<tr>
-<td>CONNECTIVITY_SERVICE</td>
-<td>Connectivity</td>
-<td>网络连接的服务</td>
-</tr>
-<tr>
-<td>WIFI_SERVICE</td>
-<td>WifiManager</td>
-<td>Wi-Fi服务</td>
-</tr>
-<tr>
-<td>TELEPHONY_SERVICE</td>
-<td>TeleponyManager</td>
-<td>电话服务</td>
-</tr>
-</tbody>
-</table>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/03/12/Android-SystemService-Intro/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/12/Android-SystemService-Intro/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next<span></span></a>
   </nav>
 
 </div>
@@ -652,6 +453,10 @@ var _hmt = _hmt || [];
 			
 		
 			
+				<li><a href="/tags/计算机网络/" title="计算机网络">计算机网络<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
 			
 		
@@ -661,10 +466,6 @@ var _hmt = _hmt || [];
 		
 			
 				<li><a href="/tags/UML/" title="UML">UML<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/计算机网络/" title="计算机网络">计算机网络<sup>1</sup></a></li>
 			
 		
 			
