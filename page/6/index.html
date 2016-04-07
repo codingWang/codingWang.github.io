@@ -90,6 +90,65 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/02/13/ThreadLocal/" title="ThreadLocal" itemprop="url">ThreadLocal</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-13T14:38:02.000Z" itemprop="datePublished"> 发表于 2016-02-13</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="What_is_ThreadLocal"><a href="#What_is_ThreadLocal" class="headerlink" title="What is ThreadLocal"></a>What is ThreadLocal</h2><h3 id="u4E00_u3001ThreadLocal_u662F_u4E00_u4E2A_u7EBF_u7A0B_u5185_u90E8_u7684_u6570_u636E_u5B58_u50A8_u7C7B_uFF0C_u53EA_u80FD_u5728_u6307_u5B9A_u7684_u7EBF_u7A0B_u5B58_u53D6_u6570_u636E_u3002"><a href="#u4E00_u3001ThreadLocal_u662F_u4E00_u4E2A_u7EBF_u7A0B_u5185_u90E8_u7684_u6570_u636E_u5B58_u50A8_u7C7B_uFF0C_u53EA_u80FD_u5728_u6307_u5B9A_u7684_u7EBF_u7A0B_u5B58_u53D6_u6570_u636E_u3002" class="headerlink" title="一、ThreadLocal是一个线程内部的数据存储类，只能在指定的线程存取数据。"></a>一、ThreadLocal是一个线程内部的数据存储类，只能在指定的线程存取数据。</h3><h3 id="u4E8C_u3001_u53EA_u6709_u4E09_u4E2A_u65B9_u6CD5"><a href="#u4E8C_u3001_u53EA_u6709_u4E09_u4E2A_u65B9_u6CD5" class="headerlink" title="二、只有三个方法"></a>二、只有三个方法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public class ThreadLocal&#60;T&#62;&#123;&#10;&#9;public void set(T value)&#123;&#10;&#9;&#9;...&#10;&#9;&#125;&#10;&#9;public T get()&#123;&#10;&#9;&#9;...&#10;&#9;&#125;&#10;&#9;protected T initialValue()&#123;&#10;&#9;&#9;...&#10;&#9;&#125;&#10;&#10;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u4E09_u3001_u5185_u90E8_u5B9E_u73B0_u5927_u6982_u5982_u4E0B_uFF1A"><a href="#u4E09_u3001_u5185_u90E8_u5B9E_u73B0_u5927_u6982_u5982_u4E0B_uFF1A" class="headerlink" title="三、内部实现大概如下："></a>三、内部实现大概如下：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">private Map&#60;Thread,Integer&#62; threadData = new HashMap&#60;Thread,Integer&#62;();//&#20869;&#37096;&#32500;&#25252;&#19968;&#20010;&#35013;&#32447;&#31243;&#21644;&#25968;&#25454;&#30340;Map&#10;&#10;threadData.put(Thread.currentThread(),data);//&#23558;&#32447;&#31243;&#21450;&#23545;&#24212;&#30340;&#25968;&#25454;&#35013;&#20837;</span><br></pre></td></tr></table></figure>
+<h2 id="u4E0Esynchronized"><a href="#u4E0Esynchronized" class="headerlink" title="与synchronized"></a>与synchronized</h2><h3 id="1_u3001_u90FD_u662F_u4E3A_u4E86_u89E3_u51B3_u591A_u7EBF_u7A0B_u4E2D_u5BF9_u6570_u636E_u8BBF_u95EE_u7684_u5B89_u5168_u6027_u95EE_u9898_u3002"><a href="#1_u3001_u90FD_u662F_u4E3A_u4E86_u89E3_u51B3_u591A_u7EBF_u7A0B_u4E2D_u5BF9_u6570_u636E_u8BBF_u95EE_u7684_u5B89_u5168_u6027_u95EE_u9898_u3002" class="headerlink" title="1、都是为了解决多线程中对数据访问的安全性问题。"></a>1、都是为了解决多线程中对数据访问的安全性问题。</h3><h3 id="2_u3001synchronized_u91C7_u7528_u4E86_u201C_u4EE5_u65F6_u95F4_u6362_u7A7A_u95F4_u201D_u7684_u65B9_u5F0F_uFF0CThreadLocal_u91C7_u7528_u4E86_u201C_u4EE5_u7A7A_u95F4_u6362_u65F6_u95F4_u201D_u7684_u65B9_u5F0F_u3002"><a href="#2_u3001synchronized_u91C7_u7528_u4E86_u201C_u4EE5_u65F6_u95F4_u6362_u7A7A_u95F4_u201D_u7684_u65B9_u5F0F_uFF0CThreadLocal_u91C7_u7528_u4E86_u201C_u4EE5_u7A7A_u95F4_u6362_u65F6_u95F4_u201D_u7684_u65B9_u5F0F_u3002" class="headerlink" title="2、synchronized采用了“以时间换空间”的方式，ThreadLocal采用了“以空间换时间”的方式。"></a>2、synchronized采用了“以时间换空间”的方式，ThreadLocal采用了“以空间换时间”的方式。</h3>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/02/13/ThreadLocal/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/13/ThreadLocal/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/02/12/how-annotation-works/" title="how annotation works" itemprop="url">how annotation works</a>
   </h1>
   <p class="article-author">By
@@ -364,7 +423,7 @@ var _hmt = _hmt || [];
 			
 		
 			
-				<li><a href="/tags/Java/" title="Java">Java<sup>6</sup></a></li>
+				<li><a href="/tags/Java/" title="Java">Java<sup>7</sup></a></li>
 			
 		
 			

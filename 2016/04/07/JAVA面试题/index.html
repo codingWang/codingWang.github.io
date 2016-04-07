@@ -1,0 +1,502 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>JAVA面试题收集 | duwei&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="duwei">
+    
+
+    
+    <meta name="description" content="一、概述：收集那些神坑好玩的JAVA面试题二、题目：001：下面代码片段输出是什么：123456public static void main(String[] args) &amp;#123;		String s = &quot; Hello &quot;;	//两边各有一个空格		s+=&quot; World &quot;;			//两边各有一个空格		s.trim();				//考虑：s=s.trim();		System.out.p">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA面试题收集">
+<meta property="og:url" content="http://duwei.com/2016/04/07/JAVA面试题/index.html">
+<meta property="og:site_name" content="duwei's blog">
+<meta property="og:description" content="一、概述：收集那些神坑好玩的JAVA面试题二、题目：001：下面代码片段输出是什么：123456public static void main(String[] args) &amp;#123;		String s = &quot; Hello &quot;;	//两边各有一个空格		s+=&quot; World &quot;;			//两边各有一个空格		s.trim();				//考虑：s=s.trim();		System.out.p">
+<meta property="og:image" content="http://7xqumq.com1.z0.glb.clouddn.com/duwei_interview001.png">
+<meta property="og:updated_time" content="2016-04-07T07:09:52.096Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JAVA面试题收集">
+<meta name="twitter:description" content="一、概述：收集那些神坑好玩的JAVA面试题二、题目：001：下面代码片段输出是什么：123456public static void main(String[] args) &amp;#123;		String s = &quot; Hello &quot;;	//两边各有一个空格		s+=&quot; World &quot;;			//两边各有一个空格		s.trim();				//考虑：s=s.trim();		System.out.p">
+
+    
+    <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3492904c23dded877e5767fd9cd3e4da";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="duwei&#39;s blog">duwei&#39;s blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">文章</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/life">感悟</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:duwei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/07/JAVA面试题/" title="JAVA面试题收集" itemprop="url">JAVA面试题收集</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-07T06:40:42.000Z" itemprop="datePublished"> 发表于 2016-04-07</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u3001_u6982_u8FF0_uFF1A_u6536_u96C6_u90A3_u4E9B_u795E_u5751_u597D_u73A9_u7684JAVA_u9762_u8BD5_u9898"><span class="toc-number">1.</span> <span class="toc-text">一、概述：收集那些神坑好玩的JAVA面试题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E8C_u3001_u9898_u76EE_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">二、题目：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#001_uFF1A_u4E0B_u9762_u4EE3_u7801_u7247_u6BB5_u8F93_u51FA_u662F_u4EC0_u4E48_uFF1A"><span class="toc-number">2.1.</span> <span class="toc-text">001：下面代码片段输出是什么：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u7B54_u6848_uFF1A"><span class="toc-number">2.1.1.</span> <span class="toc-text">答案：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u8003_u70B9_uFF1A"><span class="toc-number">2.1.2.</span> <span class="toc-text">考点：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#002_uFF1A_u4E0B_u9762_u4EE3_u7801_u7247_u6BB5_u8F93_u51FA_u662F_u4EC0_u4E48_uFF1A"><span class="toc-number">2.2.</span> <span class="toc-text">002：下面代码片段输出是什么：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u7B54_u6848_uFF1A-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">答案：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u8003_u70B9_uFF1A-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">考点：</span></a></li></ol></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="u4E00_u3001_u6982_u8FF0_uFF1A_u6536_u96C6_u90A3_u4E9B_u795E_u5751_u597D_u73A9_u7684JAVA_u9762_u8BD5_u9898"><a href="#u4E00_u3001_u6982_u8FF0_uFF1A_u6536_u96C6_u90A3_u4E9B_u795E_u5751_u597D_u73A9_u7684JAVA_u9762_u8BD5_u9898" class="headerlink" title="一、概述：收集那些神坑好玩的JAVA面试题"></a>一、概述：收集那些神坑好玩的JAVA面试题</h2><h2 id="u4E8C_u3001_u9898_u76EE_uFF1A"><a href="#u4E8C_u3001_u9898_u76EE_uFF1A" class="headerlink" title="二、题目："></a>二、题目：</h2><h3 id="001_uFF1A_u4E0B_u9762_u4EE3_u7801_u7247_u6BB5_u8F93_u51FA_u662F_u4EC0_u4E48_uFF1A"><a href="#001_uFF1A_u4E0B_u9762_u4EE3_u7801_u7247_u6BB5_u8F93_u51FA_u662F_u4EC0_u4E48_uFF1A" class="headerlink" title="001：下面代码片段输出是什么："></a>001：下面代码片段输出是什么：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		String s = <span class="string">" Hello "</span>;	<span class="comment">//两边各有一个空格</span></span><br><span class="line">		s+=<span class="string">" World "</span>;			<span class="comment">//两边各有一个空格</span></span><br><span class="line">		s.trim();				<span class="comment">//考虑：s=s.trim();</span></span><br><span class="line">		System.out.println(s);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="u7B54_u6848_uFF1A"><a href="#u7B54_u6848_uFF1A" class="headerlink" title="答案："></a>答案：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">" Hello  World "</span></span><br></pre></td></tr></table></figure>
+<h4 id="u8003_u70B9_uFF1A"><a href="#u8003_u70B9_uFF1A" class="headerlink" title="考点："></a>考点：</h4><ul>
+<li>1、字符串对象是不可变的。</li>
+<li>2、内存的分配情况，垃圾回收。</li>
+</ul>
+<p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_interview001.png" alt=""></p>
+<h3 id="002_uFF1A_u4E0B_u9762_u4EE3_u7801_u7247_u6BB5_u8F93_u51FA_u662F_u4EC0_u4E48_uFF1A"><a href="#002_uFF1A_u4E0B_u9762_u4EE3_u7801_u7247_u6BB5_u8F93_u51FA_u662F_u4EC0_u4E48_uFF1A" class="headerlink" title="002：下面代码片段输出是什么："></a>002：下面代码片段输出是什么：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OverloadVsOverride</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(OverloadVsOverride other)</span></span>&#123;	<span class="comment">//这是重载</span></span><br><span class="line">		System.out.println(<span class="string">"equals"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Object o1 = <span class="keyword">new</span> OverloadVsOverride();</span><br><span class="line">		Object o2 = <span class="keyword">new</span> OverloadVsOverride();</span><br><span class="line">		</span><br><span class="line">		OverloadVsOverride o3 = <span class="keyword">new</span> OverloadVsOverride();</span><br><span class="line">		OverloadVsOverride o4 = <span class="keyword">new</span> OverloadVsOverride();</span><br><span class="line">		<span class="keyword">if</span> (o1.equals(o2)) &#123;							<span class="comment">//调用Object方法的equals方法，比地址：false</span></span><br><span class="line">			System.out.println(<span class="string">"o1 equals o2"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (o3.equals(o4)) &#123;</span><br><span class="line">			System.out.println(<span class="string">"o3 equals o4"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="u7B54_u6848_uFF1A-1"><a href="#u7B54_u6848_uFF1A-1" class="headerlink" title="答案："></a>答案：</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">equals</span><br><span class="line">o3 equals o4</span><br></pre></td></tr></table></figure>
+<h4 id="u8003_u70B9_uFF1A-1"><a href="#u8003_u70B9_uFF1A-1" class="headerlink" title="考点："></a>考点：</h4><ul>
+<li>override &amp; overload（重载和重写）</li>
+<li>重载方法在编译时起作用（例如，静态绑定），重写方法在运行时起作用（例如，动态绑定）。</li>
+</ul>
+  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Java/">Java</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://duwei.com/2016/04/07/JAVA面试题/" data-title="JAVA面试题收集 | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/04/06/android启动过程/"  title="android启动过程">
+ <strong>下一篇：</strong><br/> 
+ <span>android启动过程
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/07/JAVA面试题/" data-title="JAVA面试题收集" data-url="http://duwei.com/2016/04/07/JAVA面试题/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E00_u3001_u6982_u8FF0_uFF1A_u6536_u96C6_u90A3_u4E9B_u795E_u5751_u597D_u73A9_u7684JAVA_u9762_u8BD5_u9898"><span class="toc-number">1.</span> <span class="toc-text">一、概述：收集那些神坑好玩的JAVA面试题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u4E8C_u3001_u9898_u76EE_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">二、题目：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#001_uFF1A_u4E0B_u9762_u4EE3_u7801_u7247_u6BB5_u8F93_u51FA_u662F_u4EC0_u4E48_uFF1A"><span class="toc-number">2.1.</span> <span class="toc-text">001：下面代码片段输出是什么：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u7B54_u6848_uFF1A"><span class="toc-number">2.1.1.</span> <span class="toc-text">答案：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u8003_u70B9_uFF1A"><span class="toc-number">2.1.2.</span> <span class="toc-text">考点：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#002_uFF1A_u4E0B_u9762_u4EE3_u7801_u7247_u6BB5_u8F93_u51FA_u662F_u4EC0_u4E48_uFF1A"><span class="toc-number">2.2.</span> <span class="toc-text">002：下面代码片段输出是什么：</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u7B54_u6848_uFF1A-1"><span class="toc-number">2.2.1.</span> <span class="toc-text">答案：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u8003_u70B9_uFF1A-1"><span class="toc-number">2.2.2.</span> <span class="toc-text">考点：</span></a></li></ol></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="codingWang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/计算机网络/" title="计算机网络">计算机网络<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/js/" title="js">js<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/UML/" title="UML">UML<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/源码阅读/" title="源码阅读">源码阅读<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/framwork/" title="framwork">framwork<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m duwei . <br/>
+			This is my blog .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/codingWang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:du2035392@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="duwei">duwei</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wangduwei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
