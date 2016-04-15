@@ -90,6 +90,64 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/04/15/设计模式之策略模式/" title="设计模式之策略模式" itemprop="url">设计模式之策略模式</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-15T12:32:43.000Z" itemprop="datePublished"> 发表于 2016-04-15</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u6982_u8FF0_uFF1A_u603B_u611F_u89C9_u8BBE_u8BA1_u6A21_u5F0F_u8FD9_u4E1C_u897F_u662F_u53EF_u9047_u800C_u4E0D_u53EF_u6C42_u7684_uFF0C_u6CA1_u6709_u5927_u91CF_u7684_u4EE3_u7801_u7ECF_u9A8C_u5F88_u96BE_u7406_u89E3_u5B83_uFF08_u8BB0_u4F4F_u548C_u7406_u89E3_u662F_u6709_u5929_u58E4_u4E4B_u522B_u7684_uFF09_u3002_u653E_u5047_u7684_u65F6_u5019_u770B_u5230_u8FC7_u4E00_u4E2A_u9879_u76EE_uFF0C_u5F53_u65F6_u662F_u7AD9_u5728_u5B66_u4E60_u81EA_u5B9A_u4E49View_u7684_u89D2_u5EA6_u5206_u6790_u5B83_u7684_u6E90_u7801_u7684_uFF0C_u89C9_u5F97_u8FD9_u4EE3_u7801_u5199_u7684_u5F88_u4F18_u96C5_uFF0C_u76F4_u5230_u4ECA_u5929_u770B_u4E86_u7B56_u7565_u6A21_u5F0F_u6211_u624D_u7A81_u7136_u60F3_u8D77_u8FD9_u4E2A_u9879_u76EE_uFF0C_u604D_u7136_u5927_u609F_uFF0C_u539F_u6765_u90A3_u5C31_u662F_u7B56_u7565_u6A21_u5F0F_u3002"><a href="#u6982_u8FF0_uFF1A_u603B_u611F_u89C9_u8BBE_u8BA1_u6A21_u5F0F_u8FD9_u4E1C_u897F_u662F_u53EF_u9047_u800C_u4E0D_u53EF_u6C42_u7684_uFF0C_u6CA1_u6709_u5927_u91CF_u7684_u4EE3_u7801_u7ECF_u9A8C_u5F88_u96BE_u7406_u89E3_u5B83_uFF08_u8BB0_u4F4F_u548C_u7406_u89E3_u662F_u6709_u5929_u58E4_u4E4B_u522B_u7684_uFF09_u3002_u653E_u5047_u7684_u65F6_u5019_u770B_u5230_u8FC7_u4E00_u4E2A_u9879_u76EE_uFF0C_u5F53_u65F6_u662F_u7AD9_u5728_u5B66_u4E60_u81EA_u5B9A_u4E49View_u7684_u89D2_u5EA6_u5206_u6790_u5B83_u7684_u6E90_u7801_u7684_uFF0C_u89C9_u5F97_u8FD9_u4EE3_u7801_u5199_u7684_u5F88_u4F18_u96C5_uFF0C_u76F4_u5230_u4ECA_u5929_u770B_u4E86_u7B56_u7565_u6A21_u5F0F_u6211_u624D_u7A81_u7136_u60F3_u8D77_u8FD9_u4E2A_u9879_u76EE_uFF0C_u604D_u7136_u5927_u609F_uFF0C_u539F_u6765_u90A3_u5C31_u662F_u7B56_u7565_u6A21_u5F0F_u3002" class="headerlink" title="概述：总感觉设计模式这东西是可遇而不可求的，没有大量的代码经验很难理解它（记住和理解是有天壤之别的）。放假的时候看到过一个项目，当时是站在学习自定义View的角度分析它的源码的，觉得这代码写的很优雅，直到今天看了策略模式我才突然想起这个项目，恍然大悟，原来那就是策略模式。"></a>概述：总感觉设计模式这东西是可遇而不可求的，没有大量的代码经验很难理解它（记住和理解是有天壤之别的）。放假的时候看到过一个<a href="https://github.com/81813780/AVLoadingIndicatorView" target="_blank" rel="external">项目</a>，当时是站在学习自定义View的角度分析它的源码的，觉得这代码写的很优雅，直到今天看了策略模式我才突然想起这个项目，恍然大悟，原来那就是策略模式。</h2><h2 id="u7B56_u7565_u6A21_u5F0F"><a href="#u7B56_u7565_u6A21_u5F0F" class="headerlink" title="策略模式"></a>策略模式</h2><h3 id="u901A_u7528_u7C7B_u56FE_uFF1A"><a href="#u901A_u7528_u7C7B_u56FE_uFF1A" class="headerlink" title="通用类图："></a>通用类图：</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_strategy.png" alt=""></p>
+<h3 id="u8FD9_u91CC_u7684_u62BD_u8C61_u7B56_u7565_u89D2_u8272_u5C31_u662F_u4E0A_u8FF0_u9879_u76EE_u91CC_u7684BaseIndicatorController"><a href="#u8FD9_u91CC_u7684_u62BD_u8C61_u7B56_u7565_u89D2_u8272_u5C31_u662F_u4E0A_u8FF0_u9879_u76EE_u91CC_u7684BaseIndicatorController" class="headerlink" title="这里的抽象策略角色就是上述项目里的BaseIndicatorController"></a>这里的抽象策略角色就是上述项目里的BaseIndicatorController</h3><h3 id="u5176_u6240_u6709_u7684_u5177_u4F53_u7B56_u7565_u89D2_u8272_u4E3A_u9879_u76EE_u4E2D_u6240_u6709_u7684_u5B50_u7C7B"><a href="#u5176_u6240_u6709_u7684_u5177_u4F53_u7B56_u7565_u89D2_u8272_u4E3A_u9879_u76EE_u4E2D_u6240_u6709_u7684_u5B50_u7C7B" class="headerlink" title="其所有的具体策略角色为项目中所有的子类"></a>其所有的具体策略角色为项目中所有的子类</h3><h3 id="Context_u5C01_u88C5_u89D2_u8272_u5C31_u662F_u9879_u76EE_u91CC_u7684AVLoadingIndicatorView"><a href="#Context_u5C01_u88C5_u89D2_u8272_u5C31_u662F_u9879_u76EE_u91CC_u7684AVLoadingIndicatorView" class="headerlink" title="Context封装角色就是项目里的AVLoadingIndicatorView"></a>Context封装角色就是项目里的AVLoadingIndicatorView</h3><h2 id="u591A_u9605_u8BFB_u4F18_u79C0_u6E90_u7801_uFF0C_u89C1_u591A_u8BC6_u5E7F_uFF0C_u624D_u80FD_u7406_u89E3_u8BBE_u8BA1_u6A21_u5F0F_u3002"><a href="#u591A_u9605_u8BFB_u4F18_u79C0_u6E90_u7801_uFF0C_u89C1_u591A_u8BC6_u5E7F_uFF0C_u624D_u80FD_u7406_u89E3_u8BBE_u8BA1_u6A21_u5F0F_u3002" class="headerlink" title="多阅读优秀源码，见多识广，才能理解设计模式。"></a>多阅读优秀源码，见多识广，才能理解设计模式。</h2>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/设计模式/">设计模式</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/15/设计模式之策略模式/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/15/设计模式之策略模式/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/04/07/JAVA面试题/" title="JAVA面试题收集" itemprop="url">JAVA面试题收集</a>
   </h1>
   <p class="article-author">By
@@ -341,83 +399,9 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/02/TCP协议复习二/" title="TCP协议复习二" itemprop="url">TCP协议复习二</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-02T01:18:31.000Z" itemprop="datePublished"> 发表于 2016-04-02</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u6982_u8FF0_uFF1ATCP_u7684_u4E09_u6B21_u63E1_u624B_u4EE5_u53CA_u56DB_u6B21_u6325_u624B_u603B_u7ED3_28_u56FE_u7247_u6765_u6E90_u7F51_u7EDC_29"><a href="#u6982_u8FF0_uFF1ATCP_u7684_u4E09_u6B21_u63E1_u624B_u4EE5_u53CA_u56DB_u6B21_u6325_u624B_u603B_u7ED3_28_u56FE_u7247_u6765_u6E90_u7F51_u7EDC_29" class="headerlink" title="概述：TCP的三次握手以及四次挥手总结(图片来源网络)"></a>概述：TCP的三次握手以及四次挥手总结(图片来源网络)</h2><h3 id="u4E09_u6B21_u63E1_u624B"><a href="#u4E09_u6B21_u63E1_u624B" class="headerlink" title="三次握手"></a>三次握手</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_TCPHello.png" alt=""></p>
-<ul>
-<li>A发出连接请求：SYN = 1                seq = x         SYN-SENT状态</li>
-<li>B同意建立连接：SYN = 1;ACK = 1       seq = y         SYN-RCVD状态</li>
-<li>A向B给出确认： ACK = 1                seq = x+1         ESTABLISHED</li>
-<li>B：                                                ESTABLISHED</li>
-</ul>
-<h3 id="u56DB_u6B21_u6325_u624B"><a href="#u56DB_u6B21_u6325_u624B" class="headerlink" title="四次挥手"></a>四次挥手</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_TCPby.png" alt=""></p>
-<ul>
-<li>A请求释放连接：FIN = 1        FIN-WAIT-1</li>
-<li>B发出确认报文：ACK = 1        CLOSE-WAIT</li>
-<li><p>A收到确认报文：                FIN-WAIT-2</p>
-</li>
-<li><p>B请求释放连接：FIN = 1        LAST-ACK</p>
-</li>
-<li>A发出确认报文：ACK = 1        TIME-WAIT</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/计算机网络/">计算机网络</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/02/TCP协议复习二/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/02/TCP协议复习二/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
@@ -458,6 +442,10 @@ var _hmt = _hmt || [];
 		
 			
 				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/设计模式/" title="设计模式">设计模式<sup>1</sup></a></li>
 			
 		
 			

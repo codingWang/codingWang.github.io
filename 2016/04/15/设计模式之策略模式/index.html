@@ -1,0 +1,497 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>设计模式之策略模式 | duwei&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="duwei">
+    
+
+    
+    <meta name="description" content="概述：总感觉设计模式这东西是可遇而不可求的，没有大量的代码经验很难理解它（记住和理解是有天壤之别的）。放假的时候看到过一个项目，当时是站在学习自定义View的角度分析它的源码的，觉得这代码写的很优雅，直到今天看了策略模式我才突然想起这个项目，恍然大悟，原来那就是策略模式。策略模式通用类图：
+这里的抽象策略角色就是上述项目里的BaseIndicatorController其所有的具体策略角色为项目中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之策略模式">
+<meta property="og:url" content="http://duwei.com/2016/04/15/设计模式之策略模式/index.html">
+<meta property="og:site_name" content="duwei's blog">
+<meta property="og:description" content="概述：总感觉设计模式这东西是可遇而不可求的，没有大量的代码经验很难理解它（记住和理解是有天壤之别的）。放假的时候看到过一个项目，当时是站在学习自定义View的角度分析它的源码的，觉得这代码写的很优雅，直到今天看了策略模式我才突然想起这个项目，恍然大悟，原来那就是策略模式。策略模式通用类图：
+这里的抽象策略角色就是上述项目里的BaseIndicatorController其所有的具体策略角色为项目中">
+<meta property="og:image" content="http://7xqumq.com1.z0.glb.clouddn.com/duwei_strategy.png">
+<meta property="og:updated_time" content="2016-04-15T12:56:11.005Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式之策略模式">
+<meta name="twitter:description" content="概述：总感觉设计模式这东西是可遇而不可求的，没有大量的代码经验很难理解它（记住和理解是有天壤之别的）。放假的时候看到过一个项目，当时是站在学习自定义View的角度分析它的源码的，觉得这代码写的很优雅，直到今天看了策略模式我才突然想起这个项目，恍然大悟，原来那就是策略模式。策略模式通用类图：
+这里的抽象策略角色就是上述项目里的BaseIndicatorController其所有的具体策略角色为项目中">
+
+    
+    <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3492904c23dded877e5767fd9cd3e4da";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="duwei&#39;s blog">duwei&#39;s blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">文章</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/life">感悟</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:duwei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2016/04/15/设计模式之策略模式/" title="设计模式之策略模式" itemprop="url">设计模式之策略模式</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-15T12:32:43.000Z" itemprop="datePublished"> 发表于 2016-04-15</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6982_u8FF0_uFF1A_u603B_u611F_u89C9_u8BBE_u8BA1_u6A21_u5F0F_u8FD9_u4E1C_u897F_u662F_u53EF_u9047_u800C_u4E0D_u53EF_u6C42_u7684_uFF0C_u6CA1_u6709_u5927_u91CF_u7684_u4EE3_u7801_u7ECF_u9A8C_u5F88_u96BE_u7406_u89E3_u5B83_uFF08_u8BB0_u4F4F_u548C_u7406_u89E3_u662F_u6709_u5929_u58E4_u4E4B_u522B_u7684_uFF09_u3002_u653E_u5047_u7684_u65F6_u5019_u770B_u5230_u8FC7_u4E00_u4E2A_u9879_u76EE_uFF0C_u5F53_u65F6_u662F_u7AD9_u5728_u5B66_u4E60_u81EA_u5B9A_u4E49View_u7684_u89D2_u5EA6_u5206_u6790_u5B83_u7684_u6E90_u7801_u7684_uFF0C_u89C9_u5F97_u8FD9_u4EE3_u7801_u5199_u7684_u5F88_u4F18_u96C5_uFF0C_u76F4_u5230_u4ECA_u5929_u770B_u4E86_u7B56_u7565_u6A21_u5F0F_u6211_u624D_u7A81_u7136_u60F3_u8D77_u8FD9_u4E2A_u9879_u76EE_uFF0C_u604D_u7136_u5927_u609F_uFF0C_u539F_u6765_u90A3_u5C31_u662F_u7B56_u7565_u6A21_u5F0F_u3002"><span class="toc-number">1.</span> <span class="toc-text">概述：总感觉设计模式这东西是可遇而不可求的，没有大量的代码经验很难理解它（记住和理解是有天壤之别的）。放假的时候看到过一个项目，当时是站在学习自定义View的角度分析它的源码的，觉得这代码写的很优雅，直到今天看了策略模式我才突然想起这个项目，恍然大悟，原来那就是策略模式。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B56_u7565_u6A21_u5F0F"><span class="toc-number">2.</span> <span class="toc-text">策略模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u901A_u7528_u7C7B_u56FE_uFF1A"><span class="toc-number">2.1.</span> <span class="toc-text">通用类图：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u91CC_u7684_u62BD_u8C61_u7B56_u7565_u89D2_u8272_u5C31_u662F_u4E0A_u8FF0_u9879_u76EE_u91CC_u7684BaseIndicatorController"><span class="toc-number">2.2.</span> <span class="toc-text">这里的抽象策略角色就是上述项目里的BaseIndicatorController</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5176_u6240_u6709_u7684_u5177_u4F53_u7B56_u7565_u89D2_u8272_u4E3A_u9879_u76EE_u4E2D_u6240_u6709_u7684_u5B50_u7C7B"><span class="toc-number">2.3.</span> <span class="toc-text">其所有的具体策略角色为项目中所有的子类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Context_u5C01_u88C5_u89D2_u8272_u5C31_u662F_u9879_u76EE_u91CC_u7684AVLoadingIndicatorView"><span class="toc-number">2.4.</span> <span class="toc-text">Context封装角色就是项目里的AVLoadingIndicatorView</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u591A_u9605_u8BFB_u4F18_u79C0_u6E90_u7801_uFF0C_u89C1_u591A_u8BC6_u5E7F_uFF0C_u624D_u80FD_u7406_u89E3_u8BBE_u8BA1_u6A21_u5F0F_u3002"><span class="toc-number">3.</span> <span class="toc-text">多阅读优秀源码，见多识广，才能理解设计模式。</span></a></li></ol>
+		
+		</div>
+		
+		<h2 id="u6982_u8FF0_uFF1A_u603B_u611F_u89C9_u8BBE_u8BA1_u6A21_u5F0F_u8FD9_u4E1C_u897F_u662F_u53EF_u9047_u800C_u4E0D_u53EF_u6C42_u7684_uFF0C_u6CA1_u6709_u5927_u91CF_u7684_u4EE3_u7801_u7ECF_u9A8C_u5F88_u96BE_u7406_u89E3_u5B83_uFF08_u8BB0_u4F4F_u548C_u7406_u89E3_u662F_u6709_u5929_u58E4_u4E4B_u522B_u7684_uFF09_u3002_u653E_u5047_u7684_u65F6_u5019_u770B_u5230_u8FC7_u4E00_u4E2A_u9879_u76EE_uFF0C_u5F53_u65F6_u662F_u7AD9_u5728_u5B66_u4E60_u81EA_u5B9A_u4E49View_u7684_u89D2_u5EA6_u5206_u6790_u5B83_u7684_u6E90_u7801_u7684_uFF0C_u89C9_u5F97_u8FD9_u4EE3_u7801_u5199_u7684_u5F88_u4F18_u96C5_uFF0C_u76F4_u5230_u4ECA_u5929_u770B_u4E86_u7B56_u7565_u6A21_u5F0F_u6211_u624D_u7A81_u7136_u60F3_u8D77_u8FD9_u4E2A_u9879_u76EE_uFF0C_u604D_u7136_u5927_u609F_uFF0C_u539F_u6765_u90A3_u5C31_u662F_u7B56_u7565_u6A21_u5F0F_u3002"><a href="#u6982_u8FF0_uFF1A_u603B_u611F_u89C9_u8BBE_u8BA1_u6A21_u5F0F_u8FD9_u4E1C_u897F_u662F_u53EF_u9047_u800C_u4E0D_u53EF_u6C42_u7684_uFF0C_u6CA1_u6709_u5927_u91CF_u7684_u4EE3_u7801_u7ECF_u9A8C_u5F88_u96BE_u7406_u89E3_u5B83_uFF08_u8BB0_u4F4F_u548C_u7406_u89E3_u662F_u6709_u5929_u58E4_u4E4B_u522B_u7684_uFF09_u3002_u653E_u5047_u7684_u65F6_u5019_u770B_u5230_u8FC7_u4E00_u4E2A_u9879_u76EE_uFF0C_u5F53_u65F6_u662F_u7AD9_u5728_u5B66_u4E60_u81EA_u5B9A_u4E49View_u7684_u89D2_u5EA6_u5206_u6790_u5B83_u7684_u6E90_u7801_u7684_uFF0C_u89C9_u5F97_u8FD9_u4EE3_u7801_u5199_u7684_u5F88_u4F18_u96C5_uFF0C_u76F4_u5230_u4ECA_u5929_u770B_u4E86_u7B56_u7565_u6A21_u5F0F_u6211_u624D_u7A81_u7136_u60F3_u8D77_u8FD9_u4E2A_u9879_u76EE_uFF0C_u604D_u7136_u5927_u609F_uFF0C_u539F_u6765_u90A3_u5C31_u662F_u7B56_u7565_u6A21_u5F0F_u3002" class="headerlink" title="概述：总感觉设计模式这东西是可遇而不可求的，没有大量的代码经验很难理解它（记住和理解是有天壤之别的）。放假的时候看到过一个项目，当时是站在学习自定义View的角度分析它的源码的，觉得这代码写的很优雅，直到今天看了策略模式我才突然想起这个项目，恍然大悟，原来那就是策略模式。"></a>概述：总感觉设计模式这东西是可遇而不可求的，没有大量的代码经验很难理解它（记住和理解是有天壤之别的）。放假的时候看到过一个<a href="https://github.com/81813780/AVLoadingIndicatorView" target="_blank" rel="external">项目</a>，当时是站在学习自定义View的角度分析它的源码的，觉得这代码写的很优雅，直到今天看了策略模式我才突然想起这个项目，恍然大悟，原来那就是策略模式。</h2><h2 id="u7B56_u7565_u6A21_u5F0F"><a href="#u7B56_u7565_u6A21_u5F0F" class="headerlink" title="策略模式"></a>策略模式</h2><h3 id="u901A_u7528_u7C7B_u56FE_uFF1A"><a href="#u901A_u7528_u7C7B_u56FE_uFF1A" class="headerlink" title="通用类图："></a>通用类图：</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_strategy.png" alt=""></p>
+<h3 id="u8FD9_u91CC_u7684_u62BD_u8C61_u7B56_u7565_u89D2_u8272_u5C31_u662F_u4E0A_u8FF0_u9879_u76EE_u91CC_u7684BaseIndicatorController"><a href="#u8FD9_u91CC_u7684_u62BD_u8C61_u7B56_u7565_u89D2_u8272_u5C31_u662F_u4E0A_u8FF0_u9879_u76EE_u91CC_u7684BaseIndicatorController" class="headerlink" title="这里的抽象策略角色就是上述项目里的BaseIndicatorController"></a>这里的抽象策略角色就是上述项目里的BaseIndicatorController</h3><h3 id="u5176_u6240_u6709_u7684_u5177_u4F53_u7B56_u7565_u89D2_u8272_u4E3A_u9879_u76EE_u4E2D_u6240_u6709_u7684_u5B50_u7C7B"><a href="#u5176_u6240_u6709_u7684_u5177_u4F53_u7B56_u7565_u89D2_u8272_u4E3A_u9879_u76EE_u4E2D_u6240_u6709_u7684_u5B50_u7C7B" class="headerlink" title="其所有的具体策略角色为项目中所有的子类"></a>其所有的具体策略角色为项目中所有的子类</h3><h3 id="Context_u5C01_u88C5_u89D2_u8272_u5C31_u662F_u9879_u76EE_u91CC_u7684AVLoadingIndicatorView"><a href="#Context_u5C01_u88C5_u89D2_u8272_u5C31_u662F_u9879_u76EE_u91CC_u7684AVLoadingIndicatorView" class="headerlink" title="Context封装角色就是项目里的AVLoadingIndicatorView"></a>Context封装角色就是项目里的AVLoadingIndicatorView</h3><h2 id="u591A_u9605_u8BFB_u4F18_u79C0_u6E90_u7801_uFF0C_u89C1_u591A_u8BC6_u5E7F_uFF0C_u624D_u80FD_u7406_u89E3_u8BBE_u8BA1_u6A21_u5F0F_u3002"><a href="#u591A_u9605_u8BFB_u4F18_u79C0_u6E90_u7801_uFF0C_u89C1_u591A_u8BC6_u5E7F_uFF0C_u624D_u80FD_u7406_u89E3_u8BBE_u8BA1_u6A21_u5F0F_u3002" class="headerlink" title="多阅读优秀源码，见多识广，才能理解设计模式。"></a>多阅读优秀源码，见多识广，才能理解设计模式。</h2>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/设计模式/">设计模式</a>
+  </div>
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://duwei.com/2016/04/15/设计模式之策略模式/" data-title="设计模式之策略模式 | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2016/04/07/JAVA面试题/"  title="JAVA面试题收集">
+ <strong>下一篇：</strong><br/> 
+ <span>JAVA面试题收集
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2016/04/15/设计模式之策略模式/" data-title="设计模式之策略模式" data-url="http://duwei.com/2016/04/15/设计模式之策略模式/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6982_u8FF0_uFF1A_u603B_u611F_u89C9_u8BBE_u8BA1_u6A21_u5F0F_u8FD9_u4E1C_u897F_u662F_u53EF_u9047_u800C_u4E0D_u53EF_u6C42_u7684_uFF0C_u6CA1_u6709_u5927_u91CF_u7684_u4EE3_u7801_u7ECF_u9A8C_u5F88_u96BE_u7406_u89E3_u5B83_uFF08_u8BB0_u4F4F_u548C_u7406_u89E3_u662F_u6709_u5929_u58E4_u4E4B_u522B_u7684_uFF09_u3002_u653E_u5047_u7684_u65F6_u5019_u770B_u5230_u8FC7_u4E00_u4E2A_u9879_u76EE_uFF0C_u5F53_u65F6_u662F_u7AD9_u5728_u5B66_u4E60_u81EA_u5B9A_u4E49View_u7684_u89D2_u5EA6_u5206_u6790_u5B83_u7684_u6E90_u7801_u7684_uFF0C_u89C9_u5F97_u8FD9_u4EE3_u7801_u5199_u7684_u5F88_u4F18_u96C5_uFF0C_u76F4_u5230_u4ECA_u5929_u770B_u4E86_u7B56_u7565_u6A21_u5F0F_u6211_u624D_u7A81_u7136_u60F3_u8D77_u8FD9_u4E2A_u9879_u76EE_uFF0C_u604D_u7136_u5927_u609F_uFF0C_u539F_u6765_u90A3_u5C31_u662F_u7B56_u7565_u6A21_u5F0F_u3002"><span class="toc-number">1.</span> <span class="toc-text">概述：总感觉设计模式这东西是可遇而不可求的，没有大量的代码经验很难理解它（记住和理解是有天壤之别的）。放假的时候看到过一个项目，当时是站在学习自定义View的角度分析它的源码的，觉得这代码写的很优雅，直到今天看了策略模式我才突然想起这个项目，恍然大悟，原来那就是策略模式。</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B56_u7565_u6A21_u5F0F"><span class="toc-number">2.</span> <span class="toc-text">策略模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u901A_u7528_u7C7B_u56FE_uFF1A"><span class="toc-number">2.1.</span> <span class="toc-text">通用类图：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u91CC_u7684_u62BD_u8C61_u7B56_u7565_u89D2_u8272_u5C31_u662F_u4E0A_u8FF0_u9879_u76EE_u91CC_u7684BaseIndicatorController"><span class="toc-number">2.2.</span> <span class="toc-text">这里的抽象策略角色就是上述项目里的BaseIndicatorController</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5176_u6240_u6709_u7684_u5177_u4F53_u7B56_u7565_u89D2_u8272_u4E3A_u9879_u76EE_u4E2D_u6240_u6709_u7684_u5B50_u7C7B"><span class="toc-number">2.3.</span> <span class="toc-text">其所有的具体策略角色为项目中所有的子类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Context_u5C01_u88C5_u89D2_u8272_u5C31_u662F_u9879_u76EE_u91CC_u7684AVLoadingIndicatorView"><span class="toc-number">2.4.</span> <span class="toc-text">Context封装角色就是项目里的AVLoadingIndicatorView</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u591A_u9605_u8BFB_u4F18_u79C0_u6E90_u7801_uFF0C_u89C1_u591A_u8BC6_u5E7F_uFF0C_u624D_u80FD_u7406_u89E3_u8BBE_u8BA1_u6A21_u5F0F_u3002"><span class="toc-number">3.</span> <span class="toc-text">多阅读优秀源码，见多识广，才能理解设计模式。</span></a></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="codingWang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>15</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>7</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/计算机网络/" title="计算机网络">计算机网络<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/设计模式/" title="设计模式">设计模式<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/js/" title="js">js<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/UML/" title="UML">UML<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/源码阅读/" title="源码阅读">源码阅读<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/framwork/" title="framwork">framwork<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m duwei . <br/>
+			This is my blog .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/codingWang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:du2035392@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		
+		<a href="/about" target="_blank" title="duwei">duwei</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wangduwei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>
