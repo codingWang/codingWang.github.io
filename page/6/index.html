@@ -90,6 +90,67 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/02/16/Interpolator/" title="Interpolator" itemprop="url">Interpolator</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-16T14:11:36.000Z" itemprop="datePublished"> 发表于 2016-02-16</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u4E00_u3001_u6982_u8FF0"><a href="#u4E00_u3001_u6982_u8FF0" class="headerlink" title="一、概述"></a>一、概述</h2><h3 id="u4E4B_u524D_u5BF9_u4E8Eandroid_u63D2_u503C_u5668_u7684_u7406_u89E3_u4EC5_u4EC5_u662F_u8868_u9762_u7684_uFF0C_u53EA_u77E5_u9053_u5B83_u8868_u793A_u4E00_u79CD_u53D8_u5316_u7684_u8D8B_u52BF/_u5F62_u5F0F_uFF0C_u5E76_u4E14_u53EA_u4F1A_u7528_u7B80_u5355_u7684_u52A0_u901F/_u51CF_u901F/_u52A0_u51CF_u901F_u63D2_u503C_u5668_uFF0C_u6628_u5929_u5728_u770B_u4E00_u4E2A_u5F00_u6E90_u52A8_u753B_u6E90_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E2A_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u7684_u4EE3_u7801_uFF0C_u4E8E_u662F_u53C8_u6536_u83B7_u5B66_u4E60_u5230_u4E86_u8BB8_u591A_u3002"><a href="#u4E4B_u524D_u5BF9_u4E8Eandroid_u63D2_u503C_u5668_u7684_u7406_u89E3_u4EC5_u4EC5_u662F_u8868_u9762_u7684_uFF0C_u53EA_u77E5_u9053_u5B83_u8868_u793A_u4E00_u79CD_u53D8_u5316_u7684_u8D8B_u52BF/_u5F62_u5F0F_uFF0C_u5E76_u4E14_u53EA_u4F1A_u7528_u7B80_u5355_u7684_u52A0_u901F/_u51CF_u901F/_u52A0_u51CF_u901F_u63D2_u503C_u5668_uFF0C_u6628_u5929_u5728_u770B_u4E00_u4E2A_u5F00_u6E90_u52A8_u753B_u6E90_u7801_u7684_u65F6_u5019_u770B_u5230_u4E86_u4E00_u4E2A_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u7684_u4EE3_u7801_uFF0C_u4E8E_u662F_u53C8_u6536_u83B7_u5B66_u4E60_u5230_u4E86_u8BB8_u591A_u3002" class="headerlink" title="之前对于android插值器的理解仅仅是表面的，只知道它表示一种变化的趋势/形式，并且只会用简单的加速/减速/加减速插值器，昨天在看一个开源动画源码的时候看到了一个自定义插值器的代码，于是又收获学习到了许多。"></a>之前对于android插值器的理解仅仅是表面的，只知道它表示一种变化的趋势/形式，并且只会用简单的<strong>加速</strong>/<strong>减速</strong>/<strong>加减速</strong>插值器，昨天在看一个开源动画源码的时候看到了一个自定义插值器的代码，于是又收获学习到了许多。</h3><h2 id="u4E8C_u3001_u7CFB_u7EDF_u63D2_u503C_u5668"><a href="#u4E8C_u3001_u7CFB_u7EDF_u63D2_u503C_u5668" class="headerlink" title="二、系统插值器"></a>二、系统插值器</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">AccelerateDecelerateInterpolator	<span class="comment">//加速减速插值器</span></span><br><span class="line"></span><br><span class="line">AccelerateInterpolator			<span class="comment">//加速插值器</span></span><br><span class="line"></span><br><span class="line">DecelerateInterpolator			<span class="comment">//减速插值器</span></span><br><span class="line"></span><br><span class="line">LinearInterpolator		<span class="comment">//线性插值器</span></span><br><span class="line"></span><br><span class="line">OvershootInterpolator		<span class="comment">//超越插值器--&gt;向前甩一定值后再回到原来位置</span></span><br><span class="line"></span><br><span class="line">AnticipateInterpolator			<span class="comment">//预先插值器（先这样翻译吧~~）--&gt;开始的时候向后然后向前甩</span></span><br><span class="line"></span><br><span class="line">AnticipateOvershootInterpolator	<span class="comment">//预先超过插值器--&gt;开始的时候向后然后向前甩一定值后返回最后的值</span></span><br><span class="line"></span><br><span class="line">BounceInterpolator		<span class="comment">//弹跳插值器--&gt;动画结束的时候弹起</span></span><br><span class="line"></span><br><span class="line">CycleInterpolator		<span class="comment">//循环插值器--&gt;循环播放特定的次数，速率改变沿着正弦曲线</span></span><br></pre></td></tr></table></figure>
+<h2 id="u4E09_u3001_u7CFB_u7EDF_u63D2_u503C_u5668_u5206_u6790"><a href="#u4E09_u3001_u7CFB_u7EDF_u63D2_u503C_u5668_u5206_u6790" class="headerlink" title="三、系统插值器分析"></a>三、系统插值器分析</h2><h3 id="1_u3001_u6240_u6709_u7684_u7CFB_u7EDF_u63D2_u503C_u5668_u90FD_u7EE7_u627F_u81EAInterpolator_u7C7B_uFF0C_u800CInterpolator_u53C8_u5B9E_u73B0_u4E86TimeInterpolator_u63A5_u53E3_uFF1A"><a href="#1_u3001_u6240_u6709_u7684_u7CFB_u7EDF_u63D2_u503C_u5668_u90FD_u7EE7_u627F_u81EAInterpolator_u7C7B_uFF0C_u800CInterpolator_u53C8_u5B9E_u73B0_u4E86TimeInterpolator_u63A5_u53E3_uFF1A" class="headerlink" title="1、所有的系统插值器都继承自Interpolator类，而Interpolator又实现了TimeInterpolator接口："></a>1、所有的系统插值器都继承自Interpolator类，而Interpolator又实现了TimeInterpolator接口：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TimeInterpolator</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2_u3001_u6240_u4EE5_u8BE5_u65B9_u6CD5_u662F_u6240_u6709_u63D2_u503C_u5668_u7684_u6838_u5FC3_u65B9_u6CD5_uFF0C_u5148_u7B80_u5355_u770B_u770B_u7CFB_u7EDF_u63D2_u503C_u5668_u7684_u8BE5_u65B9_u6CD5_uFF1A"><a href="#2_u3001_u6240_u4EE5_u8BE5_u65B9_u6CD5_u662F_u6240_u6709_u63D2_u503C_u5668_u7684_u6838_u5FC3_u65B9_u6CD5_uFF0C_u5148_u7B80_u5355_u770B_u770B_u7CFB_u7EDF_u63D2_u503C_u5668_u7684_u8BE5_u65B9_u6CD5_uFF1A" class="headerlink" title="2、所以该方法是所有插值器的核心方法，先简单看看系统插值器的该方法："></a>2、所以该方法是所有插值器的核心方法，先简单看看系统插值器的该方法：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//AccelerateDecelerateInterpolator</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">float</span>)(Math.cos((input + <span class="number">1</span>) * Math.PI) / <span class="number">2.0f</span>) + <span class="number">0.5f</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//LinearInterpolator</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">getInterpolation</span><span class="params">(<span class="keyword">float</span> input)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> input;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3_u3001_u8BE5_u65B9_u6CD5_u8FD4_u56DE_u7684_u5C31_u662F_u4E00_u4E2A_u51FD_u6570_uFF0C_u6839_u636E_u51FD_u6570_u6211_u4EEC_u53EF_u4EE5_u5F97_u5230_u51FD_u6570_u7684_u56FE_u50CF_u3002_u8FD9_u91CC_uFF0C_u659C_u7387_u5E94_u8BE5_u5C31_u662F_u52A0_u901F_u5EA6_u4E86_u3002"><a href="#3_u3001_u8BE5_u65B9_u6CD5_u8FD4_u56DE_u7684_u5C31_u662F_u4E00_u4E2A_u51FD_u6570_uFF0C_u6839_u636E_u51FD_u6570_u6211_u4EEC_u53EF_u4EE5_u5F97_u5230_u51FD_u6570_u7684_u56FE_u50CF_u3002_u8FD9_u91CC_uFF0C_u659C_u7387_u5E94_u8BE5_u5C31_u662F_u52A0_u901F_u5EA6_u4E86_u3002" class="headerlink" title="3、该方法返回的就是一个函数，根据函数我们可以得到函数的图像。这里，斜率应该就是加速度了。"></a>3、该方法返回的就是一个函数，根据函数我们可以得到函数的图像。<a href="http://www.wolframalpha.com/" target="_blank" rel="external">这里</a>，斜率应该就是加速度了。</h3><h2 id="u56DB_u3001_u5173_u4E8E_u81EA_u5B9A_u4E49_u63D2_u503C_u5668"><a href="#u56DB_u3001_u5173_u4E8E_u81EA_u5B9A_u4E49_u63D2_u503C_u5668" class="headerlink" title="四、关于自定义插值器"></a>四、关于自定义插值器</h2><h3 id="u60F3_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u53EA_u9700_u8981implements_TimeInterpolator_u5C31_u53EF_u4EE5_u62C9_uFF0C_u7136_u540E_u590D_u5199_u4ED6_u7684getInterpolation_28float_t_29_uFF1B_u65B9_u6CD5_u3002_u4F46_uFF0C_u96BE_u70B9_u5728_u4E8E_u8FD0_u52A8_u51FD_u6570_u56FE_u50CF_u7684_u786E_u5B9A_u4E0A_u9762_u3002_u5982_u4F55_u7CBE_u786E_u5408_u7406_u7684_u5206_u6790_u81EA_u5DF1_u7684_u52A8_u753B_u7684_u901F_u5EA6_u7684_u53D8_u5316_u89C4_u5F8B_uFF0C_u7136_u540E_u627E_u5230_u7B26_u5408_u8BE5_u53D8_u5316_u89C4_u5F8B_u7684_u51FD_u6570_u662F_u4E00_u4E2A_u56F0_u96BE_u7684_u95EE_u9898_u3002_u5728_u8FD9_u91CC_u8981_u91CD_u70B9_u5173_u6CE8_u4E00_u4E0B_u3002"><a href="#u60F3_u81EA_u5B9A_u4E49_u63D2_u503C_u5668_u53EA_u9700_u8981implements_TimeInterpolator_u5C31_u53EF_u4EE5_u62C9_uFF0C_u7136_u540E_u590D_u5199_u4ED6_u7684getInterpolation_28float_t_29_uFF1B_u65B9_u6CD5_u3002_u4F46_uFF0C_u96BE_u70B9_u5728_u4E8E_u8FD0_u52A8_u51FD_u6570_u56FE_u50CF_u7684_u786E_u5B9A_u4E0A_u9762_u3002_u5982_u4F55_u7CBE_u786E_u5408_u7406_u7684_u5206_u6790_u81EA_u5DF1_u7684_u52A8_u753B_u7684_u901F_u5EA6_u7684_u53D8_u5316_u89C4_u5F8B_uFF0C_u7136_u540E_u627E_u5230_u7B26_u5408_u8BE5_u53D8_u5316_u89C4_u5F8B_u7684_u51FD_u6570_u662F_u4E00_u4E2A_u56F0_u96BE_u7684_u95EE_u9898_u3002_u5728_u8FD9_u91CC_u8981_u91CD_u70B9_u5173_u6CE8_u4E00_u4E0B_u3002" class="headerlink" title="想自定义插值器只需要implements TimeInterpolator就可以拉，然后复写他的getInterpolation(float t)；方法。但，难点在于运动函数图像的确定上面。如何精确合理的分析自己的动画的速度的变化规律，然后找到符合该变化规律的函数是一个困难的问题。在这里要重点关注一下。"></a>想自定义插值器只需要implements TimeInterpolator就可以拉，然后复写他的getInterpolation(float t)；方法。但，难点在于运动函数图像的确定上面。如何精确合理的分析自己的动画的速度的变化规律，然后找到符合该变化规律的函数是一个困难的问题。在这里要重点关注一下。</h3>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/02/16/Interpolator/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/16/Interpolator/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/02/15/Property-Animation/" title="Property Animation" itemprop="url">Property Animation</a>
   </h1>
   <p class="article-author">By
@@ -322,74 +383,6 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/10/A-collection-of-RxJava-resource/" title="A collection of RxJava resource" itemprop="url">A collection of RxJava resource</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-10T12:36:02.000Z" itemprop="datePublished"> 发表于 2016-02-10</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u57FA_u7840_u90E8_u5206"><a href="#u57FA_u7840_u90E8_u5206" class="headerlink" title="基础部分"></a>基础部分</h2><h3 id="u6254_u7269_u7EBF_u8001_u5E08_u7684_uFF1A_u7ED9_Android__u5F00_u53D1_u8005_u7684_RxJava__u8BE6_u89E3"><a href="#u6254_u7269_u7EBF_u8001_u5E08_u7684_uFF1A_u7ED9_Android__u5F00_u53D1_u8005_u7684_RxJava__u8BE6_u89E3" class="headerlink" title="扔物线老师的：给 Android 开发者的 RxJava 详解"></a>扔物线老师的：给 Android 开发者的 RxJava 详解</h3><p> <a href="http://gank.io/post/560e15be2dca930e00da1083" target="_blank" rel="external">http://gank.io/post/560e15be2dca930e00da1083</a></p>
-<h3 id="u6781_u5BA2_u5B66_u9662_u7684_uFF1A_u300ARxJava_Essentials_u300B_u4E2D_u6587_u7FFB_u8BD1"><a href="#u6781_u5BA2_u5B66_u9662_u7684_uFF1A_u300ARxJava_Essentials_u300B_u4E2D_u6587_u7FFB_u8BD1" class="headerlink" title="极客学院的：《RxJava Essentials》中文翻译"></a>极客学院的：《RxJava Essentials》中文翻译</h3><p><a href="http://wiki.jikexueyuan.com/project/rxjava/" target="_blank" rel="external">http://wiki.jikexueyuan.com/project/rxjava/</a></p>
-<h3 id="u4E00_u4E2A_u56FD_u5916_u7684_u535A_u5BA2_u6559_u7A0B"><a href="#u4E00_u4E2A_u56FD_u5916_u7684_u535A_u5BA2_u6559_u7A0B" class="headerlink" title="一个国外的博客教程"></a>一个国外的博客教程</h3><p><a href="http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1/" target="_blank" rel="external">http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1/</a></p>
-<h3 id="Rx-Java_u64CD_u4F5C_u7B26_u52A8_u6001_u6F14_u793A"><a href="#Rx-Java_u64CD_u4F5C_u7B26_u52A8_u6001_u6F14_u793A" class="headerlink" title="Rx-Java操作符动态演示"></a>Rx-Java操作符动态演示</h3><p><a href="http://rxmarbles.com/" target="_blank" rel="external">http://rxmarbles.com/</a></p>
-<h3 id="RxJava-Samples"><a href="#RxJava-Samples" class="headerlink" title="RxJava-Samples"></a>RxJava-Samples</h3><p><a href="https://github.com/THEONE10211024/RxJavaSamples" target="_blank" rel="external">https://github.com/THEONE10211024/RxJavaSamples</a></p>
-<h3 id="RxJava-Android-Samples"><a href="#RxJava-Android-Samples" class="headerlink" title="RxJava-Android-Samples"></a>RxJava-Android-Samples</h3><p><a href="https://github.com/kaushikgopal/RxJava-Android-Samples" target="_blank" rel="external">https://github.com/kaushikgopal/RxJava-Android-Samples</a></p>
-<h2 id="Library"><a href="#Library" class="headerlink" title="Library"></a>Library</h2><h3 id="RxJava_u5BF9Activity/Fragment_u751F_u547D_u5468_u671F_u7684_u5C01_u88C5"><a href="#RxJava_u5BF9Activity/Fragment_u751F_u547D_u5468_u671F_u7684_u5C01_u88C5" class="headerlink" title="RxJava对Activity/Fragment生命周期的封装"></a>RxJava对Activity/Fragment生命周期的封装</h3><p><a href="https://github.com/trello/RxLifecycle" target="_blank" rel="external">https://github.com/trello/RxLifecycle</a></p>
-<h3 id="RxJava_u5BF9SharedPreferences_u7684_u5C01_u88C5"><a href="#RxJava_u5BF9SharedPreferences_u7684_u5C01_u88C5" class="headerlink" title="RxJava对SharedPreferences的封装"></a>RxJava对SharedPreferences的封装</h3><p><a href="https://github.com/f2prateek/rx-preferences" target="_blank" rel="external">https://github.com/f2prateek/rx-preferences</a></p>
-<h2 id="u5B8C_u6574_u9879_u76EE"><a href="#u5B8C_u6574_u9879_u76EE" class="headerlink" title="完整项目"></a>完整项目</h2><h3 id="u4E00_u4E2A_u5929_u6C14_u9884_u62A5_u5C0F_u9879_u76EE"><a href="#u4E00_u4E2A_u5929_u6C14_u9884_u62A5_u5C0F_u9879_u76EE" class="headerlink" title="一个天气预报小项目"></a>一个天气预报小项目</h3><p><a href="https://github.com/SmartDengg/RxWeather" target="_blank" rel="external">https://github.com/SmartDengg/RxWeather</a></p>
-<h3 id="u91CD_u6784_u7248_u59B9_u5B50_uFF08Rx+Retrofit+okhttp_uFF09"><a href="#u91CD_u6784_u7248_u59B9_u5B50_uFF08Rx+Retrofit+okhttp_uFF09" class="headerlink" title="重构版妹子（Rx+Retrofit+okhttp）"></a>重构版妹子（Rx+Retrofit+okhttp）</h3><p><a href="https://github.com/CaMnter/EasyGank" target="_blank" rel="external">https://github.com/CaMnter/EasyGank</a></p>
-<h3 id="u7528RxJava_u5904_u7406_u548C_u64CD_u4F5C_u9AD8_u65AF_u6A21_u7CCA_u6548_u679C_u7684_u7B80_u5355_u7528_u4F8B"><a href="#u7528RxJava_u5904_u7406_u548C_u64CD_u4F5C_u9AD8_u65AF_u6A21_u7CCA_u6548_u679C_u7684_u7B80_u5355_u7528_u4F8B" class="headerlink" title="用RxJava处理和操作高斯模糊效果的简单用例"></a>用RxJava处理和操作高斯模糊效果的简单用例</h3><p><a href="https://github.com/SmartDengg/RxBlur" target="_blank" rel="external">https://github.com/SmartDengg/RxBlur</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/RxJava/">RxJava</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/10/A-collection-of-RxJava-resource/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/10/A-collection-of-RxJava-resource/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/5/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">Next<span></span></a>
@@ -424,7 +417,7 @@ var _hmt = _hmt || [];
 			
 		
 			
-				<li><a href="/tags/Java/" title="Java">Java<sup>7</sup></a></li>
+				<li><a href="/tags/Java/" title="Java">Java<sup>8</sup></a></li>
 			
 		
 			
