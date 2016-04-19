@@ -90,6 +90,76 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/04/19/设计模式之单例模式/" title="设计模式之单例模式" itemprop="url">设计模式之单例模式</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-19T12:05:56.000Z" itemprop="datePublished"> 发表于 2016-04-19</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u6982_u8FF0_uFF1A_u5355_u4F8B_u6A21_u5F0F_u662F_u6700_u7B80_u5355_u7684_uFF0C_u4E5F_u662F_u7528_u7684_u6BD4_u8F83_u591A_u7684_uFF0C_u8FD9_u91CC_u8BB0_u5F55_u4E00_u4E0B_u5E38_u89C1_u51E0_u79CD_u5355_u4F8B_u7684_u5199_u6CD5_u7684_u4F18_u7F3A_u70B9_u3002"><a href="#u6982_u8FF0_uFF1A_u5355_u4F8B_u6A21_u5F0F_u662F_u6700_u7B80_u5355_u7684_uFF0C_u4E5F_u662F_u7528_u7684_u6BD4_u8F83_u591A_u7684_uFF0C_u8FD9_u91CC_u8BB0_u5F55_u4E00_u4E0B_u5E38_u89C1_u51E0_u79CD_u5355_u4F8B_u7684_u5199_u6CD5_u7684_u4F18_u7F3A_u70B9_u3002" class="headerlink" title="概述：单例模式是最简单的，也是用的比较多的，这里记录一下常见几种单例的写法的优缺点。"></a>概述：单例模式是最简单的，也是用的比较多的，这里记录一下常见几种单例的写法的优缺点。</h2><h2 id="u4EE3_u7801_uFF1A"><a href="#u4EE3_u7801_uFF1A" class="headerlink" title="代码："></a>代码：</h2><h3 id="u997F_u6C49_u5F0F"><a href="#u997F_u6C49_u5F0F" class="headerlink" title="饿汉式"></a><strong>饿汉式</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//线程安全但耗资源</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;   </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton instance = <span class="keyword">new</span> Singleton();   </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123; &#125;   </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> instance;   </span><br><span class="line">    &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="u61D2_u6C49_u5F0F"><a href="#u61D2_u6C49_u5F0F" class="headerlink" title="懒汉式"></a><strong>懒汉式</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;   </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">null</span>;   <span class="comment">//延迟加载</span></span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123; &#125;   </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">synchronized</span> <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;   </span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">            instance = <span class="keyword">new</span> Singleton();   </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> instance;   </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>在方法上加锁：每次调用方法都用锁，效率低下，我们可以考虑在对象为null时才锁</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;   </span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">    	<span class="comment">//第二个线程进来了</span></span><br><span class="line">        <span class="keyword">synchronized</span> (Singleton.class) &#123;  </span><br><span class="line">        <span class="comment">//第一个线程走到这里</span></span><br><span class="line">            instance = <span class="keyword">new</span> Singleton();   </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> instance;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>这样做线程又不安全了</strong>如上注释</p>
+</li>
+</ul>
+<h3 id="u7528_u53CC_u91CD_u9501"><a href="#u7528_u53CC_u91CD_u9501" class="headerlink" title="用双重锁"></a>用双重锁</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;   </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">null</span>;   </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123; &#125;   </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;   </span><br><span class="line">        <span class="comment">//第一重判断  </span></span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">            <span class="comment">//锁定代码块  </span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;  </span><br><span class="line">                <span class="comment">//第二重判断  </span></span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">                    instance = <span class="keyword">new</span> Singleton(); <span class="comment">//创建单例实例  </span></span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> instance;   </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="u5373_u5B9E_u73B0_u61D2_u52A0_u8F7D_u53C8_u7EBF_u7A0B_u5B89_u5168_u7684_u65B9_u5F0F"><a href="#u5373_u5B9E_u73B0_u61D2_u52A0_u8F7D_u53C8_u7EBF_u7A0B_u5B89_u5168_u7684_u65B9_u5F0F" class="headerlink" title="即实现懒加载又线程安全的方式"></a>即实现懒加载又线程安全的方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">HolderClass</span> </span>&#123;  </span><br><span class="line">            <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> HolderClass.instance;  <span class="comment">//初始化类时才初始化外部类对象：懒加载</span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/设计模式/">设计模式</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/19/设计模式之单例模式/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/19/设计模式之单例模式/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/04/16/几种初始化记录/" title="几种初始化记录" itemprop="url">几种初始化记录</a>
   </h1>
   <p class="article-author">By
@@ -344,75 +414,6 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/05/浅析类的初始化过程/" title="浅析类的初始化过程" itemprop="url">浅析类的初始化过程</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-05T11:46:07.000Z" itemprop="datePublished"> 发表于 2016-04-05</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u4E00_u3001_u6982_u8FF0_uFF1A_u770BJAVA_u7F16_u7A0B_u601D_u60F3_u53CD_u5C04_u4E00_u7AE0_u603B_u7ED3_u7684Demo_u3002_u5C55_u793A_u9759_u6001_u4EE3_u7801_u5757_uFF0C_u7236_u7C7B_uFF0C_u5B50_u7C7B_uFF0C_u6784_u9020_u51FD_u6570_u7684_u521D_u59CB_u5316_u8FC7_u7A0B_u3002"><a href="#u4E00_u3001_u6982_u8FF0_uFF1A_u770BJAVA_u7F16_u7A0B_u601D_u60F3_u53CD_u5C04_u4E00_u7AE0_u603B_u7ED3_u7684Demo_u3002_u5C55_u793A_u9759_u6001_u4EE3_u7801_u5757_uFF0C_u7236_u7C7B_uFF0C_u5B50_u7C7B_uFF0C_u6784_u9020_u51FD_u6570_u7684_u521D_u59CB_u5316_u8FC7_u7A0B_u3002" class="headerlink" title="一、概述：看JAVA编程思想反射一章总结的Demo。展示静态代码块，父类，子类，构造函数的初始化过程。"></a>一、概述：看JAVA编程思想反射一章总结的Demo。展示静态代码块，父类，子类，构造函数的初始化过程。</h2><h2 id="u4E8C_u3001_u4EE3_u7801_uFF1A"><a href="#u4E8C_u3001_u4EE3_u7801_uFF1A" class="headerlink" title="二、代码："></a>二、代码：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//父类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OtherFather</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"4--&gt;OtherFather 初始化了"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">OtherFather</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"6--&gt;OtherFather构造函数"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//子类</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Other</span> <span class="keyword">extends</span> <span class="title">OtherFather</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> AGE = <span class="number">24</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"5--&gt;Other被初始化了"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	Other()&#123;</span><br><span class="line">		System.out.println(<span class="string">"7--&gt;Other构造函数"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试函数</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">This</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> Other other;<span class="comment">//引用</span></span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"1--&gt;This被初始化了"</span>);<span class="comment">//1</span></span><br><span class="line">	&#125;</span><br><span class="line">	This()&#123;</span><br><span class="line">		System.out.println(<span class="string">"3--&gt;This的构造函数"</span>);<span class="comment">//3</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"2--&gt;main被执行了"</span>);<span class="comment">//2</span></span><br><span class="line">		This ths = <span class="keyword">new</span> This();</span><br><span class="line">		</span><br><span class="line">		other = <span class="keyword">new</span> Other();<span class="comment">//用到某个类的时候才去加载某个类</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>--&gt;This 被初始化了</span><br><span class="line"><span class="number">2</span>--&gt;main被执行了</span><br><span class="line"><span class="number">3</span>--&gt;This的构造函数</span><br><span class="line"><span class="number">4</span>--&gt;OtherFather 初始化了</span><br><span class="line"><span class="number">5</span>--&gt;Other被初始化了</span><br><span class="line"><span class="number">6</span>--&gt;OtherFather构造函数</span><br><span class="line"><span class="number">7</span>--&gt;Other构造函数</span><br></pre></td></tr></table></figure>
-<h2 id="u4E09_u3001_u603B_u7ED3_uFF1A"><a href="#u4E09_u3001_u603B_u7ED3_uFF1A" class="headerlink" title="三、总结："></a>三、总结：</h2><ul>
-<li><strong>类加载时，先加载静态成员变量，静态代码块</strong></li>
-<li><strong>注意子类与父类的加载顺序为：</strong><ul>
-<li>父类的静态代码块-&gt;子类的静态代码块-&gt;父类的构造函数-&gt;子类的构造函数</li>
-</ul>
-</li>
-<li>用到类时才加载类，才对类进行初始化</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Java/">Java</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/05/浅析类的初始化过程/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/05/浅析类的初始化过程/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -451,15 +452,15 @@ var _hmt = _hmt || [];
 			
 		
 			
+				<li><a href="/tags/设计模式/" title="设计模式">设计模式<sup>2</sup></a></li>
+			
+		
+			
 				<li><a href="/tags/计算机网络/" title="计算机网络">计算机网络<sup>2</sup></a></li>
 			
 		
 			
 				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
-			
-		
-			
-				<li><a href="/tags/设计模式/" title="设计模式">设计模式<sup>1</sup></a></li>
 			
 		
 			
