@@ -90,6 +90,65 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/05/07/PageTransformer/" title="PageTransformer" itemprop="url">PageTransformer</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-07T11:37:23.000Z" itemprop="datePublished"> 发表于 2016-05-07</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="position_u53C2_u6570_u6307_u660E_u4E86_u7ED9_u5B9A_u9875_u9762_u76F8_u5BF9_u4E8E_u5C4F_u5E55_u4E2D_u5FC3_u7684_u4F4D_u7F6E_u3002_u5B83_u662F_u4E00_u4E2A_u52A8_u6001_u7684_u5C5E_u6027_uFF0C_u4F1A_u6839_u636E_u7528_u6237_u6ED1_u52A8_u9875_u9762_u65F6_u53D8_u5316_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u5145_u6EE1_u5C4F_u5E55_u65F6_uFF0C_u5B83_u7684position_u503C_u4E3A0_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u88AB_u7ED8_u5236_u5728_u5C4F_u5E55_u7684_u53F3_u4FA7_uFF0C_u5B83_u7684position_u503C_u4E3A1_u3002_u5982_u679C_u7528_u6237_u6ED1_u5230_u4E00_u534A_uFF0C_u5728_u9875_u97621_u548C_u9875_u97622_u4E4B_u95F4_u662F_uFF0C_u9875_u97621_u7684position_u503C_u4E3A-0-5_uFF0C_u9875_u97622_u7684position_u503C_u4E3A0-5"><a href="#position_u53C2_u6570_u6307_u660E_u4E86_u7ED9_u5B9A_u9875_u9762_u76F8_u5BF9_u4E8E_u5C4F_u5E55_u4E2D_u5FC3_u7684_u4F4D_u7F6E_u3002_u5B83_u662F_u4E00_u4E2A_u52A8_u6001_u7684_u5C5E_u6027_uFF0C_u4F1A_u6839_u636E_u7528_u6237_u6ED1_u52A8_u9875_u9762_u65F6_u53D8_u5316_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u5145_u6EE1_u5C4F_u5E55_u65F6_uFF0C_u5B83_u7684position_u503C_u4E3A0_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u88AB_u7ED8_u5236_u5728_u5C4F_u5E55_u7684_u53F3_u4FA7_uFF0C_u5B83_u7684position_u503C_u4E3A1_u3002_u5982_u679C_u7528_u6237_u6ED1_u5230_u4E00_u534A_uFF0C_u5728_u9875_u97621_u548C_u9875_u97622_u4E4B_u95F4_u662F_uFF0C_u9875_u97621_u7684position_u503C_u4E3A-0-5_uFF0C_u9875_u97622_u7684position_u503C_u4E3A0-5" class="headerlink" title="position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.5"></a>position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.5</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepthPageTransformer</span> <span class="keyword">implements</span> <span class="title">PageTransformer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">float</span> MIN_SCALE = <span class="number">0.75f</span>;</span><br><span class="line">                          </span><br><span class="line">    <span class="annotation">@SuppressLint</span>(<span class="string">"NewApi"</span>)</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transformPage</span><span class="params">(View view, <span class="keyword">float</span> position)</span> </span>&#123;	<span class="comment">//这里的position参数不好理解</span></span><br><span class="line">        <span class="keyword">int</span> pageWidth = view.getWidth();</span><br><span class="line">        <span class="keyword">if</span> (position &lt; -<span class="number">1</span>) &#123;         <span class="comment">//[-8,-1]  </span></span><br><span class="line">            view.setAlpha(<span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (position &lt;= <span class="number">0</span>) &#123; 	<span class="comment">//[-1.0]</span></span><br><span class="line">            view.setAlpha(<span class="number">1</span>);</span><br><span class="line">            view.setTranslationX(<span class="number">0</span>);</span><br><span class="line">            view.setScaleX(<span class="number">1</span>);</span><br><span class="line">            view.setScaleY(<span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (position &lt;= <span class="number">1</span>) &#123; 	<span class="comment">//[0,1]</span></span><br><span class="line">            view.setAlpha(<span class="number">1</span> - position);</span><br><span class="line">            view.setTranslationX(pageWidth * -position);</span><br><span class="line">            <span class="keyword">float</span> scaleFactor = MIN_SCALE + (<span class="number">1</span> - MIN_SCALE)* (<span class="number">1</span> - Math.abs(position));</span><br><span class="line">            view.setScaleX(scaleFactor);</span><br><span class="line">            view.setScaleY(scaleFactor);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; 						<span class="comment">//[1,+8]</span></span><br><span class="line">            view.setAlpha(<span class="number">0</span>);</span><br><span class="line">                          </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">                          </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="http://android.jobbole.com/80668/" target="_blank" rel="external">http://android.jobbole.com/80668/</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/05/07/PageTransformer/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/07/PageTransformer/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/05/07/android屏幕文章/" title="android屏幕文章" itemprop="url">android屏幕文章</a>
   </h1>
   <p class="article-author">By
@@ -103,8 +162,9 @@ var _hmt = _hmt || [];
 </header>
     <div class="article-content">
         
-        <p><a href="http://blog.csdn.net/beijingshi1/article/details/10985361" target="_blank" rel="external"></a></p>
-<p><a href="http://www.cnblogs.com/bjzhanghao/archive/2012/11/06/2757300.html" target="_blank" rel="external"></a></p>
+        <p><a href="http://blog.csdn.net/beijingshi1/article/details/10985361" target="_blank" rel="external">http://blog.csdn.net/beijingshi1/article/details/10985361</a></p>
+<p><a href="http://www.cnblogs.com/bjzhanghao/archive/2012/11/06/2757300.html" target="_blank" rel="external">http://www.cnblogs.com/bjzhanghao/archive/2012/11/06/2757300.html</a></p>
+<p><a href="http://blog.csdn.net/sarsscofy/article/details/9249397" target="_blank" rel="external">http://blog.csdn.net/sarsscofy/article/details/9249397</a></p>
 
         
         
@@ -348,67 +408,9 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/15/设计模式之策略模式/" title="设计模式之策略模式" itemprop="url">设计模式之策略模式</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-15T12:32:43.000Z" itemprop="datePublished"> 发表于 2016-04-15</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u6982_u8FF0_uFF1A_u603B_u611F_u89C9_u8BBE_u8BA1_u6A21_u5F0F_u8FD9_u4E1C_u897F_u662F_u53EF_u9047_u800C_u4E0D_u53EF_u6C42_u7684_uFF0C_u6CA1_u6709_u5927_u91CF_u7684_u4EE3_u7801_u7ECF_u9A8C_u5F88_u96BE_u7406_u89E3_u5B83_uFF08_u8BB0_u4F4F_u548C_u7406_u89E3_u662F_u6709_u5929_u58E4_u4E4B_u522B_u7684_uFF09_u3002_u653E_u5047_u7684_u65F6_u5019_u770B_u5230_u8FC7_u4E00_u4E2A_u9879_u76EE_uFF0C_u5F53_u65F6_u662F_u7AD9_u5728_u5B66_u4E60_u81EA_u5B9A_u4E49View_u7684_u89D2_u5EA6_u5206_u6790_u5B83_u7684_u6E90_u7801_u7684_uFF0C_u89C9_u5F97_u8FD9_u4EE3_u7801_u5199_u7684_u5F88_u4F18_u96C5_uFF0C_u76F4_u5230_u4ECA_u5929_u770B_u4E86_u7B56_u7565_u6A21_u5F0F_u6211_u624D_u7A81_u7136_u60F3_u8D77_u8FD9_u4E2A_u9879_u76EE_uFF0C_u604D_u7136_u5927_u609F_uFF0C_u539F_u6765_u90A3_u5C31_u662F_u7B56_u7565_u6A21_u5F0F_u3002"><a href="#u6982_u8FF0_uFF1A_u603B_u611F_u89C9_u8BBE_u8BA1_u6A21_u5F0F_u8FD9_u4E1C_u897F_u662F_u53EF_u9047_u800C_u4E0D_u53EF_u6C42_u7684_uFF0C_u6CA1_u6709_u5927_u91CF_u7684_u4EE3_u7801_u7ECF_u9A8C_u5F88_u96BE_u7406_u89E3_u5B83_uFF08_u8BB0_u4F4F_u548C_u7406_u89E3_u662F_u6709_u5929_u58E4_u4E4B_u522B_u7684_uFF09_u3002_u653E_u5047_u7684_u65F6_u5019_u770B_u5230_u8FC7_u4E00_u4E2A_u9879_u76EE_uFF0C_u5F53_u65F6_u662F_u7AD9_u5728_u5B66_u4E60_u81EA_u5B9A_u4E49View_u7684_u89D2_u5EA6_u5206_u6790_u5B83_u7684_u6E90_u7801_u7684_uFF0C_u89C9_u5F97_u8FD9_u4EE3_u7801_u5199_u7684_u5F88_u4F18_u96C5_uFF0C_u76F4_u5230_u4ECA_u5929_u770B_u4E86_u7B56_u7565_u6A21_u5F0F_u6211_u624D_u7A81_u7136_u60F3_u8D77_u8FD9_u4E2A_u9879_u76EE_uFF0C_u604D_u7136_u5927_u609F_uFF0C_u539F_u6765_u90A3_u5C31_u662F_u7B56_u7565_u6A21_u5F0F_u3002" class="headerlink" title="概述：总感觉设计模式这东西是可遇而不可求的，没有大量的代码经验很难理解它（记住和理解是有天壤之别的）。放假的时候看到过一个项目，当时是站在学习自定义View的角度分析它的源码的，觉得这代码写的很优雅，直到今天看了策略模式我才突然想起这个项目，恍然大悟，原来那就是策略模式。"></a>概述：总感觉设计模式这东西是可遇而不可求的，没有大量的代码经验很难理解它（记住和理解是有天壤之别的）。放假的时候看到过一个<a href="https://github.com/81813780/AVLoadingIndicatorView" target="_blank" rel="external">项目</a>，当时是站在学习自定义View的角度分析它的源码的，觉得这代码写的很优雅，直到今天看了策略模式我才突然想起这个项目，恍然大悟，原来那就是策略模式。</h2><h2 id="u7B56_u7565_u6A21_u5F0F"><a href="#u7B56_u7565_u6A21_u5F0F" class="headerlink" title="策略模式"></a>策略模式</h2><h3 id="u901A_u7528_u7C7B_u56FE_uFF1A"><a href="#u901A_u7528_u7C7B_u56FE_uFF1A" class="headerlink" title="通用类图："></a>通用类图：</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_strategy.png" alt=""></p>
-<h3 id="u8FD9_u91CC_u7684_u62BD_u8C61_u7B56_u7565_u89D2_u8272_u5C31_u662F_u4E0A_u8FF0_u9879_u76EE_u91CC_u7684BaseIndicatorController"><a href="#u8FD9_u91CC_u7684_u62BD_u8C61_u7B56_u7565_u89D2_u8272_u5C31_u662F_u4E0A_u8FF0_u9879_u76EE_u91CC_u7684BaseIndicatorController" class="headerlink" title="这里的抽象策略角色就是上述项目里的BaseIndicatorController"></a>这里的抽象策略角色就是上述项目里的BaseIndicatorController</h3><h3 id="u5176_u6240_u6709_u7684_u5177_u4F53_u7B56_u7565_u89D2_u8272_u4E3A_u9879_u76EE_u4E2D_u6240_u6709_u7684_u5B50_u7C7B"><a href="#u5176_u6240_u6709_u7684_u5177_u4F53_u7B56_u7565_u89D2_u8272_u4E3A_u9879_u76EE_u4E2D_u6240_u6709_u7684_u5B50_u7C7B" class="headerlink" title="其所有的具体策略角色为项目中所有的子类"></a>其所有的具体策略角色为项目中所有的子类</h3><h3 id="Context_u5C01_u88C5_u89D2_u8272_u5C31_u662F_u9879_u76EE_u91CC_u7684AVLoadingIndicatorView"><a href="#Context_u5C01_u88C5_u89D2_u8272_u5C31_u662F_u9879_u76EE_u91CC_u7684AVLoadingIndicatorView" class="headerlink" title="Context封装角色就是项目里的AVLoadingIndicatorView"></a>Context封装角色就是项目里的AVLoadingIndicatorView</h3><h2 id="u591A_u9605_u8BFB_u4F18_u79C0_u6E90_u7801_uFF0C_u89C1_u591A_u8BC6_u5E7F_uFF0C_u624D_u80FD_u7406_u89E3_u8BBE_u8BA1_u6A21_u5F0F_u3002"><a href="#u591A_u9605_u8BFB_u4F18_u79C0_u6E90_u7801_uFF0C_u89C1_u591A_u8BC6_u5E7F_uFF0C_u624D_u80FD_u7406_u89E3_u8BBE_u8BA1_u6A21_u5F0F_u3002" class="headerlink" title="多阅读优秀源码，见多识广，才能理解设计模式。"></a>多阅读优秀源码，见多识广，才能理解设计模式。</h2>
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/设计模式/">设计模式</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/15/设计模式之策略模式/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/15/设计模式之策略模式/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
   </nav>
 
 </div>
@@ -436,7 +438,7 @@ var _hmt = _hmt || [];
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Android/" title="Android">Android<sup>17</sup></a></li>
+				<li><a href="/tags/Android/" title="Android">Android<sup>18</sup></a></li>
 			
 		
 			
