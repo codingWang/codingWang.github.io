@@ -90,6 +90,65 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/05/08/Apache-Tiles/" title="Apache Tiles" itemprop="url">Apache Tiles</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-08T11:33:28.000Z" itemprop="datePublished"> 发表于 2016-05-08</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="Tiles_u76F8_u5173_u5B66_u4E60_u6587_u7AE0"><a href="#Tiles_u76F8_u5173_u5B66_u4E60_u6587_u7AE0" class="headerlink" title="Tiles相关学习文章"></a>Tiles相关学习文章</h3><p><a href="http://my.oschina.net/jast90/blog?catalog=511712" target="_blank" rel="external">六篇文章</a></p>
+<p><a href="http://www.tuicool.com/articles/ZbMn2a" target="_blank" rel="external">推酷</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/JavaWeb/">JavaWeb</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/05/08/Apache-Tiles/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/08/Apache-Tiles/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/05/07/PageTransformer/" title="PageTransformer" itemprop="url">PageTransformer</a>
   </h1>
   <p class="article-author">By
@@ -334,80 +393,6 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/16/几种初始化记录/" title="几种初始化记录" itemprop="url">几种初始化记录</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-16T12:40:06.000Z" itemprop="datePublished"> 发表于 2016-04-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u6982_u8FF0_uFF1A_u9605_u8BFB_u300A_u6DF1_u5165_u7406_u89E3JAVA_u865A_u62DF_u673A_u300B_u7B2C_u4E03_u7AE0_u65F6_u7684_u51E0_u4E2A_u4F8B_u5B50_u3002"><a href="#u6982_u8FF0_uFF1A_u9605_u8BFB_u300A_u6DF1_u5165_u7406_u89E3JAVA_u865A_u62DF_u673A_u300B_u7B2C_u4E03_u7AE0_u65F6_u7684_u51E0_u4E2A_u4F8B_u5B50_u3002" class="headerlink" title="概述：阅读《深入理解JAVA虚拟机》第七章时的几个例子。"></a>概述：阅读《深入理解JAVA虚拟机》第七章时的几个例子。</h2><h2 id="u4EE3_u7801_uFF1A"><a href="#u4EE3_u7801_uFF1A" class="headerlink" title="代码："></a>代码：</h2><ul>
-<li>引用数组的初始化</li>
-<li>常量的初始化</li>
-<li>子类父类静态字段的初始化</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SuperClass</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"SuperClass被初始化了"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> value = <span class="number">123</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SubClass</span> <span class="keyword">extends</span> <span class="title">SuperClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"SubClass 初始化了"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConstClass</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"Const 被初始化了"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//常量在编译阶段会调入类的常量池中，本质上并没有直接引用到定义常量的类中，因此不会触发定义常量的类的初始化</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String HELLO_WORD = <span class="string">"hello word"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//测试代码</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//1.new一个类的数组时这个类不会被初始化</span></span><br><span class="line"><span class="comment">//		SuperClass[] a = new SuperClass[12];</span></span><br><span class="line"><span class="comment">//		System.out.println("1");</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//2、编译期常量，类不会被初始化</span></span><br><span class="line"><span class="comment">//		System.out.println(ConstClass.HELLO_WORD);</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//3、通过子类来引用父类的静态字段只会触发父类的初始化</span></span><br><span class="line"><span class="comment">//		System.out.println(SubClass.value);</span></span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="u603B_u7ED3_uFF1A"><a href="#u603B_u7ED3_uFF1A" class="headerlink" title="总结："></a>总结：</h2><ul>
-<li>1、new一个类的数组时这个类不会被初始化</li>
-<li>2、编译期常量，类不会被初始化</li>
-<li>3、通过子类来引用父类的静态字段只会触发父类的初始化</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Java/">Java</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/16/几种初始化记录/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/16/几种初始化记录/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -467,6 +452,10 @@ var _hmt = _hmt || [];
 		
 			
 				<li><a href="/tags/源码阅读/" title="源码阅读">源码阅读<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JavaWeb/" title="JavaWeb">JavaWeb<sup>1</sup></a></li>
 			
 		
 			

@@ -4,23 +4,26 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>PageTransformer | duwei&#39;s blog</title>
+    <title>Apache Tiles | duwei&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="duwei">
     
 
     
-    <meta name="description" content="position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.512345678910111213141516171819202122232">
+    <meta name="description" content="Tiles相关学习文章六篇文章
+推酷">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PageTransformer">
-<meta property="og:url" content="http://duwei.com/2016/05/07/PageTransformer/index.html">
+<meta property="og:title" content="Apache Tiles">
+<meta property="og:url" content="http://duwei.com/2016/05/08/Apache-Tiles/index.html">
 <meta property="og:site_name" content="duwei's blog">
-<meta property="og:description" content="position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.512345678910111213141516171819202122232">
-<meta property="og:updated_time" content="2016-05-07T11:50:24.035Z">
+<meta property="og:description" content="Tiles相关学习文章六篇文章
+推酷">
+<meta property="og:updated_time" content="2016-05-08T14:09:56.011Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PageTransformer">
-<meta name="twitter:description" content="position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.512345678910111213141516171819202122232">
+<meta name="twitter:title" content="Apache Tiles">
+<meta name="twitter:description" content="Tiles相关学习文章六篇文章
+推酷">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -89,14 +92,14 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/05/07/PageTransformer/" title="PageTransformer" itemprop="url">PageTransformer</a>
+      <a href="/2016/05/08/Apache-Tiles/" title="Apache Tiles" itemprop="url">Apache Tiles</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-07T11:37:23.000Z" itemprop="datePublished"> 发表于 2016-05-07</time>
+    <time datetime="2016-05-08T11:33:28.000Z" itemprop="datePublished"> 发表于 2016-05-08</time>
     
   </p>
 </header>
@@ -105,12 +108,12 @@ var _hmt = _hmt || [];
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#position_u53C2_u6570_u6307_u660E_u4E86_u7ED9_u5B9A_u9875_u9762_u76F8_u5BF9_u4E8E_u5C4F_u5E55_u4E2D_u5FC3_u7684_u4F4D_u7F6E_u3002_u5B83_u662F_u4E00_u4E2A_u52A8_u6001_u7684_u5C5E_u6027_uFF0C_u4F1A_u6839_u636E_u7528_u6237_u6ED1_u52A8_u9875_u9762_u65F6_u53D8_u5316_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u5145_u6EE1_u5C4F_u5E55_u65F6_uFF0C_u5B83_u7684position_u503C_u4E3A0_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u88AB_u7ED8_u5236_u5728_u5C4F_u5E55_u7684_u53F3_u4FA7_uFF0C_u5B83_u7684position_u503C_u4E3A1_u3002_u5982_u679C_u7528_u6237_u6ED1_u5230_u4E00_u534A_uFF0C_u5728_u9875_u97621_u548C_u9875_u97622_u4E4B_u95F4_u662F_uFF0C_u9875_u97621_u7684position_u503C_u4E3A-0-5_uFF0C_u9875_u97622_u7684position_u503C_u4E3A0-5"><span class="toc-number">1.</span> <span class="toc-text">position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.5</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Tiles_u76F8_u5173_u5B66_u4E60_u6587_u7AE0"><span class="toc-number">1.</span> <span class="toc-text">Tiles相关学习文章</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="position_u53C2_u6570_u6307_u660E_u4E86_u7ED9_u5B9A_u9875_u9762_u76F8_u5BF9_u4E8E_u5C4F_u5E55_u4E2D_u5FC3_u7684_u4F4D_u7F6E_u3002_u5B83_u662F_u4E00_u4E2A_u52A8_u6001_u7684_u5C5E_u6027_uFF0C_u4F1A_u6839_u636E_u7528_u6237_u6ED1_u52A8_u9875_u9762_u65F6_u53D8_u5316_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u5145_u6EE1_u5C4F_u5E55_u65F6_uFF0C_u5B83_u7684position_u503C_u4E3A0_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u88AB_u7ED8_u5236_u5728_u5C4F_u5E55_u7684_u53F3_u4FA7_uFF0C_u5B83_u7684position_u503C_u4E3A1_u3002_u5982_u679C_u7528_u6237_u6ED1_u5230_u4E00_u534A_uFF0C_u5728_u9875_u97621_u548C_u9875_u97622_u4E4B_u95F4_u662F_uFF0C_u9875_u97621_u7684position_u503C_u4E3A-0-5_uFF0C_u9875_u97622_u7684position_u503C_u4E3A0-5"><a href="#position_u53C2_u6570_u6307_u660E_u4E86_u7ED9_u5B9A_u9875_u9762_u76F8_u5BF9_u4E8E_u5C4F_u5E55_u4E2D_u5FC3_u7684_u4F4D_u7F6E_u3002_u5B83_u662F_u4E00_u4E2A_u52A8_u6001_u7684_u5C5E_u6027_uFF0C_u4F1A_u6839_u636E_u7528_u6237_u6ED1_u52A8_u9875_u9762_u65F6_u53D8_u5316_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u5145_u6EE1_u5C4F_u5E55_u65F6_uFF0C_u5B83_u7684position_u503C_u4E3A0_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u88AB_u7ED8_u5236_u5728_u5C4F_u5E55_u7684_u53F3_u4FA7_uFF0C_u5B83_u7684position_u503C_u4E3A1_u3002_u5982_u679C_u7528_u6237_u6ED1_u5230_u4E00_u534A_uFF0C_u5728_u9875_u97621_u548C_u9875_u97622_u4E4B_u95F4_u662F_uFF0C_u9875_u97621_u7684position_u503C_u4E3A-0-5_uFF0C_u9875_u97622_u7684position_u503C_u4E3A0-5" class="headerlink" title="position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.5"></a>position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.5</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepthPageTransformer</span> <span class="keyword">implements</span> <span class="title">PageTransformer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">float</span> MIN_SCALE = <span class="number">0.75f</span>;</span><br><span class="line">                          </span><br><span class="line">    <span class="annotation">@SuppressLint</span>(<span class="string">"NewApi"</span>)</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transformPage</span><span class="params">(View view, <span class="keyword">float</span> position)</span> </span>&#123;	<span class="comment">//这里的position参数不好理解</span></span><br><span class="line">        <span class="keyword">int</span> pageWidth = view.getWidth();</span><br><span class="line">        <span class="keyword">if</span> (position &lt; -<span class="number">1</span>) &#123;         <span class="comment">//[-8,-1]  </span></span><br><span class="line">            view.setAlpha(<span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (position &lt;= <span class="number">0</span>) &#123; 	<span class="comment">//[-1.0]</span></span><br><span class="line">            view.setAlpha(<span class="number">1</span>);</span><br><span class="line">            view.setTranslationX(<span class="number">0</span>);</span><br><span class="line">            view.setScaleX(<span class="number">1</span>);</span><br><span class="line">            view.setScaleY(<span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (position &lt;= <span class="number">1</span>) &#123; 	<span class="comment">//[0,1]</span></span><br><span class="line">            view.setAlpha(<span class="number">1</span> - position);</span><br><span class="line">            view.setTranslationX(pageWidth * -position);</span><br><span class="line">            <span class="keyword">float</span> scaleFactor = MIN_SCALE + (<span class="number">1</span> - MIN_SCALE)* (<span class="number">1</span> - Math.abs(position));</span><br><span class="line">            view.setScaleX(scaleFactor);</span><br><span class="line">            view.setScaleY(scaleFactor);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; 						<span class="comment">//[1,+8]</span></span><br><span class="line">            view.setAlpha(<span class="number">0</span>);</span><br><span class="line">                          </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">                          </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="http://android.jobbole.com/80668/" target="_blank" rel="external">http://android.jobbole.com/80668/</a></p>
+		<h3 id="Tiles_u76F8_u5173_u5B66_u4E60_u6587_u7AE0"><a href="#Tiles_u76F8_u5173_u5B66_u4E60_u6587_u7AE0" class="headerlink" title="Tiles相关学习文章"></a>Tiles相关学习文章</h3><p><a href="http://my.oschina.net/jast90/blog?catalog=511712" target="_blank" rel="external">六篇文章</a></p>
+<p><a href="http://www.tuicool.com/articles/ZbMn2a" target="_blank" rel="external">推酷</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -119,7 +122,7 @@ var _hmt = _hmt || [];
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/Android/">Android</a>
+  <span></span> <a href="/tags/JavaWeb/">JavaWeb</a>
   </div>
 
 </div>
@@ -128,7 +131,7 @@ var _hmt = _hmt || [];
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://duwei.com/2016/05/07/PageTransformer/" data-title="PageTransformer | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://duwei.com/2016/05/08/Apache-Tiles/" data-title="Apache Tiles | duwei&#39;s blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -141,19 +144,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/05/08/Apache-Tiles/" title="Apache Tiles">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Apache Tiles</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/05/07/android屏幕文章/"  title="android屏幕文章">
+<a href="/2016/05/07/PageTransformer/"  title="PageTransformer">
  <strong>下一篇：</strong><br/> 
- <span>android屏幕文章
+ <span>PageTransformer
 </span>
 </a>
 </div>
@@ -162,7 +157,7 @@ var _hmt = _hmt || [];
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/05/07/PageTransformer/" data-title="PageTransformer" data-url="http://duwei.com/2016/05/07/PageTransformer/"></div>
+	<div class="ds-thread" data-thread-key="2016/05/08/Apache-Tiles/" data-title="Apache Tiles" data-url="http://duwei.com/2016/05/08/Apache-Tiles/"></div>
 </section>
 
 
@@ -172,7 +167,7 @@ var _hmt = _hmt || [];
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#position_u53C2_u6570_u6307_u660E_u4E86_u7ED9_u5B9A_u9875_u9762_u76F8_u5BF9_u4E8E_u5C4F_u5E55_u4E2D_u5FC3_u7684_u4F4D_u7F6E_u3002_u5B83_u662F_u4E00_u4E2A_u52A8_u6001_u7684_u5C5E_u6027_uFF0C_u4F1A_u6839_u636E_u7528_u6237_u6ED1_u52A8_u9875_u9762_u65F6_u53D8_u5316_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u5145_u6EE1_u5C4F_u5E55_u65F6_uFF0C_u5B83_u7684position_u503C_u4E3A0_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u88AB_u7ED8_u5236_u5728_u5C4F_u5E55_u7684_u53F3_u4FA7_uFF0C_u5B83_u7684position_u503C_u4E3A1_u3002_u5982_u679C_u7528_u6237_u6ED1_u5230_u4E00_u534A_uFF0C_u5728_u9875_u97621_u548C_u9875_u97622_u4E4B_u95F4_u662F_uFF0C_u9875_u97621_u7684position_u503C_u4E3A-0-5_uFF0C_u9875_u97622_u7684position_u503C_u4E3A0-5"><span class="toc-number">1.</span> <span class="toc-text">position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.5</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Tiles_u76F8_u5173_u5B66_u4E60_u6587_u7AE0"><span class="toc-number">1.</span> <span class="toc-text">Tiles相关学习文章</span></a></li></ol>
  
   </div>
 

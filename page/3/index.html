@@ -90,6 +90,66 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/04/05/android数据库总结/" title="android数据库总结" itemprop="url">android数据库总结</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-05T01:47:23.000Z" itemprop="datePublished"> 发表于 2016-04-05</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u4E00_u3001_u6982_u8FF0_uFF1A_u6570_u636E_u5E93_u662Fandroid_u5E38_u7528_u7684_u7F13_u5B58_u5730_u65B9_u4E4B_u4E00_uFF0C_u56E0_u6B64_u5B66_u4E60_u597D_u6570_u636E_u5E93_u8FD8_u662F_u5F88_u91CD_u8981_u7684_u3002"><a href="#u4E00_u3001_u6982_u8FF0_uFF1A_u6570_u636E_u5E93_u662Fandroid_u5E38_u7528_u7684_u7F13_u5B58_u5730_u65B9_u4E4B_u4E00_uFF0C_u56E0_u6B64_u5B66_u4E60_u597D_u6570_u636E_u5E93_u8FD8_u662F_u5F88_u91CD_u8981_u7684_u3002" class="headerlink" title="一、概述：数据库是android常用的缓存地方之一，因此学习好数据库还是很重要的。"></a>一、概述：数据库是android常用的缓存地方之一，因此学习好数据库还是很重要的。</h2><h2 id="u4E8C_u3001_u57FA_u7840_u64CD_u4F5C"><a href="#u4E8C_u3001_u57FA_u7840_u64CD_u4F5C" class="headerlink" title="二、基础操作"></a>二、基础操作</h2><h3 id="1_u3001_u7EE7_u627FSQLiteOpenHelper+_u91CD_u5199_u62BD_u8C61_u65B9_u6CD5+_u91CD_u5199_u6784_u9020_u51FD_u6570"><a href="#1_u3001_u7EE7_u627FSQLiteOpenHelper+_u91CD_u5199_u62BD_u8C61_u65B9_u6CD5+_u91CD_u5199_u6784_u9020_u51FD_u6570" class="headerlink" title="1、继承SQLiteOpenHelper+重写抽象方法+重写构造函数"></a>1、继承SQLiteOpenHelper+重写抽象方法+重写构造函数</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DBHelper</span> <span class="keyword">extends</span> <span class="title">SQLiteOpenHelper</span> </span>&#123;  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String dbName = <span class="string">"count"</span>; <span class="comment">//数据库名称  </span></span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> version = <span class="number">1</span>; <span class="comment">//数据库版本  </span></span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DBHelper</span><span class="params">(Context context)</span> </span>&#123;  <span class="comment">//必须重写次构造函数</span></span><br><span class="line">        <span class="keyword">super</span>(context, dbName, <span class="keyword">null</span>, version);   </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="annotation">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(SQLiteDatabase db)</span> </span>&#123;   </span><br><span class="line">  		<span class="comment">//第一次执行时调用此函数,建表</span></span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    <span class="annotation">@Override</span>   </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onUpgrade</span><span class="params">(SQLiteDatabase db, <span class="keyword">int</span> oldVersion, <span class="keyword">int</span> newVersion)</span> </span>&#123;   </span><br><span class="line">		<span class="comment">//更新数据库时调用此函数,修改增加字段等</span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2_u3001_u65B0_u5EFA_u4E00_u4E2A_u64CD_u4F5C_u6570_u636E_u5E93_u7684_u7C7B"><a href="#2_u3001_u65B0_u5EFA_u4E00_u4E2A_u64CD_u4F5C_u6570_u636E_u5E93_u7684_u7C7B" class="headerlink" title="2、新建一个操作数据库的类"></a>2、新建一个操作数据库的类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DBOperator</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> SQLiteDatabase db;<span class="comment">//数据库实例</span></span><br><span class="line">    <span class="keyword">private</span> DBHelper dbHelper;<span class="comment">//数据库帮助类实例</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//构造函数初始化以上实例</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">DBOperator</span><span class="params">(Context context)</span></span>&#123;</span><br><span class="line">		dbHelper = <span class="keyword">new</span> DBHelper(context);</span><br><span class="line">		db = dbHelper.getWritableDatabase();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//关闭数据库</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span></span>&#123;</span><br><span class="line">		db.close();</span><br><span class="line">		dbHelper.close();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//插入</span></span><br><span class="line">	<span class="comment">//db.execSQL( "insert into user(name, age) values('duwei', 23)" ); </span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//使用ContentValues插入数据：ContentValues 和HashTable类似都是一种存储的机制 但是两者最大的区别就在于：</span></span><br><span class="line">	<span class="comment">//contenvalues只能存储基本类型的数据，像string，int之类的，不能存储对象这种东西，而HashTable却可以存储对象</span></span><br><span class="line">	<span class="comment">//插入成功就返回记录的id否则返回-1；</span></span><br><span class="line">	<span class="comment">//ContentValues initialValues = new ContentValues();</span></span><br><span class="line">	<span class="comment">//initialValues.put(name,"duwei");</span></span><br><span class="line">	<span class="comment">//initialValues.put(age,23);</span></span><br><span class="line">	<span class="comment">//db.insert(database_name,null,initialValues);</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//查询</span></span><br><span class="line">	<span class="comment">//Cursor cursor = db.rawQuery("select * from user", null); </span></span><br><span class="line">	<span class="comment">//while (cursor.moveToNext()) &#123;  </span></span><br><span class="line">	  	<span class="comment">//int userid = cursor.getInt(0); //获取第一列的值,第一列的索引从0开始   </span></span><br><span class="line">	 	<span class="comment">//String name = cursor.getString(1);//获取第二列的值  </span></span><br><span class="line">	 	<span class="comment">//int age = cursor.getInt(2);//获取第三列的值    </span></span><br><span class="line">	<span class="comment">//&#125;  </span></span><br><span class="line">	<span class="comment">//cursor.close();  //记得关闭游标</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u6570_u636E_u5E93_u4F18_u5316_uFF1A"><a href="#u6570_u636E_u5E93_u4F18_u5316_uFF1A" class="headerlink" title="数据库优化："></a>数据库优化：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(db.isOpen())&#123;</span><br><span class="line">	db.beginTransaction();  <span class="comment">//开启事务</span></span><br><span class="line">	<span class="keyword">try</span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(Collection c:colls)&#123;</span><br><span class="line">	        insert(db, c);</span><br><span class="line">	&#125;</span><br><span class="line">	db.setTransactionSuccessful(); <span class="comment">//设置事务处理成功，不设置会自动回滚</span></span><br><span class="line">	&#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">	    </span><br><span class="line">	&#125;<span class="keyword">finally</span>&#123;</span><br><span class="line">	    db.endTransaction(); <span class="comment">//处理完成</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/05/android数据库总结/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/05/android数据库总结/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/04/02/TCP协议复习二/" title="TCP协议复习二" itemprop="url">TCP协议复习二</a>
   </h1>
   <p class="article-author">By
@@ -427,86 +487,6 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/03/23/Android-View-System/" title="Android-View-System" itemprop="url">Android-View-System</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-23T02:38:38.000Z" itemprop="datePublished"> 发表于 2016-03-23</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u6982_u8FF0_uFF1AAndroid_u7684View_u7CFB_u7EDF_u7684_u4F53_u7CFB_u7ED3_u6784_u603B_u7ED3_uFF1A_28ViewRoot_u2013_26gt_3BViewRootImpl_29"><a href="#u6982_u8FF0_uFF1AAndroid_u7684View_u7CFB_u7EDF_u7684_u4F53_u7CFB_u7ED3_u6784_u603B_u7ED3_uFF1A_28ViewRoot_u2013_26gt_3BViewRootImpl_29" class="headerlink" title="概述：Android的View系统的体系结构总结：(ViewRoot–&gt;ViewRootImpl)"></a>概述：Android的View系统的体系结构总结：(ViewRoot–&gt;ViewRootImpl)</h2><ul>
-<li>View与ViewRootImpl的关系</li>
-<li>Activity与Window的关系</li>
-<li>Window与WindowManagerImpl的关系</li>
-<li>ViewRootImpl和WindowManagerImpl的关系</li>
-<li>ViewRootImpl与WindowManagerService关系</li>
-</ul>
-<h3 id="View_u4E0EViewRoot_u7684_u5173_u7CFB"><a href="#View_u4E0EViewRoot_u7684_u5173_u7CFB" class="headerlink" title="View与ViewRoot的关系"></a>View与ViewRoot的关系</h3><ul>
-<li>ViewRootImpl中的成员变量指向View树的根</li>
-</ul>
-<h3 id="Activity_u4E0EWindow_u7684_u5173_u7CFB"><a href="#Activity_u4E0EWindow_u7684_u5173_u7CFB" class="headerlink" title="Activity与Window的关系"></a>Activity与Window的关系</h3><ul>
-<li>Activity内部有一个Window的成员变量指向其子类PhoneWindow</li>
-</ul>
-<h3 id="Window_u4E0EWindowManagerImpl_u7684_u5173_u7CFB"><a href="#Window_u4E0EWindowManagerImpl_u7684_u5173_u7CFB" class="headerlink" title="Window与WindowManagerImpl的关系"></a>Window与WindowManagerImpl的关系</h3><ul>
-<li>WindowManager是Window的成员变量，其实现类为WindowManagerImpl</li>
-</ul>
-<h3 id="ViewRoot_u548CWindowManagerImpl_u7684_u5173_u7CFB"><a href="#ViewRoot_u548CWindowManagerImpl_u7684_u5173_u7CFB" class="headerlink" title="ViewRoot和WindowManagerImpl的关系"></a>ViewRoot和WindowManagerImpl的关系</h3><ul>
-<li>WindowManagerImpl内部通过WindowManagerGlobal对象对如下三个对象进行管理：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;View&gt; mViews = <span class="keyword">new</span> ArrayList&lt;View&gt;();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;ViewRootImpl&gt; mRoots = <span class="keyword">new</span> ArrayList&lt;ViewRootImpl&gt;();</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> ArrayList&lt;WindowManager.LayoutParams&gt; mParams =<span class="keyword">new</span> ArrayList&lt;WindowManager.LayoutParams&gt;();</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="ViewRootImpl_u4E0EWindowManagerService_u5173_u7CFB"><a href="#ViewRootImpl_u4E0EWindowManagerService_u5173_u7CFB" class="headerlink" title="ViewRootImpl与WindowManagerService关系"></a>ViewRootImpl与WindowManagerService关系</h3><ul>
-<li>ViewRootImpl负责与WMS进行通信（IWindowSession），反向通过IWindow来完成。</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/framwork/">framwork</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/03/23/Android-View-System/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/23/Android-View-System/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/2/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/">Next<span></span></a>
@@ -566,6 +546,10 @@ var _hmt = _hmt || [];
 		
 			
 				<li><a href="/tags/源码阅读/" title="源码阅读">源码阅读<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JavaWeb/" title="JavaWeb">JavaWeb<sup>1</sup></a></li>
 			
 		
 			
