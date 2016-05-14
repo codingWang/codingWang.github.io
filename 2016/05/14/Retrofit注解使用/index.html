@@ -16,19 +16,32 @@
 
 注解
 描述
-例
 
 
 
 
 @Path
 替换URL中的变量
-@GET(“/users/{username}”) Call getUser(@Path(“username”) String username);
 
 
 @Query
 指定注解参数中的查询变量的键名
-@GET(“/group/{id}/users”) Call&amp;gt; groupList(@Path(“i">
+
+
+@Body
+POST请求的请求体
+
+
+@Multipart/@Part
+提交多参数表单数据
+
+
+@FormUrlEncode/@FieldMap
+编码的URL键值对
+
+
+
+12@GET(&quot;/users/&amp;#123;username&amp;#125;&quot;) Call">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Retrofit注解使用">
 <meta property="og:url" content="http://duwei.com/2016/05/14/Retrofit注解使用/index.html">
@@ -38,20 +51,33 @@
 
 注解
 描述
-例
 
 
 
 
 @Path
 替换URL中的变量
-@GET(“/users/{username}”) Call getUser(@Path(“username”) String username);
 
 
 @Query
 指定注解参数中的查询变量的键名
-@GET(“/group/{id}/users”) Call&amp;gt; groupList(@Path(“i">
-<meta property="og:updated_time" content="2016-05-14T01:42:05.259Z">
+
+
+@Body
+POST请求的请求体
+
+
+@Multipart/@Part
+提交多参数表单数据
+
+
+@FormUrlEncode/@FieldMap
+编码的URL键值对
+
+
+
+12@GET(&quot;/users/&amp;#123;username&amp;#125;&quot;) Call">
+<meta property="og:updated_time" content="2016-05-14T01:59:46.360Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Retrofit注解使用">
 <meta name="twitter:description" content="Retrofit中的一些注解总结
@@ -59,19 +85,32 @@
 
 注解
 描述
-例
 
 
 
 
 @Path
 替换URL中的变量
-@GET(“/users/{username}”) Call getUser(@Path(“username”) String username);
 
 
 @Query
 指定注解参数中的查询变量的键名
-@GET(“/group/{id}/users”) Call&amp;gt; groupList(@Path(“i">
+
+
+@Body
+POST请求的请求体
+
+
+@Multipart/@Part
+提交多参数表单数据
+
+
+@FormUrlEncode/@FieldMap
+编码的URL键值对
+
+
+
+12@GET(&quot;/users/&amp;#123;username&amp;#125;&quot;) Call">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -165,22 +204,38 @@ var _hmt = _hmt || [];
 <tr>
 <th>注解</th>
 <th>描述</th>
-<th>例</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>@Path</td>
 <td>替换URL中的变量</td>
-<td>@GET(“/users/{username}”) Call<user> getUser(@Path(“username”) String username);</user></td>
 </tr>
 <tr>
 <td>@Query</td>
 <td>指定注解参数中的查询变量的键名</td>
-<td>@GET(“/group/{id}/users”) Call<list<user>&gt; groupList(@Path(“id”) int groupId, @Query(“sort”) String sort);</list<user></td>
+</tr>
+<tr>
+<td>@Body</td>
+<td>POST请求的请求体</td>
+</tr>
+<tr>
+<td>@Multipart/@Part</td>
+<td>提交多参数表单数据</td>
+</tr>
+<tr>
+<td>@FormUrlEncode/@FieldMap</td>
+<td>编码的URL键值对</td>
 </tr>
 </tbody>
 </table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@GET</span>(<span class="string">"/users/&#123;username&#125;"</span>) </span><br><span class="line"><span class="function">Call&lt;User&gt; <span class="title">getUser</span><span class="params">(@Path(<span class="string">"username"</span>)</span> String username)</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@GET</span>(<span class="string">"/group/&#123;id&#125;/users"</span>) </span><br><span class="line">Call&lt;List&lt;User&gt;&gt; groupList(<span class="annotation">@Path</span>(<span class="string">"id"</span>) <span class="keyword">int</span> groupId, <span class="annotation">@Query</span>(<span class="string">"sort"</span>) String sort);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@POST</span>(<span class="string">"/users/new"</span>) </span><br><span class="line"><span class="function">Call&lt;User&gt; <span class="title">createUser</span><span class="params">(@Body User user)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Multipart</span> </span><br><span class="line"><span class="annotation">@POST</span>(<span class="string">"/some/endpoint"</span>) </span><br><span class="line"><span class="function">Call&lt;SomeResponse&gt; <span class="title">someEndpoint</span><span class="params">(@Part(<span class="string">"name1"</span>)</span> String name1, @<span class="title">Part</span><span class="params">(<span class="string">"name2"</span>)</span> String name2)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@FormUrlEncoded</span></span><br><span class="line"><span class="annotation">@POST</span>(<span class="string">"/some/endpoint"</span>)</span><br><span class="line"><span class="function">Call&lt;SomeResponse&gt; <span class="title">someEndpoint</span><span class="params">(@FieldMap Map&lt;String, String&gt; names)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@POST</span>(<span class="string">"/test/rest1.php"</span>)</span><br><span class="line"><span class="function">Call&lt;SomeResponse&gt; <span class="title">updatePerson</span><span class="params">(@Field(<span class="string">"name"</span>)</span> String name,@<span class="title">Field</span><span class="params">(<span class="string">"age"</span>)</span> <span class="keyword">int</span> age, Callback&lt;Person&gt; callback)</span>;</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/1016/3588.html" target="_blank" rel="external">链接</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
