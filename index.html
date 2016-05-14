@@ -115,11 +115,15 @@ var _hmt = _hmt || [];
 <tr>
 <td>@Path</td>
 <td>替换URL中的变量</td>
-<td>@GET(“/users/{username}”) </td>
+<td>@GET(“/users/{username}”) Call<user> getUser(@Path(“username”) String username);</user></td>
+</tr>
+<tr>
+<td>@Query</td>
+<td>指定注解参数中的查询变量的键名</td>
+<td>@GET(“/group/{id}/users”) Call<list<user>&gt; groupList(@Path(“id”) int groupId, @Query(“sort”) String sort);</list<user></td>
 </tr>
 </tbody>
 </table>
-<p>Call<user> getUser(@Path(“username”) String username); |<br>| @Query | 指定注解参数中的查询变量的键名 | @GET(“/group/{id}/users”)<br>Call<list<user>&gt; groupList(@Path(“id”) int groupId, @Query(“sort”) String sort); |</list<user></user></p>
 
         
         

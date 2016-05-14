@@ -23,11 +23,12 @@
 
 @Path
 替换URL中的变量
-@GET(“/users/{username}”) 
+@GET(“/users/{username}”) Call getUser(@Path(“username”) String username);
 
 
-
-Call getUser(@Path(“username”) String username); || @Query | 指定注解参数中的查询变量的键名 | @GET(“/group/{id}/users”)Call&amp;gt; groupList(">
+@Query
+指定注解参数中的查询变量的键名
+@GET(“/group/{id}/users”) Call&amp;gt; groupList(@Path(“i">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Retrofit注解使用">
 <meta property="og:url" content="http://duwei.com/2016/05/14/Retrofit注解使用/index.html">
@@ -44,12 +45,13 @@ Call getUser(@Path(“username”) String username); || @Query | 指定注解参
 
 @Path
 替换URL中的变量
-@GET(“/users/{username}”) 
+@GET(“/users/{username}”) Call getUser(@Path(“username”) String username);
 
 
-
-Call getUser(@Path(“username”) String username); || @Query | 指定注解参数中的查询变量的键名 | @GET(“/group/{id}/users”)Call&amp;gt; groupList(">
-<meta property="og:updated_time" content="2016-05-14T01:40:34.738Z">
+@Query
+指定注解参数中的查询变量的键名
+@GET(“/group/{id}/users”) Call&amp;gt; groupList(@Path(“i">
+<meta property="og:updated_time" content="2016-05-14T01:42:05.259Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Retrofit注解使用">
 <meta name="twitter:description" content="Retrofit中的一些注解总结
@@ -64,11 +66,12 @@ Call getUser(@Path(“username”) String username); || @Query | 指定注解参
 
 @Path
 替换URL中的变量
-@GET(“/users/{username}”) 
+@GET(“/users/{username}”) Call getUser(@Path(“username”) String username);
 
 
-
-Call getUser(@Path(“username”) String username); || @Query | 指定注解参数中的查询变量的键名 | @GET(“/group/{id}/users”)Call&amp;gt; groupList(">
+@Query
+指定注解参数中的查询变量的键名
+@GET(“/group/{id}/users”) Call&amp;gt; groupList(@Path(“i">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -169,11 +172,15 @@ var _hmt = _hmt || [];
 <tr>
 <td>@Path</td>
 <td>替换URL中的变量</td>
-<td>@GET(“/users/{username}”) </td>
+<td>@GET(“/users/{username}”) Call<user> getUser(@Path(“username”) String username);</user></td>
+</tr>
+<tr>
+<td>@Query</td>
+<td>指定注解参数中的查询变量的键名</td>
+<td>@GET(“/group/{id}/users”) Call<list<user>&gt; groupList(@Path(“id”) int groupId, @Query(“sort”) String sort);</list<user></td>
 </tr>
 </tbody>
 </table>
-<p>Call<user> getUser(@Path(“username”) String username); |<br>| @Query | 指定注解参数中的查询变量的键名 | @GET(“/group/{id}/users”)<br>Call<list<user>&gt; groupList(@Path(“id”) int groupId, @Query(“sort”) String sort); |</list<user></user></p>
   
 	</div>
 		<footer class="article-footer clearfix">
