@@ -90,6 +90,80 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/05/14/Retrofit注解使用/" title="Retrofit注解使用" itemprop="url">Retrofit注解使用</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-05-14T01:31:40.000Z" itemprop="datePublished"> 发表于 2016-05-14</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="Retrofit_u4E2D_u7684_u4E00_u4E9B_u6CE8_u89E3_u603B_u7ED3"><a href="#Retrofit_u4E2D_u7684_u4E00_u4E9B_u6CE8_u89E3_u603B_u7ED3" class="headerlink" title="Retrofit中的一些注解总结"></a>Retrofit中的一些注解总结</h3><table>
+<thead>
+<tr>
+<th>注解</th>
+<th>描述</th>
+<th>例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>@Path</td>
+<td>替换URL中的变量</td>
+<td>@GET(“/users/{username}”) </td>
+</tr>
+</tbody>
+</table>
+<p>Call<user> getUser(@Path(“username”) String username); |<br>| @Query | 指定注解参数中的查询变量的键名 | @GET(“/group/{id}/users”)<br>Call<list<user>&gt; groupList(@Path(“id”) int groupId, @Query(“sort”) String sort); |</list<user></user></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/05/14/Retrofit注解使用/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/14/Retrofit注解使用/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/05/08/Apache-Tiles/" title="Apache Tiles" itemprop="url">Apache Tiles</a>
   </h1>
   <p class="article-author">By
@@ -323,76 +397,6 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/04/19/设计模式之单例模式/" title="设计模式之单例模式" itemprop="url">设计模式之单例模式</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-04-19T12:05:56.000Z" itemprop="datePublished"> 发表于 2016-04-19</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u6982_u8FF0_uFF1A_u5355_u4F8B_u6A21_u5F0F_u662F_u6700_u7B80_u5355_u7684_uFF0C_u4E5F_u662F_u7528_u7684_u6BD4_u8F83_u591A_u7684_uFF0C_u8FD9_u91CC_u8BB0_u5F55_u4E00_u4E0B_u5E38_u89C1_u51E0_u79CD_u5355_u4F8B_u7684_u5199_u6CD5_u7684_u4F18_u7F3A_u70B9_u3002"><a href="#u6982_u8FF0_uFF1A_u5355_u4F8B_u6A21_u5F0F_u662F_u6700_u7B80_u5355_u7684_uFF0C_u4E5F_u662F_u7528_u7684_u6BD4_u8F83_u591A_u7684_uFF0C_u8FD9_u91CC_u8BB0_u5F55_u4E00_u4E0B_u5E38_u89C1_u51E0_u79CD_u5355_u4F8B_u7684_u5199_u6CD5_u7684_u4F18_u7F3A_u70B9_u3002" class="headerlink" title="概述：单例模式是最简单的，也是用的比较多的，这里记录一下常见几种单例的写法的优缺点。"></a>概述：单例模式是最简单的，也是用的比较多的，这里记录一下常见几种单例的写法的优缺点。</h2><h2 id="u4EE3_u7801_uFF1A"><a href="#u4EE3_u7801_uFF1A" class="headerlink" title="代码："></a>代码：</h2><h3 id="u997F_u6C49_u5F0F"><a href="#u997F_u6C49_u5F0F" class="headerlink" title="饿汉式"></a><strong>饿汉式</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//线程安全但耗资源</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;   </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton instance = <span class="keyword">new</span> Singleton();   </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123; &#125;   </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> instance;   </span><br><span class="line">    &#125;     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="u61D2_u6C49_u5F0F"><a href="#u61D2_u6C49_u5F0F" class="headerlink" title="懒汉式"></a><strong>懒汉式</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;   </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">null</span>;   <span class="comment">//延迟加载</span></span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123; &#125;   </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">synchronized</span> <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;   </span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">            instance = <span class="keyword">new</span> Singleton();   </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> instance;   </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><strong>在方法上加锁：每次调用方法都用锁，效率低下，我们可以考虑在对象为null时才锁</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;   </span><br><span class="line">    <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">    	<span class="comment">//第二个线程进来了</span></span><br><span class="line">        <span class="keyword">synchronized</span> (Singleton.class) &#123;  </span><br><span class="line">        <span class="comment">//第一个线程走到这里</span></span><br><span class="line">            instance = <span class="keyword">new</span> Singleton();   </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">return</span> instance;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>这样做线程又不安全了</strong>如上注释</p>
-</li>
-</ul>
-<h3 id="u7528_u53CC_u91CD_u9501"><a href="#u7528_u53CC_u91CD_u9501" class="headerlink" title="用双重锁"></a>用双重锁</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;   </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">null</span>;   </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123; &#125;   </span><br><span class="line">  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;   </span><br><span class="line">        <span class="comment">//第一重判断  </span></span><br><span class="line">        <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">            <span class="comment">//锁定代码块  </span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class) &#123;  </span><br><span class="line">                <span class="comment">//第二重判断  </span></span><br><span class="line">                <span class="keyword">if</span> (instance == <span class="keyword">null</span>) &#123;  </span><br><span class="line">                    instance = <span class="keyword">new</span> Singleton(); <span class="comment">//创建单例实例  </span></span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="keyword">return</span> instance;   </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<hr>
-<h3 id="u5373_u5B9E_u73B0_u61D2_u52A0_u8F7D_u53C8_u7EBF_u7A0B_u5B89_u5168_u7684_u65B9_u5F0F"><a href="#u5373_u5B9E_u73B0_u61D2_u52A0_u8F7D_u53C8_u7EBF_u7A0B_u5B89_u5168_u7684_u65B9_u5F0F" class="headerlink" title="即实现懒加载又线程安全的方式"></a>即实现懒加载又线程安全的方式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;  </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">HolderClass</span> </span>&#123;  </span><br><span class="line">            <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> Singleton instance = <span class="keyword">new</span> Singleton();  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        <span class="keyword">return</span> HolderClass.instance;  <span class="comment">//初始化类时才初始化外部类对象：懒加载</span></span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/设计模式/">设计模式</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/04/19/设计模式之单例模式/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/19/设计模式之单例模式/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -423,7 +427,7 @@ var _hmt = _hmt || [];
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Android/" title="Android">Android<sup>18</sup></a></li>
+				<li><a href="/tags/Android/" title="Android">Android<sup>19</sup></a></li>
 			
 		
 			
