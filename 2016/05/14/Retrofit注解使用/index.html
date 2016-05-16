@@ -40,8 +40,12 @@ POST请求的请求体
 编码的URL键值对
 
 
+@Streaming
+大文件下载避免将整个文件加入内存
 
-12@GET(&quot;/users/&amp;#123;username&amp;#125;&quot;) Call">
+
+
+12@GET(&quot;/use">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Retrofit注解使用">
 <meta property="og:url" content="http://duwei.com/2016/05/14/Retrofit注解使用/index.html">
@@ -75,9 +79,13 @@ POST请求的请求体
 编码的URL键值对
 
 
+@Streaming
+大文件下载避免将整个文件加入内存
 
-12@GET(&quot;/users/&amp;#123;username&amp;#125;&quot;) Call">
-<meta property="og:updated_time" content="2016-05-14T01:59:46.360Z">
+
+
+12@GET(&quot;/use">
+<meta property="og:updated_time" content="2016-05-14T02:13:26.927Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Retrofit注解使用">
 <meta name="twitter:description" content="Retrofit中的一些注解总结
@@ -109,8 +117,12 @@ POST请求的请求体
 编码的URL键值对
 
 
+@Streaming
+大文件下载避免将整个文件加入内存
 
-12@GET(&quot;/users/&amp;#123;username&amp;#125;&quot;) Call">
+
+
+12@GET(&quot;/use">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -227,6 +239,10 @@ var _hmt = _hmt || [];
 <td>@FormUrlEncode/@FieldMap</td>
 <td>编码的URL键值对</td>
 </tr>
+<tr>
+<td>@Streaming</td>
+<td>大文件下载避免将整个文件加入内存</td>
+</tr>
 </tbody>
 </table>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@GET</span>(<span class="string">"/users/&#123;username&#125;"</span>) </span><br><span class="line"><span class="function">Call&lt;User&gt; <span class="title">getUser</span><span class="params">(@Path(<span class="string">"username"</span>)</span> String username)</span>;</span><br></pre></td></tr></table></figure>
@@ -235,7 +251,8 @@ var _hmt = _hmt || [];
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Multipart</span> </span><br><span class="line"><span class="annotation">@POST</span>(<span class="string">"/some/endpoint"</span>) </span><br><span class="line"><span class="function">Call&lt;SomeResponse&gt; <span class="title">someEndpoint</span><span class="params">(@Part(<span class="string">"name1"</span>)</span> String name1, @<span class="title">Part</span><span class="params">(<span class="string">"name2"</span>)</span> String name2)</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@FormUrlEncoded</span></span><br><span class="line"><span class="annotation">@POST</span>(<span class="string">"/some/endpoint"</span>)</span><br><span class="line"><span class="function">Call&lt;SomeResponse&gt; <span class="title">someEndpoint</span><span class="params">(@FieldMap Map&lt;String, String&gt; names)</span></span>;</span><br></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@POST</span>(<span class="string">"/test/rest1.php"</span>)</span><br><span class="line"><span class="function">Call&lt;SomeResponse&gt; <span class="title">updatePerson</span><span class="params">(@Field(<span class="string">"name"</span>)</span> String name,@<span class="title">Field</span><span class="params">(<span class="string">"age"</span>)</span> <span class="keyword">int</span> age, Callback&lt;Person&gt; callback)</span>;</span><br></pre></td></tr></table></figure>
-<p><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/1016/3588.html" target="_blank" rel="external">链接</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Streaming</span></span><br><span class="line"><span class="annotation">@GET</span></span><br><span class="line"><span class="function">Call&lt;ResponseBody&gt; <span class="title">downloadFileWithDynamicUrlAsync</span><span class="params">(@Url String fileUrl)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><a href="https://futurestud.io/blog/retrofit-2-how-to-use-dynamic-urls-for-requests" target="_blank" rel="external">一系列Retrofit文章</a><br><a href="http://www.jianshu.com/p/92bb85fc07e8" target="_blank" rel="external">如何从服务器下载文件</a><br><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/1016/3588.html" target="_blank" rel="external">链接</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -266,6 +283,14 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
+ <div class="prev" >
+ <a href="/2016/05/16/android开发库收录/" title="android开发库收录">
+  <strong>上一篇：</strong><br/>
+  <span>
+  android开发库收录</span>
+</a>
+</div>
+
 
 <div class="next">
 <a href="/2016/05/08/Apache-Tiles/"  title="Apache Tiles">
@@ -315,7 +340,7 @@ var _hmt = _hmt || [];
 		<ul class="clearfix">
 		
 			
-				<li><a href="/tags/Android/" title="Android">Android<sup>19</sup></a></li>
+				<li><a href="/tags/Android/" title="Android">Android<sup>20</sup></a></li>
 			
 		
 			

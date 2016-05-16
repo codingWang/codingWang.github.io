@@ -4,23 +4,35 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>PageTransformer | duwei&#39;s blog</title>
+    <title>android开发库收录 | duwei&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="duwei">
     
 
     
-    <meta name="description" content="position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.512345678910111213141516171819202122232">
+    <meta name="description" content="这几天学习到的开源项目fragmentargs介绍文章
+解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承IntentBuilder
+AutoBundle
+fragmentargs 和 AutoBundle 的结合icepick
+一个使用注解就可以完成savedInstanceState的库，支持custom Views这几天看的文章深入理解Android（一">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PageTransformer">
-<meta property="og:url" content="http://duwei.com/2016/05/07/PageTransformer/index.html">
+<meta property="og:title" content="android开发库收录">
+<meta property="og:url" content="http://duwei.com/2016/05/16/android开发库收录/index.html">
 <meta property="og:site_name" content="duwei's blog">
-<meta property="og:description" content="position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.512345678910111213141516171819202122232">
-<meta property="og:updated_time" content="2016-05-07T11:50:24.035Z">
+<meta property="og:description" content="这几天学习到的开源项目fragmentargs介绍文章
+解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承IntentBuilder
+AutoBundle
+fragmentargs 和 AutoBundle 的结合icepick
+一个使用注解就可以完成savedInstanceState的库，支持custom Views这几天看的文章深入理解Android（一">
+<meta property="og:updated_time" content="2016-05-16T08:17:50.444Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PageTransformer">
-<meta name="twitter:description" content="position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.512345678910111213141516171819202122232">
+<meta name="twitter:title" content="android开发库收录">
+<meta name="twitter:description" content="这几天学习到的开源项目fragmentargs介绍文章
+解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承IntentBuilder
+AutoBundle
+fragmentargs 和 AutoBundle 的结合icepick
+一个使用注解就可以完成savedInstanceState的库，支持custom Views这几天看的文章深入理解Android（一">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -89,14 +101,14 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/05/07/PageTransformer/" title="PageTransformer" itemprop="url">PageTransformer</a>
+      <a href="/2016/05/16/android开发库收录/" title="android开发库收录" itemprop="url">android开发库收录</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
 		
   <p class="article-time">
-    <time datetime="2016-05-07T11:37:23.000Z" itemprop="datePublished"> 发表于 2016-05-07</time>
+    <time datetime="2016-05-16T02:24:25.000Z" itemprop="datePublished"> 发表于 2016-05-16</time>
     
   </p>
 </header>
@@ -105,12 +117,18 @@ var _hmt = _hmt || [];
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#position_u53C2_u6570_u6307_u660E_u4E86_u7ED9_u5B9A_u9875_u9762_u76F8_u5BF9_u4E8E_u5C4F_u5E55_u4E2D_u5FC3_u7684_u4F4D_u7F6E_u3002_u5B83_u662F_u4E00_u4E2A_u52A8_u6001_u7684_u5C5E_u6027_uFF0C_u4F1A_u6839_u636E_u7528_u6237_u6ED1_u52A8_u9875_u9762_u65F6_u53D8_u5316_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u5145_u6EE1_u5C4F_u5E55_u65F6_uFF0C_u5B83_u7684position_u503C_u4E3A0_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u88AB_u7ED8_u5236_u5728_u5C4F_u5E55_u7684_u53F3_u4FA7_uFF0C_u5B83_u7684position_u503C_u4E3A1_u3002_u5982_u679C_u7528_u6237_u6ED1_u5230_u4E00_u534A_uFF0C_u5728_u9875_u97621_u548C_u9875_u97622_u4E4B_u95F4_u662F_uFF0C_u9875_u97621_u7684position_u503C_u4E3A-0-5_uFF0C_u9875_u97622_u7684position_u503C_u4E3A0-5"><span class="toc-number">1.</span> <span class="toc-text">position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.5</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u51E0_u5929_u5B66_u4E60_u5230_u7684_u5F00_u6E90_u9879_u76EE"><span class="toc-number">1.</span> <span class="toc-text">这几天学习到的开源项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u89E3_u51B3fragment_u6A2A_u7AD6_u5C4F_u5207_u6362_u53EF_u80FD_u5E26_u6765_u7684crash_uFF0C_u7528_u6CE8_u89E3_u751F_u6210Bundle_u4EE3_u7801_uFF0C_u652F_u6301_u7EE7_u627F"><span class="toc-number">1.1.</span> <span class="toc-text">解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fragmentargs__u548C_AutoBundle__u7684_u7ED3_u5408"><span class="toc-number">1.2.</span> <span class="toc-text">fragmentargs 和 AutoBundle 的结合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E00_u4E2A_u4F7F_u7528_u6CE8_u89E3_u5C31_u53EF_u4EE5_u5B8C_u6210savedInstanceState_u7684_u5E93_uFF0C_u652F_u6301custom_Views"><span class="toc-number">1.3.</span> <span class="toc-text">一个使用注解就可以完成savedInstanceState的库，支持custom Views</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u51E0_u5929_u770B_u7684_u6587_u7AE0"><span class="toc-number">2.</span> <span class="toc-text">这几天看的文章</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="position_u53C2_u6570_u6307_u660E_u4E86_u7ED9_u5B9A_u9875_u9762_u76F8_u5BF9_u4E8E_u5C4F_u5E55_u4E2D_u5FC3_u7684_u4F4D_u7F6E_u3002_u5B83_u662F_u4E00_u4E2A_u52A8_u6001_u7684_u5C5E_u6027_uFF0C_u4F1A_u6839_u636E_u7528_u6237_u6ED1_u52A8_u9875_u9762_u65F6_u53D8_u5316_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u5145_u6EE1_u5C4F_u5E55_u65F6_uFF0C_u5B83_u7684position_u503C_u4E3A0_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u88AB_u7ED8_u5236_u5728_u5C4F_u5E55_u7684_u53F3_u4FA7_uFF0C_u5B83_u7684position_u503C_u4E3A1_u3002_u5982_u679C_u7528_u6237_u6ED1_u5230_u4E00_u534A_uFF0C_u5728_u9875_u97621_u548C_u9875_u97622_u4E4B_u95F4_u662F_uFF0C_u9875_u97621_u7684position_u503C_u4E3A-0-5_uFF0C_u9875_u97622_u7684position_u503C_u4E3A0-5"><a href="#position_u53C2_u6570_u6307_u660E_u4E86_u7ED9_u5B9A_u9875_u9762_u76F8_u5BF9_u4E8E_u5C4F_u5E55_u4E2D_u5FC3_u7684_u4F4D_u7F6E_u3002_u5B83_u662F_u4E00_u4E2A_u52A8_u6001_u7684_u5C5E_u6027_uFF0C_u4F1A_u6839_u636E_u7528_u6237_u6ED1_u52A8_u9875_u9762_u65F6_u53D8_u5316_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u5145_u6EE1_u5C4F_u5E55_u65F6_uFF0C_u5B83_u7684position_u503C_u4E3A0_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u88AB_u7ED8_u5236_u5728_u5C4F_u5E55_u7684_u53F3_u4FA7_uFF0C_u5B83_u7684position_u503C_u4E3A1_u3002_u5982_u679C_u7528_u6237_u6ED1_u5230_u4E00_u534A_uFF0C_u5728_u9875_u97621_u548C_u9875_u97622_u4E4B_u95F4_u662F_uFF0C_u9875_u97621_u7684position_u503C_u4E3A-0-5_uFF0C_u9875_u97622_u7684position_u503C_u4E3A0-5" class="headerlink" title="position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.5"></a>position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.5</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DepthPageTransformer</span> <span class="keyword">implements</span> <span class="title">PageTransformer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">float</span> MIN_SCALE = <span class="number">0.75f</span>;</span><br><span class="line">                          </span><br><span class="line">    <span class="annotation">@SuppressLint</span>(<span class="string">"NewApi"</span>)</span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">transformPage</span><span class="params">(View view, <span class="keyword">float</span> position)</span> </span>&#123;	<span class="comment">//这里的position参数不好理解</span></span><br><span class="line">        <span class="keyword">int</span> pageWidth = view.getWidth();</span><br><span class="line">        <span class="keyword">if</span> (position &lt; -<span class="number">1</span>) &#123;         <span class="comment">//[-8,-1]  </span></span><br><span class="line">            view.setAlpha(<span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (position &lt;= <span class="number">0</span>) &#123; 	<span class="comment">//[-1.0]</span></span><br><span class="line">            view.setAlpha(<span class="number">1</span>);</span><br><span class="line">            view.setTranslationX(<span class="number">0</span>);</span><br><span class="line">            view.setScaleX(<span class="number">1</span>);</span><br><span class="line">            view.setScaleY(<span class="number">1</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (position &lt;= <span class="number">1</span>) &#123; 	<span class="comment">//[0,1]</span></span><br><span class="line">            view.setAlpha(<span class="number">1</span> - position);</span><br><span class="line">            view.setTranslationX(pageWidth * -position);</span><br><span class="line">            <span class="keyword">float</span> scaleFactor = MIN_SCALE + (<span class="number">1</span> - MIN_SCALE)* (<span class="number">1</span> - Math.abs(position));</span><br><span class="line">            view.setScaleX(scaleFactor);</span><br><span class="line">            view.setScaleY(scaleFactor);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; 						<span class="comment">//[1,+8]</span></span><br><span class="line">            view.setAlpha(<span class="number">0</span>);</span><br><span class="line">                          </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">                          </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="http://android.jobbole.com/80668/" target="_blank" rel="external">http://android.jobbole.com/80668/</a></p>
+		<h3 id="u8FD9_u51E0_u5929_u5B66_u4E60_u5230_u7684_u5F00_u6E90_u9879_u76EE"><a href="#u8FD9_u51E0_u5929_u5B66_u4E60_u5230_u7684_u5F00_u6E90_u9879_u76EE" class="headerlink" title="这几天学习到的开源项目"></a>这几天学习到的开源项目</h3><p><a href="https://github.com/sockeqwe/fragmentargs" target="_blank" rel="external">fragmentargs</a><br><a href="http://hannesdorfmann.com/android/fragmentargs" target="_blank" rel="external">介绍文章</a></p>
+<h4 id="u89E3_u51B3fragment_u6A2A_u7AD6_u5C4F_u5207_u6362_u53EF_u80FD_u5E26_u6765_u7684crash_uFF0C_u7528_u6CE8_u89E3_u751F_u6210Bundle_u4EE3_u7801_uFF0C_u652F_u6301_u7EE7_u627F"><a href="#u89E3_u51B3fragment_u6A2A_u7AD6_u5C4F_u5207_u6362_u53EF_u80FD_u5E26_u6765_u7684crash_uFF0C_u7528_u6CE8_u89E3_u751F_u6210Bundle_u4EE3_u7801_uFF0C_u652F_u6301_u7EE7_u627F" class="headerlink" title="解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承"></a>解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承</h4><p><a href="https://github.com/emilsjolander/IntentBuilder" target="_blank" rel="external">IntentBuilder</a></p>
+<p><a href="https://github.com/yatatsu/AutoBundle" target="_blank" rel="external">AutoBundle</a></p>
+<h4 id="fragmentargs__u548C_AutoBundle__u7684_u7ED3_u5408"><a href="#fragmentargs__u548C_AutoBundle__u7684_u7ED3_u5408" class="headerlink" title="fragmentargs 和 AutoBundle 的结合"></a>fragmentargs 和 AutoBundle 的结合</h4><p><a href="https://github.com/frankiesardo/icepick" target="_blank" rel="external">icepick</a></p>
+<h4 id="u4E00_u4E2A_u4F7F_u7528_u6CE8_u89E3_u5C31_u53EF_u4EE5_u5B8C_u6210savedInstanceState_u7684_u5E93_uFF0C_u652F_u6301custom_Views"><a href="#u4E00_u4E2A_u4F7F_u7528_u6CE8_u89E3_u5C31_u53EF_u4EE5_u5B8C_u6210savedInstanceState_u7684_u5E93_uFF0C_u652F_u6301custom_Views" class="headerlink" title="一个使用注解就可以完成savedInstanceState的库，支持custom Views"></a>一个使用注解就可以完成savedInstanceState的库，支持custom Views</h4><h3 id="u8FD9_u51E0_u5929_u770B_u7684_u6587_u7AE0"><a href="#u8FD9_u51E0_u5929_u770B_u7684_u6587_u7AE0" class="headerlink" title="这几天看的文章"></a>这几天看的文章</h3><p><a href="http://www.infoq.com/cn/articles/android-in-depth-gradle?utm_campaign=rightbar_v2&amp;utm_source=infoq&amp;utm_medium=articles_link&amp;utm_content=link_text" target="_blank" rel="external">深入理解Android（一）：Gradle详解</a></p>
+<p><a href="http://www.infoq.com/cn/articles/android-in-depth-dalvik?utm_campaign=rightbar_v2&amp;utm_source=infoq&amp;utm_medium=articles_link&amp;utm_content=link_text" target="_blank" rel="external">深入理解Android（二）：Java虚拟机Dalvik</a></p>
+<p><a href="http://www.infoq.com/cn/articles/android-in-depth-xposed?utm_campaign=rightbar_v2&amp;utm_source=infoq&amp;utm_medium=articles_link&amp;utm_content=link_text" target="_blank" rel="external">深入理解Android（三）：Xposed详解</a></p>
+<p><a href="http://www.infoq.com/cn/articles/RxAndroid-basics?utm_campaign=rightbar_v2&amp;utm_source=infoq&amp;utm_medium=articles_link&amp;utm_content=link_text" target="_blank" rel="external">从案例学RxAndroid开发（上）</a></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -128,7 +146,7 @@ var _hmt = _hmt || [];
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://duwei.com/2016/05/07/PageTransformer/" data-title="PageTransformer | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://duwei.com/2016/05/16/android开发库收录/" data-title="android开发库收录 | duwei&#39;s blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -141,19 +159,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/05/08/Apache-Tiles/" title="Apache Tiles">
-  <strong>上一篇：</strong><br/>
-  <span>
-  Apache Tiles</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/05/07/android屏幕文章/"  title="android屏幕文章">
+<a href="/2016/05/14/Retrofit注解使用/"  title="Retrofit注解使用">
  <strong>下一篇：</strong><br/> 
- <span>android屏幕文章
+ <span>Retrofit注解使用
 </span>
 </a>
 </div>
@@ -162,7 +172,7 @@ var _hmt = _hmt || [];
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/05/07/PageTransformer/" data-title="PageTransformer" data-url="http://duwei.com/2016/05/07/PageTransformer/"></div>
+	<div class="ds-thread" data-thread-key="2016/05/16/android开发库收录/" data-title="android开发库收录" data-url="http://duwei.com/2016/05/16/android开发库收录/"></div>
 </section>
 
 
@@ -172,7 +182,7 @@ var _hmt = _hmt || [];
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#position_u53C2_u6570_u6307_u660E_u4E86_u7ED9_u5B9A_u9875_u9762_u76F8_u5BF9_u4E8E_u5C4F_u5E55_u4E2D_u5FC3_u7684_u4F4D_u7F6E_u3002_u5B83_u662F_u4E00_u4E2A_u52A8_u6001_u7684_u5C5E_u6027_uFF0C_u4F1A_u6839_u636E_u7528_u6237_u6ED1_u52A8_u9875_u9762_u65F6_u53D8_u5316_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u5145_u6EE1_u5C4F_u5E55_u65F6_uFF0C_u5B83_u7684position_u503C_u4E3A0_u3002_u5F53_u4E00_u4E2A_u9875_u9762_u88AB_u7ED8_u5236_u5728_u5C4F_u5E55_u7684_u53F3_u4FA7_uFF0C_u5B83_u7684position_u503C_u4E3A1_u3002_u5982_u679C_u7528_u6237_u6ED1_u5230_u4E00_u534A_uFF0C_u5728_u9875_u97621_u548C_u9875_u97622_u4E4B_u95F4_u662F_uFF0C_u9875_u97621_u7684position_u503C_u4E3A-0-5_uFF0C_u9875_u97622_u7684position_u503C_u4E3A0-5"><span class="toc-number">1.</span> <span class="toc-text">position参数指明了给定页面相对于屏幕中心的位置。它是一个动态的属性，会根据用户滑动页面时变化。当一个页面充满屏幕时，它的position值为0。当一个页面被绘制在屏幕的右侧，它的position值为1。如果用户滑到一半，在页面1和页面2之间是，页面1的position值为-0.5，页面2的position值为0.5</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u51E0_u5929_u5B66_u4E60_u5230_u7684_u5F00_u6E90_u9879_u76EE"><span class="toc-number">1.</span> <span class="toc-text">这几天学习到的开源项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u89E3_u51B3fragment_u6A2A_u7AD6_u5C4F_u5207_u6362_u53EF_u80FD_u5E26_u6765_u7684crash_uFF0C_u7528_u6CE8_u89E3_u751F_u6210Bundle_u4EE3_u7801_uFF0C_u652F_u6301_u7EE7_u627F"><span class="toc-number">1.1.</span> <span class="toc-text">解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fragmentargs__u548C_AutoBundle__u7684_u7ED3_u5408"><span class="toc-number">1.2.</span> <span class="toc-text">fragmentargs 和 AutoBundle 的结合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E00_u4E2A_u4F7F_u7528_u6CE8_u89E3_u5C31_u53EF_u4EE5_u5B8C_u6210savedInstanceState_u7684_u5E93_uFF0C_u652F_u6301custom_Views"><span class="toc-number">1.3.</span> <span class="toc-text">一个使用注解就可以完成savedInstanceState的库，支持custom Views</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u51E0_u5929_u770B_u7684_u6587_u7AE0"><span class="toc-number">2.</span> <span class="toc-text">这几天看的文章</span></a></li></ol>
  
   </div>
 
