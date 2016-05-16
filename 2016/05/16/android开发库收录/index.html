@@ -11,28 +11,28 @@
     
 
     
-    <meta name="description" content="这几天学习到的开源项目fragmentargs介绍文章
-解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承IntentBuilder
-AutoBundle
-fragmentargs 和 AutoBundle 的结合icepick
-一个使用注解就可以完成savedInstanceState的库，支持custom Views这几天看的文章深入理解Android（一">
+    <meta name="description" content="这几天学习到的开源项目fragmentargs介绍文章解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承
+IntentBuilder
+AutoBundlefragmentargs 和 AutoBundle 的结合
+icepick一个使用注解就可以完成savedInstanceState的库，支持custom Views
+这几天看的文章深入理解Android（一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="android开发库收录">
 <meta property="og:url" content="http://duwei.com/2016/05/16/android开发库收录/index.html">
 <meta property="og:site_name" content="duwei's blog">
-<meta property="og:description" content="这几天学习到的开源项目fragmentargs介绍文章
-解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承IntentBuilder
-AutoBundle
-fragmentargs 和 AutoBundle 的结合icepick
-一个使用注解就可以完成savedInstanceState的库，支持custom Views这几天看的文章深入理解Android（一">
-<meta property="og:updated_time" content="2016-05-16T08:17:50.444Z">
+<meta property="og:description" content="这几天学习到的开源项目fragmentargs介绍文章解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承
+IntentBuilder
+AutoBundlefragmentargs 和 AutoBundle 的结合
+icepick一个使用注解就可以完成savedInstanceState的库，支持custom Views
+这几天看的文章深入理解Android（一">
+<meta property="og:updated_time" content="2016-05-16T10:44:10.054Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android开发库收录">
-<meta name="twitter:description" content="这几天学习到的开源项目fragmentargs介绍文章
-解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承IntentBuilder
-AutoBundle
-fragmentargs 和 AutoBundle 的结合icepick
-一个使用注解就可以完成savedInstanceState的库，支持custom Views这几天看的文章深入理解Android（一">
+<meta name="twitter:description" content="这几天学习到的开源项目fragmentargs介绍文章解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承
+IntentBuilder
+AutoBundlefragmentargs 和 AutoBundle 的结合
+icepick一个使用注解就可以完成savedInstanceState的库，支持custom Views
+这几天看的文章深入理解Android（一">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -117,15 +117,15 @@ var _hmt = _hmt || [];
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u51E0_u5929_u5B66_u4E60_u5230_u7684_u5F00_u6E90_u9879_u76EE"><span class="toc-number">1.</span> <span class="toc-text">这几天学习到的开源项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u89E3_u51B3fragment_u6A2A_u7AD6_u5C4F_u5207_u6362_u53EF_u80FD_u5E26_u6765_u7684crash_uFF0C_u7528_u6CE8_u89E3_u751F_u6210Bundle_u4EE3_u7801_uFF0C_u652F_u6301_u7EE7_u627F"><span class="toc-number">1.1.</span> <span class="toc-text">解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fragmentargs__u548C_AutoBundle__u7684_u7ED3_u5408"><span class="toc-number">1.2.</span> <span class="toc-text">fragmentargs 和 AutoBundle 的结合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E00_u4E2A_u4F7F_u7528_u6CE8_u89E3_u5C31_u53EF_u4EE5_u5B8C_u6210savedInstanceState_u7684_u5E93_uFF0C_u652F_u6301custom_Views"><span class="toc-number">1.3.</span> <span class="toc-text">一个使用注解就可以完成savedInstanceState的库，支持custom Views</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u51E0_u5929_u770B_u7684_u6587_u7AE0"><span class="toc-number">2.</span> <span class="toc-text">这几天看的文章</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u51E0_u5929_u5B66_u4E60_u5230_u7684_u5F00_u6E90_u9879_u76EE"><span class="toc-number">1.</span> <span class="toc-text">这几天学习到的开源项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u51E0_u5929_u770B_u7684_u6587_u7AE0"><span class="toc-number">2.</span> <span class="toc-text">这几天看的文章</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="u8FD9_u51E0_u5929_u5B66_u4E60_u5230_u7684_u5F00_u6E90_u9879_u76EE"><a href="#u8FD9_u51E0_u5929_u5B66_u4E60_u5230_u7684_u5F00_u6E90_u9879_u76EE" class="headerlink" title="这几天学习到的开源项目"></a>这几天学习到的开源项目</h3><p><a href="https://github.com/sockeqwe/fragmentargs" target="_blank" rel="external">fragmentargs</a><br><a href="http://hannesdorfmann.com/android/fragmentargs" target="_blank" rel="external">介绍文章</a></p>
-<h4 id="u89E3_u51B3fragment_u6A2A_u7AD6_u5C4F_u5207_u6362_u53EF_u80FD_u5E26_u6765_u7684crash_uFF0C_u7528_u6CE8_u89E3_u751F_u6210Bundle_u4EE3_u7801_uFF0C_u652F_u6301_u7EE7_u627F"><a href="#u89E3_u51B3fragment_u6A2A_u7AD6_u5C4F_u5207_u6362_u53EF_u80FD_u5E26_u6765_u7684crash_uFF0C_u7528_u6CE8_u89E3_u751F_u6210Bundle_u4EE3_u7801_uFF0C_u652F_u6301_u7EE7_u627F" class="headerlink" title="解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承"></a>解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承</h4><p><a href="https://github.com/emilsjolander/IntentBuilder" target="_blank" rel="external">IntentBuilder</a></p>
-<p><a href="https://github.com/yatatsu/AutoBundle" target="_blank" rel="external">AutoBundle</a></p>
-<h4 id="fragmentargs__u548C_AutoBundle__u7684_u7ED3_u5408"><a href="#fragmentargs__u548C_AutoBundle__u7684_u7ED3_u5408" class="headerlink" title="fragmentargs 和 AutoBundle 的结合"></a>fragmentargs 和 AutoBundle 的结合</h4><p><a href="https://github.com/frankiesardo/icepick" target="_blank" rel="external">icepick</a></p>
-<h4 id="u4E00_u4E2A_u4F7F_u7528_u6CE8_u89E3_u5C31_u53EF_u4EE5_u5B8C_u6210savedInstanceState_u7684_u5E93_uFF0C_u652F_u6301custom_Views"><a href="#u4E00_u4E2A_u4F7F_u7528_u6CE8_u89E3_u5C31_u53EF_u4EE5_u5B8C_u6210savedInstanceState_u7684_u5E93_uFF0C_u652F_u6301custom_Views" class="headerlink" title="一个使用注解就可以完成savedInstanceState的库，支持custom Views"></a>一个使用注解就可以完成savedInstanceState的库，支持custom Views</h4><h3 id="u8FD9_u51E0_u5929_u770B_u7684_u6587_u7AE0"><a href="#u8FD9_u51E0_u5929_u770B_u7684_u6587_u7AE0" class="headerlink" title="这几天看的文章"></a>这几天看的文章</h3><p><a href="http://www.infoq.com/cn/articles/android-in-depth-gradle?utm_campaign=rightbar_v2&amp;utm_source=infoq&amp;utm_medium=articles_link&amp;utm_content=link_text" target="_blank" rel="external">深入理解Android（一）：Gradle详解</a></p>
+		<h3 id="u8FD9_u51E0_u5929_u5B66_u4E60_u5230_u7684_u5F00_u6E90_u9879_u76EE"><a href="#u8FD9_u51E0_u5929_u5B66_u4E60_u5230_u7684_u5F00_u6E90_u9879_u76EE" class="headerlink" title="这几天学习到的开源项目"></a>这几天学习到的开源项目</h3><p><a href="https://github.com/sockeqwe/fragmentargs" target="_blank" rel="external">fragmentargs</a><br><a href="http://hannesdorfmann.com/android/fragmentargs" target="_blank" rel="external">介绍文章</a><br>解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承</p>
+<p><a href="https://github.com/emilsjolander/IntentBuilder" target="_blank" rel="external">IntentBuilder</a></p>
+<p><a href="https://github.com/yatatsu/AutoBundle" target="_blank" rel="external">AutoBundle</a><br>fragmentargs 和 AutoBundle 的结合</p>
+<p><a href="https://github.com/frankiesardo/icepick" target="_blank" rel="external">icepick</a><br>一个使用注解就可以完成savedInstanceState的库，支持custom Views</p>
+<h3 id="u8FD9_u51E0_u5929_u770B_u7684_u6587_u7AE0"><a href="#u8FD9_u51E0_u5929_u770B_u7684_u6587_u7AE0" class="headerlink" title="这几天看的文章"></a>这几天看的文章</h3><p><a href="http://www.infoq.com/cn/articles/android-in-depth-gradle?utm_campaign=rightbar_v2&amp;utm_source=infoq&amp;utm_medium=articles_link&amp;utm_content=link_text" target="_blank" rel="external">深入理解Android（一）：Gradle详解</a></p>
 <p><a href="http://www.infoq.com/cn/articles/android-in-depth-dalvik?utm_campaign=rightbar_v2&amp;utm_source=infoq&amp;utm_medium=articles_link&amp;utm_content=link_text" target="_blank" rel="external">深入理解Android（二）：Java虚拟机Dalvik</a></p>
 <p><a href="http://www.infoq.com/cn/articles/android-in-depth-xposed?utm_campaign=rightbar_v2&amp;utm_source=infoq&amp;utm_medium=articles_link&amp;utm_content=link_text" target="_blank" rel="external">深入理解Android（三）：Xposed详解</a></p>
 <p><a href="http://www.infoq.com/cn/articles/RxAndroid-basics?utm_campaign=rightbar_v2&amp;utm_source=infoq&amp;utm_medium=articles_link&amp;utm_content=link_text" target="_blank" rel="external">从案例学RxAndroid开发（上）</a></p>
@@ -182,7 +182,7 @@ var _hmt = _hmt || [];
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u51E0_u5929_u5B66_u4E60_u5230_u7684_u5F00_u6E90_u9879_u76EE"><span class="toc-number">1.</span> <span class="toc-text">这几天学习到的开源项目</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u89E3_u51B3fragment_u6A2A_u7AD6_u5C4F_u5207_u6362_u53EF_u80FD_u5E26_u6765_u7684crash_uFF0C_u7528_u6CE8_u89E3_u751F_u6210Bundle_u4EE3_u7801_uFF0C_u652F_u6301_u7EE7_u627F"><span class="toc-number">1.1.</span> <span class="toc-text">解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#fragmentargs__u548C_AutoBundle__u7684_u7ED3_u5408"><span class="toc-number">1.2.</span> <span class="toc-text">fragmentargs 和 AutoBundle 的结合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u4E00_u4E2A_u4F7F_u7528_u6CE8_u89E3_u5C31_u53EF_u4EE5_u5B8C_u6210savedInstanceState_u7684_u5E93_uFF0C_u652F_u6301custom_Views"><span class="toc-number">1.3.</span> <span class="toc-text">一个使用注解就可以完成savedInstanceState的库，支持custom Views</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u51E0_u5929_u770B_u7684_u6587_u7AE0"><span class="toc-number">2.</span> <span class="toc-text">这几天看的文章</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u51E0_u5929_u5B66_u4E60_u5230_u7684_u5F00_u6E90_u9879_u76EE"><span class="toc-number">1.</span> <span class="toc-text">这几天学习到的开源项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u8FD9_u51E0_u5929_u770B_u7684_u6587_u7AE0"><span class="toc-number">2.</span> <span class="toc-text">这几天看的文章</span></a></li></ol>
  
   </div>
 
