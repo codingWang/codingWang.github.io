@@ -90,6 +90,80 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/04/02/TCP协议复习二/" title="TCP协议复习二" itemprop="url">TCP协议复习二</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-04-02T01:18:31.000Z" itemprop="datePublished"> 发表于 2016-04-02</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u6982_u8FF0_uFF1ATCP_u7684_u4E09_u6B21_u63E1_u624B_u4EE5_u53CA_u56DB_u6B21_u6325_u624B_u603B_u7ED3_28_u56FE_u7247_u6765_u6E90_u7F51_u7EDC_29"><a href="#u6982_u8FF0_uFF1ATCP_u7684_u4E09_u6B21_u63E1_u624B_u4EE5_u53CA_u56DB_u6B21_u6325_u624B_u603B_u7ED3_28_u56FE_u7247_u6765_u6E90_u7F51_u7EDC_29" class="headerlink" title="概述：TCP的三次握手以及四次挥手总结(图片来源网络)"></a>概述：TCP的三次握手以及四次挥手总结(图片来源网络)</h2><h3 id="u4E09_u6B21_u63E1_u624B"><a href="#u4E09_u6B21_u63E1_u624B" class="headerlink" title="三次握手"></a>三次握手</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_TCPHello.png" alt=""></p>
+<ul>
+<li>A发出连接请求：SYN = 1                seq = x         SYN-SENT状态</li>
+<li>B同意建立连接：SYN = 1;ACK = 1       seq = y         SYN-RCVD状态</li>
+<li>A向B给出确认： ACK = 1                seq = x+1         ESTABLISHED</li>
+<li>B：                                                ESTABLISHED</li>
+</ul>
+<h3 id="u56DB_u6B21_u6325_u624B"><a href="#u56DB_u6B21_u6325_u624B" class="headerlink" title="四次挥手"></a>四次挥手</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_TCPby.png" alt=""></p>
+<ul>
+<li>A请求释放连接：FIN = 1        FIN-WAIT-1</li>
+<li>B发出确认报文：ACK = 1        CLOSE-WAIT</li>
+<li><p>A收到确认报文：                FIN-WAIT-2</p>
+</li>
+<li><p>B请求释放连接：FIN = 1        LAST-ACK</p>
+</li>
+<li>A发出确认报文：ACK = 1        TIME-WAIT</li>
+</ul>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/计算机网络/">计算机网络</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/04/02/TCP协议复习二/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/04/02/TCP协议复习二/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/04/01/TCP协议复习/" title="TCP协议复习一" itemprop="url">TCP协议复习一</a>
   </h1>
   <p class="article-author">By
@@ -433,81 +507,9 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/03/18/MVP-Using/" title="mvp" itemprop="url">mvp</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-03-18T03:14:13.000Z" itemprop="datePublished"> 发表于 2016-03-18</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u521D_u6B21_u5C1D_u8BD5_u4F7F_u7528MVP_u8FDB_u884CAPP_u5F00_u53D1_uFF0C_u5BF9MVP_u7684_u51E0_u70B9_u4E2A_u4EBA_u7406_u89E3_u8BB0_u5F55_uFF1A"><a href="#u521D_u6B21_u5C1D_u8BD5_u4F7F_u7528MVP_u8FDB_u884CAPP_u5F00_u53D1_uFF0C_u5BF9MVP_u7684_u51E0_u70B9_u4E2A_u4EBA_u7406_u89E3_u8BB0_u5F55_uFF1A" class="headerlink" title="初次尝试使用MVP进行APP开发，对MVP的几点个人理解记录："></a>初次尝试使用MVP进行APP开发，对MVP的几点个人理解记录：</h2><ul>
-<li><p>1、建议以功能模块进行包结构的管理。</p>
-</li>
-<li><p>2、每个功能模块下都要定义View层及其接口+Presenter接口及其实现+Model层及接口（如果有数据操作）。</p>
-</li>
-<li><p>3、对View的操作及其行为要在View层接口定义，对业务逻辑处理要定义在Presenter接口。</p>
-</li>
-<li><p>4、Presenter层必须要持有View层接口的引用，可通过构造函数传入。</p>
-</li>
-<li><p>5、在Presenter层定义onDestroy方法记得释放View层引用。</p>
-</li>
-</ul>
-<h2 id="u53EF_u8FDB_u4E00_u6B65_u8003_u8651_u7684_u4F18_u5316_uFF1A"><a href="#u53EF_u8FDB_u4E00_u6B65_u8003_u8651_u7684_u4F18_u5316_uFF1A" class="headerlink" title="可进一步考虑的优化："></a>可进一步考虑的优化：</h2><ul>
-<li>1、因为Presenter必须持有View层引用，Presenter必须最后释放引用，所以建议定义所有Presenter接口的父接口，抽离出onAttach和onDetach方法。</li>
-</ul>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/03/18/MVP-Using/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/18/MVP-Using/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
-    <a class="extend prev" rel="prev" href="/page/3/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/">Next<span></span></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><span></span>Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/">Next<span></span></a>
   </nav>
 
 </div>
