@@ -90,6 +90,73 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/10/18/PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo/" title="PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo" itemprop="url">PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-10-18T02:33:05.000Z" itemprop="datePublished"> 发表于 2016-10-18</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h3 id="PackageInfo_uFF1A"><a href="#PackageInfo_uFF1A" class="headerlink" title="PackageInfo："></a>PackageInfo：</h3><ul>
+<li>包名获取方法：packageInfo.packageName</li>
+<li>icon获取获取方法：packageManager.getApplicationIcon(applicationInfo)</li>
+<li>应用名称获取方法：packageManager.getApplicationLabel(applicationInfo)</li>
+<li>使用权限获取方法：packageManager.getPackageInfo(packageName,PackageManager.GET_PERMISSIONS).requestedPermissions</li>
+</ul>
+<h3 id="ApplicationInfo_uFF1A"><a href="#ApplicationInfo_uFF1A" class="headerlink" title="ApplicationInfo："></a>ApplicationInfo：</h3><p>ApplicationInfo是从一个特定的应用的imanifest.xml的&lt; application&gt;标签中收集信息。<br>ApplicationInfo类 继承自  PackageItemInfo<br>         说明：获取一个特定引用程序中<application>节点的信息。<br>         字段说明：<br>　　　   flags字段： FLAG_SYSTEM　系统应用程序<br>　　　　　             　FLAG_EXTERNAL_STORAGE　表示该应用安装在sdcard中<br>         常用方法继承至PackageItemInfo类中的loadIcon()和loadLabel()</application></p>
+<h3 id="ResolveInfo_uFF1A"><a href="#ResolveInfo_uFF1A" class="headerlink" title="ResolveInfo："></a>ResolveInfo：</h3><p>ResolveInfo通过解析一个与IntentFilter相对应的intent得到信息。它对应于从AndroidManifest.xml的&lt; intent&gt;标签收集到的信息。</p>
+<p>ResolveInfo类<br>        说明：根据<intent>节点来获取其上一层目录的信息，通常是<activity>、<receiver>、<service>节点信息。<br>       常用字段：<br>             public  ActivityInfo  activityInfo     获取 ActivityInfo对象，即<activity>或<receiver>节点信息<br>             public ServiceInfo   serviceInfo     获取 ServiceInfo对象，即<activity>节点信息<br>       常用方法：<br>             Drawable loadIcon(PackageManager pm)             获得当前应用程序的图像<br>             CharSequence loadLabel(PackageManager pm)  获得当前应用程序的label<br>通过ResolveInfo 获取具体信息方法：</activity></receiver></activity></service></receiver></activity></intent></p>
+<ul>
+<li>包名获取方法：resolve.activityInfo.packageName</li>
+<li>icon获取获取方法：resolve.loadIcon(packageManager)</li>
+<li>应用名称获取方法：resolve.loadLabel(packageManager).toString()</li>
+</ul>
+<h3 id="ActivityInfo_uFF1A"><a href="#ActivityInfo_uFF1A" class="headerlink" title="ActivityInfo："></a>ActivityInfo：</h3><p>继承自 PackageItemInfo<br>说明： 获得应用程序中<activity>或者 <receiver>节点的信息 。我们可以通过它来获取我们设置的任何属性，包括<br>theme 、launchMode、launchmode等，常用方法继承至PackageItemInfo类中的loadIcon()和loadLabel() </receiver></activity></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/10/18/PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/10/18/PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/08/04/多线程之Future类图/" title="多线程之Future类图" itemprop="url">多线程之Future类图</a>
   </h1>
   <p class="article-author">By
@@ -351,65 +418,6 @@ var _hmt = _hmt || [];
 	
 	  	<span></span>
 		<a href="/2016/05/14/Retrofit注解使用/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/14/Retrofit注解使用/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/05/08/Apache-Tiles/" title="Apache Tiles" itemprop="url">Apache Tiles</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-05-08T11:33:28.000Z" itemprop="datePublished"> 发表于 2016-05-08</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="Tiles_u76F8_u5173_u5B66_u4E60_u6587_u7AE0"><a href="#Tiles_u76F8_u5173_u5B66_u4E60_u6587_u7AE0" class="headerlink" title="Tiles相关学习文章"></a>Tiles相关学习文章</h3><p><a href="http://my.oschina.net/jast90/blog?catalog=511712" target="_blank" rel="external">六篇文章</a></p>
-<p><a href="http://www.tuicool.com/articles/ZbMn2a" target="_blank" rel="external">推酷</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/JavaWeb/">JavaWeb</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/05/08/Apache-Tiles/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/08/Apache-Tiles/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 

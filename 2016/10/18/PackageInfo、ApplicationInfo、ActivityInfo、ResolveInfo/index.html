@@ -4,24 +4,35 @@
 <head>
   <meta charset="UTF-8">
   
-    <title>多线程之Future类图 | duwei&#39;s blog</title>
+    <title>PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo | duwei&#39;s blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="duwei">
     
 
     
-    <meta name="description">
+    <meta name="description" content="PackageInfo：
+包名获取方法：packageInfo.packageName
+icon获取获取方法：packageManager.getApplicationIcon(applicationInfo)
+应用名称获取方法：packageManager.getApplicationLabel(applicationInfo)
+使用权限获取方法：packageManager.getPackag">
 <meta property="og:type" content="article">
-<meta property="og:title" content="多线程之Future类图">
-<meta property="og:url" content="http://duwei.com/2016/08/04/多线程之Future类图/index.html">
+<meta property="og:title" content="PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo">
+<meta property="og:url" content="http://duwei.com/2016/10/18/PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo/index.html">
 <meta property="og:site_name" content="duwei's blog">
-<meta property="og:description">
-<meta property="og:image" content="http://7xqumq.com1.z0.glb.clouddn.com/uml_future.png">
-<meta property="og:updated_time" content="2016-09-07T01:10:38.874Z">
+<meta property="og:description" content="PackageInfo：
+包名获取方法：packageInfo.packageName
+icon获取获取方法：packageManager.getApplicationIcon(applicationInfo)
+应用名称获取方法：packageManager.getApplicationLabel(applicationInfo)
+使用权限获取方法：packageManager.getPackag">
+<meta property="og:updated_time" content="2016-10-18T02:40:38.723Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="多线程之Future类图">
-<meta name="twitter:description">
+<meta name="twitter:title" content="PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo">
+<meta name="twitter:description" content="PackageInfo：
+包名获取方法：packageInfo.packageName
+icon获取获取方法：packageManager.getApplicationIcon(applicationInfo)
+应用名称获取方法：packageManager.getApplicationLabel(applicationInfo)
+使用权限获取方法：packageManager.getPackag">
 
     
     <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
@@ -90,14 +101,14 @@ var _hmt = _hmt || [];
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2016/08/04/多线程之Future类图/" title="多线程之Future类图" itemprop="url">多线程之Future类图</a>
+      <a href="/2016/10/18/PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo/" title="PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo" itemprop="url">PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
 		
   <p class="article-time">
-    <time datetime="2016-08-04T02:15:36.000Z" itemprop="datePublished"> 发表于 2016-08-04</time>
+    <time datetime="2016-10-18T02:33:05.000Z" itemprop="datePublished"> 发表于 2016-10-18</time>
     
   </p>
 </header>
@@ -106,11 +117,25 @@ var _hmt = _hmt || [];
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#PackageInfo_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">PackageInfo：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ApplicationInfo_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">ApplicationInfo：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ResolveInfo_uFF1A"><span class="toc-number">3.</span> <span class="toc-text">ResolveInfo：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ActivityInfo_uFF1A"><span class="toc-number">4.</span> <span class="toc-text">ActivityInfo：</span></a></li></ol>
 		
 		</div>
 		
-		<p><img src="http://7xqumq.com1.z0.glb.clouddn.com/uml_future.png" alt="uml"></p>
+		<h3 id="PackageInfo_uFF1A"><a href="#PackageInfo_uFF1A" class="headerlink" title="PackageInfo："></a>PackageInfo：</h3><ul>
+<li>包名获取方法：packageInfo.packageName</li>
+<li>icon获取获取方法：packageManager.getApplicationIcon(applicationInfo)</li>
+<li>应用名称获取方法：packageManager.getApplicationLabel(applicationInfo)</li>
+<li>使用权限获取方法：packageManager.getPackageInfo(packageName,PackageManager.GET_PERMISSIONS).requestedPermissions</li>
+</ul>
+<h3 id="ApplicationInfo_uFF1A"><a href="#ApplicationInfo_uFF1A" class="headerlink" title="ApplicationInfo："></a>ApplicationInfo：</h3><p>ApplicationInfo是从一个特定的应用的imanifest.xml的&lt; application&gt;标签中收集信息。<br>ApplicationInfo类 继承自  PackageItemInfo<br>         说明：获取一个特定引用程序中<application>节点的信息。<br>         字段说明：<br>　　　   flags字段： FLAG_SYSTEM　系统应用程序<br>　　　　　             　FLAG_EXTERNAL_STORAGE　表示该应用安装在sdcard中<br>         常用方法继承至PackageItemInfo类中的loadIcon()和loadLabel()</application></p>
+<h3 id="ResolveInfo_uFF1A"><a href="#ResolveInfo_uFF1A" class="headerlink" title="ResolveInfo："></a>ResolveInfo：</h3><p>ResolveInfo通过解析一个与IntentFilter相对应的intent得到信息。它对应于从AndroidManifest.xml的&lt; intent&gt;标签收集到的信息。</p>
+<p>ResolveInfo类<br>        说明：根据<intent>节点来获取其上一层目录的信息，通常是<activity>、<receiver>、<service>节点信息。<br>       常用字段：<br>             public  ActivityInfo  activityInfo     获取 ActivityInfo对象，即<activity>或<receiver>节点信息<br>             public ServiceInfo   serviceInfo     获取 ServiceInfo对象，即<activity>节点信息<br>       常用方法：<br>             Drawable loadIcon(PackageManager pm)             获得当前应用程序的图像<br>             CharSequence loadLabel(PackageManager pm)  获得当前应用程序的label<br>通过ResolveInfo 获取具体信息方法：</activity></receiver></activity></service></receiver></activity></intent></p>
+<ul>
+<li>包名获取方法：resolve.activityInfo.packageName</li>
+<li>icon获取获取方法：resolve.loadIcon(packageManager)</li>
+<li>应用名称获取方法：resolve.loadLabel(packageManager).toString()</li>
+</ul>
+<h3 id="ActivityInfo_uFF1A"><a href="#ActivityInfo_uFF1A" class="headerlink" title="ActivityInfo："></a>ActivityInfo：</h3><p>继承自 PackageItemInfo<br>说明： 获得应用程序中<activity>或者 <receiver>节点的信息 。我们可以通过它来获取我们设置的任何属性，包括<br>theme 、launchMode、launchmode等，常用方法继承至PackageItemInfo类中的loadIcon()和loadLabel() </receiver></activity></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -123,7 +148,7 @@ var _hmt = _hmt || [];
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://duwei.com/2016/08/04/多线程之Future类图/" data-title="多线程之Future类图 | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  <div data-url="http://duwei.com/2016/10/18/PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo/" data-title="PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo | duwei&#39;s blog" data-tsina="null" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -136,19 +161,11 @@ var _hmt = _hmt || [];
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2016/10/18/PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo/" title="PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo">
-  <strong>上一篇：</strong><br/>
-  <span>
-  PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2016/05/23/Android-Activity研究好文章合集/"  title="Android 好文章合集">
+<a href="/2016/08/04/多线程之Future类图/"  title="多线程之Future类图">
  <strong>下一篇：</strong><br/> 
- <span>Android 好文章合集
+ <span>多线程之Future类图
 </span>
 </a>
 </div>
@@ -157,7 +174,7 @@ var _hmt = _hmt || [];
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2016/08/04/多线程之Future类图/" data-title="多线程之Future类图" data-url="http://duwei.com/2016/08/04/多线程之Future类图/"></div>
+	<div class="ds-thread" data-thread-key="2016/10/18/PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo/" data-title="PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo" data-url="http://duwei.com/2016/10/18/PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo/"></div>
 </section>
 
 
@@ -167,7 +184,7 @@ var _hmt = _hmt || [];
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#PackageInfo_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">PackageInfo：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ApplicationInfo_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">ApplicationInfo：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ResolveInfo_uFF1A"><span class="toc-number">3.</span> <span class="toc-text">ResolveInfo：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ActivityInfo_uFF1A"><span class="toc-number">4.</span> <span class="toc-text">ActivityInfo：</span></a></li></ol>
  
   </div>
 
