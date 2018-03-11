@@ -90,6 +90,64 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/02/11/a-standard-onMeasure-method/" title="a standard onMeasure method" itemprop="url">a standard onMeasure method</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-11T08:04:00.000Z" itemprop="datePublished"> 发表于 2016-02-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002"><a href="#u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002" class="headerlink" title="在Android自定义View中，一个标准的onMeasure()方法。"></a>在Android自定义View中，一个标准的onMeasure()方法。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Override&#10;   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;&#10;       super.onMeasure(widthMeasureSpec, heightMeasureSpec);&#10;       int viewWidth = circleRadius /*&#40664;&#35748;size*/+ this.getPaddingLeft() + this.getPaddingRight();&#10;       int viewHeight = circleRadius + this.getPaddingTop() + this.getPaddingBottom();&#10;       int widthMode = MeasureSpec.getMode(widthMeasureSpec);//&#33719;&#21462;&#23485;&#24230;&#30340;&#27169;&#24335;&#10;       int widthSize = MeasureSpec.getSize(widthMeasureSpec);//&#33719;&#21462;&#23485;&#24230;&#30340;&#23610;&#23544;&#10;       int heightMode = MeasureSpec.getMode(heightMeasureSpec);//&#39640;&#24230;&#30340;&#27169;&#24335;&#10;       int heightSize = MeasureSpec.getSize(heightMeasureSpec);//&#39640;&#31471;&#30340;&#23610;&#23544;&#10;       int width;&#10;       int height;&#10;       //Measure Width&#10;       if (widthMode == MeasureSpec.EXACTLY) &#123;//&#25351;&#23450;&#20102;&#30830;&#23450;&#30340;&#23610;&#23544;&#65306;100dp,match_parent&#10;           //Must be this size&#10;           width = widthSize;&#10;       &#125; else if (widthMode == MeasureSpec.AT_MOST) &#123;//wrap_content&#31867;&#22411;&#10;           //Can&#39;t be bigger than...&#10;           width = Math.min(viewWidth, widthSize);&#10;       &#125; else &#123;&#10;           //Be whatever you want&#10;           width = viewWidth;&#10;       &#125;&#10;       //Measure Height&#10;       if (heightMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.EXACTLY) &#123;&#10;           //Must be this size&#10;           height = heightSize;&#10;       &#125; else if (heightMode == MeasureSpec.AT_MOST) &#123;&#10;           //Can&#39;t be bigger than...&#10;           height = Math.min(viewHeight, heightSize);&#10;       &#125; else &#123;&#10;           //Be whatever you want&#10;           height = viewHeight;&#10;       &#125;&#10;       setMeasuredDimension(width, height);&#10;   &#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/02/11/a-standard-onMeasure-method/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/11/a-standard-onMeasure-method/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/02/10/A-collection-of-RxJava-resource/" title="A collection of RxJava resource" itemprop="url">A collection of RxJava resource</a>
   </h1>
   <p class="article-author">By
@@ -331,7 +389,7 @@ var _hmt = _hmt || [];
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
 		
 		<a href="/about" target="_blank" title="duwei">duwei</a>
 		

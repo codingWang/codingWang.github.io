@@ -90,6 +90,83 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/02/20/How-to-release-a-library-to-jcenter/" title="How to release a library to jcenter" itemprop="url">How to release a library to jcenter</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-02-20T01:57:10.000Z" itemprop="datePublished"> 发表于 2016-02-20</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h2><h3 id="u6700_u8FD1_u82B1_u65F6_u95F4_u5199_u4E86_u4E24_u4E2A_u81EA_u5B9A_u4E49_u63A7_u4EF6_uFF0C_u4E00_u4E2A_u662FWaveLoadingView_u53E6_u5916_u4E00_u4E2A_u662FPinWheel_29__u5199Demo_u7684_u65F6_u95F4_u6CA1_u82B1_u591A_u5C11_uFF0C_u5012_u662F_u5F80Jcenter_u4E0A_u4F20_u82B1_u8D39_u4E86_u4E0D_u5C11_u65F6_u95F4_uFF0C_u5728_u8FD9_u8FC7_u7A0B_u4E2D_u4E5F_u9047_u5230_u4E86_u8BB8_u591A_u7684bug_uFF0C_u4E0D_u8FC7_u5728_u81EA_u5DF1_u7684_u52AA_u529B_u4E0B_u6700_u540E_u8FD8_u662F_u4E0A_u4F20_u6210_u529F_u53EF_u4EE5_u7528_u4E86_u3002_u4E0B_u9762_u5C31_u603B_u7ED3_u4E00_u4E0B_u5427_uFF1A"><a href="#u6700_u8FD1_u82B1_u65F6_u95F4_u5199_u4E86_u4E24_u4E2A_u81EA_u5B9A_u4E49_u63A7_u4EF6_uFF0C_u4E00_u4E2A_u662FWaveLoadingView_u53E6_u5916_u4E00_u4E2A_u662FPinWheel_29__u5199Demo_u7684_u65F6_u95F4_u6CA1_u82B1_u591A_u5C11_uFF0C_u5012_u662F_u5F80Jcenter_u4E0A_u4F20_u82B1_u8D39_u4E86_u4E0D_u5C11_u65F6_u95F4_uFF0C_u5728_u8FD9_u8FC7_u7A0B_u4E2D_u4E5F_u9047_u5230_u4E86_u8BB8_u591A_u7684bug_uFF0C_u4E0D_u8FC7_u5728_u81EA_u5DF1_u7684_u52AA_u529B_u4E0B_u6700_u540E_u8FD8_u662F_u4E0A_u4F20_u6210_u529F_u53EF_u4EE5_u7528_u4E86_u3002_u4E0B_u9762_u5C31_u603B_u7ED3_u4E00_u4E0B_u5427_uFF1A" class="headerlink" title="最近花时间写了两个自定义控件，一个是WaveLoadingView另外一个是PinWheel) 写Demo的时间没花多少，倒是往Jcenter上传花费了不少时间，在这过程中也遇到了许多的bug，不过在自己的努力下最后还是上传成功可以用了。下面就总结一下吧："></a>最近花时间写了两个自定义控件，一个是<a href="[https://github.com/codingWang/WaveLoadingView](https://github.com/codingWang/WaveLoadingView">WaveLoadingView</a>另外一个是<a href="[https://github.com/codingWang/PinWheel](https://github.com/codingWang/PinWheel">PinWheel</a>) 写Demo的时间没花多少，倒是往Jcenter上传花费了不少时间，在这过程中也遇到了许多的bug，不过在自己的努力下最后还是上传成功可以用了。下面就总结一下吧：</h3><h2 id="u7B2C_u4E00_u6B65_uFF1A"><a href="#u7B2C_u4E00_u6B65_uFF1A" class="headerlink" title="第一步："></a>第一步：</h2><h3 id="1-__u524D_u5F80_u8FD9_u91CC_u6CE8_u518C_u4E00_u4E2A_u8D26_u53F7_u3002"><a href="#1-__u524D_u5F80_u8FD9_u91CC_u6CE8_u518C_u4E00_u4E2A_u8D26_u53F7_u3002" class="headerlink" title="1. 前往这里注册一个账号。"></a>1. 前往<a href="[https://bintray.com/](https://bintray.com/">这里</a>注册一个账号。</h3><h3 id="2-_u70B9_u51FB_u4E0B_u56FE_u6240_u793A_u7684Maven_uFF1A"><a href="#2-_u70B9_u51FB_u4E0B_u56FE_u6240_u793A_u7684Maven_uFF1A" class="headerlink" title="2.点击下图所示的Maven："></a>2.点击下图所示的Maven：<br></h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duweimaven.png" alt=""><br></p>
+<h3 id="3-_u70B9_u51FBAdd_New_Package_3A"><a href="#3-_u70B9_u51FBAdd_New_Package_3A" class="headerlink" title="3.点击Add New Package:"></a>3.点击Add New Package:<br></h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duweinewpackage.png" alt=""><br></p>
+<h3 id="4-_u4F9D_u6B21_u586B_u5199_u4EE5_u4E0B_u4FE1_u606F_uFF1A"><a href="#4-_u4F9D_u6B21_u586B_u5199_u4EE5_u4E0B_u4FE1_u606F_uFF1A" class="headerlink" title="4.依次填写以下信息："></a>4.依次填写以下信息：</h3><ul>
+<li>Name：Library的名字（如:PinWheel）</li>
+<li>Description：Library的描述信息（如：a custom dialog）</li>
+<li>Licenses：Library遵循的协议（如：Apache2.0）</li>
+<li>Tags ：Library的标签（如：Android）</li>
+<li>Website：Library的网站（写github项目地址就好）</li>
+<li>Issues tracker：Issues的跟踪（写githubissues，如：<a href="https://github.com/codingWang/PinWheel/issues）" target="_blank" rel="external">https://github.com/codingWang/PinWheel/issues）</a></li>
+<li>Version control：版本控制（如：git@github.com:codingWang/PinWheel.git）</li>
+</ul>
+<h3 id="u586B_u5199_u5B8C_u6BD5_u70B9_u51FBCreate_uFF0COK_u3002"><a href="#u586B_u5199_u5B8C_u6BD5_u70B9_u51FBCreate_uFF0COK_u3002" class="headerlink" title="填写完毕点击Create，OK。"></a>填写完毕点击Create，OK。</h3><h2 id="u7B2C_u4E8C_u6B65_uFF1A"><a href="#u7B2C_u4E8C_u6B65_uFF1A" class="headerlink" title="第二步："></a>第二步：</h2><h3 id="1-__u65B0_u5EFA_u9879_u76EE_uFF08_u6216_u5DF2_u7ECF_u6709_u9879_u76EE_uFF09_u5E76_u6DFB_u52A0_u4EE5_u4E0B_u4E24_u53E5_u53BBProject__u7684_build-gradle"><a href="#1-__u65B0_u5EFA_u9879_u76EE_uFF08_u6216_u5DF2_u7ECF_u6709_u9879_u76EE_uFF09_u5E76_u6DFB_u52A0_u4EE5_u4E0B_u4E24_u53E5_u53BBProject__u7684_build-gradle" class="headerlink" title="1. 新建项目（或已经有项目）并添加以下两句去Project 的 build.gradle"></a>1. 新建项目（或已经有项目）并添加以下两句去<em>Project 的 build.gradle </em></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">classpath &#39;com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0&#39;&#10;classpath &#39;com.github.dcendents:android-maven-gradle-plugin:1.3&#39;</span><br></pre></td></tr></table></figure>
+<h3 id="2-_u5728Library_u7684build-gradle_u4E2D_u4F9D_u6B21_u6DFB_u52A0_u5982_u4E0B_uFF1A"><a href="#2-_u5728Library_u7684build-gradle_u4E2D_u4F9D_u6B21_u6DFB_u52A0_u5982_u4E0B_uFF1A" class="headerlink" title="2.在Library的build.gradle中依次添加如下："></a>2.在Library的build.gradle中依次添加如下：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.github.dcendents.android-maven'</span></span><br><span class="line">apply plugin: <span class="string">'com.jfrog.bintray'</span></span><br><span class="line">version = <span class="string">"0.1"</span></span><br><span class="line"></span><br><span class="line">def siteUrl = <span class="string">'https://github.com/codingWang/PinWheel'</span>    // 项目地址！！！！</span><br><span class="line">def gitUrl = <span class="string">'git@github.com:codingWang/PinWheel.git'</span> // git地址！！！</span><br><span class="line"></span><br><span class="line">group = <span class="string">"com.duwei.pinwheel"</span>	//！！！！！！</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">install &#123;</span><br><span class="line">    repositories.mavenInstaller &#123;</span><br><span class="line">        // This generates POM.xml with proper parameters</span><br><span class="line">        pom &#123;</span><br><span class="line">            project &#123;</span><br><span class="line">                packaging <span class="string">'aar'</span></span><br><span class="line">                name <span class="string">'PinWheel'</span>//！！！！！！！！！！！</span><br><span class="line">                url siteUrl</span><br><span class="line">                licenses &#123;</span><br><span class="line">                    license &#123;</span><br><span class="line">                        name <span class="string">'The Apache Software License, Version 2.0'</span></span><br><span class="line">                        url <span class="string">'http://www.apache.org/licenses/LICENSE-2.0.txt'</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                developers &#123;</span><br><span class="line">                    developer &#123;</span><br><span class="line">                        id <span class="string">'duwei'</span>  //！！！！！！！！！！！！</span><br><span class="line">                        name <span class="string">'duwei'</span>//！！！！！！！！</span><br><span class="line">                        email <span class="string">'du2035392@gmail.com'</span>//！！！！！！！！！</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                scm &#123;</span><br><span class="line">                    connection gitUrl</span><br><span class="line">                    developerConnection gitUrl</span><br><span class="line">                    url siteUrl</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">task sourcesJar(<span class="built_in">type</span>: Jar) &#123;</span><br><span class="line">    from android.sourceSets.main.java.srcDirs</span><br><span class="line">    classifier = <span class="string">'sources'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task javadoc(<span class="built_in">type</span>: Javadoc) &#123;</span><br><span class="line">    options.encoding = <span class="string">"utf-8"</span>//！！！！文档中文编码乱码问题解决</span><br><span class="line">    <span class="built_in">source</span> = android.sourceSets.main.java.srcDirs</span><br><span class="line">    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task javadocJar(<span class="built_in">type</span>: Jar, dependsOn: javadoc) &#123;</span><br><span class="line">    classifier = <span class="string">'javadoc'</span></span><br><span class="line">    from javadoc.destinationDir</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">artifacts &#123;</span><br><span class="line">    archives javadocJar</span><br><span class="line">    archives sourcesJar</span><br><span class="line">&#125;</span><br><span class="line">Properties properties = new Properties()</span><br><span class="line">properties.load(project.rootProject.file(<span class="string">'local.properties'</span>).newDataInputStream())</span><br><span class="line">bintray &#123;</span><br><span class="line">    user = properties.getProperty(<span class="string">"bintray.user"</span>)</span><br><span class="line">    key = properties.getProperty(<span class="string">"bintray.apikey"</span>)</span><br><span class="line">    configurations = [<span class="string">'archives'</span>]</span><br><span class="line">    pkg &#123;</span><br><span class="line">        repo = <span class="string">"maven"</span></span><br><span class="line">        name = <span class="string">"PinWheel"</span>                // Jcenter项目中Name的值</span><br><span class="line">        websiteUrl = siteUrl</span><br><span class="line">        vcsUrl = gitUrl</span><br><span class="line">        licenses = [<span class="string">"Apache-2.0"</span>]</span><br><span class="line">        publish = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u76F4_u63A5_u590D_u5236_u4E0A_u8FF0_u5185_u5BB9_u6DFB_u52A0_u5230_u4F60_u7684Library_u7684build-grale_u5C31_u53EF_u4EE5_u4E86_uFF0C_u7136_u540E_u4FEE_u6539_u6807_uFF01_uFF01_uFF01_u7684_u5730_u65B9"><a href="#u76F4_u63A5_u590D_u5236_u4E0A_u8FF0_u5185_u5BB9_u6DFB_u52A0_u5230_u4F60_u7684Library_u7684build-grale_u5C31_u53EF_u4EE5_u4E86_uFF0C_u7136_u540E_u4FEE_u6539_u6807_uFF01_uFF01_uFF01_u7684_u5730_u65B9" class="headerlink" title="直接复制上述内容添加到你的Library的build.grale就可以了，然后修改标！！！的地方"></a>直接复制上述内容添加到你的Library的build.grale就可以了，然后修改标！！！的地方</h3><h2 id="u7B2C_u4E09_u6B65_uFF1A"><a href="#u7B2C_u4E09_u6B65_uFF1A" class="headerlink" title="第三步："></a>第三步：</h2><h3 id="u6253_u5F00_u9879_u76EE_u7684local-properties_u6DFB_u52A0_u5982_u4E0B_u4FE1_u606F"><a href="#u6253_u5F00_u9879_u76EE_u7684local-properties_u6DFB_u52A0_u5982_u4E0B_u4FE1_u606F" class="headerlink" title="打开项目的local.properties添加如下信息"></a>打开项目的local.properties添加如下信息</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bintray.user=duwei                                // bintray的用户有</span><br><span class="line">bintray.apikey= // 该值可在bintray中点击Edite</span><br></pre></td></tr></table></figure>
+<p><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_edit.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_edit.png"><br><img src="http://7xqumq.com1.z0.glb.clouddn.com/duwei_apikey.png" alt="http://7xqumq.com1.z0.glb.clouddn.com/duwei_apikey.png"></p>
+<h2 id="u7B2C_u56DB_u6B65_uFF1A"><a href="#u7B2C_u56DB_u6B65_uFF1A" class="headerlink" title="第四步："></a>第四步：</h2><h3 id="u5728Android_stuodio_u7684Terminal_u7EC8_u7AEF_u4F9D_u6B21_u6267_u884C_u4EE5_u4E0B_u547D_u4EE4"><a href="#u5728Android_stuodio_u7684Terminal_u7EC8_u7AEF_u4F9D_u6B21_u6267_u884C_u4EE5_u4E0B_u547D_u4EE4" class="headerlink" title="在Android stuodio的Terminal终端依次执行以下命令"></a>在Android stuodio的Terminal终端依次执行以下命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gradew javadocJar	</span><br><span class="line"></span><br><span class="line">gradew sourcesJar</span><br><span class="line"></span><br><span class="line">gradew install</span><br><span class="line"></span><br><span class="line">gradew bintrayUpload</span><br></pre></td></tr></table></figure>
+<h2 id="u7B2C_u4E94_u6B65_uFF1A"><a href="#u7B2C_u4E94_u6B65_uFF1A" class="headerlink" title="第五步："></a>第五步：</h2><h3 id="u5F15_u7528Library"><a href="#u5F15_u7528Library" class="headerlink" title="引用Library"></a>引用Library</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">repositories &#123;</span><br><span class="line"> maven &#123;</span><br><span class="line"> url <span class="string">'https://dl.bintray.com/duwei/maven/'</span></span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line"></span><br><span class="line"> compile <span class="string">'com.duwei.pinwheel:pinwheel:0.1'</span></span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/02/20/How-to-release-a-library-to-jcenter/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/20/How-to-release-a-library-to-jcenter/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/02/16/Interpolator/" title="Interpolator" itemprop="url">Interpolator</a>
   </h1>
   <p class="article-author">By
@@ -325,64 +402,6 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/11/a-standard-onMeasure-method/" title="a standard onMeasure method" itemprop="url">a standard onMeasure method</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-11T08:04:00.000Z" itemprop="datePublished"> 发表于 2016-02-11</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002"><a href="#u5728Android_u81EA_u5B9A_u4E49View_u4E2D_uFF0C_u4E00_u4E2A_u6807_u51C6_u7684onMeasure_28_29_u65B9_u6CD5_u3002" class="headerlink" title="在Android自定义View中，一个标准的onMeasure()方法。"></a>在Android自定义View中，一个标准的onMeasure()方法。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@Override&#10;   protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) &#123;&#10;       super.onMeasure(widthMeasureSpec, heightMeasureSpec);&#10;       int viewWidth = circleRadius /*&#40664;&#35748;size*/+ this.getPaddingLeft() + this.getPaddingRight();&#10;       int viewHeight = circleRadius + this.getPaddingTop() + this.getPaddingBottom();&#10;       int widthMode = MeasureSpec.getMode(widthMeasureSpec);//&#33719;&#21462;&#23485;&#24230;&#30340;&#27169;&#24335;&#10;       int widthSize = MeasureSpec.getSize(widthMeasureSpec);//&#33719;&#21462;&#23485;&#24230;&#30340;&#23610;&#23544;&#10;       int heightMode = MeasureSpec.getMode(heightMeasureSpec);//&#39640;&#24230;&#30340;&#27169;&#24335;&#10;       int heightSize = MeasureSpec.getSize(heightMeasureSpec);//&#39640;&#31471;&#30340;&#23610;&#23544;&#10;       int width;&#10;       int height;&#10;       //Measure Width&#10;       if (widthMode == MeasureSpec.EXACTLY) &#123;//&#25351;&#23450;&#20102;&#30830;&#23450;&#30340;&#23610;&#23544;&#65306;100dp,match_parent&#10;           //Must be this size&#10;           width = widthSize;&#10;       &#125; else if (widthMode == MeasureSpec.AT_MOST) &#123;//wrap_content&#31867;&#22411;&#10;           //Can&#39;t be bigger than...&#10;           width = Math.min(viewWidth, widthSize);&#10;       &#125; else &#123;&#10;           //Be whatever you want&#10;           width = viewWidth;&#10;       &#125;&#10;       //Measure Height&#10;       if (heightMode == MeasureSpec.EXACTLY || widthMode == MeasureSpec.EXACTLY) &#123;&#10;           //Must be this size&#10;           height = heightSize;&#10;       &#125; else if (heightMode == MeasureSpec.AT_MOST) &#123;&#10;           //Can&#39;t be bigger than...&#10;           height = Math.min(viewHeight, heightSize);&#10;       &#125; else &#123;&#10;           //Be whatever you want&#10;           height = viewHeight;&#10;       &#125;&#10;       setMeasuredDimension(width, height);&#10;   &#125;</span><br></pre></td></tr></table></figure>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/11/a-standard-onMeasure-method/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/11/a-standard-onMeasure-method/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <a class="extend prev" rel="prev" href="/page/7/"><span></span>Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/">Next<span></span></a>
@@ -501,7 +520,7 @@ var _hmt = _hmt || [];
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
 		
 		<a href="/about" target="_blank" title="duwei">duwei</a>
 		

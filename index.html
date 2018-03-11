@@ -90,6 +90,59 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2018/03/11/audio-sample/" title="音频编解码之信号基础篇" itemprop="url">音频编解码之信号基础篇</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2018-03-11T01:38:51.000Z" itemprop="datePublished"> 发表于 2018-03-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u57FA_u672C_u77E5_u8BC6"><a href="#u57FA_u672C_u77E5_u8BC6" class="headerlink" title="基本知识"></a>基本知识</h2><h3 id="1-_u81EA_u7136_u754C_u7684_u58F0_u97F3_u4FE1_u53F7_u662F_u8FDE_u7EED_u7684_uFF0C_u800C_u8BA1_u7B97_u673A_u5B58_u50A8_u7684_u4FE1_u53F7_u662F_u79BB_u6563_u7684_uFF0C_u5C06_u81EA_u7136_u754C_u7684_u8FDE_u7EED_u4FE1_u53F7_u8F6C_u6362_u6210_u8BA1_u7B97_u673A_u80FD_u591F_u5B58_u50A8_u7684_u79BB_u6563_u4FE1_u53F7_u7684_u8FC7_u7A0B_u53EB_u505A_u4FE1_u53F7_u7684_u91C7_u6837_uFF0C_u5982_u4E0B_u56FE_uFF08a_uFF09_u4E3A_u8FDE_u7EED_u4FE1_u53F7_uFF0C_uFF08b_uFF09_u4E3A_u91C7_u6837_u540E_u7684_u79BB_u6563_u4FE1_u53F7"><a href="#1-_u81EA_u7136_u754C_u7684_u58F0_u97F3_u4FE1_u53F7_u662F_u8FDE_u7EED_u7684_uFF0C_u800C_u8BA1_u7B97_u673A_u5B58_u50A8_u7684_u4FE1_u53F7_u662F_u79BB_u6563_u7684_uFF0C_u5C06_u81EA_u7136_u754C_u7684_u8FDE_u7EED_u4FE1_u53F7_u8F6C_u6362_u6210_u8BA1_u7B97_u673A_u80FD_u591F_u5B58_u50A8_u7684_u79BB_u6563_u4FE1_u53F7_u7684_u8FC7_u7A0B_u53EB_u505A_u4FE1_u53F7_u7684_u91C7_u6837_uFF0C_u5982_u4E0B_u56FE_uFF08a_uFF09_u4E3A_u8FDE_u7EED_u4FE1_u53F7_uFF0C_uFF08b_uFF09_u4E3A_u91C7_u6837_u540E_u7684_u79BB_u6563_u4FE1_u53F7" class="headerlink" title="1.自然界的声音信号是连续的，而计算机存储的信号是离散的，将自然界的连续信号转换成计算机能够存储的离散信号的过程叫做信号的采样，如下图（a）为连续信号，（b）为采样后的离散信号"></a>1.自然界的声音信号是连续的，而计算机存储的信号是离散的，将自然界的连续信号转换成计算机能够存储的离散信号的过程叫做信号的采样，如下图（a）为连续信号，（b）为采样后的离散信号</h3><p><img src="http://7xqumq.com1.z0.glb.clouddn.com/signal-sample.jpg" alt="信号的采样"></p>
+<h3 id="2-_u91C7_u6837_u7387_uFF1A_u6307_u91C7_u6837_u8FC7_u7A0B_u4E2D_u6BCF_u79D2_u91C7_u96C6_u591A_u5C11_u4E2A_u6837_u672C_uFF0C_u5355_u4F4D_uFF1AHz"><a href="#2-_u91C7_u6837_u7387_uFF1A_u6307_u91C7_u6837_u8FC7_u7A0B_u4E2D_u6BCF_u79D2_u91C7_u96C6_u591A_u5C11_u4E2A_u6837_u672C_uFF0C_u5355_u4F4D_uFF1AHz" class="headerlink" title="2.采样率：指采样过程中每秒采集多少个样本，单位：Hz"></a>2.采样率：指采样过程中每秒采集多少个样本，单位：Hz</h3><h3 id="u6BD4_u7279_u7387_uFF1A_u7ECF_u8FC7_u7F16_u7801_u538B_u7F29_u540E_u7684_u97F3_u9891_u6570_u636E_u6BCF_u79D2_u9700_u8981_u591A_u5C11_u6BD4_u7279_u6765_u8868_u793A_uFF0C_u5355_u4F4D_uFF1Akbps"><a href="#u6BD4_u7279_u7387_uFF1A_u7ECF_u8FC7_u7F16_u7801_u538B_u7F29_u540E_u7684_u97F3_u9891_u6570_u636E_u6BCF_u79D2_u9700_u8981_u591A_u5C11_u6BD4_u7279_u6765_u8868_u793A_uFF0C_u5355_u4F4D_uFF1Akbps" class="headerlink" title="比特率：经过编码压缩后的音频数据每秒需要多少比特来表示，单位：kbps"></a>比特率：经过编码压缩后的音频数据每秒需要多少比特来表示，单位：kbps</h3><h3 id="u5948_u594E_u65AF_u7279_u91C7_u6837_u5B9A_u7406_uFF1A_u91C7_u6837_u7387_u5927_u4E8E_u6216_u7B49_u4E8E_u8FDE_u7EED_u4FE1_u53F7_u6700_u9AD8_u9891_u7387_u76842_u500D_u65F6_uFF0C_u91C7_u6837_u4FE1_u53F7_u53EF_u4EE5_u5B8C_u7F8E_u7684_u91CD_u6784_u539F_u59CB_u8FDE_u7EED_u4FE1_u53F7"><a href="#u5948_u594E_u65AF_u7279_u91C7_u6837_u5B9A_u7406_uFF1A_u91C7_u6837_u7387_u5927_u4E8E_u6216_u7B49_u4E8E_u8FDE_u7EED_u4FE1_u53F7_u6700_u9AD8_u9891_u7387_u76842_u500D_u65F6_uFF0C_u91C7_u6837_u4FE1_u53F7_u53EF_u4EE5_u5B8C_u7F8E_u7684_u91CD_u6784_u539F_u59CB_u8FDE_u7EED_u4FE1_u53F7" class="headerlink" title="奈奎斯特采样定理：采样率大于或等于连续信号最高频率的2倍时，采样信号可以完美的重构原始连续信号"></a>奈奎斯特采样定理：采样率大于或等于连续信号最高频率的2倍时，采样信号可以完美的重构原始连续信号</h3><h3 id="u5728_u7801_u7387_u8F83_u4F4E_u7684_u60C5_u51B5_u4E0B_uFF0C_u4E0D_u540C_u7F16_u7801_u65B9_u6848_u7684_u97F3_u9891_u7684_u97F3_u8D28_u6392_u5E8F_u4E3A_uFF1AAAC+_26gt_3B_MP3PRO__26gt_3B_AAC__26gt_3B_RealAudio__26gt_3B_WMA__26gt_3B_MP3"><a href="#u5728_u7801_u7387_u8F83_u4F4E_u7684_u60C5_u51B5_u4E0B_uFF0C_u4E0D_u540C_u7F16_u7801_u65B9_u6848_u7684_u97F3_u9891_u7684_u97F3_u8D28_u6392_u5E8F_u4E3A_uFF1AAAC+_26gt_3B_MP3PRO__26gt_3B_AAC__26gt_3B_RealAudio__26gt_3B_WMA__26gt_3B_MP3" class="headerlink" title="在码率较低的情况下，不同编码方案的音频的音质排序为：AAC+&gt; MP3PRO &gt; AAC &gt; RealAudio &gt; WMA &gt; MP3"></a>在码率较低的情况下，不同编码方案的音频的音质排序为：AAC+&gt; MP3PRO &gt; AAC &gt; RealAudio &gt; WMA &gt; MP3</h3>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2018/03/11/audio-sample/#comments" class="ds-thread-count comments-count-link" data-thread-key="2018/03/11/audio-sample/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/10/18/PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo/" title="PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo" itemprop="url">PackageInfo、ApplicationInfo、ActivityInfo、ResolveInfo</a>
   </h1>
   <p class="article-author">By
@@ -332,105 +385,6 @@ var _hmt = _hmt || [];
 
 
 
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/05/14/Retrofit注解使用/" title="Retrofit注解使用" itemprop="url">Retrofit注解使用</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-05-14T01:31:40.000Z" itemprop="datePublished"> 发表于 2016-05-14</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="Retrofit_u4E2D_u7684_u4E00_u4E9B_u6CE8_u89E3_u603B_u7ED3"><a href="#Retrofit_u4E2D_u7684_u4E00_u4E9B_u6CE8_u89E3_u603B_u7ED3" class="headerlink" title="Retrofit中的一些注解总结"></a>Retrofit中的一些注解总结</h3><table>
-<thead>
-<tr>
-<th>注解</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>@Path</td>
-<td>替换URL中的变量</td>
-</tr>
-<tr>
-<td>@Query</td>
-<td>指定注解参数中的查询变量的键名</td>
-</tr>
-<tr>
-<td>@Body</td>
-<td>POST请求的请求体</td>
-</tr>
-<tr>
-<td>@Multipart/@Part</td>
-<td>提交多参数表单数据</td>
-</tr>
-<tr>
-<td>@FormUrlEncode/@FieldMap</td>
-<td>编码的URL键值对</td>
-</tr>
-<tr>
-<td>@Streaming</td>
-<td>大文件下载避免将整个文件加入内存</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@GET</span>(<span class="string">"/users/&#123;username&#125;"</span>) </span><br><span class="line"><span class="function">Call&lt;User&gt; <span class="title">getUser</span><span class="params">(@Path(<span class="string">"username"</span>)</span> String username)</span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@GET</span>(<span class="string">"/group/&#123;id&#125;/users"</span>) </span><br><span class="line">Call&lt;List&lt;User&gt;&gt; groupList(<span class="annotation">@Path</span>(<span class="string">"id"</span>) <span class="keyword">int</span> groupId, <span class="annotation">@Query</span>(<span class="string">"sort"</span>) String sort);</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@POST</span>(<span class="string">"/users/new"</span>) </span><br><span class="line"><span class="function">Call&lt;User&gt; <span class="title">createUser</span><span class="params">(@Body User user)</span></span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Multipart</span> </span><br><span class="line"><span class="annotation">@POST</span>(<span class="string">"/some/endpoint"</span>) </span><br><span class="line"><span class="function">Call&lt;SomeResponse&gt; <span class="title">someEndpoint</span><span class="params">(@Part(<span class="string">"name1"</span>)</span> String name1, @<span class="title">Part</span><span class="params">(<span class="string">"name2"</span>)</span> String name2)</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@FormUrlEncoded</span></span><br><span class="line"><span class="annotation">@POST</span>(<span class="string">"/some/endpoint"</span>)</span><br><span class="line"><span class="function">Call&lt;SomeResponse&gt; <span class="title">someEndpoint</span><span class="params">(@FieldMap Map&lt;String, String&gt; names)</span></span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@POST</span>(<span class="string">"/test/rest1.php"</span>)</span><br><span class="line"><span class="function">Call&lt;SomeResponse&gt; <span class="title">updatePerson</span><span class="params">(@Field(<span class="string">"name"</span>)</span> String name,@<span class="title">Field</span><span class="params">(<span class="string">"age"</span>)</span> <span class="keyword">int</span> age, Callback&lt;Person&gt; callback)</span>;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Streaming</span></span><br><span class="line"><span class="annotation">@GET</span></span><br><span class="line"><span class="function">Call&lt;ResponseBody&gt; <span class="title">downloadFileWithDynamicUrlAsync</span><span class="params">(@Url String fileUrl)</span></span>;</span><br></pre></td></tr></table></figure>
-<p><a href="https://futurestud.io/blog/retrofit-2-how-to-use-dynamic-urls-for-requests" target="_blank" rel="external">一系列Retrofit文章</a><br><a href="http://www.jianshu.com/p/92bb85fc07e8" target="_blank" rel="external">如何从服务器下载文件</a><br><a href="http://www.jcodecraeer.com/a/anzhuokaifa/androidkaifa/2015/1016/3588.html" target="_blank" rel="external">链接</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/05/14/Retrofit注解使用/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/14/Retrofit注解使用/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
 
   <nav id="page-nav" class="clearfix">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next<span></span></a>
@@ -549,7 +503,7 @@ var _hmt = _hmt || [];
 		
 
 		<p class="copyright">
-		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2016 
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
 		
 		<a href="/about" target="_blank" title="duwei">duwei</a>
 		
