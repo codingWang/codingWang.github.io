@@ -1,0 +1,497 @@
+
+ <!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  
+    <title>EventBus源码分析 | duwei&#39;s blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    
+    <meta name="author" content="duwei">
+    
+
+    
+    <meta name="description" content="概述：EventBus主要的流程包括以下三个方面：1.EventBus的初始化过程2.EventBus的注册过程3.EventBus的事件发送过程EventBus的初始化过程：1.单利初始化123456789101112public static EventBus getDefault() &amp;#123;        if (defaultInstance == null) &amp;#123;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EventBus源码分析">
+<meta property="og:url" content="http://duwei.com/2018/03/17/EventBus源码分析/index.html">
+<meta property="og:site_name" content="duwei's blog">
+<meta property="og:description" content="概述：EventBus主要的流程包括以下三个方面：1.EventBus的初始化过程2.EventBus的注册过程3.EventBus的事件发送过程EventBus的初始化过程：1.单利初始化123456789101112public static EventBus getDefault() &amp;#123;        if (defaultInstance == null) &amp;#123;">
+<meta property="og:updated_time" content="2018-03-17T02:32:54.928Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EventBus源码分析">
+<meta name="twitter:description" content="概述：EventBus主要的流程包括以下三个方面：1.EventBus的初始化过程2.EventBus的注册过程3.EventBus的事件发送过程EventBus的初始化过程：1.单利初始化123456789101112public static EventBus getDefault() &amp;#123;        if (defaultInstance == null) &amp;#123;">
+
+    
+    <link rel="alternative" href="/atom.xml" title="duwei&#39;s blog" type="application/atom+xml">
+    
+    
+    <link rel="icon" href="/img/favicon.ico">
+    
+    
+    <link rel="apple-touch-icon" href="/img/jacman.jpg">
+    <link rel="apple-touch-icon-precomposed" href="/img/jacman.jpg">
+    
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
+    
+<script type="text/javascript">
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?3492904c23dded877e5767fd9cd3e4da";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+  <body>
+    <header>
+      
+<div>
+		
+			<div id="textlogo">
+				<h1 class="site-name"><a href="/" title="duwei&#39;s blog">duwei&#39;s blog</a></h1>
+				<h2 class="blog-motto"></h2>
+			</div>
+			<div class="navbar"><a class="navbutton navmobile" href="#" title="菜单">
+			</a></div>
+			<nav class="animated">
+				<ul>
+					<ul>
+					 
+						<li><a href="/">首页</a></li>
+					
+						<li><a href="/archives">文章</a></li>
+					
+						<li><a href="/about">关于</a></li>
+					
+						<li><a href="/life">感悟</a></li>
+					
+					<li>
+ 					
+					<form class="search" action="//google.com/search" method="get" accept-charset="utf-8">
+						<label>Search</label>
+						<input type="search" id="search" name="q" autocomplete="off" maxlength="20" placeholder="搜索" />
+						<input type="hidden" name="q" value="site:duwei.com">
+					</form>
+					
+					</li>
+				</ul>
+			</nav>			
+</div>
+    </header>
+    <div id="container">
+      <div id="main" class="post" itemscope itemprop="blogPost">
+  
+	<article itemprop="articleBody"> 
+		<header class="article-info clearfix">
+  <h1 itemprop="name">
+    
+      <a href="/2018/03/17/EventBus源码分析/" title="EventBus源码分析" itemprop="url">EventBus源码分析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2018-03-17T01:41:44.000Z" itemprop="datePublished"> 发表于 2018-03-17</time>
+    
+  </p>
+</header>
+	<div class="article-content">
+		
+		<div id="toc" class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+		
+			<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6982_u8FF0_uFF1AEventBus_u4E3B_u8981_u7684_u6D41_u7A0B_u5305_u62EC_u4EE5_u4E0B_u4E09_u4E2A_u65B9_u9762_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">概述：EventBus主要的流程包括以下三个方面：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-EventBus_u7684_u521D_u59CB_u5316_u8FC7_u7A0B"><span class="toc-number">1.1.</span> <span class="toc-text">1.EventBus的初始化过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-EventBus_u7684_u6CE8_u518C_u8FC7_u7A0B"><span class="toc-number">1.2.</span> <span class="toc-text">2.EventBus的注册过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-EventBus_u7684_u4E8B_u4EF6_u53D1_u9001_u8FC7_u7A0B"><span class="toc-number">1.3.</span> <span class="toc-text">3.EventBus的事件发送过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EventBus_u7684_u521D_u59CB_u5316_u8FC7_u7A0B_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">EventBus的初始化过程：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_u5355_u5229_u521D_u59CB_u5316"><span class="toc-number">2.1.</span> <span class="toc-text">1.单利初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_u4F7F_u7528Builder_u521D_u59CB_u5316"><span class="toc-number">2.2.</span> <span class="toc-text">2.使用Builder初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u901A_u8FC7EventBus_u7684_u9759_u6001_u65B9_u6CD5builder_28_29_u521B_u5EFAEventBusBuilder_u5BF9_u8C61"><span class="toc-number">2.2.1.</span> <span class="toc-text">通过EventBus的静态方法builder()创建EventBusBuilder对象</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E00_u90E8_u5206_u603B_u7ED3_uFF1A_u7B80_u6613vs_u5B9A_u5236"><span class="toc-number">3.</span> <span class="toc-text">第一部分总结：简易vs定制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u901A_u8FC7EventBus_u63D0_u4F9B_u7684_u4E24_u79CD_u521D_u59CB_u5316_u65B9_u5F0F_uFF0C_u6211_u4EEC_u53EF_u4EE5_u901A_u8FC7_u5355_u5229_u7B80_u6613_u7684_u4F7F_u7528EventBus_u4E3A_u6211_u4EEC_u63D0_u4F9B_u7684_u9ED8_u8BA4_u914D_u7F6E_u3002"><span class="toc-number">3.1.</span> <span class="toc-text">通过EventBus提供的两种初始化方式，我们可以通过单利简易的使用EventBus为我们提供的默认配置。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u800C_u901A_u8FC7_u7B2C_u4E8C_u79CDBuilder_u6A21_u5F0F_u521B_u5EFA_u5BF9_u8C61_u5F00_u53D1_u8005_u53EF_u4EE5_u5B9A_u5236EventBus_u5BF9_u8C61_u3002"><span class="toc-number">3.2.</span> <span class="toc-text">而通过第二种Builder模式创建对象开发者可以定制EventBus对象。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EventBus_u7684_u6CE8_u518C_u8FC7_u7A0B_uFF1A"><span class="toc-number">4.</span> <span class="toc-text">EventBus的注册过程：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u771F_u6B63_u7684_u8BA2_u9605_u903B_u8F91_uFF1A"><span class="toc-number">4.1.</span> <span class="toc-text">真正的订阅逻辑：</span></a></li></ol></li></ol>
+		
+		</div>
+		
+		<h2 id="u6982_u8FF0_uFF1AEventBus_u4E3B_u8981_u7684_u6D41_u7A0B_u5305_u62EC_u4EE5_u4E0B_u4E09_u4E2A_u65B9_u9762_uFF1A"><a href="#u6982_u8FF0_uFF1AEventBus_u4E3B_u8981_u7684_u6D41_u7A0B_u5305_u62EC_u4EE5_u4E0B_u4E09_u4E2A_u65B9_u9762_uFF1A" class="headerlink" title="概述：EventBus主要的流程包括以下三个方面："></a>概述：EventBus主要的流程包括以下三个方面：</h2><h3 id="1-EventBus_u7684_u521D_u59CB_u5316_u8FC7_u7A0B"><a href="#1-EventBus_u7684_u521D_u59CB_u5316_u8FC7_u7A0B" class="headerlink" title="1.EventBus的初始化过程"></a>1.EventBus的初始化过程</h3><h3 id="2-EventBus_u7684_u6CE8_u518C_u8FC7_u7A0B"><a href="#2-EventBus_u7684_u6CE8_u518C_u8FC7_u7A0B" class="headerlink" title="2.EventBus的注册过程"></a>2.EventBus的注册过程</h3><h3 id="3-EventBus_u7684_u4E8B_u4EF6_u53D1_u9001_u8FC7_u7A0B"><a href="#3-EventBus_u7684_u4E8B_u4EF6_u53D1_u9001_u8FC7_u7A0B" class="headerlink" title="3.EventBus的事件发送过程"></a>3.EventBus的事件发送过程</h3><h2 id="EventBus_u7684_u521D_u59CB_u5316_u8FC7_u7A0B_uFF1A"><a href="#EventBus_u7684_u521D_u59CB_u5316_u8FC7_u7A0B_uFF1A" class="headerlink" title="EventBus的初始化过程："></a>EventBus的初始化过程：</h2><h3 id="1-_u5355_u5229_u521D_u59CB_u5316"><a href="#1-_u5355_u5229_u521D_u59CB_u5316" class="headerlink" title="1.单利初始化"></a>1.单利初始化</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EventBus <span class="title">getDefault</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (defaultInstance == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (EventBus.class) &#123;</span><br><span class="line">                <span class="keyword">if</span> (defaultInstance == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    defaultInstance = <span class="keyword">new</span> EventBus();</span><br><span class="line">                    <span class="comment">//这里其实使用了默认的Builder</span></span><br><span class="line">                    <span class="comment">//public EventBus() &#123; this(DEFAULT_BUILDER); &#125;</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> defaultInstance;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-_u4F7F_u7528Builder_u521D_u59CB_u5316"><a href="#2-_u4F7F_u7528Builder_u521D_u59CB_u5316" class="headerlink" title="2.使用Builder初始化"></a>2.使用Builder初始化</h3><h4 id="u901A_u8FC7EventBus_u7684_u9759_u6001_u65B9_u6CD5builder_28_29_u521B_u5EFAEventBusBuilder_u5BF9_u8C61"><a href="#u901A_u8FC7EventBus_u7684_u9759_u6001_u65B9_u6CD5builder_28_29_u521B_u5EFAEventBusBuilder_u5BF9_u8C61" class="headerlink" title="通过EventBus的静态方法builder()创建EventBusBuilder对象"></a>通过EventBus的静态方法builder()创建EventBusBuilder对象</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> EventBusBuilder <span class="title">builder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> <span class="keyword">new</span> EventBusBuilder();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EventBus eventBus = EventBus.builder().xxx.build();</span><br></pre></td></tr></table></figure>
+<h2 id="u7B2C_u4E00_u90E8_u5206_u603B_u7ED3_uFF1A_u7B80_u6613vs_u5B9A_u5236"><a href="#u7B2C_u4E00_u90E8_u5206_u603B_u7ED3_uFF1A_u7B80_u6613vs_u5B9A_u5236" class="headerlink" title="第一部分总结：简易vs定制"></a>第一部分总结：简易vs定制</h2><h3 id="u901A_u8FC7EventBus_u63D0_u4F9B_u7684_u4E24_u79CD_u521D_u59CB_u5316_u65B9_u5F0F_uFF0C_u6211_u4EEC_u53EF_u4EE5_u901A_u8FC7_u5355_u5229_u7B80_u6613_u7684_u4F7F_u7528EventBus_u4E3A_u6211_u4EEC_u63D0_u4F9B_u7684_u9ED8_u8BA4_u914D_u7F6E_u3002"><a href="#u901A_u8FC7EventBus_u63D0_u4F9B_u7684_u4E24_u79CD_u521D_u59CB_u5316_u65B9_u5F0F_uFF0C_u6211_u4EEC_u53EF_u4EE5_u901A_u8FC7_u5355_u5229_u7B80_u6613_u7684_u4F7F_u7528EventBus_u4E3A_u6211_u4EEC_u63D0_u4F9B_u7684_u9ED8_u8BA4_u914D_u7F6E_u3002" class="headerlink" title="通过EventBus提供的两种初始化方式，我们可以通过单利简易的使用EventBus为我们提供的默认配置。"></a>通过EventBus提供的两种初始化方式，我们可以通过单利简易的使用EventBus为我们提供的默认配置。</h3><h3 id="u800C_u901A_u8FC7_u7B2C_u4E8C_u79CDBuilder_u6A21_u5F0F_u521B_u5EFA_u5BF9_u8C61_u5F00_u53D1_u8005_u53EF_u4EE5_u5B9A_u5236EventBus_u5BF9_u8C61_u3002"><a href="#u800C_u901A_u8FC7_u7B2C_u4E8C_u79CDBuilder_u6A21_u5F0F_u521B_u5EFA_u5BF9_u8C61_u5F00_u53D1_u8005_u53EF_u4EE5_u5B9A_u5236EventBus_u5BF9_u8C61_u3002" class="headerlink" title="而通过第二种Builder模式创建对象开发者可以定制EventBus对象。"></a>而通过第二种Builder模式创建对象开发者可以定制EventBus对象。</h3><hr>
+<h2 id="EventBus_u7684_u6CE8_u518C_u8FC7_u7A0B_uFF1A"><a href="#EventBus_u7684_u6CE8_u518C_u8FC7_u7A0B_uFF1A" class="headerlink" title="EventBus的注册过程："></a>EventBus的注册过程：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">register</span><span class="params">(Object subscriber)</span> </span>&#123;</span><br><span class="line">        Class&lt;?&gt; subscriberClass = subscriber.getClass();<span class="comment">//被注册类的类对象</span></span><br><span class="line">        <span class="comment">//通过被注册的类对象找到所有响应方法</span></span><br><span class="line">        List&lt;SubscriberMethod&gt; subscriberMethods = subscriberMethodFinder.findSubscriberMethods(subscriberClass);</span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="keyword">this</span>) &#123;</span><br><span class="line">            <span class="keyword">for</span> (SubscriberMethod subscriberMethod : subscriberMethods) &#123;</span><br><span class="line">                subscribe(subscriber, subscriberMethod);<span class="comment">//遍历所有响应方法逐个订阅</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u771F_u6B63_u7684_u8BA2_u9605_u903B_u8F91_uFF1A"><a href="#u771F_u6B63_u7684_u8BA2_u9605_u903B_u8F91_uFF1A" class="headerlink" title="真正的订阅逻辑："></a>真正的订阅逻辑：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/***</span><br><span class="line">   *</span><br><span class="line">   * <span class="doctag">@param</span> subscriber register的类</span><br><span class="line">   * <span class="doctag">@param</span> subscriberMethod 类里的subscriber方法</span><br><span class="line">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(Object subscriber, SubscriberMethod subscriberMethod)</span> </span>&#123;</span><br><span class="line">      Class&lt;?&gt; eventType = subscriberMethod.eventType;<span class="comment">//事件类的类对象</span></span><br><span class="line">      Subscription newSubscription = <span class="keyword">new</span> Subscription(subscriber, subscriberMethod);</span><br><span class="line">      <span class="comment">//subscriptionsByEventType存储了&lt;事件类的Class对象，所有的订阅者&gt;</span></span><br><span class="line">      CopyOnWriteArrayList&lt;Subscription&gt; subscriptions = subscriptionsByEventType.get(eventType);</span><br><span class="line">      <span class="keyword">if</span> (subscriptions == <span class="keyword">null</span>) &#123;</span><br><span class="line">          subscriptions = <span class="keyword">new</span> CopyOnWriteArrayList&lt;&gt;();</span><br><span class="line">          subscriptionsByEventType.put(eventType, subscriptions);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (subscriptions.contains(newSubscription)) &#123;</span><br><span class="line">              <span class="keyword">throw</span> <span class="keyword">new</span> EventBusException(<span class="string">"Subscriber "</span> + subscriber.getClass() + <span class="string">" already registered to event "</span></span><br><span class="line">                      + eventType);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">int</span> size = subscriptions.size();</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= size; i++) &#123;</span><br><span class="line">          <span class="keyword">if</span> (i == size || subscriberMethod.priority &gt; subscriptions.get(i).subscriberMethod.priority) &#123;</span><br><span class="line">              subscriptions.add(i, newSubscription);</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      List&lt;Class&lt;?&gt;&gt; subscribedEvents = typesBySubscriber.get(subscriber);</span><br><span class="line">      <span class="keyword">if</span> (subscribedEvents == <span class="keyword">null</span>) &#123;</span><br><span class="line">          subscribedEvents = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">          typesBySubscriber.put(subscriber, subscribedEvents);</span><br><span class="line">      &#125;</span><br><span class="line">      subscribedEvents.add(eventType);</span><br><span class="line"><span class="comment">//黏性和继承性的处理</span></span><br><span class="line">      <span class="keyword">if</span> (subscriberMethod.sticky) &#123;<span class="comment">//是黏性事件</span></span><br><span class="line">          <span class="keyword">if</span> (eventInheritance) &#123;<span class="comment">//有继承</span></span><br><span class="line">              <span class="comment">// Existing sticky events of all subclasses of eventType have to be considered.</span></span><br><span class="line">              <span class="comment">// Note: Iterating over all events may be inefficient with lots of sticky events,</span></span><br><span class="line">              <span class="comment">//当存在很多黏性事件的时候迭代所有事件是很低效的，应该换用高效点的数据结构去查找</span></span><br><span class="line">              <span class="comment">//例如，用一个额外的Map来存&lt;父类，List&lt;子类&gt;&gt;</span></span><br><span class="line">              <span class="comment">// thus data structure should be changed to allow a more efficient lookup</span></span><br><span class="line">              <span class="comment">// (e.g. an additional map storing sub classes of super classes: Class -&gt; List&lt;Class&gt;).</span></span><br><span class="line">              Set&lt;Map.Entry&lt;Class&lt;?&gt;, Object&gt;&gt; entries = stickyEvents.entrySet();</span><br><span class="line">              <span class="keyword">for</span> (Map.Entry&lt;Class&lt;?&gt;, Object&gt; entry : entries) &#123;</span><br><span class="line">                  Class&lt;?&gt; candidateEventType = entry.getKey();</span><br><span class="line">                  <span class="keyword">if</span> (eventType.isAssignableFrom(candidateEventType)) &#123;</span><br><span class="line">                      Object stickyEvent = entry.getValue();</span><br><span class="line">                      checkPostStickyEventToSubscription(newSubscription, stickyEvent);</span><br><span class="line">                  &#125;</span><br><span class="line">              &#125;</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">              Object stickyEvent = stickyEvents.get(eventType);</span><br><span class="line">              checkPostStickyEventToSubscription(newSubscription, stickyEvent);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//根据线程类型调用对应的事件方法</span></span><br><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">postToSubscription</span><span class="params">(Subscription subscription, Object event, <span class="keyword">boolean</span> isMainThread)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (subscription.subscriberMethod.threadMode) &#123;<span class="comment">//判断threadMode</span></span><br><span class="line">            <span class="keyword">case</span> POSTING:</span><br><span class="line">                invokeSubscriber(subscription, event);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MAIN:</span><br><span class="line">                <span class="keyword">if</span> (isMainThread) &#123;</span><br><span class="line">                    invokeSubscriber(subscription, event);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    mainThreadPoster.enqueue(subscription, event);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MAIN_ORDERED:</span><br><span class="line">                <span class="keyword">if</span> (mainThreadPoster != <span class="keyword">null</span>) &#123;</span><br><span class="line">                    mainThreadPoster.enqueue(subscription, event);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// temporary: technically not correct as poster not decoupled from subscriber</span></span><br><span class="line">                    invokeSubscriber(subscription, event);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> BACKGROUND:</span><br><span class="line">                <span class="keyword">if</span> (isMainThread) &#123;</span><br><span class="line">                    backgroundPoster.enqueue(subscription, event);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    invokeSubscriber(subscription, event);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> ASYNC:</span><br><span class="line">                asyncPoster.enqueue(subscription, event);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Unknown thread mode: "</span> + subscription.subscriberMethod.threadMode);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>  
+	</div>
+		<footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+	<div class="article-share" id="share">
+	
+	  <div data-url="http://duwei.com/2018/03/17/EventBus源码分析/" data-title="EventBus源码分析 | duwei&#39;s blog" data-tsina="null" class="share clearfix">
+	  </div>
+	
+	</div>
+
+
+</footer>
+
+   	       
+	</article>
+	
+<nav class="article-nav clearfix">
+ 
+
+<div class="next">
+<a href="/2018/03/17/Volley源码分析/"  title="Volley源码分析">
+ <strong>下一篇：</strong><br/> 
+ <span>Volley源码分析
+</span>
+</a>
+</div>
+
+</nav>
+
+	
+<section id="comments" class="comment">
+	<div class="ds-thread" data-thread-key="2018/03/17/EventBus源码分析/" data-title="EventBus源码分析" data-url="http://duwei.com/2018/03/17/EventBus源码分析/"></div>
+</section>
+
+
+</div>  
+      <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+
+  <div id="toc" class="toc-aside">
+  <strong class="toc-title">文章目录</strong>
+ 
+ <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u6982_u8FF0_uFF1AEventBus_u4E3B_u8981_u7684_u6D41_u7A0B_u5305_u62EC_u4EE5_u4E0B_u4E09_u4E2A_u65B9_u9762_uFF1A"><span class="toc-number">1.</span> <span class="toc-text">概述：EventBus主要的流程包括以下三个方面：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-EventBus_u7684_u521D_u59CB_u5316_u8FC7_u7A0B"><span class="toc-number">1.1.</span> <span class="toc-text">1.EventBus的初始化过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-EventBus_u7684_u6CE8_u518C_u8FC7_u7A0B"><span class="toc-number">1.2.</span> <span class="toc-text">2.EventBus的注册过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-EventBus_u7684_u4E8B_u4EF6_u53D1_u9001_u8FC7_u7A0B"><span class="toc-number">1.3.</span> <span class="toc-text">3.EventBus的事件发送过程</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EventBus_u7684_u521D_u59CB_u5316_u8FC7_u7A0B_uFF1A"><span class="toc-number">2.</span> <span class="toc-text">EventBus的初始化过程：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-_u5355_u5229_u521D_u59CB_u5316"><span class="toc-number">2.1.</span> <span class="toc-text">1.单利初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-_u4F7F_u7528Builder_u521D_u59CB_u5316"><span class="toc-number">2.2.</span> <span class="toc-text">2.使用Builder初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u901A_u8FC7EventBus_u7684_u9759_u6001_u65B9_u6CD5builder_28_29_u521B_u5EFAEventBusBuilder_u5BF9_u8C61"><span class="toc-number">2.2.1.</span> <span class="toc-text">通过EventBus的静态方法builder()创建EventBusBuilder对象</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E00_u90E8_u5206_u603B_u7ED3_uFF1A_u7B80_u6613vs_u5B9A_u5236"><span class="toc-number">3.</span> <span class="toc-text">第一部分总结：简易vs定制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u901A_u8FC7EventBus_u63D0_u4F9B_u7684_u4E24_u79CD_u521D_u59CB_u5316_u65B9_u5F0F_uFF0C_u6211_u4EEC_u53EF_u4EE5_u901A_u8FC7_u5355_u5229_u7B80_u6613_u7684_u4F7F_u7528EventBus_u4E3A_u6211_u4EEC_u63D0_u4F9B_u7684_u9ED8_u8BA4_u914D_u7F6E_u3002"><span class="toc-number">3.1.</span> <span class="toc-text">通过EventBus提供的两种初始化方式，我们可以通过单利简易的使用EventBus为我们提供的默认配置。</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u800C_u901A_u8FC7_u7B2C_u4E8C_u79CDBuilder_u6A21_u5F0F_u521B_u5EFA_u5BF9_u8C61_u5F00_u53D1_u8005_u53EF_u4EE5_u5B9A_u5236EventBus_u5BF9_u8C61_u3002"><span class="toc-number">3.2.</span> <span class="toc-text">而通过第二种Builder模式创建对象开发者可以定制EventBus对象。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EventBus_u7684_u6CE8_u518C_u8FC7_u7A0B_uFF1A"><span class="toc-number">4.</span> <span class="toc-text">EventBus的注册过程：</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#u771F_u6B63_u7684_u8BA2_u9605_u903B_u8F91_uFF1A"><span class="toc-number">4.1.</span> <span class="toc-text">真正的订阅逻辑：</span></a></li></ol></li></ol>
+ 
+  </div>
+
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+
+  
+<div class="github-card">
+<p class="asidetitle">Github 名片</p>
+<div class="github-card" data-github="codingWang" data-width="220" data-height="119" data-theme="medium">
+<script type="text/javascript" src="//cdn.jsdelivr.net/github-cards/latest/widget.js" ></script>
+</div>
+  </div>
+
+
+
+  
+
+  
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+		
+			
+				<li><a href="/tags/Android/" title="Android">Android<sup>21</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/Java/" title="Java">Java<sup>8</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/设计模式/" title="设计模式">设计模式<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/计算机网络/" title="计算机网络">计算机网络<sup>2</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/RxJava/" title="RxJava">RxJava<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/js/" title="js">js<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/UML/" title="UML">UML<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/源码阅读/" title="源码阅读">源码阅读<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/JavaWeb/" title="JavaWeb">JavaWeb<sup>1</sup></a></li>
+			
+		
+			
+				<li><a href="/tags/framwork/" title="framwork">framwork<sup>1</sup></a></li>
+			
+		
+		</ul>
+</div>
+
+
+  <div class="linkslist">
+  <p class="asidetitle">友情链接</p>
+    <ul>
+        
+    </ul>
+</div>
+
+  
+
+
+  <div class="rsspart">
+	<a href="/atom.xml" target="_blank" title="rss">RSS 订阅</a>
+</div>
+
+</aside>
+</div>
+    </div>
+    <footer><div id="footer" >
+	
+	
+	<section class="info">
+		<p> Hello ,I&#39;m duwei . <br/>
+			This is my blog .</p>
+	</section>
+	 
+	<div class="social-font" class="clearfix">
+		
+		
+		<a href="https://github.com/codingWang" target="_blank" class="icon-github" title="github"></a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<a href="mailto:du2035392@hotmail.com" target="_blank" class="icon-email" title="Email Me"></a>
+		
+	</div>
+			
+		
+
+		<p class="copyright">
+		Powered by <a href="http://hexo.io" target="_blank" title="hexo">hexo</a> and Theme by <a href="https://github.com/wuchong/jacman" target="_blank" title="Jacman">Jacman</a> © 2018 
+		
+		<a href="/about" target="_blank" title="duwei">duwei</a>
+		
+		
+		</p>
+</div>
+</footer>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/jquery.qrcode-0.12.0.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');      
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  
+  $(window).resize(function(){
+    getSize(); 
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else{
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+      
+      $('#toc.toc-aside').css('display', 'none');
+        
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  c.click(function(){
+    ta.css('display', 'block').addClass('fadeIn');
+  });
+  o.click(function(){
+    ta.css('display', 'none');
+  });
+  $(window).scroll(function(){
+    ta.css("top",Math.max(140,320-$(this).scrollTop()));
+  });
+});
+</script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){ 
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina'),
+      description = $this.attr('description');
+  var html = [
+  '<div class="hoverqrcode clearfix"></div>',
+  '<a class="overlay" id="qrcode"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="微信"></a>',
+  '<a href="http://widget.renren.com/dialog/share?resourceUrl=' + encodedUrl + '&srcUrl=' + encodedUrl + '&title=' + title +'" class="article-share-renren" target="_blank" title="人人"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="微博"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+
+  $('.hoverqrcode').hide();
+
+  var myWidth = 0;
+  function updatehoverqrcode(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+    var qrsize = myWidth > 1024 ? 200:100;
+    var options = {render: 'image', size: qrsize, fill: '#2ca6cb', text: url, radius: 0.5, quiet: 1};
+    var p = $('.article-share-qrcode').position();
+    $('.hoverqrcode').empty().css('width', qrsize).css('height', qrsize)
+                          .css('left', p.left-qrsize/2+20).css('top', p.top-qrsize-10)
+                          .qrcode(options);
+  };
+  $(window).resize(function(){
+    $('.hoverqrcode').hide();
+  });
+  $('.article-share-qrcode').click(function(){
+    updatehoverqrcode();
+    $('.hoverqrcode').toggle();
+  });
+  $('.article-share-qrcode').hover(function(){}, function(){
+      $('.hoverqrcode').hide();
+  });
+});   
+</script>
+
+
+
+<script type="text/javascript">
+  var duoshuoQuery = {short_name:"wangduwei"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+</script> 
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){ 
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+}); 
+</script>
+
+
+
+<!-- Analytics Begin -->
+
+
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?null";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+
+
+<!-- Analytics End -->
+
+<!-- Totop Begin -->
+
+	<div id="totop">
+	<a title="返回顶部"><img src="/img/scrollup.png"/></a>
+	</div>
+	<script src="/js/totop.js"></script>
+
+<!-- Totop End -->
+
+<!-- MathJax Begin -->
+<!-- mathjax config similar to math.stackexchange -->
+
+
+<!-- MathJax End -->
+
+<!-- Tiny_search Begin -->
+
+<!-- Tiny_search End -->
+
+  </body>
+</html>

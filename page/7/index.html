@@ -90,6 +90,99 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2016/03/11/NBAPlus-Analysis/" title="NBAPlus-Analysis" itemprop="url">NBAPlus-Analysis</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2016-03-11T01:54:40.000Z" itemprop="datePublished"> 发表于 2016-03-11</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="u6982_u8FF0_uFF1A"><a href="#u6982_u8FF0_uFF1A" class="headerlink" title="概述："></a>概述：</h2><h3 id="u9605_u8BFB_u4F18_u79C0_u7684_u5F00_u6E90_u9879_u76EE_uFF1ANBAPlus"><a href="#u9605_u8BFB_u4F18_u79C0_u7684_u5F00_u6E90_u9879_u76EE_uFF1ANBAPlus" class="headerlink" title="阅读优秀的开源项目：NBAPlus"></a>阅读优秀的开源项目：<a href="https://github.com/SilenceDut/NBAPlus" target="_blank" rel="external">NBAPlus</a></h3><h3 id="u4E00_u3001_u5E94_u7528_u542F_u52A8_u5206_u6790_uFF1A"><a href="#u4E00_u3001_u5E94_u7528_u542F_u52A8_u5206_u6790_uFF1A" class="headerlink" title="一、应用启动分析："></a>一、应用启动分析：</h3><ul>
+<li><p>1、初始化LeakCanary进行内存泄露检测</p>
+</li>
+<li><p>2、AppService类的初始化</p>
+</li>
+</ul>
+<h3 id="AppService_u7C7B_uFF1A_u6B64_u7C7B_u5C06_u5E38_u7528_u7684_u5168_u5C40_u5BF9_u8C61_u8FDB_u884C_u7EDF_u4E00_u7684_u5C01_u88C5_u7BA1_u7406_uFF0C_u907F_u514D_u4E86Application_u7684_u81C3_u80BF_u3002"><a href="#AppService_u7C7B_uFF1A_u6B64_u7C7B_u5C06_u5E38_u7528_u7684_u5168_u5C40_u5BF9_u8C61_u8FDB_u884C_u7EDF_u4E00_u7684_u5C01_u88C5_u7BA1_u7406_uFF0C_u907F_u514D_u4E86Application_u7684_u81C3_u80BF_u3002" class="headerlink" title="AppService类：此类将常用的全局对象进行统一的封装管理，避免了Application的臃肿。"></a>AppService类：此类将常用的全局对象进行统一的封装管理，避免了Application的臃肿。</h3><ul>
+<li><p>1、常用全局对象的初始化</p>
+</li>
+<li><p>2、Subscription的管理，避免内存泄露（CompositeSubscription）</p>
+</li>
+<li><p>3、初始化了一个后台线程对<strong>数据库操作对象</strong>和<strong>API请求对象</strong>进行初始化（为了启动效率问题吗？）</p>
+</li>
+</ul>
+<h3 id="u4E8C_u3001_u57FA_u7C7B_u7684_u5C01_u88C5_uFF1A"><a href="#u4E8C_u3001_u57FA_u7C7B_u7684_u5C01_u88C5_uFF1A" class="headerlink" title="二、基类的封装："></a>二、基类的封装：</h3><h4 id="1_u3001BaseActivity"><a href="#1_u3001BaseActivity" class="headerlink" title="1、BaseActivity"></a>1、BaseActivity</h4><ul>
+<li>ButterKnife的绑定</li>
+<li>EventBus的注册</li>
+<li>CompositeSubscription的添加</li>
+<li>onDestory方法中反注册与remove</li>
+</ul>
+<h4 id="2_u3001BaseFragment"><a href="#2_u3001BaseFragment" class="headerlink" title="2、BaseFragment"></a>2、BaseFragment</h4><ul>
+<li>ButterKnife的绑定</li>
+<li>EventBus的注册及反注册</li>
+</ul>
+<h3 id="u4E09_u3001MainActivity_u5206_u6790_uFF1A"><a href="#u4E09_u3001MainActivity_u5206_u6790_uFF1A" class="headerlink" title="三、MainActivity分析："></a>三、MainActivity分析：</h3><ul>
+<li>1、进行Drawer的初始化</li>
+<li>2、EventBus的onEventMainThread（）方法</li>
+<li>3、默认初始化“新闻”Fragment</li>
+</ul>
+<h3 id="u56DB_u3001_u7F51_u7EDC_u8BF7_u6C42_u5206_u6790_uFF1A"><a href="#u56DB_u3001_u7F51_u7EDC_u8BF7_u6C42_u5206_u6790_uFF1A" class="headerlink" title="四、网络请求分析："></a>四、网络请求分析：</h3><ul>
+<li>0、声明NbaplusAPI和NewsDetileAPI请求接口</li>
+<li>1、NbaplusFactory生产NbaplusAPI和NewsDetileAPI两个接口对象</li>
+<li>2、以上两个对象在NbaplusClient中通过Retrofit构建。</li>
+</ul>
+<h3 id="u4E94_u3001rxmethod_u5305"><a href="#u4E94_u3001rxmethod_u5305" class="headerlink" title="五、rxmethod包"></a>五、rxmethod包</h3><h4 id="u5BF9_u6570_u636E_u7684_u64CD_u4F5C_u65B9_u6CD5_uFF0C_u53D1_u8D77_u7F51_u7EDC_u8BF7_u6C42_uFF0C_u5E76_u56DE_u8C03EventBus"><a href="#u5BF9_u6570_u636E_u7684_u64CD_u4F5C_u65B9_u6CD5_uFF0C_u53D1_u8D77_u7F51_u7EDC_u8BF7_u6C42_uFF0C_u5E76_u56DE_u8C03EventBus" class="headerlink" title="对数据的操作方法，发起网络请求，并回调EventBus"></a>对数据的操作方法，发起网络请求，并回调EventBus</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Subscription <span class="title">getTeams</span><span class="params">(String date)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Subscription subscription = AppService.getNbaplus().getGames(date)</span><br><span class="line">                .subscribeOn(Schedulers.io())</span><br><span class="line">                .observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">                .subscribe(<span class="keyword">new</span> Action1&lt;Games&gt;() &#123;</span><br><span class="line">                    <span class="annotation">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Games games)</span> </span>&#123;<span class="comment">//成功的回调</span></span><br><span class="line">                        AppService.getBus().post(<span class="keyword">new</span> GamesEvent(games, Constant.Result.SUCCESS));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;, <span class="keyword">new</span> Action1&lt;Throwable&gt;() &#123;<span class="comment">//失败的回调</span></span><br><span class="line">                    <span class="annotation">@Override</span></span><br><span class="line">                    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">call</span><span class="params">(Throwable throwable)</span> </span>&#123;</span><br><span class="line">                        AppService.getBus().post(<span class="keyword">new</span> GamesEvent(<span class="keyword">null</span>, Constant.Result.FAIL));</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;);</span><br><span class="line">        <span class="keyword">return</span> subscription;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u516D_u3001_u6570_u636E_u7684_u7F13_u5B58_u4F7F_u7528greenDAO_uFF1A"><a href="#u516D_u3001_u6570_u636E_u7684_u7F13_u5B58_u4F7F_u7528greenDAO_uFF1A" class="headerlink" title="六、数据的缓存使用greenDAO："></a>六、数据的缓存使用greenDAO：</h3><h4 id="u8BE6_u7EC6_u7528_u6CD5_uFF1A"><a href="#u8BE6_u7EC6_u7528_u6CD5_uFF1A" class="headerlink" title="详细用法："></a>详细用法：</h4><p><a href="http://www.open-open.com/lib/view/open1438065400878.html" target="_blank" rel="external">http://www.open-open.com/lib/view/open1438065400878.html</a></p>
+
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+  <div class="article-tags">
+  
+  <span></span> <a href="/tags/Android/">Android</a>
+  </div>
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2016/03/11/NBAPlus-Analysis/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/11/NBAPlus-Analysis/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2016/03/10/cool/" title="cool" itemprop="url">cool</a>
   </h1>
   <p class="article-author">By
@@ -341,114 +434,6 @@ var _hmt = _hmt || [];
 	
 	  	<span></span>
 		<a href="/2016/03/02/ViewDragHelper/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/03/02/ViewDragHelper/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/02/26/recyclerview/" title="recyclerview" itemprop="url">recyclerview</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-02-26T11:38:37.000Z" itemprop="datePublished"> 发表于 2016-02-26</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h2 id="u4E00_u3001_u6982_u8FF0"><a href="#u4E00_u3001_u6982_u8FF0" class="headerlink" title="一、概述"></a>一、概述</h2><h3 id="u8FD9_u7BC7_u6587_u7AE0_u8BB0_u5F55_uFF1A"><a href="#u8FD9_u7BC7_u6587_u7AE0_u8BB0_u5F55_uFF1A" class="headerlink" title="这篇文章记录："></a>这篇文章记录：</h3><ul>
-<li>recyclerView的基本用法</li>
-<li>为recyclerview添加点击事件</li>
-<li>添加上拉加载更多</li>
-<li>拖拽排序&amp;滑动删除（初稿）</li>
-</ul>
-<h2 id="u4E8C_u3001recyclerview_u57FA_u672C_u7528_u6CD5_uFF1A"><a href="#u4E8C_u3001recyclerview_u57FA_u672C_u7528_u6CD5_uFF1A" class="headerlink" title="二、recyclerview基本用法："></a>二、recyclerview基本用法：</h2><ul>
-<li>写item和recyclerview布局</li>
-<li>写Adapter</li>
-<li>绑定数据、适配器、recyclerview</li>
-</ul>
-<h3 id="1_u3001_u57FA_u672C_u64CD_u4F5C"><a href="#1_u3001_u57FA_u672C_u64CD_u4F5C" class="headerlink" title="1、基本操作"></a>1、基本操作</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">//1、找到控件</span></span><br><span class="line">mRecyclerView = findView(R.id.id_recyclerview);</span><br><span class="line">	<span class="comment">//2、设置布局管理器</span></span><br><span class="line">mRecyclerView.setLayoutManager(layout);</span><br><span class="line">	<span class="comment">//3、设置adapter</span></span><br><span class="line">mRecyclerView.setAdapter(adapter)</span><br><span class="line">	<span class="comment">//4、设置Item动画</span></span><br><span class="line">mRecyclerView.setItemAnimator(<span class="keyword">new</span> DefaultItemAnimator());</span><br><span class="line">	<span class="comment">//5、添加分割线</span></span><br><span class="line">mRecyclerView.addItemDecoration(<span class="keyword">new</span> DividerItemDecoration( getActivity(), DividerItemDecoration.HORIZONTAL_LIST));</span><br><span class="line">   	<span class="comment">//6、保持固定的大小,提高性能</span></span><br><span class="line">mRecyclerView.setHasFixedSize(<span class="keyword">true</span>);</span><br></pre></td></tr></table></figure>
-<h3 id="2_u3001_u9002_u914D_u5668_26amp_3BViewHolder"><a href="#2_u3001_u9002_u914D_u5668_26amp_3BViewHolder" class="headerlink" title="2、适配器&amp;ViewHolder"></a>2、适配器&amp;ViewHolder</h3><ul>
-<li>继承RecyclerView.Adapter</li>
-<li>复写下面三个方法：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> RecyclerView.<span class="function">ViewHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup viewGroup, <span class="keyword">int</span> i)</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(RecyclerView.ViewHolder viewHolder, <span class="keyword">int</span> i)</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getItemCount</span><span class="params">()</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>写ViewHolder继承RecyclerView.ViewHolder</li>
-</ul>
-<h3 id="3_u3001Click_u548CLongClick_u4E8B_u4EF6"><a href="#3_u3001Click_u548CLongClick_u4E8B_u4EF6" class="headerlink" title="3、Click和LongClick事件"></a>3、Click和LongClick事件</h3><ul>
-<li>1、在Adapter中定义如下接口：</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnRecyclerViewItemClickListener</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">onItemClick</span><span class="params">(View view , String data)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>2、在onCreateViewHolder()中为每个item添加点击事件</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> ViewHolder <span class="title">onCreateViewHolder</span><span class="params">(ViewGroup viewGroup,  <span class="keyword">int</span> viewType)</span> </span>&#123;</span><br><span class="line">        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item, viewGroup, <span class="keyword">false</span>);</span><br><span class="line">        ViewHolder vh = <span class="keyword">new</span> ViewHolder(view);</span><br><span class="line">        <span class="comment">//将创建的View注册点击事件</span></span><br><span class="line">        view.setOnClickListener(<span class="keyword">this</span>);</span><br><span class="line">        <span class="keyword">return</span> vh;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>3、将点击事件转移给外面的调用者：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> <span class="annotation">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View v)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mOnItemClickListener != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">//注意这里使用getTag方法获取数据</span></span><br><span class="line">        mOnItemClickListener.onItemClick(v,(String)v.getTag());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="u6CE8_u610F_uFF1A_onBindViewHolder_28_29_u65B9_u6CD5_u4E2D_u8BBE_u7F6E_u548Citem_u76F8_u5173_u7684_u6570_u636E"><a href="#u6CE8_u610F_uFF1A_onBindViewHolder_28_29_u65B9_u6CD5_u4E2D_u8BBE_u7F6E_u548Citem_u76F8_u5173_u7684_u6570_u636E" class="headerlink" title="注意： onBindViewHolder()方法中设置和item相关的数据"></a><strong>注意：</strong> onBindViewHolder()方法中设置和item相关的数据</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">   </span><br><span class="line"><span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onBindViewHolder</span><span class="params">(ViewHolder viewHolder,  <span class="keyword">int</span> position)</span> </span>&#123;</span><br><span class="line">        viewHolder.mTextView.setText(datas[position]);</span><br><span class="line">        <span class="comment">//将数据保存在itemView的Tag中，以便点击时进行获取</span></span><br><span class="line">        viewHolder.itemView.setTag(datas[position]);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>4、最后暴露给外面的调用者，定义一个设置Listener的方法（）</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnItemClickListener</span><span class="params">(OnRecyclerViewItemClickListener listener)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mOnItemClickListener = listener;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="4_u3001_u4E0A_u62C9_u52A0_u8F7D_u66F4_u591A"><a href="#4_u3001_u4E0A_u62C9_u52A0_u8F7D_u66F4_u591A" class="headerlink" title="4、上拉加载更多"></a>4、上拉加载更多</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">recyclerView.setOnScrollListener(<span class="keyword">new</span> RecyclerView.OnScrollListener() &#123;</span><br><span class="line">         <span class="annotation">@Override</span></span><br><span class="line">         <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onScrolled</span><span class="params">(RecyclerView recyclerView, <span class="keyword">int</span> dx, <span class="keyword">int</span> dy)</span> </span>&#123;</span><br><span class="line">             <span class="keyword">super</span>.onScrolled(recyclerView, dx, dy);</span><br><span class="line">             <span class="keyword">int</span> lastVisibleItem = ((LinearLayoutManager) mLayoutManager).findLastVisibleItemPosition();</span><br><span class="line">             <span class="keyword">int</span> totalItemCount = mLayoutManager.getItemCount();</span><br><span class="line">             <span class="comment">//lastVisibleItem &gt;= totalItemCount - 4 表示剩下4个item自动加载，各位自由选择</span></span><br><span class="line">             <span class="comment">// dy&gt;0 表示向下滑动</span></span><br><span class="line">             <span class="keyword">if</span> (lastVisibleItem &gt;= totalItemCount - <span class="number">4</span> &amp;&amp; dy &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                 <span class="keyword">if</span>(isLoadingMore)&#123;</span><br><span class="line">                      Log.d(TAG,<span class="string">"ignore manually update!"</span>);</span><br><span class="line">                 &#125; <span class="keyword">else</span>&#123;</span><br><span class="line">                      loadPage();<span class="comment">//这里多线程也要手动控制isLoadingMore</span></span><br><span class="line">                     isLoadingMore = <span class="keyword">false</span>;</span><br><span class="line">                 &#125;</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;);</span><br></pre></td></tr></table></figure>
-<h3 id="5_u3001ItemTouchHelper"><a href="#5_u3001ItemTouchHelper" class="headerlink" title="5、ItemTouchHelper"></a>5、ItemTouchHelper</h3><h4 id="This_is_a_utility_class_to_add_swipe_to_dismiss_and_drag__26amp_3B_drop_support_to_RecyclerView_28from_google_docs_29"><a href="#This_is_a_utility_class_to_add_swipe_to_dismiss_and_drag__26amp_3B_drop_support_to_RecyclerView_28from_google_docs_29" class="headerlink" title="This is a utility class to add swipe to dismiss and drag &amp; drop support to RecyclerView(from google docs)"></a>This is a utility class to add swipe to dismiss and drag &amp; drop support to RecyclerView(from google docs)</h4><ul>
-<li><p>类的大概声明</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ItemTouchHelper</span> <span class="keyword">extends</span> <span class="title">RecyclerView</span>.<span class="title">ItemDecoration</span></span><br><span class="line">        <span class="keyword">implements</span> <span class="title">RecyclerView</span>.<span class="title">OnChildAttachStateChangeListener</span> </span>&#123;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//构造函数</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ItemTouchHelper</span><span class="params">(Callback callback)</span> </span>&#123;<span class="comment">//传入一个Callback，两个内部类可用</span></span><br><span class="line">        mCallback = callback;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//与recyclerview绑定</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attachToRecyclerView</span><span class="params">(RecyclerView recyclerView)</span></span>&#123;&#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//some code here</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Callback</span> </span>&#123;&#125;	<span class="comment">//嵌套类</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleCallback</span> <span class="keyword">extends</span> <span class="title">Callback</span></span>&#123;&#125; 	<span class="comment">//嵌套类</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>SimpleCallback</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span><br><span class="line"> *dragDirs- 表示拖拽的方向，有六个类型的值：LEFT、RIGHT、START、END、UP、DOWN</span><br><span class="line"> *swipeDirs- 表示滑动的方向，有六个类型的值：LEFT、RIGHT、START、END、UP、DOWN</span><br><span class="line"> */</span></span><br><span class="line">ItemTouchHelper.Callback mCallback = <span class="keyword">new</span> ItemTouchHelper.SimpleCallback(<span class="keyword">int</span> dragDirs, <span class="keyword">int</span> swipeDirs) &#123;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@param</span> recyclerView</span><br><span class="line">     * <span class="doctag">@param</span> viewHolder 拖动的ViewHolder</span><br><span class="line">     * <span class="doctag">@param</span> target 目标位置的ViewHolder</span><br><span class="line">     * <span class="doctag">@return</span></span><br><span class="line">     */</span></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onMove</span><span class="params">(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span><br><span class="line">     * <span class="doctag">@param</span> viewHolder 滑动的ViewHolder</span><br><span class="line">     * <span class="doctag">@param</span> direction 滑动的方向</span><br><span class="line">     */</span></span><br><span class="line">    <span class="annotation">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSwiped</span><span class="params">(RecyclerView.ViewHolder viewHolder, <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Examples</p>
-</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//0则不执行拖动或者滑动</span></span><br><span class="line">ItemTouchHelper.Callback mCallback = <span class="keyword">new</span> ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP|ItemTouchHelper.DOWN,ItemTouchHelper.RIGHT) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="annotation">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onMove</span><span class="params">(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> fromPosition = viewHolder.getAdapterPosition();<span class="comment">//得到拖动ViewHolder的position</span></span><br><span class="line">    <span class="keyword">int</span> toPosition = target.getAdapterPosition();<span class="comment">//得到目标ViewHolder的position</span></span><br><span class="line">    <span class="keyword">if</span> (fromPosition &lt; toPosition) &#123;</span><br><span class="line">      <span class="comment">//分别把中间所有的item的位置重新交换</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = fromPosition; i &lt; toPosition; i++) &#123;</span><br><span class="line">        Collections.swap(datas, i, i + <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">int</span> i = fromPosition; i &gt; toPosition; i--) &#123;</span><br><span class="line">        Collections.swap(datas, i, i - <span class="number">1</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    mAdapter.notifyItemMoved(fromPosition, toPosition);</span><br><span class="line">    <span class="comment">//返回true表示执行拖动</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="annotation">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSwiped</span><span class="params">(RecyclerView.ViewHolder viewHolder, <span class="keyword">int</span> direction)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> position = viewHolder.getAdapterPosition();</span><br><span class="line">    datas.remove(position);</span><br><span class="line">    mAdapter.notifyItemRemoved(position);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="annotation">@Override</span><span class="comment">//画每一个Item时回调</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onChildDraw</span><span class="params">(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, <span class="keyword">float</span> dX, <span class="keyword">float</span> dY, <span class="keyword">int</span> actionState, <span class="keyword">boolean</span> isCurrentlyActive)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);</span><br><span class="line">    <span class="keyword">if</span>(actionState == ItemTouchHelper.ACTION_STATE_SWIPE) &#123;</span><br><span class="line">      <span class="comment">//滑动时改变Item的透明度</span></span><br><span class="line">      <span class="keyword">final</span> <span class="keyword">float</span> alpha = <span class="number">1</span> - Math.abs(dX) / (<span class="keyword">float</span>)viewHolder.itemView.getWidth();</span><br><span class="line">      viewHolder.itemView.setAlpha(alpha);</span><br><span class="line">      viewHolder.itemView.setTranslationX(dX);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">ItemTouchHelper itemTouchHelper = <span class="keyword">new</span> ItemTouchHelper(mCallback);</span><br><span class="line">itemTouchHelper.attachToRecyclerView(mRecyclerView);</span><br></pre></td></tr></table></figure>
-<h3 id="u53C2_u8003_u94FE_u63A5_uFF1A"><a href="#u53C2_u8003_u94FE_u63A5_uFF1A" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="https://github.com/devunwired/recyclerview-playground" target="_blank" rel="external">https://github.com/devunwired/recyclerview-playground</a></p>
-<p><a href="https://github.com/AleBarreto/DragRecyclerView.git" target="_blank" rel="external">https://github.com/AleBarreto/DragRecyclerView.git</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/02/26/recyclerview/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/02/26/recyclerview/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
