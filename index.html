@@ -90,6 +90,73 @@ var _hmt = _hmt || [];
         <header class="article-info clearfix">
   <h1 itemprop="name">
     
+      <a href="/2018/03/17/Volley源码分析/" title="Volley源码分析" itemprop="url">Volley源码分析</a>
+  </h1>
+  <p class="article-author">By
+       
+		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
+		
+  <p class="article-time">
+    <time datetime="2018-03-17T01:33:24.000Z" itemprop="datePublished"> 发表于 2018-03-17</time>
+    
+  </p>
+</header>
+    <div class="article-content">
+        
+        <h2 id="1-_u4ECE_u57FA_u672C_u4F7F_u7528_u8BF4_u8D77"><a href="#1-_u4ECE_u57FA_u672C_u4F7F_u7528_u8BF4_u8D77" class="headerlink" title="1.从基本使用说起"></a>1.从基本使用说起</h2><h3 id="1-1_volley_u7684_u57FA_u672C_u4F7F_u7528"><a href="#1-1_volley_u7684_u57FA_u672C_u4F7F_u7528" class="headerlink" title="1.1 volley的基本使用"></a>1.1 volley的基本使用</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mQueue = Volley.newRequestQueue(context)</span><br></pre></td></tr></table></figure>
+<h4 id="u4E3B_u8981_u662F_1-_u5EFA_u7ACB_u7F13_u5B58_u76EE_u5F55_2-_u901A_u8FC7_u7248_u672C_u5224_u65AD_u4F7F_u7528HttpURLConnection_u8FD8_u662FHttpClient_2C_u6E90_u7801_u53CA_u6CE8_u91CA_u5982_u4E0B"><a href="#u4E3B_u8981_u662F_1-_u5EFA_u7ACB_u7F13_u5B58_u76EE_u5F55_2-_u901A_u8FC7_u7248_u672C_u5224_u65AD_u4F7F_u7528HttpURLConnection_u8FD8_u662FHttpClient_2C_u6E90_u7801_u53CA_u6CE8_u91CA_u5982_u4E0B" class="headerlink" title="主要是 1.建立缓存目录 2.通过版本判断使用HttpURLConnection还是HttpClient,源码及注释如下"></a>主要是 1.建立缓存目录 2.通过版本判断使用HttpURLConnection还是HttpClient,源码及注释如下</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> RequestQueue <span class="title">newRequestQueue</span><span class="params">(Context context, HttpStack stack)</span> </span>&#123;</span><br><span class="line"> <span class="comment">//缓存目录</span></span><br><span class="line">        File cacheDir = <span class="keyword">new</span> File(context.getCacheDir(), DEFAULT_CACHE_DIR);</span><br><span class="line"></span><br><span class="line">        String userAgent = <span class="string">"volley/0"</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String packageName = context.getPackageName();</span><br><span class="line">            PackageInfo info = context.getPackageManager().getPackageInfo(packageName, <span class="number">0</span>);</span><br><span class="line">            userAgent = packageName + <span class="string">"/"</span> + info.versionCode;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NameNotFoundException e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//用哪种Http请求</span></span><br><span class="line">        <span class="keyword">if</span> (stack == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">9</span>) &#123;</span><br><span class="line">                stack = <span class="keyword">new</span> HurlStack();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// Prior to Gingerbread, HttpUrlConnection was unreliable.</span></span><br><span class="line">                <span class="comment">// See: http://android-developers.blogspot.com/2011/09/androids-http-clients.html</span></span><br><span class="line">                stack = <span class="keyword">new</span> HttpClientStack(AndroidHttpClient.newInstance(userAgent));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//</span></span><br><span class="line">        Network network = <span class="keyword">new</span> BasicNetwork(stack);</span><br><span class="line"><span class="comment">//这里初始化了4个网络线程：NetWorkDispatcher数组</span></span><br><span class="line"></span><br><span class="line">        RequestQueue queue = <span class="keyword">new</span> RequestQueue(<span class="keyword">new</span> DiskBasedCache(cacheDir), network);</span><br><span class="line"><span class="comment">//start方法内部直接初始化一个CacheDispatcher，循环初始化四个NetWorkDispatcher</span></span><br><span class="line"><span class="comment">//并调用线程的start方法开启这五个线程</span></span><br><span class="line">        queue.start();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> queue;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2_CacheDispatcher_u7EBF_u7A0B"><a href="#1-2_CacheDispatcher_u7EBF_u7A0B" class="headerlink" title="1.2 CacheDispatcher线程"></a>1.2 CacheDispatcher线程</h3><pre><code>（1）从缓存队列中提出一个请求对象：final Request&lt;?&gt; request = mCacheQueue.take();
+（2）判断是否有缓存（ttl）--&gt;无，放进网络请求队列
+（3）判断是否过期--&gt;是，放进网络请求队列
+（4）是否需要刷新--&gt;是，放进网络请求队列
+（5）回调回去：mDelivery.postResponse(request, response);
+</code></pre><h3 id="1-3_NetWorkDispatcher_u7EBF_u7A0B"><a href="#1-3_NetWorkDispatcher_u7EBF_u7A0B" class="headerlink" title="1.3 NetWorkDispatcher线程"></a>1.3 NetWorkDispatcher线程</h3><pre><code>（1）取出网络请求对象：request = mQueue.take();
+（2）执行请求：mNetwork.performRequest(request);
+        请求会带上上一次请求的header信息（If-None-Match，If-Modified-Since）
+        包含对请求超时等异常的处理和retry，如果返回304则更新本地缓存的entry
+（3）parseNetworkResponse 此为抽象方法，继承Request类实现该方法，做一些预处理
+（4）HttpHeaderParser.parseCacheHeaders
+        解析头部信息，主要是http缓存相关，用于缓存过期判断，产生Cache.Entry对象
+（5）回调回去：mDelivery.postResponse(request, response);
+</code></pre>
+        
+        
+        <p class="article-more-link">
+          
+       </p>
+    </div>
+    <footer class="article-footer clearfix">
+<div class="article-catetags">
+
+
+</div>
+
+
+
+
+<div class="comments-count">
+	
+	  	<span></span>
+		<a href="/2018/03/17/Volley源码分析/#comments" class="ds-thread-count comments-count-link" data-thread-key="2018/03/17/Volley源码分析/" data-count-type="comments">&nbsp;</a>
+	
+</div>
+
+</footer>
+
+
+    </article>
+
+
+
+
+
+
+   
+    
+    <article class="post-expand post" itemprop="articleBody"> 
+        <header class="article-info clearfix">
+  <h1 itemprop="name">
+    
       <a href="/2018/03/11/audio-sample/" title="音频编解码之信号基础篇" itemprop="url">音频编解码之信号基础篇</a>
   </h1>
   <p class="article-author">By
@@ -307,71 +374,6 @@ var _hmt = _hmt || [];
 	
 	  	<span></span>
 		<a href="/2016/05/23/Android-Activity研究好文章合集/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/23/Android-Activity研究好文章合集/" data-count-type="comments">&nbsp;</a>
-	
-</div>
-
-</footer>
-
-
-    </article>
-
-
-
-
-
-
-   
-    
-    <article class="post-expand post" itemprop="articleBody"> 
-        <header class="article-info clearfix">
-  <h1 itemprop="name">
-    
-      <a href="/2016/05/16/android开发库收录/" title="android开发库收录" itemprop="url">android开发库收录</a>
-  </h1>
-  <p class="article-author">By
-       
-		<a href="/about" title="duwei" target="_blank" itemprop="author">duwei</a>
-		
-  <p class="article-time">
-    <time datetime="2016-05-16T02:24:25.000Z" itemprop="datePublished"> 发表于 2016-05-16</time>
-    
-  </p>
-</header>
-    <div class="article-content">
-        
-        <h3 id="u8FD9_u51E0_u5929_u5B66_u4E60_u5230_u7684_u5F00_u6E90_u9879_u76EE"><a href="#u8FD9_u51E0_u5929_u5B66_u4E60_u5230_u7684_u5F00_u6E90_u9879_u76EE" class="headerlink" title="这几天学习到的开源项目"></a>这几天学习到的开源项目</h3><p><a href="https://github.com/sockeqwe/fragmentargs" target="_blank" rel="external">fragmentargs</a><br><a href="http://hannesdorfmann.com/android/fragmentargs" target="_blank" rel="external">介绍文章</a><br>解决fragment横竖屏切换可能带来的crash，用注解生成Bundle代码，支持继承</p>
-<p><a href="https://github.com/emilsjolander/IntentBuilder" target="_blank" rel="external">IntentBuilder</a></p>
-<p><a href="https://github.com/yatatsu/AutoBundle" target="_blank" rel="external">AutoBundle</a><br>fragmentargs 和 AutoBundle 的结合</p>
-<p><a href="https://github.com/frankiesardo/icepick" target="_blank" rel="external">icepick</a><br>一个使用注解就可以完成savedInstanceState的库，支持custom Views</p>
-<h3 id="u8FD9_u51E0_u5929_u770B_u7684_u6587_u7AE0"><a href="#u8FD9_u51E0_u5929_u770B_u7684_u6587_u7AE0" class="headerlink" title="这几天看的文章"></a>这几天看的文章</h3><p><a href="http://www.infoq.com/cn/articles/android-in-depth-gradle?utm_campaign=rightbar_v2&amp;utm_source=infoq&amp;utm_medium=articles_link&amp;utm_content=link_text" target="_blank" rel="external">深入理解Android（一）：Gradle详解</a></p>
-<p><a href="http://www.infoq.com/cn/articles/android-in-depth-dalvik?utm_campaign=rightbar_v2&amp;utm_source=infoq&amp;utm_medium=articles_link&amp;utm_content=link_text" target="_blank" rel="external">深入理解Android（二）：Java虚拟机Dalvik</a></p>
-<p><a href="http://www.infoq.com/cn/articles/android-in-depth-xposed?utm_campaign=rightbar_v2&amp;utm_source=infoq&amp;utm_medium=articles_link&amp;utm_content=link_text" target="_blank" rel="external">深入理解Android（三）：Xposed详解</a></p>
-<p><a href="http://www.infoq.com/cn/articles/RxAndroid-basics?utm_campaign=rightbar_v2&amp;utm_source=infoq&amp;utm_medium=articles_link&amp;utm_content=link_text" target="_blank" rel="external">从案例学RxAndroid开发（上）</a></p>
-
-        
-        
-        <p class="article-more-link">
-          
-       </p>
-    </div>
-    <footer class="article-footer clearfix">
-<div class="article-catetags">
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/Android/">Android</a>
-  </div>
-
-</div>
-
-
-
-
-<div class="comments-count">
-	
-	  	<span></span>
-		<a href="/2016/05/16/android开发库收录/#comments" class="ds-thread-count comments-count-link" data-thread-key="2016/05/16/android开发库收录/" data-count-type="comments">&nbsp;</a>
 	
 </div>
 
